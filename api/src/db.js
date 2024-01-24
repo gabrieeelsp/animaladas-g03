@@ -38,6 +38,7 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // const { Animal } = sequelize.models;
+// const { User } = sequelize.models;
 
 // agregar relaciones --------- /
 
