@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+const { sizeList, statusList, colorList, speciesList } = require('../utils');
 
 module.exports = (sequelize) => {
     sequelize.define(
@@ -30,15 +31,15 @@ module.exports = (sequelize) => {
 
             species: {
                 type: DataTypes.ENUM,
-                values: ['dog', 'cat'],
+                values: speciesList,
             },
             status: {
                 type: DataTypes.ENUM,
-                values: ['transito', 'adoptado'],
+                values: statusList,
             },
             size: {
                 type: DataTypes.ENUM,
-                values: ['small', 'medium', 'big'],
+                values: sizeList,
             },
             weight: {
                 type: DataTypes.DOUBLE,
@@ -50,7 +51,7 @@ module.exports = (sequelize) => {
             },
             color: {
                 type: DataTypes.ENUM,
-                values: ['black', 'white'],
+                values: colorList,
             },
             estimatedBirthDate: {
                 type: DataTypes.DATE,
