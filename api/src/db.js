@@ -1,7 +1,8 @@
 require('dotenv').config();
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
+
 const { DB_USER, DB_PASSWORD, DB_NAME, DB_HOST } = process.env;
 
 const sequelize = new Sequelize(
@@ -36,7 +37,7 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { Animal } = sequelize.models;
+// const { Animal } = sequelize.models;
 
 // agregar relaciones --------- /
 
