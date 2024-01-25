@@ -18,15 +18,19 @@ module.exports = (sequelize) => {
             // cada imagen tiene su función especifica definida en el front
             image1: {
                 type: DataTypes.STRING,
+                allowNull: true,
             },
             image2: {
                 type: DataTypes.STRING,
+                allowNull: true,
             },
             image3: {
                 type: DataTypes.STRING,
+                allowNull: true,
             },
             image4: {
                 type: DataTypes.STRING,
+                allowNull: true,
             },
 
             species: {
