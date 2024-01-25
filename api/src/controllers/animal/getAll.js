@@ -76,20 +76,19 @@ const getPrevPage = (page) => {
 };
 
 module.exports = async (filters, limit = 3, page = 1) => {
-    const items = await Animal.findAll({
+    const { count, rows } = await Animal.findAndCountAll({
         where: getFiltersList(filters),
         offset: getOffset(limit, page),
         limit,
     });
 
-    const totalRecords = await Animal.count();
     return {
-        data: items,
+        data: rows,
         pagination: {
-            total_records: totalRecords,
+            total_records: count,
             current_page: page,
-            total_pages: getTotalPages(limit, totalRecords),
-            next_page: getNextPage(limit, page, totalRecords),
+            total_pages: getTotalPages(limit, count),
+            next_page: getNextPage(limit, page, count),
             prev_page: getPrevPage(page),
         },
     };

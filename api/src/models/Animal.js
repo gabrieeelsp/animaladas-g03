@@ -62,6 +62,7 @@ module.exports = (sequelize) => {
             // // este atributo puede servir para saber si un animas es adoptable o no
             vaccines: {
                 type: DataTypes.BOOLEAN,
+                default: false,
             },
             // color: {
             //     type: DataTypes.ENUM,
