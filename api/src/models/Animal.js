@@ -1,5 +1,11 @@
 const { DataTypes } = require('sequelize');
-const { sizeList, statusList, colorList, speciesList } = require('../utils');
+const {
+    sizeList,
+    statusList,
+    // colorList,
+    speciesList,
+    genderList,
+} = require('../utils');
 
 module.exports = (sequelize) => {
     sequelize.define(
@@ -7,13 +13,17 @@ module.exports = (sequelize) => {
         {
             id: {
                 type: DataTypes.INTEGER,
-                autoincrement: true,
+                autoIncrement: true,
                 primaryKey: true,
             },
             // considero que el nombre del animal se puede repetir
             name: {
                 type: DataTypes.STRING,
                 allowNull: false,
+            },
+            gender: {
+                type: DataTypes.ENUM,
+                values: genderList,
             },
             // cada imagen tiene su función especifica definida en el front
             image1: {
@@ -49,16 +59,24 @@ module.exports = (sequelize) => {
                 type: DataTypes.DOUBLE,
             },
 
-            // este atributo puede servir para saber si un animas es adoptable o no
+            // // este atributo puede servir para saber si un animas es adoptable o no
             vaccines: {
                 type: DataTypes.BOOLEAN,
             },
-            color: {
-                type: DataTypes.ENUM,
-                values: colorList,
+            // color: {
+            //     type: DataTypes.ENUM,
+            //     values: colorList,
+            // },
+            estimatedBirthYear: {
+                type: DataTypes.INTEGER,
             },
-            estimatedBirthDate: {
-                type: DataTypes.DATE,
+            castrated: {
+                type: DataTypes.BOOLEAN,
+                default: false,
+            },
+            disability_illness: {
+                type: DataTypes.BOOLEAN,
+                default: false,
             },
         },
         {},
