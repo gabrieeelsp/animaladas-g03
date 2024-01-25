@@ -2,6 +2,7 @@ const { Animal } = require('../../db');
 
 module.exports = async (
     name,
+    gender,
     image1,
     image2,
     image3,
@@ -11,8 +12,9 @@ module.exports = async (
     size,
     weight,
     vaccines,
-    color,
-    estimatedBirthDate,
+    estimatedBirthYear,
+    castrated,
+    disabilityIllness,
 ) => {
     let resp = null;
 
@@ -28,8 +30,9 @@ module.exports = async (
             size,
             weight,
             vaccines,
-            color,
-            estimatedBirthDate,
+            estimatedBirthYear,
+            castrated,
+            disabilityIllness,
         });
     } catch (error) {
         // revisar error.name posibles
