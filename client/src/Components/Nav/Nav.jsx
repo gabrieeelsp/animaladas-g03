@@ -1,14 +1,17 @@
 import React from 'react';
+import SearchBar from '../SearchBar/SearchBar';
+import { NavLink } from 'react-router-dom';
 
-
-export default function Navbar() {
+export default function Nav() {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100">
         <div className="container-fluid">
+        <NavLink to="/">
           <a className="navbar-brand text-warning" href="#">
             <i className="bi-house-door-fill"></i>
           </a>
+          </NavLink>
           <button
             className="navbar-toggler"
             type="button"
@@ -33,9 +36,11 @@ export default function Navbar() {
                 </a>
               </li>
               <li className="nav-item">
+                <NavLink to="/adoptar">
                 <a className="nav-link text-warning mx-3" href="#">
                   Adoptar
                 </a>
+                </NavLink>
               </li>
               <li className="nav-item">
                 <a className="nav-link text-warning mx-3" href="#">
@@ -48,8 +53,7 @@ export default function Navbar() {
                 </a>
               </li>
             </ul>
-            
-            
+            <SearchBar/>
             <button className="btn btn-outline-warning mx-3" type="button">
               <i className="bi bi-person"></i> 
               </button>
