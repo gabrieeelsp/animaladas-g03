@@ -24,14 +24,15 @@ fs.readdirSync(path.join(__dirname, '/models'))
             file.slice(-3) === '.js',
     )
     .forEach((file) => {
+        // eslint-disable-next-line import/no-dynamic-require, global-require
         modelDefiners.push(require(path.join(__dirname, '/models', file)));
     });
 
 // Injectamos la conexion (sequelize) a todos los modelos
 modelDefiners.forEach((model) => model(sequelize));
 
-let entries = Object.entries(sequelize.models);
-let capsEntries = entries.map((entry) => [
+const entries = Object.entries(sequelize.models);
+const capsEntries = entries.map((entry) => [
     entry[0][0].toUpperCase() + entry[0].slice(1),
     entry[1],
 ]);
