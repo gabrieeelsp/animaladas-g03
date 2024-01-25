@@ -2,6 +2,10 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
+const userModel = require("./models/User");
+const animalModel = require("./models/Animal");
+const adoptionHistoryModel = require("./models/AdoptionHistory");
+const donationModel = require("./models/Donation");
 
 const { DB_USER, DB_PASSWORD, DB_NAME, DB_HOST } = process.env;
 
@@ -37,10 +41,22 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-// const { Animal } = sequelize.models;
-// const { User } = sequelize.models;
+userModel(sequelize);
+animalModel(sequelize);
+donationModel(sequelize);
+adoptionHistoryModel(sequelize);
 
-// agregar relaciones --------- /
+const { User, Animal, Donation, Adoption_history } = sequelize.models;
+
+User.hasMany(Animal);
+Animal.belongsTo(User);
+
+User.hasMany(Donation);
+Donation.belongsTo(User);
+
+Animal.hasMany(Adoption_history);
+Adoption_history.belongsTo(Animal);
+
 
 module.exports = {
     ...sequelize.models,
