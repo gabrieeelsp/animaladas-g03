@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 export default function Navbar() {
   return (
     <div>
@@ -47,20 +48,11 @@ export default function Navbar() {
                 </a>
               </li>
             </ul>
-            <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Buscar"
-                aria-label="Search"
-              ></input>
-              <button className="btn btn-outline-warning" type="submit">
-                Buscar
-              </button>
-              <button className="btn btn-outline-warning mx-3" type="button">
+            
+            
+            <button className="btn btn-outline-warning mx-3" type="button">
               <i className="bi bi-person"></i> 
               </button>
-            </form>
           </div>
         </div>
       </nav>
