@@ -9,15 +9,15 @@ export default function Contact() {
         </div>
         <div class="col">
         <div className="mb-3">
-          <label htmlFor="exampleFormControlInput1" className="form-label text-white">Correo electrónico</label>
+          <label htmlFor="exampleFormControlInput1" className="form-label text-warning">Correo electrónico</label>
           <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/>
         </div>
         <div className="mb-3">
-          <label htmlFor="exampleFormControlInput1" className="form-label text-white">Motivo de contacto</label>
+          <label htmlFor="exampleFormControlInput1" className="form-label text-warning">Motivo de contacto</label>
           <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="Motivo de contacto"/>
         </div>
         <div className="mb-3">
-          <label htmlFor="exampleFormControlTextarea1" className="form-label text-white">Detalle el motivo aquí:</label>
+          <label htmlFor="exampleFormControlTextarea1" className="form-label text-warning">Detalle el motivo aquí:</label>
           <textarea className="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
         </div>
         <div class="col-auto">
