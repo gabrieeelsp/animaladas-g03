@@ -8,7 +8,7 @@ import Adoptado from "./Views/Adoptado/Adoptado";
 import About from "./Views/About/About";
 import Login from "./Views/login/login";
 import Register from "./Views/Register/Register";
-import Rescatado from "./Views/Adoptar/Adoptar";
+import Rescatado from "./Views/Rescatado/Rescatado";
 import Nav from "./Components/Nav/Nav";
 import Footer from "./Components/Footer/Footer";
 
