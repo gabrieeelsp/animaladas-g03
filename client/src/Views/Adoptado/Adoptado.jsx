@@ -1,8 +1,9 @@
+import React from 'react';
 
-const Adoptado = () => {
-    return (
-        <h1>Adoptado</h1>
-    )
+export default function Adoptado() {
+  return (
+<div>
+    
+</div>
+    );
 }
-
-export default Adoptado

@@ -4,12 +4,14 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Home from "./Views/Home/Home";
 import Adoptar from "./Views/Adoptar/adoptar";
-import NavBar from "./Views/NavBar/NavBar";
+import NavBar from "./Components/NavBar/NavBar";
 import Detail from "./Views/Detail/Detail";
 import Contact from "./Views/Contact/Contact";
 import Adoptado from "./Views/Adoptado/Adoptado";
 import About from "./Views/About/About";
-import Login from "./Views/login/login";
+import Rescatado from "./Views/Rescatado/Rescatado";
+import Footer from "./Components/Footer/Footer";
+
 function App() {
   let showNav = true;
   const location = useLocation();
