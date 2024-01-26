@@ -32,16 +32,6 @@ export default function Nav() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <NavLink to="/about">
-                  <button
-                    className="btn btn-outline-warning p-1 mx-1"
-                    type="button"
-                  >
-                    Sobre Nosotros
-                  </button>
-                </NavLink>
-              </li>
-              <li className="nav-item">
                 <NavLink to="/rescatados">
                   <button
                     className="btn btn-outline-warning p-1 mx-1"
