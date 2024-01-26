@@ -27,15 +27,25 @@ export default function Login() {
           <div className="input-group-text bg-warning text-white">
             <i className="bi bi-lock"></i>
           </div>
-          <input className="form-control bg-light" type="password" placeholder="Password" />
+          <input
+            className="form-control bg-light"
+            type="password"
+            placeholder="Password"
+          />
         </div>
         <div className="d-flex justify-content-around mt-1">
           <div className="d-flex align-items-center gap-1">
             <input className="form-check-input" type="checkbox" />
-            <div className="pt-1 text-warning" style={{ fontSize: '0.8rem' }}>Remember me</div>
+            <div className="pt-1 text-warning" style={{ fontSize: "0.8rem" }}>
+              Remember me
+            </div>
           </div>
           <div className="pt-1">
-            <a href="#" className="text-decoration-none fw-semibold text-warning" style={{ fontSize: '0.8rem' }}>
+            <a
+              href="#"
+              className="text-decoration-none fw-semibold text-warning"
+              style={{ fontSize: "0.8rem" }}
+            >
               Forgot your password?
             </a>
           </div>
@@ -43,11 +53,19 @@ export default function Login() {
         <div className="btn text-dark w-100 mt-4 fw-bold shadow-sm bg-warning">
           Login
         </div>
-        <div className="d-flex gap-1 justify-content-center text-warning mt-1" style={{ fontSize: '0.8rem' }}>
+        <div
+          className="d-flex gap-1 justify-content-center text-warning mt-1"
+          style={{ fontSize: "0.8rem" }}
+        >
           <div>Don't have an account?</div>
-          <a href="#" className="text-decoration-none fw-semibold text-warning">
+          <NavLink to="/register" style={{ textDecoration: "none" }}>
+            <a
+              href="#"
+              className="text-decoration-none fw-semibold text-warning"
+            >
               Register
-              </a>
+            </a>
+          </NavLink>
         </div>
         <div className="p-3">
           <div className="border-bottom text-center text-warning">
@@ -63,9 +81,9 @@ export default function Login() {
           <div className="fw-semibold text-secondary">Continue with Google</div>
         </div>
         <NavLink to="/">
-        <div className="btn text-dark w-100 mt-4 fw-bold shadow-sm bg-warning">
-        Return to Home
-        </div>
+          <div className="btn text-dark w-100 mt-4 fw-bold shadow-sm bg-warning">
+            Return to Home
+          </div>
         </NavLink>
       </div>
     </div>
