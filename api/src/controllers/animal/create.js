@@ -21,6 +21,7 @@ module.exports = async (
     try {
         resp = await Animal.create({
             name,
+            gender,
             image1,
             image2,
             image3,
