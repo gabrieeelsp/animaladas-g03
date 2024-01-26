@@ -78,7 +78,7 @@ export default function Login() {
             alt="google-icon"
             style={{ height: "1.6rem" }}
           />
-          <div className="fw-semibold text-secondary">Continue with Google</div>
+          <div className="fw-semibold text-secondary text-white">Continue with Google</div>
         </div>
         <NavLink to="/">
           <div className="btn text-dark w-100 mt-4 fw-bold shadow-sm bg-warning">
