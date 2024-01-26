@@ -34,5 +34,5 @@
 .banner-img{
     border-radius: 30px;
     object-fit: cover;
-    width: 1000px;
+    width: 100%;
 }

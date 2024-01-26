@@ -1,20 +1,18 @@
 import { Link } from 'react-router-dom';
-const Card = () => {
 
-    return (
-  
-        <div className="card" style={{backgroundColor: "black", color: "white",width: "250px",height: "500px", borderRadius: "30px", margin: "10px"}}>
-        <img src="https://savehomelessanimals.org/wp-content/uploads/Home-Adopt-a-Dog-image-1024x1024.jpg.webp"style={{ borderRadius: "30px"}} className="card-img-top" alt="..."/>
-        <div className="card-body">
-          <h3 className="card-title">Rupert</h3>
-          <p className="card-text" style={{textAlign: "left"}}>Edad: </p>
-          <p className="card-text" style={{textAlign: "left"}}>Tamaño: </p>
-          <p className="card-text" style={{textAlign: "left"}}>Peso: </p>
-          <p className="card-text" style={{textAlign: "left"}}>Comportamiento: </p>
-          <Link><a href="#" className="btn btn-primary">Adoptar</a></Link>
-        </div>
+export default function Card() {
+  return (
+    <div className="card text-bg-dark text-warning mb-3 d-inline-block p-0 mt-3 mb-3" style={{ width: "350px", borderRadius: "30px" }}>
+      <img src="https://savehomelessanimals.org/wp-content/uploads/Home-Adopt-a-Dog-image-1024x1024.jpg.webp" className="card-img p-3" alt="..." style={{ borderRadius: "30px" }} />
+      <div className="card-body">
+        <h3 className="card-title">Rupert</h3>
+        <p className="card-text text-left">Edad: </p>
+        <p className="card-text text-left">Tamaño: </p>
+        <p className="card-text text-left">Peso: </p>
+        <p className="card-text text-left">Discapacidad y/o enfermedad crónica: </p>
+        <p className="card-text text-left">Comportamiento: </p>
+        <Link to="#" className="btn btn-warning btn-block text-dark">Adoptar</Link>
       </div>
-    );
-  };
-  
-  export default Card;
+    </div>
+  );
+}
