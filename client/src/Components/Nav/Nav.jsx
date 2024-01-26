@@ -1,12 +1,11 @@
-import React from 'react';
-import SearchBar from '../SearchBar/SearchBar';
-import { NavLink, useLocation } from 'react-router-dom';
+import React from "react";
+import SearchBar from "../SearchBar/SearchBar";
+import { NavLink, useLocation } from "react-router-dom";
 
 export default function Nav() {
-
   const location = useLocation();
 
-  if (location.pathname === "/login") {
+  if (location.pathname === "/login" || location.pathname === "/register") {
     return null;
   }
 
@@ -14,10 +13,10 @@ export default function Nav() {
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100">
         <div className="container-fluid">
-        <NavLink to="/">
-          <a className="navbar-brand text-warning" href="#">
-            <i className="bi-house-door-fill"></i>
-          </a>
+          <NavLink to="/">
+            <a className="navbar-brand text-warning" href="#">
+              <i className="bi-house-door-fill"></i>
+            </a>
           </NavLink>
           <button
             className="navbar-toggler"
@@ -32,48 +31,66 @@ export default function Nav() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <NavLink to="/about">
-              <button className="btn btn-outline-warning p-1 mx-1" type="button">
-                  Sobre Nosotros
+              <li className="nav-item">
+                <NavLink to="/about">
+                  <button
+                    className="btn btn-outline-warning p-1 mx-1"
+                    type="button"
+                  >
+                    Sobre Nosotros
                   </button>
                 </NavLink>
               </li>
               <li className="nav-item">
-              <NavLink to="/rescatados">
-              <button className="btn btn-outline-warning p-1 mx-1" type="button">
-                  Rescatados
-                </button>
-                </NavLink>
-              </li>
-              <li className="nav-item">
-              <NavLink to="/adoptar">
-              <button className="btn btn-outline-warning p-1 mx-1" type="button">
-                  Adoptar
+                <NavLink to="/rescatados">
+                  <button
+                    className="btn btn-outline-warning p-1 mx-1"
+                    type="button"
+                  >
+                    Rescatados
                   </button>
                 </NavLink>
               </li>
               <li className="nav-item">
-              <NavLink to="/adoptados">
-              <button className="btn btn-outline-warning p-1 mx-1" type="button">
-                  Adoptados
+                <NavLink to="/adoptar">
+                  <button
+                    className="btn btn-outline-warning p-1 mx-1"
+                    type="button"
+                  >
+                    Adoptar
                   </button>
                 </NavLink>
               </li>
               <li className="nav-item">
-              <NavLink to="/contacto">
-              <button className="btn btn-outline-warning p-1 mx-1" type="button">
-                  Contacto
+                <NavLink to="/adoptados">
+                  <button
+                    className="btn btn-outline-warning p-1 mx-1"
+                    type="button"
+                  >
+                    Adoptados
+                  </button>
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/contacto">
+                  <button
+                    className="btn btn-outline-warning p-1 mx-1"
+                    type="button"
+                  >
+                    Contacto
                   </button>
                 </NavLink>
               </li>
             </ul>
-            <SearchBar/>
+            <SearchBar />
             <NavLink to="/login">
-            <button className="btn btn-outline-warning p-1 mx-1" type="button">
-              <i className="bi bi-person"></i> 
+              <button
+                className="btn btn-outline-warning p-1 mx-1"
+                type="button"
+              >
+                <i className="bi bi-person"></i>
               </button>
-              </NavLink>
+            </NavLink>
           </div>
         </div>
       </nav>

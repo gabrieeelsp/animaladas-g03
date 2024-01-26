@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom"; 
+import { NavLink } from "react-router-dom";
 import logo from "../../img/logoanimaladas.png";
 import logo_google from "../../img/logo_google.png";
 
@@ -55,10 +55,12 @@ export default function Login() {
           </div>
         </div>
         <div className="btn d-flex gap-2 justify-content-center border mt-3 shadow-sm">
-          <img src={logo_google} alt="google-icon" style={{ height: "1.6rem" }} />
-          <div className="fw-semibold text-secondary">
-            Continue with Google
-          </div>
+          <img
+            src={logo_google}
+            alt="google-icon"
+            style={{ height: "1.6rem" }}
+          />
+          <div className="fw-semibold text-secondary">Continue with Google</div>
         </div>
         <NavLink to="/">
         <div className="btn text-dark w-100 mt-4 fw-bold shadow-sm bg-warning">
