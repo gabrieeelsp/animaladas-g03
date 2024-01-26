@@ -8,6 +8,7 @@ export default function Navbar() {
     if (location.pathname !== "/adoptar") {
       return null;
     }
+    
 
   return (
 <form className="d-flex" role="search">
