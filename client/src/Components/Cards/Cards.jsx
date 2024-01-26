@@ -1,11 +1,7 @@
 import Card from "../Card/Card";
 
-const Cards = () => {
-
-    return (
-  
+export default function Cards() {
+  return (
         <Card/>
     );
   };
-  
-  export default Cards;
