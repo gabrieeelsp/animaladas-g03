@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const userRouter = require('./userRouter');
 
 const router = Router();
 
@@ -7,6 +8,8 @@ const router = Router();
 router.get('/animals', (req, res) => {
     res.send('Lista de animales');
 })
+
+router.use("/user", userRouter);
 
 
 module.exports = router;
