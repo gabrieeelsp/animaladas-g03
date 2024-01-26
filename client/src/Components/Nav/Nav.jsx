@@ -3,6 +3,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import { NavLink } from 'react-router-dom';
 
 export default function Nav() {
+  
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100">
@@ -62,9 +63,11 @@ export default function Nav() {
               </li>
             </ul>
             <SearchBar/>
+            <NavLink to="/login">
             <button className="btn btn-outline-warning mx-1" type="button">
               <i className="bi bi-person"></i> 
               </button>
+              </NavLink>
           </div>
         </div>
       </nav>
