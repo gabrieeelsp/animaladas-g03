@@ -1,11 +1,12 @@
 import Cards from "../../Components/Cards/Cards";
-import Footer from "../../Components/Footer/Footer";
 import "./Adoptar.css";
 
 
-const Adoptar = () => {
+import React from 'react';
 
+export default function Rescatado() {
   return (
+<div>
 
     <>
       <div className="img-container">
@@ -30,10 +31,7 @@ const Adoptar = () => {
         </div>
 
       </div>
-
-        <Footer/>
     </>
-  );
-};
-
-export default Adoptar;
+    </div>
+    );
+}

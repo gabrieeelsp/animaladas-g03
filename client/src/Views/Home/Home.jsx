@@ -1,11 +1,8 @@
 import React from 'react';
-import NavBar from "../../Components/NavBar/NavBar";
-import Footer from '../../Components/Footer/Footer';
 
 export default function Home() {
   return (
     <div>
-      <NavBar />
       <p></p>
       <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" style={{ maxWidth: "700px", margin: "auto" }}>
         <div className="carousel-inner">
@@ -54,7 +51,6 @@ export default function Home() {
         </button>
       </div>
       <p></p>
-      <Footer />
     </div>
   );
 }
