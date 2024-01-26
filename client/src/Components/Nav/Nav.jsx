@@ -28,35 +28,35 @@ export default function Nav() {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <NavLink to="/about">
-              <button className="btn btn-outline-warning mx-1" type="button">
+              <button className="btn btn-outline-warning p-1 mx-1" type="button">
                   Sobre Nosotros
                   </button>
                 </NavLink>
               </li>
               <li className="nav-item">
               <NavLink to="/rescatados">
-              <button className="btn btn-outline-warning mx-1" type="button">
+              <button className="btn btn-outline-warning p-1 mx-1" type="button">
                   Rescatados
                 </button>
                 </NavLink>
               </li>
               <li className="nav-item">
               <NavLink to="/adoptar">
-              <button className="btn btn-outline-warning mx-1" type="button">
+              <button className="btn btn-outline-warning p-1 mx-1" type="button">
                   Adoptar
                   </button>
                 </NavLink>
               </li>
               <li className="nav-item">
               <NavLink to="/adoptados">
-              <button className="btn btn-outline-warning mx-1" type="button">
+              <button className="btn btn-outline-warning p-1 mx-1" type="button">
                   Adoptados
                   </button>
                 </NavLink>
               </li>
               <li className="nav-item">
               <NavLink to="/contacto">
-              <button className="btn btn-outline-warning mx-1" type="button">
+              <button className="btn btn-outline-warning p-1 mx-1" type="button">
                   Contacto
                   </button>
                 </NavLink>
@@ -64,7 +64,7 @@ export default function Nav() {
             </ul>
             <SearchBar/>
             <NavLink to="/login">
-            <button className="btn btn-outline-warning mx-1" type="button">
+            <button className="btn btn-outline-warning p-1 mx-1" type="button">
               <i className="bi bi-person"></i> 
               </button>
               </NavLink>
