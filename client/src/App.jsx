@@ -3,13 +3,12 @@ import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Home from "./Views/Home/Home";
-import Adoptar from "./Views/Adoptar/adoptar";
+import Adoptar from "./Views/Adoptar/Adoptar";
 import NavBar from "./Views/NavBar/NavBar";
 import Detail from "./Views/Detail/Detail";
 import Contact from "./Views/Contact/Contact";
 import Adoptado from "./Views/Adoptado/Adoptado";
 import About from "./Views/About/About";
-import Rescatado from "./Views/Rescatado/Rescatado";
 import Footer from "./Components/Footer/Footer";
 import Login from "./Views/login/login";
 function App() {
@@ -22,7 +21,7 @@ function App() {
 
   return (
     <div className="App">
-      {showNav ? <NavBar /> : null}
+      <NavBar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/adoptar" element={<Adoptar />}></Route>
@@ -32,6 +31,7 @@ function App() {
         <Route path="/about" element={<About />}></Route>
         <Route path="/login" element={<Login />}></Route>
       </Routes>
+      <Footer/>
     </div>
   );
 }
