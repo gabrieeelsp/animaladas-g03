@@ -1,9 +1,15 @@
 import React from 'react';
 import SearchBar from '../SearchBar/SearchBar';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 export default function Nav() {
-  
+
+  const location = useLocation();
+
+  if (location.pathname === "/login") {
+    return null;
+  }
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100">

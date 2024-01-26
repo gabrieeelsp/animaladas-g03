@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 export default function Searchbar() {
   const location = useLocation();
 
-  if (location.pathname !== "/adoptar" || location.pathname !== "/login") {
+  if (location.pathname !== "/adoptar") {
     return null;
   }
 
