@@ -5,7 +5,6 @@ import Adoptar from "./Views/Adoptar/Adoptar";
 import Detail from "./Views/Detail/Detail";
 import Contact from "./Views/Contact/Contact";
 import Adoptado from "./Views/Adoptado/Adoptado";
-import About from "./Views/About/About";
 import Login from "./Views/login/login";
 import Register from "./Views/Register/Register";
 import Rescatado from "./Views/Rescatado/Rescatado";
@@ -23,7 +22,6 @@ function App() {
         <Route path="/rescatados" element={<Rescatado />}></Route>
         <Route path="/detail/:id" element={<Detail />}></Route>
         <Route path="/contacto" element={<Contact />}></Route>
-        <Route path="/about" element={<About />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
       </Routes>

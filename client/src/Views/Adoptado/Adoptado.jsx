@@ -1,7 +1,7 @@
 import React from "react";
 import CardR from "../../Components/CardR/CardR";
 
-export default function Rescatado() {
+export default function Adoptado() {
   return (
     <div>
       <div>
