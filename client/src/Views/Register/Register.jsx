@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import logo from "../../img/logoanimaladas.png";
 import logo_google from "../../img/logo_google.png";
 
-export default function Login() {
+export default function Register() {
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="bg-white p-5 rounded-5 shadow" style={{ width: "25rem" }}>
@@ -11,16 +11,58 @@ export default function Login() {
           <img src={logo} alt="login-icon" style={{ width: "7rem" }} />
         </div>
         <div>
-          <h1 className="text-center fs-1 fw-bold text-warning">Login</h1>
+          <h1 className="text-center fs-1 fw-bold text-warning">
+            Create Account
+          </h1>
         </div>
         <div className="input-group mt-4">
           <div className="input-group-text bg-warning text-white">
-            <i className="bi bi-person"></i>
+            <i className="bi bi-person-fill-add"></i>
           </div>
           <input
             className="form-control bg-light"
             type="text"
-            placeholder="Username"
+            placeholder="Name"
+          />
+        </div>
+        <div className="input-group mt-1">
+          <div className="input-group-text bg-warning text-white">
+            <i className="bi bi-person-fill-add"></i>
+          </div>
+          <input
+            className="form-control bg-light"
+            type="text"
+            placeholder="Last name"
+          />
+        </div>
+        <div className="input-group mt-1">
+          <div className="input-group-text bg-warning text-white">
+            <i className="bi bi-telephone"></i>
+          </div>
+          <input
+            className="form-control bg-light"
+            type="text"
+            placeholder="Phone number"
+          />
+        </div>
+        <div className="input-group mt-1">
+          <div className="input-group-text bg-warning text-white">
+            <i className="bi bi-geo-alt-fill"></i>
+          </div>
+          <input
+            className="form-control bg-light"
+            type="text"
+            placeholder="Address"
+          />
+        </div>
+        <div className="input-group mt-1">
+          <div className="input-group-text bg-warning text-white">
+            <i className="bi bi-envelope-at"></i>
+          </div>
+          <input
+            className="form-control bg-light"
+            type="email"
+            placeholder="Email"
           />
         </div>
         <div className="input-group mt-1">
@@ -33,34 +75,23 @@ export default function Login() {
             placeholder="Password"
           />
         </div>
-        <div className="d-flex justify-content-around mt-1">
-          <div className="d-flex align-items-center gap-1">
-            <input className="form-check-input" type="checkbox" />
-            <div className="pt-1">Remember me</div>
-          </div>
-          <div className="pt-1">
-            <a
-              href="#"
-              className="text-decoration-none fw-semibold fst-italic text-warning"
-            >
-              Forgot your password?
-            </a>
-          </div>
-        </div>
+
         <div className="btn text-white w-100 mt-4 fw-bold shadow-sm bg-warning">
-          Login
+          Create Account
         </div>
+
         <div className="d-flex gap-1 justify-content-center mt-1">
-          <div>Don't have an account?</div>
-          <NavLink to="/register" style={{ textDecoration: "none" }}>
+          <div>You have an account?</div>
+          <NavLink to="/login" style={{ textDecoration: "none" }}>
             <a
               href="#"
               className="text-decoration-none fw-semibold text-warning"
             >
-              Register
+              Sing in
             </a>
           </NavLink>
         </div>
+
         <div className="p-3">
           <div className="border-bottom text-center text-warning">
             <span className="bg-white px-3">or</span>
