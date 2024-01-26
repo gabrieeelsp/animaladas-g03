@@ -1,13 +1,18 @@
-import React from 'react';
+import React from "react";
 import NavBar from "../../Components/NavBar/NavBar";
-import Footer from '../../Components/Footer/Footer';
+import Footer from "../../Components/Footer/Footer";
 
 export default function Home() {
   return (
     <div>
-      <NavBar />
       <p></p>
-      <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" style={{ maxWidth: "700px", margin: "auto" }}>
+      <div
+        id="carouselExampleAutoplaying"
+        className="carousel slide"
+        data-bs-ride="carousel"
+        data-bs-interval="3000"
+        style={{ maxWidth: "700px", margin: "auto" }}
+      >
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img
@@ -40,7 +45,10 @@ export default function Home() {
           data-bs-target="#carouselExampleAutoplaying"
           data-bs-slide="prev"
         >
-          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span
+            className="carousel-control-prev-icon"
+            aria-hidden="true"
+          ></span>
           <span className="visually-hidden">Previous</span>
         </button>
         <button
@@ -49,11 +57,15 @@ export default function Home() {
           data-bs-target="#carouselExampleAutoplaying"
           data-bs-slide="next"
         >
-          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <span
+            className="carousel-control-next-icon"
+            aria-hidden="true"
+          ></span>
           <span className="visually-hidden">Next</span>
         </button>
       </div>
       <p></p>
+
       <Footer />
     </div>
   );
