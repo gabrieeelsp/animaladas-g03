@@ -6,7 +6,7 @@ import logo_google from "../../img/logo_google.png";
 export default function Register() {
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
-      <div className="bg-white p-5 rounded-5 shadow" style={{ width: "25rem" }}>
+      <div className="bg-dark p-5 rounded-5 shadow" style={{ width: "25rem" }}>
         <div className="d-flex justify-content-center">
           <img src={logo} alt="login-icon" style={{ width: "7rem" }} />
         </div>
@@ -80,7 +80,7 @@ export default function Register() {
           Create Account
         </div>
 
-        <div className="d-flex gap-1 justify-content-center mt-1">
+        <div className="d-flex gap-1 justify-content-center text-warning mt-1">
           <div>You have an account?</div>
           <NavLink to="/login" style={{ textDecoration: "none" }}>
             <a
@@ -94,7 +94,7 @@ export default function Register() {
 
         <div className="p-3">
           <div className="border-bottom text-center text-warning">
-            <span className="bg-white px-3">or</span>
+            <span className="bg-dark">or</span>
           </div>
         </div>
         <div className="btn d-flex gap-2 justify-content-center border mt-3 shadow-sm">
