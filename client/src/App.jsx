@@ -6,13 +6,13 @@ import Detail from "./Views/Detail/Detail";
 import Contact from "./Views/Contact/Contact";
 import Adoptado from "./Views/Adoptado/Adoptado";
 import About from "./Views/About/About";
-import Login from "./Views/Login/Login";
+import Login from "./Views/login/login";
+import Register from "./Views/Register/Register";
 import Rescatado from "./Views/Adoptar/Adoptar";
 import Nav from "./Components/Nav/Nav";
 import Footer from "./Components/Footer/Footer";
 
 function App() {
-
   return (
     <div className="App">
       <Nav />
@@ -25,8 +25,9 @@ function App() {
         <Route path="/contacto" element={<Contact />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
       </Routes>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
