@@ -20,7 +20,7 @@ export default function Detail() {
                         <p className="card-text text-left">Comportamiento: </p>
                     </div>
                     <Link to="/requisitos" className="btn btn-warning btn-block text-dark" style={{margin: "10px"}}>Requisitos</Link>
-                    <Link to="/requisitos" className="btn btn-warning btn-block text-dark" style={{margin: "10px"}}>Adoptar</Link>
+                    <Link to="/login" className="btn btn-warning btn-block text-dark" style={{margin: "10px"}}>Adoptar</Link>
                 </div>
             </div>
         </div>
