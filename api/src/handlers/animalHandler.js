@@ -4,8 +4,8 @@ const createAnimal = require('../controllers/animal/create');
 const getAllHandler = async (req, res) => {
     try {
         const filters = req.query;
-        const limit = parseInt(filters.limit, 4) || 6;
-        const page = parseInt(filters.page, 2) || 1;
+        const limit = parseInt(filters.limit, 10) || null;
+        const page = parseInt(filters.page, 10) || 1;
 
         const result = await getAllAnimals(filters, limit, page);
 
