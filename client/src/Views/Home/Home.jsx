@@ -155,13 +155,6 @@ export default function Home() {
       </div>
     </div>
   
-
-  
-      <footer className="text-center mt-5">
-        <p style={{ color:  "#fff" }}>
-          &copy; 2024 Animaladas. Todos los derechos reservados.
-        </p>
-      </footer>
     </div>
   );
 }
