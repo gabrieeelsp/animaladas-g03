@@ -71,6 +71,16 @@ export default function Nav() {
                   </button>
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink to="/add">
+                  <button
+                    className="btn btn-outline-warning p-1 mx-1"
+                    type="button"
+                  >
+                    Agregar mascota
+                  </button>
+                </NavLink>
+              </li>
             </ul>
             <SearchBar />
             <NavLink to="/login">
