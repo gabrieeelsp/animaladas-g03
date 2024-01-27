@@ -38,52 +38,66 @@ export default function Addanimal() {
         <div className="col-md-6 right-box">
           <div className="row align-items-center">
             <div className="header-tex text-warning mb4">
-              <h2>Hello,Again </h2>
-              <p>Creating pet for adoption</p>
+              <h2>INGRESO DE MASCOTAS</h2>
+              <p>Subir una mascota para adopción</p>
             </div>
             <div className="input-group mb-1">
               <input
                 type="text"
                 className="form-control form form-control-lg bg-light fs-6"
-                placeholder="Name"
+                placeholder="Nombre"
               ></input>
             </div>
             <div className="input-group mb-1">
               <input
                 type="text"
                 className="form-control form form-control-lg bg-light fs-6"
-                placeholder="Age"
+                placeholder="Edad"
               ></input>
             </div>
             <div className="input-group mb-1">
               <input
                 type="text"
                 className="form-control form form-control-lg bg-light fs-6"
-                placeholder="Size"
+                placeholder="Tamaño"
               ></input>
             </div>
             <div className="input-group mb-1">
               <input
                 type="text"
                 className="form-control form form-control-lg bg-light fs-6"
-                placeholder="weigth"
+                placeholder="Peso"
               ></input>
             </div>
             <div className="input-group mb-1">
               <input
                 type="text"
                 className="form-control form form-control-lg bg-light fs-6"
-                placeholder="Color"
+                placeholder="Sexo"
               ></input>
             </div>
             <div className="input-group mb-1">
               <input
                 type="text"
                 className="form-control form form-control-lg bg-light fs-6"
-                placeholder="Comentario"
+                placeholder="Enfermedad crónica y/o discapacidad"
               ></input>
             </div>
-            /*
+            <div className="input-group mb-1">
+              <input
+                type="text"
+                className="form-control form form-control-lg bg-light fs-6"
+                placeholder="Castrado"
+              ></input>
+            </div>
+            <div className="input-group mb-1">
+              <input
+                type="text"
+                className="form-control form form-control-lg bg-light fs-6"
+                placeholder="Historia de rescate"
+              ></input>
+            </div>
+            <p></p>
             <div className="input-group mb-1 d-flex ">
               <div className="form-check">
                 <input
@@ -95,14 +109,14 @@ export default function Addanimal() {
                   for="formCheck"
                   className="form-check-label text-warning"
                 >
-                  <small>Vaccinated</small>
+                  <small>Vacunado</small>
                 </label>
               </div>
             </div>
             */
             <div className="input-group mb-3">
               <button className="btn btn-lg btn-warning w-100 fs-6 text-white fw-bold">
-                CREATE
+                Crear
               </button>
             </div>
           </div>
