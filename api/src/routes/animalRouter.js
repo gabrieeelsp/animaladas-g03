@@ -1,14 +1,14 @@
 const { Router } = require('express');
-const { getAllHandler, createHandler } = require('../handlers/animalHandler');
-
-// const getCatByIdHandler = require("../handlers/getCatByIdHandler");
-// const getDogByIdHandler = require("../handlers/getDogByIdHandler");
+const {
+    getAllHandler,
+    createHandler,
+    getByIdHandler,
+} = require('../handlers/animalHandler');
 
 const animalRouter = Router();
 
-animalRouter.get('/animals', getAllHandler);
-animalRouter.post('/animals', createHandler);
-// animalRouter.post('/dogs:id', getDogByIdHandler);
-// animalRouter.post('/cats:id', getCatByIdHandler);
+animalRouter.get('/getAnimals', getAllHandler);
+animalRouter.post('/createAnimals', createHandler);
+animalRouter.get('/animals:id', getByIdHandler);
 
 module.exports = animalRouter;
