@@ -3,8 +3,8 @@ import "./Add-animal.css";
 import adoptimg from "../../img/logoanimaladas.png";
 export default function Addanimal() {
   return (
-    <div className="container d-flex justify-content-center align-items-center min-vh-100">
-      <div className="row  rounded-5 p-3 bg-dark shadow box-area">
+    <div className="container d-flex justify-content-center align-items-center min-vh-100 mb-2 mt-2">
+      <div className="row  rounded-5 p-3 bg-dark shadow box-area border-primary">
         <div
           className="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
           style={{ background: "#343a40" }}
