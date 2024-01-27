@@ -6,65 +6,69 @@ import "./Home.css";
 export default function Home() {
   return (
     <div>
-      {/* Carrusel */}
-      <div
-        id="carouselExampleAutoplaying"
-        className="carousel slide mb-4"
-        data-bs-ride="carousel"
-        data-bs-interval="3000"
-        style={{ maxWidth: "700px", margin: "auto", marginTop: "50px" }}
-      >
-        <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img
-              src="https://www.universodelasaludanimal.com/wp-content/uploads/sites/61/2021/07/Cacho-e-gato-juntos-no-chao-posando-pra-foto_3.jpg"
-              className="d-block w-100 rounded"
-              alt="..."
-              style={{ borderRadius: "100px" }}
-            />
-          </div>
-          <div className="carousel-item">
-            <img
-              src="https://guauandcat.com/wp-content/uploads/2021/08/mitos-perros-gatos.jpg"
-              className="d-block w-100 rounded"
-              alt="..."
-              style={{ borderRadius: "100px" }}
-            />
-          </div>
-          <div className="carousel-item">
-            <img
-              src="https://img.freepik.com/fotos-premium/perros-gatos-grupo-contra-fondo-blanco_410516-46390.jpg?w=2000"
-              className="d-block w-100 rounded"
-              alt="..."
-              style={{ borderRadius: "100px" }}
-            />
-          </div>
-        </div>
-        <button
-          className="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExampleAutoplaying"
-          data-bs-slide="prev"
-        >
-          <span
-            className="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="visually-hidden">Previous</span>
-        </button>
-        <button
-          className="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExampleAutoplaying"
-          data-bs-slide="next"
-        >
-          <span
-            className="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="visually-hidden">Next</span>
-        </button>
-      </div>
+{/* Carrusel */}
+<div
+  id="carouselExampleAutoplaying"
+  className="carousel slide mb-4"
+  data-bs-ride="carousel"
+  data-bs-interval="3000"
+  style={{ width: "1100px", margin: "auto", marginTop: "50px" }}
+>
+  <div className="carousel-inner">
+    <div className="carousel-item active">
+      <img
+        src="https://images.unsplash.com/photo-1508109657675-38fe91fb2ada?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        className="d-block w-100 rounded"
+        alt="..."
+        style={{ borderRadius: "100px", height: "390px", objectFit: "cover" }}
+      />
+    </div>
+    <div className="carousel-item">
+      <img
+        src="https://images.unsplash.com/photo-1542765826-d17aa264390d?q=80&w=1474&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        className="d-block w-100 rounded"
+        alt="..."
+        style={{ borderRadius: "100px", height: "390px", objectFit: "cover" }}
+      />
+    </div>
+    <div className="carousel-item">
+      <img
+        src="https://images.unsplash.com/photo-1510878356388-93a357c7a57c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        className="d-block w-100 rounded"
+        alt="..."
+        style={{ borderRadius: "100px", height: "390px", objectFit: "cover" }}
+      />
+    </div>
+  </div>
+  <button
+    className="carousel-control-prev"
+    type="button"
+    data-bs-target="#carouselExampleAutoplaying"
+    data-bs-slide="prev"
+    style={{ filter: "drop-shadow(2px 2px 2px rgba(255, 255, 255, 0.8))" }}
+  >
+    <span
+      className="carousel-control-prev-icon"
+      aria-hidden="true"
+      style={{ filter: "invert(1)" }} 
+    ></span>
+    <span className="visually-hidden">Previous</span>
+  </button>
+  <button
+    className="carousel-control-next"
+    type="button"
+    data-bs-target="#carouselExampleAutoplaying"
+    data-bs-slide="next"
+    style={{ filter: "drop-shadow(-2px 2px 2px rgba(255, 255, 255, 0.8))" }}
+  >
+    <span
+      className="carousel-control-next-icon"
+      aria-hidden="true"
+      style={{ filter: "invert(1)" }} 
+    ></span>
+    <span className="visually-hidden">Next</span>
+  </button>
+</div>
 
 
 <div className="container mt-6">
@@ -79,7 +83,8 @@ export default function Home() {
           <br />
           <br />
           <a href="tu-enlace-de-donacion" target="_blank" rel="noopener noreferrer">
-            <button className="btn btn-warning">¡QUIERO APORTAR!</button>
+          <button className="btn btn-warning btn-custom-yellow">¡QUIERO APORTAR!</button>
+
           </a>
         </p>
       </div>

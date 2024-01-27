@@ -47,3 +47,16 @@
     transform: rotateY(180deg);
   }
   
+
+.btn-custom-yellow {
+    background-color: #ffcc00; 
+    color: #000000; 
+    border: none;
+    font-weight: bold; 
+    transition: transform 0.3s ease; 
+  }
+  
+  .btn-custom-yellow:hover {
+    transform: scale(1.1); 
+  }
+  
