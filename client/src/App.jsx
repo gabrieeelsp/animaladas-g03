@@ -11,6 +11,8 @@ import Rescatado from "./Views/Rescatado/Rescatado";
 import Nav from "./Components/Nav/Nav";
 import Footer from "./Components/Footer/Footer";
 
+import Addanimal from "./Views/Add-animal/Add-animal";
+
 function App() {
   return (
     <div className="App">
@@ -24,6 +26,7 @@ function App() {
         <Route path="/contacto" element={<Contact />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
+        <Route path="/add" element={<Addanimal />}></Route>
       </Routes>
       <Footer />
     </div>
