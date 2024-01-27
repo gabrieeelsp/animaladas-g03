@@ -11,7 +11,8 @@ export default function Card() {
         <p className="card-text text-left">Peso: </p>
         <p className="card-text text-left">Discapacidad y/o enfermedad crónica: </p>
         <p className="card-text text-left">Comportamiento: </p>
-        <Link to="#" className="btn btn-warning btn-block text-dark">Adoptar</Link>
+        <Link to="/requisitos" className="btn btn-warning btn-block text-dark" style={{margin: "10px"}}>Requisitos</Link>
+        <Link to="/detail/:id" className="btn btn-warning btn-block text-dark" style={{margin: "10px"}}>Adoptar</Link>
       </div>
     </div>
   );
