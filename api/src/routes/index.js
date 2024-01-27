@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const userRouter = require('./userRouter');
 const animalRouter = require('./animalRouter');
+const initRouter = require('./initRouter');
 
 const router = Router();
 
@@ -9,5 +10,6 @@ const router = Router();
 
 router.use('/user', userRouter);
 router.use('/animal', animalRouter);
+router.use('/init', initRouter);
 
 module.exports = router;
