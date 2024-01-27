@@ -32,28 +32,89 @@ export default function Rescatado() {
           </div>
           <div
             className="bg-dark col-1 my-3 d-flex flex-column justify-content-center"
-            style={{ width: "auto", height: "500px", borderRadius: "20px" }}
+            style={{ width: "auto", height: "700px", borderRadius: "20px" }}
           >
-            <button type="button" className="btn btn-warning btn-sm m-3">
-              By smaller Size
-            </button>
-            <button type="button" className="btn btn-warning btn-sm m-3">
-              By larger Size
-            </button>
-            <button type="button" className="btn btn-warning btn-sm m-3">
-              By older Age
-            </button>
-            <button type="button" className="btn btn-warning btn-sm m-3">
-              By younger Age
-            </button>
-            <button type="button" className="btn btn-warning btn-sm m-3">
-              By Type
-            </button>
-            <button type="button" className="btn btn-warning btn-sm m-3">
-              Friendly
-            </button>
-            <button type="button" className="btn btn-warning btn-sm m-3">
-              Reset Filters
+<span className="text-warning btn-sm m-3">
+              Ordenar por tamaño
+            </span>
+            <div class="dropdown">
+               <button class="btn btn-warning btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Tipo de tamaño
+               </button>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item" href="#">Chico</a></li>
+                <li><a class="dropdown-item" href="#">Mediano</a></li>
+                <li><a class="dropdown-item" href="#">Grande</a></li>
+               </ul>
+            </div>
+            <span className="text-warning btn-sm m-3">
+            Ordenar por edad
+            </span>
+            <div class="dropdown">
+               <button class="btn btn-warning btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Rango de edad
+               </button>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item" href="#">Cachorro</a></li>
+                <li><a class="dropdown-item" href="#">Joven</a></li>
+                <li><a class="dropdown-item" href="#">Adulto</a></li>
+               </ul>
+            </div>
+            <p></p>
+            <hr className="col-12" style={{ backgroundColor: "yellow", height: "2px" }} />
+            <span className="text-warning btn-sm m-3">
+              Filtrar por tamaño
+            </span>
+            <div class="dropdown">
+               <button class="btn btn-warning btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Tipo de tamaño
+               </button>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item" href="#">Chico</a></li>
+                <li><a class="dropdown-item" href="#">Mediano</a></li>
+                <li><a class="dropdown-item" href="#">Grande</a></li>
+               </ul>
+            </div>
+            <span className="text-warning btn-sm m-3">
+                  Filtrar por edad
+            </span>
+            <div class="dropdown">
+               <button class="btn btn-warning btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Rango de edad
+               </button>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item" href="#">Cachorro</a></li>
+                <li><a class="dropdown-item" href="#">Joven</a></li>
+                <li><a class="dropdown-item" href="#">Adulto</a></li>
+               </ul>
+            </div>
+            <span className="text-warning btn-sm m-3">
+              Filtrar por tipo
+            </span>
+            <div class="dropdown">
+               <button class="btn btn-warning btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Tipo de animal
+               </button>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item" href="#">Perro</a></li>
+                <li><a class="dropdown-item" href="#">Gato</a></li>
+               </ul>
+            </div>
+            <span className="text-warning btn-sm m-3">
+              Comportamiento
+            </span>
+            <div class="dropdown">
+               <button class="btn btn-warning btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Amistoso
+               </button>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item" href="#">Si</a></li>
+                <li><a class="dropdown-item" href="#">No</a></li>
+               </ul>
+            </div>
+            
+            <button type="button" className="btn btn-warning btn-sm m-5">
+              Reset Filtros
             </button>
           </div>
         </div>

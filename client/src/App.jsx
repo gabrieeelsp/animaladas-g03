@@ -5,13 +5,14 @@ import Adoptar from "./Views/Adoptar/adoptar";
 import Detail from "./Views/Detail/Detail";
 import Contact from "./Views/Contact/Contact";
 import Adoptado from "./Views/Adoptado/Adoptado";
-import About from "./Views/About/About";
 import Login from "./Views/login/login";
 import Register from "./Views/Register/Register";
 import Rescatado from "./Views/Rescatado/Rescatado";
 import Nav from "./Components/Nav/Nav";
 import Footer from "./Components/Footer/Footer";
 import Requisitos from "./Views/Requisitos/Requisitos";
+
+import Addanimal from "./Views/Add-animal/Add-animal";
 
 function App() {
   return (
@@ -24,10 +25,9 @@ function App() {
         <Route path="/rescatados" element={<Rescatado />}></Route>
         <Route path="/detail/:id" element={<Detail />}></Route>
         <Route path="/contacto" element={<Contact />}></Route>
-        <Route path="/about" element={<About />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
-        <Route path="/requisitos" element={<Requisitos/>}></Route>
+        <Route path="/add" element={<Addanimal />}></Route>
       </Routes>
       <Footer />
     </div>

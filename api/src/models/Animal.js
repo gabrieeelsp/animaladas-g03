@@ -1,11 +1,5 @@
 const { DataTypes } = require('sequelize');
-const {
-    sizeList,
-    statusList,
-    // colorList,
-    speciesList,
-    genderList,
-} = require('../utils');
+const { sizeList, statusList, speciesList, genderList } = require('../utils');
 
 module.exports = (sequelize) => {
     sequelize.define(
@@ -64,10 +58,7 @@ module.exports = (sequelize) => {
                 type: DataTypes.BOOLEAN,
                 default: false,
             },
-            // color: {
-            //     type: DataTypes.ENUM,
-            //     values: colorList,
-            // },
+
             estimatedBirthYear: {
                 type: DataTypes.INTEGER,
             },

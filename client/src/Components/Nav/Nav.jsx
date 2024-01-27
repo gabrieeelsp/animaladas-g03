@@ -1,7 +1,7 @@
 import React from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import { NavLink, useLocation } from "react-router-dom";
-
+import "./nav.css";
 export default function Nav() {
   const location = useLocation();
 
@@ -31,16 +31,6 @@ export default function Nav() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <NavLink to="/about">
-                  <button
-                    className="btn btn-outline-warning p-1 mx-1"
-                    type="button"
-                  >
-                    Sobre Nosotros
-                  </button>
-                </NavLink>
-              </li>
               <li className="nav-item">
                 <NavLink to="/rescatados">
                   <button
@@ -81,14 +71,29 @@ export default function Nav() {
                   </button>
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink to="/add">
+                  <button
+                    className="btn btn-outline-warning p-1 mx-1"
+                    type="button"
+                  >
+                    Agregar mascota
+                  </button>
+                </NavLink>
+              </li>
             </ul>
             <SearchBar />
             <NavLink to="/login">
               <button
                 className="btn btn-outline-warning p-1 mx-1"
                 type="button"
+                id="login"
               >
                 <i className="bi bi-person"></i>
+                <span
+                  className="texto_responsive"
+                  data-phonetext=" Mi cuenta"
+                ></span>
               </button>
             </NavLink>
           </div>
@@ -97,3 +102,4 @@ export default function Nav() {
     </div>
   );
 }
+/*terminado*/
