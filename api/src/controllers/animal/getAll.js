@@ -75,21 +75,33 @@ const getPrevPage = (page) => {
     return page - 1;
 };
 
-module.exports = async (filters, limit = 3, page = 1) => {
-    const { count, rows } = await Animal.findAndCountAll({
-        where: getFiltersList(filters),
-        offset: getOffset(limit, page),
-        limit,
-    });
+module.exports = async (filters, limit, page = 1) => {
+    let cantidad = null;
+    let filas = null;
+    if (!limit) {
+        const { count, rows } = await Animal.findAndCountAll({
+            where: getFiltersList(filters),
+        });
+        cantidad = count;
+        filas = rows;
+    } else {
+        const { count, rows } = await Animal.findAndCountAll({
+            where: getFiltersList(filters),
+            offset: getOffset(limit, page),
+            limit,
+        });
+        cantidad = count;
+        filas = rows;
+    }
 
     return {
-        data: rows,
+        data: filas,
         pagination: {
-            total_records: count,
-            current_page: page,
-            total_pages: getTotalPages(limit, count),
-            next_page: getNextPage(limit, page, count),
-            prev_page: getPrevPage(page),
+            total_records: cantidad,
+            current_page: limit ? page : null,
+            total_pages: limit ? getTotalPages(limit, cantidad) : null,
+            next_page: limit ? getNextPage(limit, page, cantidad) : null,
+            prev_page: limit ? getPrevPage(page) : null,
         },
     };
 };

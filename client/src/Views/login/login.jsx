@@ -11,7 +11,7 @@ export default function Login() {
           <img src={logo} alt="login-icon" style={{ width: "7rem" }} />
         </div>
         <div>
-          <h1 className="text-center fs-1 fw-bold text-warning">Login</h1>
+          <h1 className="text-center fs-1 fw-bold text-warning">Iniciar Sesión</h1>
         </div>
         <div className="input-group mt-4">
           <div className="input-group-text bg-warning text-white">
@@ -20,7 +20,7 @@ export default function Login() {
           <input
             className="form-control bg-light"
             type="text"
-            placeholder="Username"
+            placeholder="Usuario"
           />
         </div>
         <div className="input-group mt-1">
@@ -30,14 +30,14 @@ export default function Login() {
           <input
             className="form-control bg-light"
             type="password"
-            placeholder="Password"
+            placeholder="Contraseña"
           />
         </div>
         <div className="d-flex justify-content-around mt-1">
           <div className="d-flex align-items-center gap-1">
             <input className="form-check-input" type="checkbox" />
             <div className="pt-1 text-warning" style={{ fontSize: "0.8rem" }}>
-              Remember me
+              Recuerdame
             </div>
           </div>
           <div className="pt-1">
@@ -46,30 +46,30 @@ export default function Login() {
               className="text-decoration-none fw-semibold text-warning"
               style={{ fontSize: "0.8rem" }}
             >
-              Forgot your password?
+              Olvidé mi contraseña
             </a>
           </div>
         </div>
         <div className="btn text-dark w-100 mt-4 fw-bold shadow-sm bg-warning">
-          Login
+          Iniciar sesión
         </div>
         <div
           className="d-flex gap-1 justify-content-center text-warning mt-1"
           style={{ fontSize: "0.8rem" }}
         >
-          <div>Don't have an account?</div>
+          <div>¡No tienes una cuenta?</div>
           <NavLink to="/register" style={{ textDecoration: "none" }}>
             <a
               href="#"
               className="text-decoration-none fw-semibold text-warning"
             >
-              Register
+              Regístrate
             </a>
           </NavLink>
         </div>
         <div className="p-3">
-          <div className="border-bottom text-center text-warning">
-            <span className="bg-dark">or</span>
+          <div className="text-center text-warning">
+            <span className="bg-dark">O también puedes...</span>
           </div>
         </div>
         <div className="btn d-flex gap-2 justify-content-center border mt-3 shadow-sm">
@@ -78,11 +78,11 @@ export default function Login() {
             alt="google-icon"
             style={{ height: "1.6rem" }}
           />
-          <div className="fw-semibold text-secondary text-white">Continue with Google</div>
+          <div className="fw-semibold text-secondary text-white">Continúa con Google</div>
         </div>
         <NavLink to="/">
-          <div className="btn text-dark w-100 mt-4 fw-bold shadow-sm bg-warning">
-            Return to Home
+          <div className="btn text-dark w-20 mt-4 fw-bold shadow-sm bg-warning">
+          <i className="bi-house-door-fill"></i>
           </div>
         </NavLink>
       </div>
