@@ -63,13 +63,14 @@ export default function Requisitos() {
           <div className="col-md-8">
             <div className="card-body">
               <h2 className="card-title text-warning">Requisitos</h2>
-              <p className="card-text text-warning">Los animales serán entregados tras una entrevista telefónica con nuestro equipo de adopción.
-                Los adoptantes deberán suscribir un contrato de adopción, comprometiéndose a garantizar una tenencia responsable a lo largo de la vida del animal.
-                Los animales mayores de 6 meses se entregarán castrados. En el caso de adoptar un cachorro más joven, el adoptante se compromete a castrarlo entre los 6 meses y el primer año de edad, de manera obligatoria.
-                Las adopciones están restringidas a la zona de Capital Federal y Gran Buenos Aires, Argentina, sujeto a consideración.
-                Nos reservamos el derecho de aprobar o rechazar una postulación según los criterios y valores de nuestra organización.
-                Los datos proporcionados por el postulante son confidenciales y se utilizan exclusivamente para el proceso de adopción, sin transferirse a terceros en ningún caso.</p>
-              <p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
+              <ul className="card-text" style={{color:"white",textAlign:"left"}}>
+                <li>Los animales serán entregados tras una entrevista telefónica con nuestro equipo de adopción.</li>
+                <li>Los adoptantes deberán suscribir un contrato de adopción, comprometiéndose a garantizar una tenencia responsable a lo largo de la vida del animal.</li>
+                <li>Los animales mayores de 6 meses se entregarán castrados. En el caso de adoptar un cachorro más joven, el adoptante se compromete a castrarlo entre los 6 meses y el primer año de edad, de manera obligatoria.</li>
+                <li>Las adopciones están restringidas a la zona de Capital Federal y Gran Buenos Aires, Argentina, sujeto a consideración.</li>
+                <li>Nos reservamos el derecho de aprobar o rechazar una postulación según los criterios y valores de nuestra organización.</li>
+                <li>Los datos proporcionados por el postulante son confidenciales y se utilizan exclusivamente para el proceso de adopción, sin transferirse a terceros en ningún caso.</li></ul>
+              <p className="card-text text-warning">Si ya lo decidiste y te sentís capacitado, es momento de comenzar con la postulación para elegir a tu nuevo compañero de vida.</p>
             </div>
           </div>
         </div>
