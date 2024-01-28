@@ -36,7 +36,7 @@ export default function Adoptar() {
           </div>
           <div className="col-10">
             <div className="row w-100">
-              <div className="col-6">
+              <div className="col-12" style={{display:"flex", flexWrap:"wrap",rowGap:"15px", columnGap:"15px"}}>
               {animals && animals.map((animal) => {
                 return(
                   <Card
