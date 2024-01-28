@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 export default function Footer() {
   const location = useLocation();
 
-  if (location.pathname === "/login" || location.pathname === "/register") {
+  if (location.pathname === "/login" || location.pathname === "/register"  || location.pathname === "/detail/:id") {
     return null;
   }
 

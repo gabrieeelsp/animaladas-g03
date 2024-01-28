@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Views/Home/Home";
-import Adoptar from "./Views/Adoptar/adoptar";
+import Adoptar from "./Views/Adoptar/Adoptar";
 import Detail from "./Views/Detail/Detail";
 import Contact from "./Views/Contact/Contact";
 import Adoptado from "./Views/Adoptado/Adoptado";

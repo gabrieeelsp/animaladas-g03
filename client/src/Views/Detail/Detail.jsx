@@ -29,7 +29,7 @@ export default function Detail() {
         <div className="container d-flex align-items-center justify-content-center my-5">
             <div className="row bg-dark p-4 align-items-center justify-content-center" style={{ width: "2000px", borderRadius: "30px" }}>
                 <div className="col">
-                    <img src={animal.image2} className="card-img p-3" alt={animal.image2} style={{ borderRadius: "100%",width: "70%" }} />
+                    <img src={animal.image2 ? animal.image2: "https://i.pinimg.com/originals/48/cf/7f/48cf7fff6428fe2b9665c4f6f6d20975.jpg"} className="card-img p-3" alt={animal.image2} style={{ borderRadius: "100%",width: "70%" }} />
                 </div>
                 <div className="col">
                     <div className="row bg-dark p-4 text-warning" style={{ width:"auto", borderRadius: "30px", textAlign:"left" }}>
@@ -37,7 +37,7 @@ export default function Detail() {
                         <p className="card-text text-left">Sexo: {animal.gender}</p>
                         <p className="card-text text-left">Año de nacimiento: {animal.estimatedBirthYear}</p>
                         <p className="card-text text-left">Tamaño: {animal.size}</p>
-                        <p className="card-text text-left">Peso: {animal.weight}</p>
+                        <p className="card-text text-left">Peso: {animal.weight} kg</p>
                         <p className="card-text text-left">Especie: {animal.species}</p>
                         <p className="card-text text-left">Estado: {animal.status}</p>
                     </div>
