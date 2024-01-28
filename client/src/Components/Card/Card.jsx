@@ -14,7 +14,7 @@ export default function Card(props) {
         <p className="card-text text-left">Tamaño: {size}</p>
         <p className="card-text text-left">Peso: {weight}</p>
         <p className="card-text text-left">Especie: {species}</p>
-        <p className="card-text text-left">Vacunado: {gender}</p>
+        <p className="card-text text-left">Sexo: {gender}</p>
         <Link to={`/detail/${id}`} className="btn btn-warning btn-block text-dark" style={{margin: "10px"}}>Adoptar</Link>
       </div>
     </div>

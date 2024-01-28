@@ -1,4 +1,4 @@
-import { LOAD_ANIMALS, UPDATE_PAGINATION } from "./types";
+import { LOAD_ANIMALS, UPDATE_PAGINATION, ANIMAL_BY_ID, CLEAR_ALL } from "./types";
 import axios from 'axios';
 
 export const loadAnimals = (page = 1, animalsPerPage = 4) => {
@@ -24,5 +24,23 @@ export const loadAnimals = (page = 1, animalsPerPage = 4) => {
     } catch (error) {
       console.error("Error al cargar los animales:", error);
     }
+  };
+};
+
+export const animalById = (id) => {
+  return async (dispatch) => {
+    const response = await axios.get(`http://localhost:3001/animal/animals${id}`);
+    dispatch({
+      type: ANIMAL_BY_ID,
+      payload: response.data,
+    });
+};
+}
+
+export const clearAll = () => {
+  return (dispatch) => {
+    dispatch({
+      type: CLEAR_ALL,
+    });
   };
 };
