@@ -7,7 +7,7 @@ export const loadAnimals = () => {
       const response = await axios.get('http://localhost:3001/animal/getanimals');
       dispatch({
         type: LOAD_ANIMALS,
-        payload: response.data,
+        payload: response.data.data,
       });
     } catch (error) {
       console.error("Error al cargar los animales:", error);

@@ -12,8 +12,6 @@ export default function Adoptar() {
   useEffect(() => {
     dispatch(loadAnimals()); 
   }, [dispatch]);
-  
-  console.log(animals);
 
   return (
     <div>
@@ -29,16 +27,16 @@ export default function Adoptar() {
           <div className="col-10">
             <div className="row w-100">
               <div className="col-6">
-              {animals && animals.map(({ id, name, estimatedBirthYear, size, weight, species, gender }, index) => {
+              {animals && animals.map((animal) => {
                 return(
                   <Card
-                    key={id}
-                    name={name}
-                    estimatedBirthYear={estimatedBirthYear}
-                    size={size}
-                    weight={weight}
-                    species={species}
-                    gender={gender}
+                    key={animal.id}
+                    name={animal.name}
+                    estimatedBirthYear={animal.estimatedBirthYear}
+                    size={animal.size}
+                    weight={animal.weight}
+                    species={animal.species}
+                    gender={animal.gender}
                   />)
               })}
               </div>
