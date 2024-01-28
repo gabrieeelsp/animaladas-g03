@@ -1,0 +1,58 @@
+.banner-heading {
+    text-align: center;
+    margin-top: 40px;
+    padding: 15px;
+    background-color: #343a40;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #ffc107;
+    font-size: 32px;
+    font-weight: bold;
+    border-radius: 10px; 
+    border: 2px solid #ffc107;
+}
+
+
+    
+.donar-custom-card {
+  background-color: #343a40; 
+  border: 2px solid #ffc107; 
+  color: #fff; 
+}
+
+.card-donar-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.donar-options {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.donar-custom-button,
+.donar-custom-button-transparent {
+  background-color: #ffc107;
+  border: 2px solid #ffc107;
+  color: #fff;
+  margin: 5px; /* Ajusta los márgenes según tus preferencias */
+  min-width: 100px; /* Ajusta el tamaño mínimo según tus necesidades */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.donar-custom-button:hover {
+  cursor: pointer;
+  background-color: transparent;
+  color: #ffc107;
+}
+
+.donar-custom-button-transparent {
+  background-color: transparent;
+  border: 2px solid #ffc107;
+  color: #ffc107;
+}
+
+.donar-custom-button-transparent:hover {
+  cursor: pointer;
+  background-color: #ffc107;
+  color: #fff;
+}
