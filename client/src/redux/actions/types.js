@@ -1,2 +1,4 @@
 export const LOAD_ANIMALS = 'LOAD_ANIMALS';
-export const UPDATE_PAGINATION = 'UPDATE_PAGINATION'
+export const UPDATE_PAGINATION = 'UPDATE_PAGINATION';
+export const ANIMAL_BY_ID = 'ANIMAL_BY_ID';
+export const CLEAR_ALL = 'CLEAR_ALL';

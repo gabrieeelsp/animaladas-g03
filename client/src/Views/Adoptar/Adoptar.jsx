@@ -18,7 +18,7 @@ export default function Adoptar() {
     const timeoutId = setTimeout(() => {
       dispatch(loadAnimals());
       setLoading(false);
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(timeoutId);
   }, [dispatch]);
@@ -54,6 +54,7 @@ return (
               return(
                 <Card
                   key={animal.id}
+                  id={animal.id}
                   name={animal.name}
                   estimatedBirthYear={animal.estimatedBirthYear}
                   size={animal.size}
@@ -154,13 +155,14 @@ return (
         </div>
       </div>
     </div>
-  )}
+  )} {!loading && (
   <Paginacion
         pagination={pagination}
         onNextPage={handleNextPage}
         onPrevPage={handlePrevPage}
-      />
-     </div>
-  );
+        />
+)}
+</div>
+);
 
           }
