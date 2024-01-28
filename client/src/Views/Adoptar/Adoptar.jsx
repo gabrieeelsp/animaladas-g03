@@ -54,6 +54,7 @@ return (
               return(
                 <Card
                   key={animal.id}
+                  id={animal.id}
                   name={animal.name}
                   estimatedBirthYear={animal.estimatedBirthYear}
                   size={animal.size}

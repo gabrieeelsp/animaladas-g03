@@ -1,4 +1,4 @@
-import { LOAD_ANIMALS } from "./actions/types";
+import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID } from "./actions/types";
 
 const initialState = {
   allAnimals: [],
@@ -9,6 +9,7 @@ const initialState = {
     next_page: null,
     prev_page: null,
   },
+  animalById: [],
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -23,6 +24,22 @@ const rootReducer = (state = initialState, { type, payload }) => {
         },
       };
     }
+
+    case ANIMAL_BY_ID: {
+      return {
+        ...state,
+        animalById: payload,
+      };
+    }
+
+     case CLEAR_ALL: {
+      return {
+            ...state,
+            allAnimals: [],
+            animalById: [],
+          }
+      }
+
     default:
       return state;
   }
