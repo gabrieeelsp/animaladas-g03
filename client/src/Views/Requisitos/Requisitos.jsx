@@ -8,7 +8,7 @@ export default function Requisitos() {
       <div className="row">
         <div className="col">
           <div className="card mb-3" style={{ backgroundColor: "#212529", marginTop: "50px", borderRadius: "30px" }}>
-            <img src="https://www.purina.co.uk/sites/default/files/2023-03/Hero%20Pedigree%20Cats.jpg" class="card-img-top" alt="..." style={{ borderRadius: "30px" }} />
+            <img src="https://www.purina.co.uk/sites/default/files/2023-03/Hero%20Pedigree%20Cats.jpg" className="card-img-top" alt="..." style={{ borderRadius: "30px" }} />
             <div className="card-body">
               <h3 className="card-title" style={{ color: "white" }}>¿Puedo adoptar?</h3>
               <p className="card-text" style={{ color: "white" }}>¿Te estás planteando adoptar un perro o un gato? Muchas personas quieren adoptar un animal pero no saben cómo. Lo cierto es que debemos cumplir una serie de requisitos y prepararnos de una determinada manera para recibir a un nuevo miembro en la familia. ¡Conoce cuáles son los pasos que debes seguir! Adoptar implica asumir la responsabilidad de su bienestar y felicidad a lo largo de su vida.</p>
