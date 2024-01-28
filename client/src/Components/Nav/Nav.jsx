@@ -1,7 +1,8 @@
 import React from "react";
-import SearchBar from "../SearchBar/SearchBar";
 import { NavLink, useLocation } from "react-router-dom";
+import SearchBar from "../SearchBar/SearchBar";
 import "./nav.css";
+
 export default function Nav() {
   const location = useLocation();
 
@@ -81,6 +82,16 @@ export default function Nav() {
                   </button>
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink to="/donar">
+                  <button
+                    className="btn btn-outline-warning p-1 mx-1"
+                    type="button"
+                  >
+                    Donar
+                  </button>
+                </NavLink>
+              </li>
             </ul>
             <SearchBar />
             <NavLink to="/login">
@@ -102,4 +113,5 @@ export default function Nav() {
     </div>
   );
 }
+
 /*terminado*/

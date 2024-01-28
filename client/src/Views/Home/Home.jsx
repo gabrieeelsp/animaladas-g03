@@ -98,22 +98,16 @@ export default function Home() {
               cuidando a los animales necesitados.
               <br />
               <br />
-              <a
-                href="tu-enlace-de-donacion"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-              <button className="btn btn-warning btn-custom-yellow my-custom-button">
-                ¡QUIERO APORTAR!
-                 </button>
-              </a>
+              <Link to="/donar">
+                <button className="btn btn-warning btn-custom-yellow my-custom-button">
+                  ¡QUIERO APORTAR!
+                </button>
+              </Link>
             </p>
           </div>
         </div>
       </div>
     </div>
-
-
 
 
 
