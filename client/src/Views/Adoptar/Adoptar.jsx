@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Card from "../../Components/Card/Card";
+import Loader from "../../Components/Loader/Loader"
 import { loadAnimals } from "../../redux/actions/actions";
 import "./Adoptar.css";
 import React from "react";
@@ -8,13 +9,22 @@ import React from "react";
 export default function Adoptar() {
   const dispatch = useDispatch();
   const animals = useSelector((state) => state.allAnimals);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    dispatch(loadAnimals()); 
+    const timeoutId = setTimeout(() => {
+      dispatch(loadAnimals());
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timeoutId);
   }, [dispatch]);
 
   return (
     <div>
+      {loading ? (
+        <Loader />
+      ) : (
       <div className="container">
         <div className="row">
           <div className="col-100">
@@ -131,6 +141,7 @@ export default function Adoptar() {
           </div>
         </div>
       </div>
+    )}
     </div>
   );
 }
