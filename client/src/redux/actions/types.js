@@ -1,0 +1,1 @@
+export const LOAD_ANIMALS = 'LOAD_ANIMALS';

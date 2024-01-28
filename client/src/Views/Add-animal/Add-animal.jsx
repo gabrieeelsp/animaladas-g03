@@ -80,16 +80,19 @@ export default function Addanimal() {
         <div className="col-md-6 right-box">
           <div className="row align-items-center">
             <div className="header-tex text-warning mb4">
-              <h2>Hello,Again </h2>
-              <p>Creating pet for adoption</p>
+              <h2>INGRESO DE MASCOTAS</h2>
+              <p>Subir una mascota para adopción</p>
             </div>
             <div className="input-group mb-1">
               <input
                 type="text"
                 className="form-control form form-control-lg bg-light fs-6"
                 placeholder="Nombre"
+<<<<<<< HEAD
+=======
                 onChange={(e) => handlechange(e)}
                 name="nombre"
+>>>>>>> 3426463850d87dad2605b5f013ddc39e546ffd74
               ></input>
             </div>
             <div className="input-group mb-1">
@@ -97,8 +100,11 @@ export default function Addanimal() {
                 type="text"
                 className="form-control form form-control-lg bg-light fs-6"
                 placeholder="Edad"
+<<<<<<< HEAD
+=======
                 onChange={(e) => handlechange(e)}
                 name="edad"
+>>>>>>> 3426463850d87dad2605b5f013ddc39e546ffd74
               ></input>
             </div>
             <div className="input-group mb-1">
@@ -106,8 +112,11 @@ export default function Addanimal() {
                 type="text"
                 className="form-control form form-control-lg bg-light fs-6"
                 placeholder="Tamaño"
+<<<<<<< HEAD
+=======
                 name="tamano"
                 onChange={(e) => handlechange(e)}
+>>>>>>> 3426463850d87dad2605b5f013ddc39e546ffd74
               ></input>
             </div>
             <div className="input-group mb-1">
@@ -115,23 +124,50 @@ export default function Addanimal() {
                 type="text"
                 className="form-control form form-control-lg bg-light fs-6"
                 placeholder="Peso"
+<<<<<<< HEAD
+=======
                 name="peso"
                 onChange={(e) => handlechange(e)}
+>>>>>>> 3426463850d87dad2605b5f013ddc39e546ffd74
               ></input>
             </div>
             <div className="input-group mb-1">
               <input
                 type="text"
                 className="form-control form form-control-lg bg-light fs-6"
+<<<<<<< HEAD
+                placeholder="Sexo"
+=======
                 placeholder="Color"
                 name="color"
                 onChange={(e) => handlechange(e)}
+>>>>>>> 3426463850d87dad2605b5f013ddc39e546ffd74
               ></input>
             </div>
             <div className="input-group mb-1">
               <input
                 type="text"
                 className="form-control form form-control-lg bg-light fs-6"
+<<<<<<< HEAD
+                placeholder="Enfermedad crónica y/o discapacidad"
+              ></input>
+            </div>
+            <div className="input-group mb-1">
+              <input
+                type="text"
+                className="form-control form form-control-lg bg-light fs-6"
+                placeholder="Castrado"
+              ></input>
+            </div>
+            <div className="input-group mb-1">
+              <input
+                type="text"
+                className="form-control form form-control-lg bg-light fs-6"
+                placeholder="Historia de rescate"
+              ></input>
+            </div>
+            <p></p>
+=======
                 placeholder="Comentario/descripción"
                 name="comentario"
                 onChange={(e) => handlechange(e)}
@@ -146,6 +182,7 @@ export default function Addanimal() {
                 onChange={uploadImage}
               ></input>
             </div>
+>>>>>>> 3426463850d87dad2605b5f013ddc39e546ffd74
             <div className="input-group mb-1 d-flex ">
               <div className="form-check">
                 <input
@@ -159,14 +196,18 @@ export default function Addanimal() {
                   for="formCheck"
                   className="form-check-label text-warning"
                 >
+<<<<<<< HEAD
+                  <small>Vacunado</small>
+=======
                   <small>Vacunado(a)</small>
+>>>>>>> 3426463850d87dad2605b5f013ddc39e546ffd74
                 </label>
               </div>
             </div>
 
             <div className="input-group mb-3">
               <button className="btn btn-lg btn-warning w-100 fs-6 text-white fw-bold">
-                CREATE
+                Crear
               </button>
             </div>
           </div>

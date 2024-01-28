@@ -6,7 +6,6 @@ import "./Home.css";
 export default function Home() {
   return (
     <div>
-{/* Carrusel */}
 <div
   id="carouselExampleAutoplaying"
   className="carousel slide mb-4"
@@ -105,7 +104,6 @@ export default function Home() {
 
 <div className="container mt-5">
       <div className="row">
-        {/*Rescatados */}
         <div className="col-md-4 mb-4">
           <Link to="/rescatados" style={{ textDecoration: "none", cursor: "pointer" }}>
             <div className="card bg-dark text-warning shadow-card">
@@ -121,7 +119,6 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Adoptar */}
         <div className="col-md-4 mb-4">
           <Link to="/adoptar" style={{ textDecoration: "none", cursor: "pointer" }}>
             <div className="card bg-dark text-warning shadow-card">
@@ -137,7 +134,6 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Adoptado */}
         <div className="col-md-4 mb-4">
           <Link to="/adoptados" style={{ textDecoration: "none", cursor: "pointer" }}>
             <div className="card bg-dark text-warning shadow-card">

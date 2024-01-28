@@ -5,7 +5,7 @@ export default function Rescatado() {
   return (
     <div>
       <div>
-        <div class="container my-3">
+        <div className="container my-3">
             <div className="row w-100">
               <div className="col">
                 <CardR />
