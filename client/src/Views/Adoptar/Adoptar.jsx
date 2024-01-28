@@ -18,7 +18,7 @@ export default function Adoptar() {
     const timeoutId = setTimeout(() => {
       dispatch(loadAnimals());
       setLoading(false);
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(timeoutId);
   }, [dispatch]);
@@ -155,13 +155,14 @@ return (
         </div>
       </div>
     </div>
-  )}
+  )} {!loading && (
   <Paginacion
         pagination={pagination}
         onNextPage={handleNextPage}
         onPrevPage={handlePrevPage}
-      />
-     </div>
-  );
+        />
+)}
+</div>
+);
 
           }
