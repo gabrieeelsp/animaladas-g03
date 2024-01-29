@@ -11,7 +11,7 @@ import Rescatado from "./Views/Rescatado/Rescatado";
 import Nav from "./Components/Nav/Nav";
 import Footer from "./Components/Footer/Footer";
 import Requisitos from "./Views/Requisitos/Requisitos";
-import Donar from "./Views/Donar/donar";
+
 import Addanimal from "./Views/Add-animal/Add-animal";
 
 function App() {
@@ -29,7 +29,6 @@ function App() {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/add" element={<Addanimal />}></Route>
         <Route path="/requisitos" element={<Requisitos />}></Route>
-        <Route path="/donar" element ={<Donar />}></Route>
       </Routes>
       <Footer />
     </div>
