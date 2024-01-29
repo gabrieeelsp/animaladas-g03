@@ -37,6 +37,7 @@ const getByIdHandler = async (req, res) => {
 };
 
 const createHandler = async (req, res) => {
+    console.log('ingreso a createhandler');
     const {
         name,
         gender,
@@ -54,6 +55,7 @@ const createHandler = async (req, res) => {
         disabilityIllness,
     } = req.body;
 
+    console.log(req);
     const nameError = validateName(name);
     const imageError =
         validateImage(image1) ||

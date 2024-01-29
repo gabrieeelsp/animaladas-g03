@@ -1,10 +1,10 @@
-const genderList = ['male', 'female'];
+const genderList = ['Macho', 'Hembra'];
 
-const sizeList = ['small', 'medium', 'big'];
+const sizeList = ['Pequeño', 'Mediano', 'Grande'];
 
-const statusList = ['rescued', 'adoptable', 'adopted'];
+const statusList = ['Rescatado', 'Adopcion', 'Adoptado'];
 
-const speciesList = ['dog', 'cat'];
+const speciesList = ['Perro', 'Gato'];
 
 module.exports = {
     genderList,

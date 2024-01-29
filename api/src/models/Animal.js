@@ -12,12 +12,12 @@ module.exports = (sequelize) => {
             },
             // considero que el nombre del animal se puede repetir
             name: {
-                type: DataTypes.STRING,
+                type: DataTypes.TEXT,
                 allowNull: false,
             },
             gender: {
-                type: DataTypes.ENUM,
-                values: genderList,
+                type: DataTypes.TEXT,
+                //values: genderList,
             },
             // cada imagen tiene su función especifica definida en el front
             image1: {
@@ -38,19 +38,19 @@ module.exports = (sequelize) => {
             },
 
             species: {
-                type: DataTypes.ENUM,
-                values: speciesList,
+                type: DataTypes.TEXT,
+                //values: speciesList,
             },
             status: {
-                type: DataTypes.ENUM,
-                values: statusList,
+                type: DataTypes.TEXT,
+                // values: statusList,
             },
             size: {
-                type: DataTypes.ENUM,
-                values: sizeList,
+                type: DataTypes.TEXT,
+                // values: sizeList,
             },
             weight: {
-                type: DataTypes.DOUBLE,
+                type: DataTypes.TEXT,
             },
 
             // // este atributo puede servir para saber si un animas es adoptable o no
@@ -60,7 +60,7 @@ module.exports = (sequelize) => {
             },
 
             estimatedBirthYear: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.TEXT,
             },
             castrated: {
                 type: DataTypes.BOOLEAN,
