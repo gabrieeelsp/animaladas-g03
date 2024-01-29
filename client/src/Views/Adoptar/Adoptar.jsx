@@ -10,21 +10,22 @@ import React from "react";
 export default function Adoptar() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const animals = useSelector((state) => state.allAnimals);
   const pagination = useSelector((state) => state.pagination);
 
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      dispatch(clearAll());
       dispatch(loadAnimals());  
-      dispatch(adoptableAnimals("adoptable"));
       setLoading(false);
     }, 1000);
   
     return () => clearTimeout(timeoutId);
   }, [dispatch]);
   
-  const adoptable = useSelector((state) => state.allAnimals);
+  const adoptable = animals.filter((animal) => animal.status === "adoptable");
+
+  console.log(adoptable);
 
   const handleNextPage = (page) => {
     dispatch(loadAnimals(page));

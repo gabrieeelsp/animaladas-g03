@@ -2,6 +2,7 @@ import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, RESCUED_ANIMALS, ADOPTABLE_ANIMA
 
 const initialState = {
   allAnimals: [],
+  statusAnimals: [],
   pagination: {
     total_records: 0,
     current_page: 1,
@@ -10,7 +11,6 @@ const initialState = {
     prev_page: null,
   },
   animalById: [],
-  statusAnimals: [],
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -26,6 +26,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
         },
       };
     }
+
+
 
     case ANIMAL_BY_ID: {
       return {
@@ -45,7 +47,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
      case ADOPTABLE_ANIMALS: {
       let filteredByAdoptable = [];
 
-      filteredByAdoptable = [...state.statusAnimals].filter((animal) => animal.status && animal.status === payload);
+      filteredByAdoptable = [...state.statusAnimals].filter((animal) => animal.data.status && animal.data.status === payload);
     
       return {
         ...state,
