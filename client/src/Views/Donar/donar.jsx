@@ -4,8 +4,6 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import "./Donar.css";
-
-
 library.add(faPaw);
 
 const Donar = () => {
@@ -16,7 +14,7 @@ const Donar = () => {
           <img
             src="https://img.freepik.com/fotos-premium/perro-gato-sobre-fondo-amarillo_875722-12107.jpg?w=740"
             className="img-fluid rounded"
-            style={{ border: "2px solid #ffc107" }}
+            style={{ border: "2px solid #ffc107",height: "100%" }}
             alt="Animales"
           />
         </div>
@@ -85,9 +83,9 @@ const Donar = () => {
                 </a>
 
                 <div className="gratitude-message mt-4">
-                  <p>
-                    ¡Agradecemos tu generosidad{" "}
-                    <FontAwesomeIcon icon={faPaw} />!
+                  <p> 
+                    ¡Gracias por ayudar a nuestros amigos! {" "}
+                    <FontAwesomeIcon icon={faPaw} />
                   </p>
                 </div>
               </div>
