@@ -23,6 +23,7 @@ export default function Addanimal() {
   });
   //cloud name:dwgufqzjd
   const uploadImage = async (e) => {
+    console.log("target name", e.target.name);
     //  console.log("ingreso a la funcion");
     const file = e.target.files[0];
     const data = new FormData();
@@ -32,11 +33,11 @@ export default function Addanimal() {
       "https://api.cloudinary.com/v1_1/dwgufqzjd/image/upload",
       data
     );
-    //  console.log("ladata es", response.data);
     setUrl_Imagen(response.data.secure_url);
-    console.log("laurl es:", Url_Imagen);
-
-    secure_url;
+    Setdogdata({
+      ...dogdata,
+      [e.target.name]: response.data.secure_url,
+    });
   };
 
   const handlechange = (event) => {
@@ -54,6 +55,11 @@ export default function Addanimal() {
       ...dogdata,
       [event.target.name]: value,
     });
+  };
+
+  const save_dog = (e) => {
+    console.log("ingreo button savedog");
+    axios.post("http://localhost:3001/createAnimals", dogdata);
   };
 
   console.log(dogdata);
@@ -151,6 +157,7 @@ export default function Addanimal() {
                 aria-label="Default select example"
                 style={{ width: "" }}
                 onChange={(e) => handlechange(e)}
+                name="size"
               >
                 <option selected>Selecciona peso</option>
                 <option value="Pequeño">Pequeño</option>
@@ -255,7 +262,10 @@ export default function Addanimal() {
               </div>
             </div>
             <div className="input-group mb-3">
-              <button className="btn btn-lg btn-warning w-100 fs-6 text-white fw-bold">
+              <button
+                onClick={(e) => save_dog(e)}
+                className="btn btn-lg btn-warning w-100 fs-6 text-white fw-bold"
+              >
                 Crear
               </button>
             </div>
