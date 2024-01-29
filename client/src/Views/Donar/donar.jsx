@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import "./Donar.css";
 
-// Agrega el ícono de la pata a la biblioteca
+
 library.add(faPaw);
 
 const Donar = () => {
@@ -29,7 +29,7 @@ const Donar = () => {
               </h2>
 
               <div className="donar-options d-flex flex-wrap justify-content-center">
-                {/* Aportes Pequeños */}
+           
                 <Link to="/procesar-pago">
                   <button className="btn btn-warning donar-custom-button home-button">
                     Aportar $1000
@@ -51,7 +51,7 @@ const Donar = () => {
                   </button>
                 </Link>
 
-                {/* Aportes Medianos */}
+              
                 <Link to="/procesar-pago">
                   <button className="btn btn-warning donar-custom-button home-button">
                     Aportar $3000
@@ -73,7 +73,7 @@ const Donar = () => {
                   </button>
                 </Link>
 
-                {/* Aporte Personalizado */}
+        
                 <a
                   href="URL_DE_TU_ENLACE_DE_MERCADO_PAGO"
                   target="_blank"
