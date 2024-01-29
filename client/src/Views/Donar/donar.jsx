@@ -7,7 +7,7 @@ const Donar = () => {
     <div className="container donar-container">
     <div className="card-body">
     <h2 className="text-warning banner-heading">
-    ¿Cómo quieres aportar?
+    ¿Cuánto quieres aportar?
 </h2>
       <div className="row mt-4">
 
