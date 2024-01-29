@@ -4,8 +4,6 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import "./Donar.css";
-
-
 library.add(faPaw);
 
 const Donar = () => {
