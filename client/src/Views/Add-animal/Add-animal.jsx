@@ -59,7 +59,23 @@ export default function Addanimal() {
 
   const save_dog = (e) => {
     console.log("ingreo button savedog");
-    axios.post("http://localhost:3001/createAnimals", dogdata);
+    axios.post("http://localhost:3001/animal/createAnimals", dogdata);
+    Setdogdata({
+      name: "",
+      gender: "",
+      image1: "",
+      image2: "",
+      image3: "",
+      image4: "",
+      species: "",
+      status: "",
+      size: "",
+      weight: "",
+      vaccines: false,
+      estimatebirthyear: "",
+      castrated: false,
+      disability_illness: false,
+    });
   };
 
   console.log(dogdata);
@@ -174,6 +190,15 @@ export default function Addanimal() {
                 onChange={(e) => handlechange(e)}
               ></input>
             </div>
+            <div className="input-group mb-1">
+              <input
+                type="text"
+                className="form-control form form-control-lg bg-light fs-6"
+                placeholder="Peso"
+                name="weight"
+                onChange={(e) => handlechange(e)}
+              ></input>
+            </div>
             <label className="input-group mb-1 mt-3 text-warning">
               Foto del rescate (opcional):
             </label>
@@ -208,6 +233,18 @@ export default function Addanimal() {
                 id="formFile"
                 onChange={uploadImage}
                 name="image3"
+              ></input>
+            </div>
+            <label className="input-group mb-1 mt-3 text-warning">
+              Foto adicional (opcional):
+            </label>
+            <div class=" input-group mb-1 mt-3">
+              <input
+                class="form-control"
+                type="file"
+                id="formFile"
+                onChange={uploadImage}
+                name="image4"
               ></input>
             </div>
             <div className="input-group mb-1 d-flex ">
@@ -275,3 +312,5 @@ export default function Addanimal() {
     </div>
   );
 }
+
+/*terminado*/
