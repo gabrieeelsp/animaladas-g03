@@ -19,7 +19,6 @@ module.exports = async (
     let resp = null;
 
     try {
-        console.log('ingreso a create controller');
         resp = await Animal.create({
             name,
             gender,

@@ -37,7 +37,6 @@ const getByIdHandler = async (req, res) => {
 };
 
 const createHandler = async (req, res) => {
-    console.log('ingreso a createhandler');
     const {
         name,
         gender,
