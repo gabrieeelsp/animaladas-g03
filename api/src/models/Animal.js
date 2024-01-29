@@ -70,6 +70,15 @@ module.exports = (sequelize) => {
                 type: DataTypes.BOOLEAN,
                 default: false,
             },
+            age: {
+                type: DataTypes.INTEGER,
+                get() {
+                    return (
+                        new Date().getFullYear() -
+                        this.get('estimatedBirthYear')
+                    );
+                },
+            },
         },
         {},
     );
