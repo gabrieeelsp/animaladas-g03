@@ -50,7 +50,36 @@ export default function Addanimal() {
     ) {
       value = true;
     }
-    console.log("valor de value", value);
+    if (event.target.value === "Perro") {
+      value = "dog";
+    }
+    if (event.target.value === "Gato") {
+      value = "gato";
+    }
+    if (event.target.value === "Macho") {
+      value = "male";
+    }
+    if (event.target.value === "Hembra") {
+      value = "female";
+    }
+    if (event.target.value === "Rescatado") {
+      value = "rescued";
+    }
+    if (event.target.value === "Adopcion") {
+      value = "adoptable";
+    }
+    if (event.target.value === "Adoptado") {
+      value = "adopted";
+    }
+    if (event.target.value === "Pequeño") {
+      value = "small";
+    }
+    if (event.target.value === "Mediano") {
+      value = "medium";
+    }
+    if (event.target.value === "Grande") {
+      value = "big";
+    }
     Setdogdata({
       ...dogdata,
       [event.target.name]: value,
