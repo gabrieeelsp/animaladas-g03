@@ -1,27 +1,49 @@
-const { Op } = require('sequelize');
+const { Sequelize, Op } = require('sequelize');
 
 const { Animal } = require('../../db');
-// para user este metodo de debe enviar un objeton con los filtros que se requieran, un valor limit que representa la cantidad de items por pagina que se deseen obtener y un valor page que define el numero de pagina
-// Paginación, [ limit, page ]
-// filter: {
-//   name: string
-//   gender: [ male, female ]
-//   species: [ dog, cat ]
-//   weight ?
-//   size: [ small, medium, large ]
-//   status: [ rescued, adoptable, adopted ]
-//   vaccines: boolean
-//   disability_illness: boolean
-//   castrated: bollean
-//   }
 
 const getFiltersList = (filters) => {
     const filtersList = {};
 
     if (filters.name) {
-        filtersList.name = {
-            [Op.like]: filters.name ? `%${filters.name}%` : '',
+        filtersList.name = Sequelize.where(
+            Sequelize.fn('lower', Sequelize.col('animal.name')),
+            'like',
+            `%${filters.name.toLowerCase()}%`,
+        );
+    }
+
+    if (filters.age_min && filters.age_max) {
+        filtersList.estimatedBirthYear = {
+            [Op.and]: [
+                Sequelize.where(
+                    Sequelize.col('animal.estimatedBirthYear'),
+                    '<=',
+                    new Date().getFullYear() - filters.age_min,
+                ),
+                Sequelize.where(
+                    Sequelize.col('animal.estimatedBirthYear'),
+                    '>=',
+                    new Date().getFullYear() - filters.age_max,
+                ),
+            ],
         };
+    }
+
+    if (!filters.age_min && filters.age_max) {
+        filtersList.estimatedBirthYear = Sequelize.where(
+            Sequelize.col('animal.estimatedBirthYear'),
+            '>=',
+            new Date().getFullYear() - filters.age_max,
+        );
+    }
+
+    if (filters.age_min && !filters.age_max) {
+        filtersList.estimatedBirthYear = Sequelize.where(
+            Sequelize.col('animal.estimatedBirthYear'),
+            '<=',
+            new Date().getFullYear() - filters.age_min,
+        );
     }
 
     if (filters.gender) {
@@ -55,6 +77,18 @@ const getFiltersList = (filters) => {
     return filtersList;
 };
 
+const getOrderList = (filters) => {
+    const orderList = [];
+
+    if (filters.orderby) {
+        orderList.push([
+            filters.orderby,
+            filters.orderdir ? filters.orderdir : 'ASC',
+        ]);
+    }
+    return orderList;
+};
+
 const getOffset = (limit, page) => {
     return limit * (page - 1);
 };
@@ -81,12 +115,14 @@ module.exports = async (filters, limit, page = 1) => {
     if (!limit) {
         const { count, rows } = await Animal.findAndCountAll({
             where: getFiltersList(filters),
+            order: getOrderList(filters),
         });
         cantidad = count;
         filas = rows;
     } else {
         const { count, rows } = await Animal.findAndCountAll({
             where: getFiltersList(filters),
+            order: getOrderList(filters),
             offset: getOffset(limit, page),
             limit,
         });

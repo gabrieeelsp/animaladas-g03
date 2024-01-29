@@ -22,7 +22,8 @@ const getAllHandler = async (req, res) => {
 
         res.json(result);
     } catch (error) {
-        res.status(500).json({ error: 'Error al obtener animales' });
+        res.status(500).json({ error: error.message });
+        // res.status(500).json({ error: 'Error al obtener animales' });
     }
 };
 const getByIdHandler = async (req, res) => {
