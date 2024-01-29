@@ -1,12 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import "./Donar.css";
 library.add(faPaw);
 
 const Donar = () => {
+// Inicializar Mercado Pago SDK
+useEffect(() => {
+  initMercadoPago('TU_CLAVE_PUBLICA_DE_MERCADO_PAGO');
+}, []);
+
+const handleDonarClick = (monto) => {
+  const wallet = new Wallet();
+
+  // Define la preferencia de pago con el monto correspondiente
+  const preference = {
+    items: [
+      {
+        title: "Donación",
+        quantity: 1,
+        currency_id: 'ARS',
+        unit_price: monto,
+      },
+    ],
+  };
+
+  // Inicia el flujo de pago
+  wallet.checkout({
+    preference,
+    render: {
+      container: '#wallet_container', // ID del contenedor donde se renderizará el botón de pago
+    },
+  });
+};
+
+
   return (
     <div className="container donar-container">
       <div className="row mt-4">
