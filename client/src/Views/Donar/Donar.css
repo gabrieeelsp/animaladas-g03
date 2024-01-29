@@ -34,8 +34,8 @@
   background-color: #ffc107;
   border: 2px solid #ffc107;
   color: #fff;
-  margin: 5px; /* Ajusta los márgenes según tus preferencias */
-  min-width: 100px; /* Ajusta el tamaño mínimo según tus necesidades */
+  margin: 5px; 
+  min-width: 100px; 
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
