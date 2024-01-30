@@ -68,6 +68,7 @@ case ORDER_BY_AGE:
     ...state,
     allAnimals: animalsByAge,
   };
+  
 
 
 
@@ -76,7 +77,6 @@ case ORDER_BY_AGE:
       return state;
   }
 };
-
 
 
 export default rootReducer;
