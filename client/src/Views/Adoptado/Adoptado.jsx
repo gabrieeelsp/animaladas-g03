@@ -2,7 +2,7 @@ import React from "react";
 import CardA from "../../Components/CardR/CardR";
 import Paginacion from "../../Components/Pagination/Pagination";
 import Loader from "../../Components/Loader/Loader"
-import { loadAnimals, clearAll } from "../../redux/actions/actions";
+import { loadAnimals, loadAdopted, clearAll } from "../../redux/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
@@ -15,19 +15,21 @@ export default function Rescatado() {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      dispatch(loadAnimals('adoptado', 'Todos', 'Todos', 'Todos'));  
+      dispatch(loadAdopted('adoptado'));  
       setLoading(false);
     }, 1000);
   
     return () => clearTimeout(timeoutId);
   }, []);
+  
+  
 
   const handleNextPage = (page) => {
-    dispatch(loadAnimals('adoptado', 'Todos', 'Todos', 'Todos'), page);
+    dispatch(loadAnimals('adoptado', 'Todos', 'Todos', 'Todos', page));
   };
 
   const handlePrevPage = (page) => {
-    dispatch(loadAnimals('adoptado', 'Todos', 'Todos', 'Todos'), page);
+    dispatch(loadAnimals('adoptado', 'Todos', 'Todos', 'Todos', page));
   };
 
   return (

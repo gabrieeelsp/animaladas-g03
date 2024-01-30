@@ -42,6 +42,9 @@ export default function Adoptar() {
   
     return () => clearTimeout(timeoutId);
   }, []);
+  
+  
+
 
   const handleNextPage = (page) => {
     dispatch(loadAnimals('adoptable', size, species, castrado, page));

@@ -2,7 +2,7 @@ import React from "react";
 import CardR from "../../Components/CardR/CardR";
 import Paginacion from "../../Components/Pagination/Pagination";
 import Loader from "../../Components/Loader/Loader"
-import { loadAnimals, clearAll } from "../../redux/actions/actions";
+import { loadAnimals,loadAdopted, clearAll } from "../../redux/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
@@ -13,16 +13,17 @@ export default function Rescatado() {
   const pagination = useSelector((state) => state.pagination);
 
 
+ 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      dispatch(loadAnimals('rescatado', 'Todos', 'Todos', 'Todos'));  
+      dispatch(loadAdopted('rescatado'));  
       setLoading(false);
     }, 1000);
   
     return () => clearTimeout(timeoutId);
-  }, []); // le saque discpatch del array de pendencias @gabrieeelsp
+  }, []);
   
-  //const rescued = animals.filter((animal) => animal.status === "rescued");
+  
 
   const handleNextPage = (page) => {
     dispatch(loadAnimals('rescatado', 'Todos', 'Todos', 'Todos', page));
