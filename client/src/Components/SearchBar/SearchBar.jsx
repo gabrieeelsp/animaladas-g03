@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loadAnimals } from "../../redux/actions/actions";
@@ -17,7 +18,7 @@ export default function Searchbar() {
   };
 
   const onSearch = (event) => {
-    event.preventDefault(); // Detener la recarga de la página
+    event.preventDefault(); 
     dispatch(loadAnimals(name, 'adoptable', 'Todos', 'Todos', 'Todos'));
   };
 
