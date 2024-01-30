@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import "./Add-animal.css";
 import adoptimg from "../../img/logoanimaladas.png";
 import axios from "axios";
+import validateform from "./validation";
 export default function Addanimal() {
   const [Url_Imagen, setUrl_Imagen] = useState("");
-
+  const [error, setError] = useState({
+    number_required: "",
+    priority_filds: "",
+    showerror: false,
+  });
   const [dogdata, Setdogdata] = useState({
     name: "",
     gender: "",
@@ -41,7 +46,7 @@ export default function Addanimal() {
   };
 
   const handlechange = (event) => {
-    console.log("ingres a hanldechange", event.target.value);
+    console.log("ingres a hanldechanged", event.target.value);
     let value = event.target.value;
     if (
       event.target.name === "vaccines" ||
@@ -80,9 +85,18 @@ export default function Addanimal() {
     if (event.target.value === "Grande") {
       value = "big";
     }
+    console.log("poraqui");
     Setdogdata({
       ...dogdata,
       [event.target.name]: value,
+    });
+
+    let validate = validateform(dogdata);
+    setError({
+      ...error,
+      number_required: validate.number_required,
+      priority_filds: validate.priority_filds,
+      showerror: validate.showerror,
     });
   };
 
@@ -107,7 +121,7 @@ export default function Addanimal() {
     });
   };
 
-  console.log(dogdata);
+  console.log(error);
   return (
     <div className="container d-flex justify-content-center align-items-center min-vh-100 mb-2 mt-2">
       <form>
@@ -148,6 +162,12 @@ export default function Addanimal() {
                 <h2>INGRESO DE MASCOTAS</h2>
                 <p>Subir una mascota para adopción</p>
               </div>
+              {error.showerror ? (
+                <div class="input-group mb-1 alert alert-warning" role="alert">
+                  {error.number_required}
+                  {error.priority_filds}
+                </div>
+              ) : null}
               <div className="input-group mb-1">
                 <input
                   name="name"

@@ -1,40 +1,36 @@
 const Error = {
   name: "",
   gender: "",
-  image2: "",
-  image3: "",
   species: "",
   status: "",
   size: "",
   weight: "",
-  vaccines: false,
   estimatebirthyear: "",
-  castrated: false,
-  disability_illness: false,
+  number_required: "",
+  priority_filds: "",
+  showerror: false,
 };
 
 export default function validateform(data) {
-  console.log("info data", data);
-
   if (
     !data.name ||
-    !data.minheight ||
-    !data.maxheight ||
-    !data.url ||
-    !data.minweight ||
-    !data.maxweight ||
-    !data.life_span
+    !data.gender ||
+    !data.species ||
+    !data.status ||
+    !data.size ||
+    data.size ||
+    !data.weight ||
+    !data.estimatebirthyear
   ) {
-    //    console.log("ingreso al if de trim")
     Error.showerror = !Error.showerror;
-    Error.allinput = "you must fill in all the fields";
+    Error.priority_filds = "Debe completar todo los campos obligatorios *";
   }
-  /*
-    if(data.name.length>10){
-        Error.showerror=!Error.showerror;
-        Error.name= "The field cannot be longer than 10 characters"
-    }
-*/
-
+  if (
+    typeof Number(data.weight) != "number" ||
+    typeof Number(data.estimatebirthyear) != "number"
+  ) {
+    Error.showerror = !Error.showerror;
+    Error.number_required = "El campo debe ser numerico";
+  }
   return Error;
 }
