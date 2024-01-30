@@ -14,7 +14,7 @@ export default function Rescatado() {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      dispatch(loadAdopted('rescatado'));
+      dispatch(loadAdopted('adoptado'));
       setLoading(false);
     }, 1000);
 
@@ -24,11 +24,11 @@ export default function Rescatado() {
   const [name, setName] = useState('');
 
   const handleNextPage = (page) => {
-    dispatch(loadAnimals(name, 'rescatado', 'Todos', 'Todos', 'Todos', page));
+    dispatch(loadAnimals(name, 'adoptado', 'Todos', 'Todos', 'Todos', page));
   };
 
   const handlePrevPage = (page) => {
-    dispatch(loadAnimals(name, 'rescatado', 'Todos', 'Todos', 'Todos', page));
+    dispatch(loadAnimals(name, 'adoptado', 'Todos', 'Todos', 'Todos', page));
   };
 
   return (
@@ -42,7 +42,12 @@ export default function Rescatado() {
               animals.map((animal) => {
                 return (
                   <div key={animal.id} className="col mb-4">
-                    <CardA id={animal.id} name={animal.name} />
+                    <CardA
+                    id={animal.id}
+                    name={animal.name}
+                    image3={animal.image3}
+                    adoption_story={animal.adoption_story}
+                    />
                   </div>
                 );
               })}
