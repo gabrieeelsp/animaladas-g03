@@ -1,4 +1,4 @@
-import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME, RESCUED_ANIMALS, ADOPTABLE_ANIMALS, ADOPTED_ANIMALS } from "./actions/types";
+import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME } from "./actions/types";
 
 const initialState = {
   allAnimals: [],
@@ -43,17 +43,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
             animalById: [],
           }
       }
-
-     case ADOPTABLE_ANIMALS: {
-      let filteredByAdoptable = [];
-
-      filteredByAdoptable = [...state.statusAnimals].filter((animal) => animal.data.status && animal.data.status === payload);
-    
-      return {
-        ...state,
-        allAnimals: filteredByAdoptable,
-      };
-    }
 
     case ORDER_BY_NAME:
       let animalsByName = [...state.allAnimals].sort((a, b) => {
