@@ -38,13 +38,11 @@ export default function Adoptar() {
     const timeoutId = setTimeout(() => {
       dispatch(loadAnimals('adoptable', size, species, castrado));  
       setLoading(false);
-    }, 1000);
+    }, 2000);
   
     return () => clearTimeout(timeoutId);
   }, []);
   
-  
-
 
   const handleNextPage = (page) => {
     dispatch(loadAnimals('adoptable', size, species, castrado, page));
@@ -60,6 +58,13 @@ export default function Adoptar() {
 
   const handleOrderByAge = (order) => {
     dispatch(orderByAge(order));
+  };
+
+  const resetFilters = () => {
+    setSize('Todos');
+    setSpecies('Todos');
+    setCastrado('Todos');
+    dispatch(loadAnimals('adoptable', 'Todos', 'Todos', 'Todos'));
   };
 
 return (
@@ -160,7 +165,7 @@ return (
               </select>
           </div>
         
-          <button type="button" className="btn btn-danger btn-sm my-5" style={{ width: "170px"}}>
+          <button type="button" className="btn btn-danger btn-sm my-5" onClick={resetFilters} style={{ width: "170px"}}>
             Reset Filtros
           </button>
         </div>
