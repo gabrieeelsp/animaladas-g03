@@ -20,13 +20,15 @@ export default function Rescatado() {
 
     return () => clearTimeout(timeoutId);
   }, []);
+  
+  const [name, setName] = useState('');
 
   const handleNextPage = (page) => {
-    dispatch(loadAnimals('rescatado', 'Todos', 'Todos', 'Todos', page));
+    dispatch(loadAnimals(name, 'rescatado', 'Todos', 'Todos', 'Todos', page));
   };
 
   const handlePrevPage = (page) => {
-    dispatch(loadAnimals('rescatado', 'Todos', 'Todos', 'Todos', page));
+    dispatch(loadAnimals(name, 'rescatado', 'Todos', 'Todos', 'Todos', page));
   };
 
   return (
