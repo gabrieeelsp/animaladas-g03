@@ -5,5 +5,3 @@ export const CLEAR_ALL = 'CLEAR_ALL';
 export const RESCUED_ANIMALS = 'RESCUED_ANIMALS';
 export const ADOPTABLE_ANIMALS = 'ADOPTABLE_ANIMALS';
 export const ADOPTED_ANIMALS = 'ADOPTED_ANIMALS';
-export const ORDER_BY_AGE = 'ORDER_BY_AGE';
-export const ORDER_BY_NAME = 'ORDER_BY_NAME';
