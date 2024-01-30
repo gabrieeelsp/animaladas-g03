@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loadAnimals } from "../../redux/actions/actions";
