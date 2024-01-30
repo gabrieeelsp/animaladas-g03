@@ -15,21 +15,21 @@ export default function Rescatado() {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      dispatch(loadAnimals('rescatado'));  
+      dispatch(loadAnimals('rescatado', 'Todos', 'Todos', 'Todos'));  
       setLoading(false);
     }, 1000);
   
     return () => clearTimeout(timeoutId);
-  }, [dispatch]);
+  }, []); // le saque discpatch del array de pendencias @gabrieeelsp
   
-  const rescued = animals.filter((animal) => animal.status === "rescued");
+  //const rescued = animals.filter((animal) => animal.status === "rescued");
 
   const handleNextPage = (page) => {
-    dispatch(loadAnimals(page));
+    dispatch(loadAnimals('rescatado', 'Todos', 'Todos', 'Todos', page));
   };
 
   const handlePrevPage = (page) => {
-    dispatch(loadAnimals(page));
+    dispatch(loadAnimals('rescatado', 'Todos', 'Todos', 'Todos', page));
   };
 
   return (
@@ -41,7 +41,7 @@ export default function Rescatado() {
         <div className="container my-3">
             <div className="row w-100">
               <div className="col">
-              {rescued && rescued.map((animal) => {
+              {animals && animals.map((animal) => {
               return(
                 <CardR
                   key={animal.id}
