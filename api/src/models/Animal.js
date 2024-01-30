@@ -50,7 +50,7 @@ module.exports = (sequelize) => {
                 values: sizeList,
             },
             weight: {
-                type: DataTypes.DOUBLE,
+                type: DataTypes.INTEGER,
             },
 
             // // este atributo puede servir para saber si un animas es adoptable o no
@@ -69,6 +69,14 @@ module.exports = (sequelize) => {
             disability_illness: {
                 type: DataTypes.BOOLEAN,
                 default: false,
+            },
+            rescued_story: {
+                type: DataTypes.TEXT,
+                default: '',
+            },
+            adoption_story: {
+                type: DataTypes.TEXT,
+                default: '',
             },
             age: {
                 type: DataTypes.INTEGER,
