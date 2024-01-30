@@ -55,7 +55,6 @@ const createHandler = async (req, res) => {
         disabilityIllness,
     } = req.body;
 
-    console.log(req);
     const nameError = validateName(name);
     const imageError =
         validateImage(image1) ||
