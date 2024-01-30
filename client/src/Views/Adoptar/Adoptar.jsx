@@ -3,41 +3,45 @@ import { useEffect, useState } from "react";
 import Card from "../../Components/Card/Card";
 import Paginacion from "../../Components/Pagination/Pagination";
 import Loader from "../../Components/Loader/Loader"
-import { loadAnimals, clearAll, orderByAge, orderByName } from "../../redux/actions/actions";
+import { loadAnimals, clearAll, orderByAge, orderByName, set_size_value, set_species_value, set_castrated_value, set_orderdir_value, set_orderby_value } from "../../redux/actions/actions";
 import "./Adoptar.css";
 import React from "react";
 
 export default function Adoptar() {
+
+  const nameValue = useSelector((state) => state.searchBarValue);
+
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const animals = useSelector((state) => state.allAnimals);
   const pagination = useSelector((state) => state.pagination);
 
-  const [size, setSize] = useState('Todos');
+
+  const sizeValue = useSelector((state) => state.sizeValue);
   const optionsSize = ['Todos', 'chico', 'mediano', 'grande'];
   const handleChangeSize = (event) => {
-      setSize(event.target.value)
-      dispatch(loadAnimals(name, 'adoptable', event.target.value, species, castrado));
+      dispatch(set_size_value(event.target.value));  
+      dispatch(loadAnimals(nameValue, 'adoptable', event.target.value, speciesValue, castratedValue, 1, 4, orderByValue, orderDirValue));
   }
 
-  const [species, setSpecies] = useState('Todos');
+  const speciesValue = useSelector((state) => state.speciesValue);
   const optionsSpecies = ['Todos', 'perro', 'gato'];
   const handleChangeSpecies = (event) => {
-      setSpecies(event.target.value)
-      dispatch(loadAnimals(name, 'adoptable', size, event.target.value, castrado));
+      dispatch(set_species_value(event.target.value));  
+      dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, event.target.value, castratedValue, 1, 4, orderByValue, orderDirValue));
   }
 
-  const [castrado, setCastrado] = useState('Todos');
-  const optionsCastrado = ['Todos', 'Si', 'No'];
-  const handleChangeCastrado = (event) => {
-      setCastrado(event.target.value)
-      dispatch(loadAnimals(name, 'adoptable', size, species, event.target.value, 1, 4, orderby, orderDir));
+  const castratedValue = useSelector((state) => state.castratedValue);
+  const optionsCastrated = ['Todos', 'Si', 'No'];
+  const handleChangeCastrated = (event) => {
+      dispatch(set_castrated_value(event.target.value));  
+      dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, event.target.value, 1, 4, orderByValue, orderDirValue));
   }
 
   const [name, setName] = useState('');
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      dispatch(loadAnimals(name, 'adoptable', size, species, castrado, 1, 4, '', ''));  
+      dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, castratedValue, 1, 4, '', ''));  
       setLoading(false);
     }, 2000);
   
@@ -46,31 +50,35 @@ export default function Adoptar() {
   
 
   const handleNextPage = (page) => {
-    dispatch(loadAnimals(name, 'adoptable', size, species, castrado, page, 4, orderby, orderDir));
+    dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, castratedValue, page, 4, orderByValue, orderDirValue));
   };
 
   const handlePrevPage = (page) => {
-    dispatch(loadAnimals(name, 'adoptable', size, species, castrado, page, 4, orderby, orderDir));
+    dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, castratedValue, page, 4, orderByValue, orderDirValue));
   };
 
   const [orderby, setOrderBy] = useState('');
 
   const [orderDir, setOrderDir] = useState('asc');
 
-  const handleOrderNameDir = (event) => {
-    let orderByValue = event.target.value === '' ? '' : 'name';
+  
 
-    setOrderBy(orderByValue);
-    setOrderDir(event.target.value)
-    dispatch(loadAnimals(name, 'adoptable', size, species, castrado, 1, 4, orderByValue, event.target.value ));
+  const orderByValue = useSelector((state) => state.orderByValue);
+  const orderDirValue = useSelector((state) => state.orderDirValue);
+  const handleOrderNameDir = (event) => {
+    let orderByValueLocal = event.target.value === '' ? '' : 'name';
+    dispatch(set_orderby_value(orderByValueLocal));  
+      dispatch(set_orderdir_value(event.target.value));  
+      dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, castratedValue, 1, 4, orderByValue, event.target.value ));
   }
+  
 
   
   const resetFilters = () => {
-    setSize('Todos');
-    setSpecies('Todos');
-    setCastrado('Todos');
-    dispatch(loadAnimals(name,'adoptable', 'Todos', 'Todos', 'Todos', 1, 4, ''));
+    dispatch(set_size_value('Todos'))
+    dispatch(set_species_value('Todos'))
+    dispatch(set_castrated_value('Todos'))
+    dispatch(loadAnimals(nameValue,'adoptable', 'Todos', 'Todos', 'Todos', 1, 4, ''));
   };
 
 return (
@@ -138,7 +146,7 @@ return (
           <p  className="text-warning btn-sm m-3">
                   Tipo de Tamaño
               </p>
-              <select className="btn btn-warning btn-sm dropdown-toggle" style={{ width: "170px"}} value={size} onChange={handleChangeSize}>
+              <select className="btn btn-warning btn-sm dropdown-toggle" style={{ width: "170px"}} value={sizeValue} onChange={handleChangeSize}>
                   {optionsSize.map((option) => <option key={option} value={option} >{option}</option>)}
               </select>
           </div>
@@ -147,7 +155,7 @@ return (
               <p  className="text-warning btn-sm m-3">
                   Tipo de Animal
               </p>
-              <select className="btn btn-warning btn-sm dropdown-toggle" style={{ width: "170px"}} value={species} onChange={handleChangeSpecies}>
+              <select className="btn btn-warning btn-sm dropdown-toggle" style={{ width: "170px"}} value={speciesValue} onChange={handleChangeSpecies}>
                   {optionsSpecies.map((option) => <option key={option} value={option} >{option}</option>)}
               </select>
           </div>
@@ -155,8 +163,8 @@ return (
           <p  className="text-warning btn-sm m-3">
                  Castrado
               </p>
-              <select className="btn btn-warning btn-sm dropdown-toggle" style={{ width: "170px"}} value={castrado} onChange={handleChangeCastrado}>
-                  {optionsCastrado.map((option) => <option key={option} value={option} >{option}</option>)}
+              <select className="btn btn-warning btn-sm dropdown-toggle" style={{ width: "170px"}} value={castratedValue} onChange={handleChangeCastrated}>
+                  {optionsCastrated.map((option) => <option key={option} value={option} >{option}</option>)}
               </select>
           </div>
         

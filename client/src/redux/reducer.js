@@ -1,4 +1,4 @@
-import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME } from "./actions/types";
+import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME, SET_SEARCHBAR_VALUE, SET_CASTRATED_VALUE, SET_SPECIES_VALUE, SET_SIZE_VALUE, SET_ORDERDIR_VALUE, SET_ORDERBY_VALUE } from "./actions/types";
 
 const initialState = {
   allAnimals: [],
@@ -10,11 +10,60 @@ const initialState = {
     next_page: null,
     prev_page: null,
   },
+  searchBarValue: '',
+  orderByValue: '',
+  orderDirValue: '',
+  sizeValue: 'Todos',
+  speciesValues: 'Todos',
+  castratedValue: 'Todos',
   animalById: [],
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case SET_SEARCHBAR_VALUE: {
+      return {
+        ...state,
+        searchBarValue: payload,
+      }
+    }
+
+    case SET_ORDERBY_VALUE: {
+      return {
+        ...state,
+        orderByValue: payload,
+      }
+    }
+
+    case SET_ORDERDIR_VALUE: {
+      return {
+        ...state,
+        orderDirValue: payload,
+      }
+    }
+
+    case SET_SIZE_VALUE: {
+      return {
+        ...state,
+        sizeValue: payload,
+      }
+    }
+
+    case SET_SPECIES_VALUE: {
+      return {
+        ...state,
+        speciesValues: payload,
+      }
+    }
+
+    case SET_CASTRATED_VALUE: {
+      return {
+        ...state,
+        castratedValue: payload,
+      }
+    }
+
+
     case LOAD_ANIMALS: {
       return {
         ...state,
