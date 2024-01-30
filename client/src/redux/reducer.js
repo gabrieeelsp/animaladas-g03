@@ -1,4 +1,4 @@
-import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME } from "./actions/types";
+import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME, SEARCH_ANIMAL } from "./actions/types";
 
 const initialState = {
   allAnimals: [],
@@ -69,6 +69,18 @@ case ORDER_BY_AGE:
     allAnimals: animalsByAge,
   };
   
+
+  case SEARCH_ANIMAL: {
+    return {
+      ...state,
+      allAnimals: payload.animals,
+      pagination: {
+        ...state.pagination,
+        ...payload.pagination,
+      },
+    }
+  }
+
 
 
 
