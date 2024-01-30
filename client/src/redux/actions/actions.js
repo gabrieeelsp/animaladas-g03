@@ -1,7 +1,18 @@
-import { LOAD_ANIMALS, UPDATE_PAGINATION, ANIMAL_BY_ID, CLEAR_ALL, ORDER_BY_AGE, ORDER_BY_NAME, SEARCH_BY_NAME } from "./types";
+import { LOAD_ANIMALS,  UPDATE_PAGINATION,  ANIMAL_BY_ID,  CLEAR_ALL,  ORDER_BY_AGE,  ORDER_BY_NAME } from "./types";
+  
 import axios from 'axios';
 
-export const loadAnimals = (status, size, species, castrado, page = 1, animalsPerPage = 4) => {
+export const loadAnimals = (
+  name, 
+  status,
+  size,
+  species,
+  castrado,
+  page = 1,
+  animalsPerPage = 4,
+  orderBy = null,
+  orderDir = 'ASC') => {
+
   return async (dispatch) => {
     try {
 
@@ -25,7 +36,20 @@ export const loadAnimals = (status, size, species, castrado, page = 1, animalsPe
         }
       }
 
-      const response = await axios.get(`http://localhost:3001/animal/getanimals?status=${status}&size=${sizeValue}&species=${speciesValue}&castrated=${castradoValue}&page=${page}&limit=${animalsPerPage}`);
+   const response = await axios.get(`http://localhost:3001/animal/getanimals`, {
+        params: {
+          name, 
+          status,
+          size: sizeValue,
+          species: speciesValue,
+          castrated: castradoValue,
+          page,
+          limit: animalsPerPage,
+          orderby: orderBy,
+          orderdir: orderDir,
+        },
+      });
+
       const data = response.data;
 
       // Despacha la acción para cargar los animales
@@ -37,16 +61,16 @@ export const loadAnimals = (status, size, species, castrado, page = 1, animalsPe
         },
       });
 
-      // Despacha la acción para actualizar la paginación
-      dispatch({
-        type: UPDATE_PAGINATION,
-        payload: data.pagination,
-      });
-    } catch (error) {
-      console.error("Error al cargar los animales:", error);
-    }
-  };
-};
+            // Despacha la acción para actualizar la paginación
+            dispatch({
+              type: UPDATE_PAGINATION,
+              payload: data.pagination,
+            });
+          } catch (error) {
+            console.error("Error al cargar los animales:", error);
+          }
+        };
+      };
 
 
 export const loadAdopted = (status, page = 1, animalsPerPage = 4) => {
@@ -106,14 +130,3 @@ export const orderByAge = (order) => {
     payload: order,
   };
 };
-
-export const searchAnimal = (name, status) => {
-  return async (dispatch) => {
-    const response = await axios.get(`http://localhost:3001/animal/getanimals?status=${status}&name=${name}`);
-
-    return dispatch({
-      type: SEARCH_BY_NAME,
-      payload: response.data,
-    });
-  };
-}

@@ -89,5 +89,4 @@ case ORDER_BY_AGE:
 };
 
 
-
 export default rootReducer;

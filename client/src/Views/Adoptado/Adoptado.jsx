@@ -38,8 +38,8 @@ export default function Rescatado() {
       <Loader />
     ) : (
       <div>
-        <div className="container my-3">
-            <div className="row w-100">
+        <div className="col-10">
+          <div className="row w-100">
               <div className="col">
               {animals && animals.map((animal) => {
               return(

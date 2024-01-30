@@ -24,7 +24,7 @@ export default function Adoptar() {
   const optionsSpecies = ['Todos', 'perro', 'gato'];
   const handleChangeSpecies = (event) => {
       setSpecies(event.target.value)
-      dispatch(loadAnimals('adoptable', size, event.target.value, castrado));
+      dispatch(loadAnimals(name, 'adoptable', size, event.target.value, castrado));
   }
 
   const [castrado, setCastrado] = useState('Todos');
@@ -34,9 +34,10 @@ export default function Adoptar() {
       dispatch(loadAnimals('adoptable', size, species, event.target.value));
   }
 
+  const [name, setName] = useState('');
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      dispatch(loadAnimals('adoptable', size, species, castrado));  
+      dispatch(loadAnimals(name, 'adoptable', size, species, castrado));  
       setLoading(false);
     }, 2000);
   
