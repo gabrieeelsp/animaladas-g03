@@ -5,6 +5,7 @@ const app = require('./src/app');
 const seederAnimals = require('./src/controllers/animal/seeder');
 
 const { PORT_APP } = process.env;
+console.log('valor de PORT_APP', PORT_APP);
 const { conn } = require('./src/db');
 
 conn.sync({ force: true })
