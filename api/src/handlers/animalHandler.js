@@ -52,7 +52,9 @@ const createHandler = async (req, res) => {
         vaccines,
         estimatedBirthYear,
         castrated,
-        disabilityIllness,
+        disability_illness,
+        rescued_story,
+        adoption_story,
     } = req.body;
 
     const nameError = validateName(name);
@@ -101,7 +103,9 @@ const createHandler = async (req, res) => {
             vaccines,
             estimatedBirthYear,
             castrated,
-            disabilityIllness,
+            disability_illness,
+            rescued_story,
+            adoption_story,
         );
         res.status(200).json(createdAnimal);
     } catch (error) {
