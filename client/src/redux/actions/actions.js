@@ -1,4 +1,4 @@
-import { LOAD_ANIMALS, UPDATE_PAGINATION, ANIMAL_BY_ID, CLEAR_ALL, ORDER_BY_AGE, ORDER_BY_NAME } from "./types";
+import { LOAD_ANIMALS, UPDATE_PAGINATION, ANIMAL_BY_ID, CLEAR_ALL, ORDER_BY_AGE, ORDER_BY_NAME, SEARCH_BY_NAME } from "./types";
 import axios from 'axios';
 
 export const loadAnimals = (status, size, species, castrado, page = 1, animalsPerPage = 4) => {
@@ -75,12 +75,6 @@ const response = await axios.get(`http://localhost:3001/animal/getanimals?status
   };
 };
 
-
-
-
-
-
-
 export const animalById = (id) => {
   return async (dispatch) => {
     const response = await axios.get(`http://localhost:3001/animal/animals${id}`);
@@ -113,9 +107,13 @@ export const orderByAge = (order) => {
   };
 };
 
-export const adoptableAnimals = (status) => {
-  return {
-      type: ADOPTABLE_ANIMALS,
-      payload: status,
+export const searchAnimal = (name, status) => {
+  return async (dispatch) => {
+    const response = await axios.get(`http://localhost:3001/animal/getanimals?status=${status}&name=${name}`);
+
+    return dispatch({
+      type: SEARCH_BY_NAME,
+      payload: response.data,
+    });
   };
-};
+}
