@@ -1,4 +1,4 @@
-import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, RESCUED_ANIMALS, ADOPTABLE_ANIMALS, ADOPTED_ANIMALS } from "./actions/types";
+import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME, RESCUED_ANIMALS, ADOPTABLE_ANIMALS, ADOPTED_ANIMALS } from "./actions/types";
 
 const initialState = {
   allAnimals: [],
@@ -55,9 +55,39 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
     }
 
+    case ORDER_BY_NAME:
+      let animalsByName = [...state.allAnimals].sort((a, b) => {
+        if (payload === "A") {
+          return a.name.localeCompare(b.name);
+        } else if (payload === "D") {
+          return b.name.localeCompare(a.name);
+        } else {
+          return 0;
+        }
+      });
+      return {
+        ...state,
+        allAnimals: animalsByName,
+      };
+    
+
+case ORDER_BY_AGE:
+  const animalsByAge = [...state.allAnimals].sort((a, b) => {
+    return payload === "A" ? a.estimatedBirthYear - b.estimatedBirthYear : b.estimatedBirthYear - a.estimatedBirthYear;
+  });
+  return {
+    ...state,
+    allAnimals: animalsByAge,
+  };
+
+
+
+
     default:
       return state;
   }
 };
+
+
 
 export default rootReducer;

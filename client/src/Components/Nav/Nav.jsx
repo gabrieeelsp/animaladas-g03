@@ -104,7 +104,7 @@ export default function Nav() {
                 <span
                   className="texto_responsive"
                   data-phonetext=" Mi cuenta"
-                ></span>
+                > Iniciar sesión</span>
               </button>
             </NavLink>
           </div>
@@ -114,4 +114,3 @@ export default function Nav() {
   );
 }
 
-/*terminado*/
