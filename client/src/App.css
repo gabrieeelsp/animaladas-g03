@@ -1,7 +1,13 @@
+body{
+  background-image: url(https://www.nationalgeographic.com.es/medio/2023/11/24/corgi-y-gato-1_8c9e7bca_231124202120_1280x853.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  max-width: 100%;
   text-align: center;
 }
 

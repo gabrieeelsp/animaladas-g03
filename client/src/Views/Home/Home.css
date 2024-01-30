@@ -1,0 +1,66 @@
+.about-us-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-body {
+  backface-visibility: hidden;
+}
+
+.hover-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+  text-align: center;
+  opacity: 0; 
+  transition: opacity 0.7s;
+}
+
+.about-us-card:hover .hover-text {
+  opacity: 1; 
+}
+
+.hover-text p {
+  color: #ffffff;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin: 20px;
+}
+
+.my-custom-button {
+  font-weight: bold; 
+  transition: transform 0.2s ease; 
+}
+
+
+.my-custom-button:hover {
+  transform: scale(1.05); 
+}
+
+
+
+.custom-card-link {
+  text-decoration: none;
+}
+
+.custom-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.custom-card:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+  background-color: rgba(255, 255, 255, 0.1); 
+}
+.cardcustom-text {
+  color: #ffffff; 
+}

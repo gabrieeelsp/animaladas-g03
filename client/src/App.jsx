@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Home from "./Views/Home/Home";
+import Adoptar from "./Views/Adoptar/Adoptar";
+import Detail from "./Views/Detail/Detail";
+import Contact from "./Views/Contact/Contact";
+import Adoptado from "./Views/Adoptado/Adoptado";
+import Login from "./Views/login/login";
+import Register from "./Views/Register/Register";
+import Rescatado from "./Views/Rescatado/Rescatado";
+import Nav from "./Components/Nav/Nav";
+import Footer from "./Components/Footer/Footer";
+import Requisitos from "./Views/Requisitos/Requisitos";
+import Donar from "./Views/Donar/donar";
+import Addanimal from "./Views/Add-animal/Add-animal";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/adoptar" element={<Adoptar />}></Route>
+        <Route path="/adoptados" element={<Adoptado />}></Route>
+        <Route path="/rescatados" element={<Rescatado />}></Route>
+        <Route path="/detail/:id" element={<Detail />}></Route>
+        <Route path="/contacto" element={<Contact />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
+        <Route path="/add" element={<Addanimal />}></Route>
+        <Route path="/requisitos" element={<Requisitos />}></Route>
+        <Route path="/donar" element={<Donar />}></Route>
+      
+      </Routes>
+      <Footer />
+    </div>
+  );
 }
 
-export default App
+export default App;

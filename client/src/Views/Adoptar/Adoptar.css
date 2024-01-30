@@ -1,0 +1,13 @@
+.img-container{
+    display: flex;
+    margin-top: 10px;
+    height: 250px;
+    overflow: hidden;
+    justify-content: space-evenly;
+}
+
+.banner-img{
+    border-radius: 50px;
+    object-fit: contain;
+    width: 100%;
+}
