@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
-import "./nav.css";
+import "./Nav.css";
 
 export default function Nav() {
   const location = useLocation();

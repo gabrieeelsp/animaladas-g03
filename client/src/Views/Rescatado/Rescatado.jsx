@@ -15,7 +15,7 @@ export default function Rescatado() {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      dispatch(loadAnimals());  
+      dispatch(loadAnimals('rescatado'));  
       setLoading(false);
     }, 1000);
   
