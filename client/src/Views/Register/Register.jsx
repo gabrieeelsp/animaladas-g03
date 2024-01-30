@@ -3,7 +3,14 @@ import { NavLink } from "react-router-dom";
 import logo from "../../img/logoanimaladas.png";
 import logo_google from "../../img/logo_google.png";
 import axios from "axios";
+import validateform from "./validation_user";
 export default function Register() {
+  const [error, Seterror] = useState({
+    email: "",
+    priority_filds: "",
+    number_required: "",
+    showerror: false,
+  });
   const [Url_Imagen, setUrl_Imagen] = useState("");
   const [userdata, Setuserdata] = useState({
     name: "",
@@ -15,8 +22,6 @@ export default function Register() {
     imageProfile: "",
   });
   const uploadImage = async (e) => {
-    console.log("target name", e.target.name);
-    //  console.log("ingreso a la funcion");
     const file = e.target.files[0];
     const data = new FormData();
     data.append("file", file);
@@ -26,7 +31,6 @@ export default function Register() {
       data
     );
     setUrl_Imagen(response.data.secure_url);
-    console.log("data de cloudinary", response.data.secure_url);
     Setuserdata({
       ...userdata,
       [e.target.name]: response.data.secure_url,
@@ -37,6 +41,14 @@ export default function Register() {
     Setuserdata({
       ...userdata,
       [event.target.name]: value,
+    });
+    let validate = validateform(userdata);
+    Seterror({
+      ...error,
+      email: validate.email,
+      priority_filds: validate.priority_filds,
+      number_required: validate.number_required,
+      showerror: validate.showerror,
     });
   };
   const register_user = (event) => {
@@ -54,10 +66,7 @@ export default function Register() {
       address: "",
       imageProfile: "",
     });
-
-    console.log("la respuesta", data);
   };
-  console.log(userdata);
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <form>
@@ -73,6 +82,13 @@ export default function Register() {
               Create Account
             </h1>
           </div>
+          {error.showerror ? (
+            <div class="input-group mb-1 alert alert-warning" role="alert">
+              {error.number_required}
+              {error.priority_filds}
+              {error.email}
+            </div>
+          ) : null}
           <div className="input-group mt-4">
             <div className="input-group-text bg-warning text-white">
               <i className="bi bi-person-fill-add"></i>
@@ -80,7 +96,7 @@ export default function Register() {
             <input
               className="form-control bg-light"
               type="text"
-              placeholder="Name"
+              placeholder="Nombre*"
               name="name"
               onChange={(e) => handlechange(e)}
             />
@@ -92,7 +108,7 @@ export default function Register() {
             <input
               className="form-control bg-light"
               type="text"
-              placeholder="Last name"
+              placeholder="Apellido*"
               name="lastName"
               onChange={(e) => handlechange(e)}
             />
@@ -104,7 +120,7 @@ export default function Register() {
             <input
               className="form-control bg-light"
               type="text"
-              placeholder="Phone number"
+              placeholder="Numero de contacto*"
               name="phone"
               onChange={(e) => handlechange(e)}
             />
@@ -116,7 +132,7 @@ export default function Register() {
             <input
               className="form-control bg-light"
               type="text"
-              placeholder="Address"
+              placeholder="Direccion*"
               name="address"
               onChange={(e) => handlechange(e)}
             />
@@ -128,7 +144,7 @@ export default function Register() {
             <input
               className="form-control bg-light"
               type="email"
-              placeholder="Email"
+              placeholder="Correo Eletronico*"
               name="email"
               onChange={(e) => handlechange(e)}
             />

@@ -99,6 +99,20 @@ export const clearAll = () => {
   };
 };
 
+export const orderByName = (order) => {
+  return {
+    type: ORDER_BY_NAME,
+    payload: order,
+  };
+};
+
+export const orderByAge = (order) => {
+  return {
+    type: ORDER_BY_AGE,
+    payload: order,
+  };
+};
+
 export const adoptableAnimals = (status) => {
   return {
       type: ADOPTABLE_ANIMALS,
