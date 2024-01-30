@@ -9,7 +9,7 @@ export default function CardR(props) {
       <div className="col">
         <div className="card">
           <img
-            src="https://www.portalveterinaria.com/upload/20190924100048ar2409_apego_gatos_1200.jpg"
+            src="https://www.pazanimal.org/images/blog/pazanimal/rescatado.jpg"
             className="card-img-top"
             alt="..."
           />
