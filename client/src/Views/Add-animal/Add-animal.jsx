@@ -6,6 +6,7 @@ import validateform from "./validation";
 export default function Addanimal() {
   const [Url_Imagen, setUrl_Imagen] = useState("");
   const [error, setError] = useState({
+    email: "",
     number_required: "",
     priority_filds: "",
     showerror: false,
@@ -159,6 +160,7 @@ export default function Addanimal() {
                 <div class="input-group mb-1 alert alert-warning" role="alert">
                   {error.number_required}
                   {error.priority_filds}
+                  {error.email}
                 </div>
               ) : null}
               <div className="input-group mb-1">
