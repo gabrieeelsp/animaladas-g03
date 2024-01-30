@@ -12,12 +12,12 @@ module.exports = (sequelize) => {
             },
             // considero que el nombre del animal se puede repetir
             name: {
-                type: DataTypes.TEXT,
+                type: DataTypes.STRING,
                 allowNull: false,
             },
             gender: {
-                type: DataTypes.TEXT,
-                //values: genderList,
+                type: DataTypes.ENUM,
+                values: genderList,
             },
             // cada imagen tiene su función especifica definida en el front
             image1: {
@@ -38,19 +38,19 @@ module.exports = (sequelize) => {
             },
 
             species: {
-                type: DataTypes.TEXT,
-                //values: speciesList,
+                type: DataTypes.ENUM,
+                values: speciesList,
             },
             status: {
-                type: DataTypes.TEXT,
-                // values: statusList,
+                type: DataTypes.ENUM,
+                values: statusList,
             },
             size: {
-                type: DataTypes.TEXT,
-                // values: sizeList,
+                type: DataTypes.ENUM,
+                values: sizeList,
             },
             weight: {
-                type: DataTypes.TEXT,
+                type: DataTypes.INTEGER,
             },
 
             // // este atributo puede servir para saber si un animas es adoptable o no
@@ -60,7 +60,7 @@ module.exports = (sequelize) => {
             },
 
             estimatedBirthYear: {
-                type: DataTypes.TEXT,
+                type: DataTypes.INTEGER,
             },
             castrated: {
                 type: DataTypes.BOOLEAN,
@@ -69,6 +69,14 @@ module.exports = (sequelize) => {
             disability_illness: {
                 type: DataTypes.BOOLEAN,
                 default: false,
+            },
+            rescued_story: {
+                type: DataTypes.TEXT,
+                default: '',
+            },
+            adoption_story: {
+                type: DataTypes.TEXT,
+                default: '',
             },
             age: {
                 type: DataTypes.INTEGER,
