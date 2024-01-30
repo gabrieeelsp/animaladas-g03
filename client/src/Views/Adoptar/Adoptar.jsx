@@ -17,26 +17,27 @@ export default function Adoptar() {
   const optionsSize = ['Todos', 'chico', 'mediano', 'grande'];
   const handleChangeSize = (event) => {
       setSize(event.target.value)
-      dispatch(loadAnimals('adoptable', event.target.value, species, castrado));
+      dispatch(loadAnimals(name, 'adoptable', event.target.value, species, castrado));
   }
 
   const [species, setSpecies] = useState('Todos');
   const optionsSpecies = ['Todos', 'perro', 'gato'];
   const handleChangeSpecies = (event) => {
       setSpecies(event.target.value)
-      dispatch(loadAnimals('adoptable', size, event.target.value, castrado));
+      dispatch(loadAnimals(name, 'adoptable', size, event.target.value, castrado));
   }
 
   const [castrado, setCastrado] = useState('Todos');
   const optionsCastrado = ['Todos', 'Si', 'No'];
   const handleChangeCastrado = (event) => {
       setCastrado(event.target.value)
-      dispatch(loadAnimals('adoptable', size, species, event.target.value));
+      dispatch(loadAnimals(name, 'adoptable', size, species, event.target.value, 1, 4, orderby, orderDir));
   }
 
+  const [name, setName] = useState('');
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      dispatch(loadAnimals('adoptable', size, species, castrado));  
+      dispatch(loadAnimals(name, 'adoptable', size, species, castrado, 1, 4, '', ''));  
       setLoading(false);
     }, 2000);
   
@@ -45,26 +46,31 @@ export default function Adoptar() {
   
 
   const handleNextPage = (page) => {
-    dispatch(loadAnimals('adoptable', size, species, castrado, page));
+    dispatch(loadAnimals(name, 'adoptable', size, species, castrado, page, 4, orderby, orderDir));
   };
 
   const handlePrevPage = (page) => {
-    dispatch(loadAnimals('adoptable', size, species, castrado, page));
+    dispatch(loadAnimals(name, 'adoptable', size, species, castrado, page, 4, orderby, orderDir));
   };
 
-  const handleOrderByName = (order) => {
-    dispatch(orderByName(order));
-  };
+  const [orderby, setOrderBy] = useState('');
 
-  const handleOrderByAge = (order) => {
-    dispatch(orderByAge(order));
-  };
+  const [orderDir, setOrderDir] = useState('asc');
 
+  const handleOrderNameDir = (event) => {
+    let orderByValue = event.target.value === '' ? '' : 'name';
+
+    setOrderBy(orderByValue);
+    setOrderDir(event.target.value)
+    dispatch(loadAnimals(name, 'adoptable', size, species, castrado, 1, 4, orderByValue, event.target.value ));
+  }
+
+  
   const resetFilters = () => {
     setSize('Todos');
     setSpecies('Todos');
     setCastrado('Todos');
-    dispatch(loadAnimals('adoptable', 'Todos', 'Todos', 'Todos'));
+    dispatch(loadAnimals(name,'adoptable', 'Todos', 'Todos', 'Todos', 1, 4, ''));
   };
 
 return (
@@ -114,26 +120,15 @@ return (
     <div className="dropdown">
       <select
       className="btn btn-warning btn-sm dropdown-toggle dropdown-menu-dark"
-       onChange={(e) => handleOrderByName(e.target.value)}
+       onChange={handleOrderNameDir}
        style={{ width: "170px"}}>
-      <option value="" disabled selected>Seleccionar orden</option>
-      <option value="A">A-Z</option>
-      <option value="D">Z-A</option>
+      <option value="" selected>Seleccionar orden</option>
+      <option value="asc">A-Z</option>
+      <option value="desc">Z-A</option>
       </select>
     </div>
-          <span className="text-warning btn-sm m-3">
-          Ordenar por edad
-          </span>
-          <div className="dropdown">
-      <select
-      className="btn btn-warning btn-sm dropdown-toggle dropdown-menu-dark"
-       onChange={(e) => handleOrderByAge(e.target.value)}
-       style={{ width: "170px"}}>
-      <option value="" disabled selected>Seleccionar orden</option>
-      <option value="D">Cachorro a adulto</option>
-      <option value="A">Adulto a cachorro</option>
-      </select>
-    </div>
+          
+          
     <p></p>
     <hr className="col-12 bg-warning" style={{ height: "2px", margin: "10px 0" }} />
           <span className="text-warning btn-sm m-3 fw-bold">

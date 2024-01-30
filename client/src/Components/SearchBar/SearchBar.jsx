@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { searchAnimal } from "../../redux/actions/actions";
-
+import { loadAnimals } from "../../redux/actions/actions";
 
 export default function Searchbar() {
   const location = useLocation();
@@ -16,27 +15,29 @@ export default function Searchbar() {
   const handleChange = (event) => {
     setName(event.target.value);
   };
-  
-  const onSearch = () => {
-    dispatch(searchAnimal(name, "adoptable"));
+
+  const onSearch = (event) => {
+    event.preventDefault(); 
+    dispatch(loadAnimals(name, 'adoptable', 'Todos', 'Todos', 'Todos'));
   };
 
   const onKeyDown = (event) => {
     if (event.keyCode === 13) {
-      onSearch();
+      onSearch(event);
     }
   };
 
   return (
-    <form className="d-flex" role="search">
+    <form className="d-flex" role="search" onSubmit={onSearch}>
       <input
         className="form-control me-2"
         type="search"
         placeholder="Buscar"
+        value={name}
         onChange={handleChange}
-        onKeyDown={(e) => onKeyDown(e)}
+        onKeyDown={onKeyDown}
       />
-      <button className="btn btn-outline-warning" type="button" onClick={onSearch}>
+      <button className="btn btn-outline-warning" type="submit">
         Buscar
       </button>
     </form>
