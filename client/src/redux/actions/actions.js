@@ -1,4 +1,4 @@
-import { LOAD_ANIMALS, UPDATE_PAGINATION, ANIMAL_BY_ID, CLEAR_ALL, RESCUED_ANIMALS, ADOPTABLE_ANIMALS, ADOPTED_ANIMALS } from "./types";
+import { LOAD_ANIMALS, UPDATE_PAGINATION, ANIMAL_BY_ID, CLEAR_ALL, ORDER_BY_AGE, ORDER_BY_NAME, ADOPTABLE_ANIMALS } from "./types";
 import axios from 'axios';
 
 export const loadAnimals = (status, size, species, castrado, page = 1, animalsPerPage = 4) => {
@@ -63,6 +63,20 @@ export const clearAll = () => {
     dispatch({
       type: CLEAR_ALL,
     });
+  };
+};
+
+export const orderByName = (order) => {
+  return {
+    type: ORDER_BY_NAME,
+    payload: order,
+  };
+};
+
+export const orderByAge = (order) => {
+  return {
+    type: ORDER_BY_AGE,
+    payload: order,
   };
 };
 

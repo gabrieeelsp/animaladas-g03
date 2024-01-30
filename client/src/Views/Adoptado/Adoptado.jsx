@@ -2,7 +2,7 @@ import React from "react";
 import CardA from "../../Components/CardR/CardR";
 import Paginacion from "../../Components/Pagination/Pagination";
 import Loader from "../../Components/Loader/Loader"
-import { loadAnimals, clearAll, adoptableAnimals } from "../../redux/actions/actions";
+import { loadAnimals, clearAll } from "../../redux/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
@@ -15,21 +15,19 @@ export default function Rescatado() {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      dispatch(loadAnimals());  
+      dispatch(loadAnimals('adoptado', 'Todos', 'Todos', 'Todos'));  
       setLoading(false);
     }, 1000);
   
     return () => clearTimeout(timeoutId);
-  }, [dispatch]);
-  
-  const adopted = animals.filter((animal) => animal.status === "adopted");
+  }, []);
 
   const handleNextPage = (page) => {
-    dispatch(loadAnimals(page));
+    dispatch(loadAnimals('adoptado', 'Todos', 'Todos', 'Todos'), page);
   };
 
   const handlePrevPage = (page) => {
-    dispatch(loadAnimals(page));
+    dispatch(loadAnimals('adoptado', 'Todos', 'Todos', 'Todos'), page);
   };
 
   return (
@@ -41,7 +39,7 @@ export default function Rescatado() {
         <div className="container my-3">
             <div className="row w-100">
               <div className="col">
-              {adopted && adopted.map((animal) => {
+              {animals && animals.map((animal) => {
               return(
                 <CardA
                   key={animal.id}

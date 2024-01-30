@@ -15,9 +15,9 @@ export default function Nav() {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100">
         <div className="container-fluid">
           <NavLink to="/">
-            <a className="navbar-brand text-warning" href="#">
+            <span className="navbar-brand text-warning" href="#">
               <i className="bi-house-door-fill"></i>
-            </a>
+            </span>
           </NavLink>
           <button
             className="navbar-toggler"
@@ -104,7 +104,7 @@ export default function Nav() {
                 <span
                   className="texto_responsive"
                   data-phonetext=" Mi cuenta"
-                ></span>
+                > Iniciar sesión</span>
               </button>
             </NavLink>
           </div>
@@ -114,4 +114,3 @@ export default function Nav() {
   );
 }
 
-/*terminado*/

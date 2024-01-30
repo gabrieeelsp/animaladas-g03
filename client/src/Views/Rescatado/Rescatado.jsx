@@ -2,7 +2,7 @@ import React from "react";
 import CardR from "../../Components/CardR/CardR";
 import Paginacion from "../../Components/Pagination/Pagination";
 import Loader from "../../Components/Loader/Loader"
-import { loadAnimals, clearAll, adoptableAnimals } from "../../redux/actions/actions";
+import { loadAnimals, clearAll } from "../../redux/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
