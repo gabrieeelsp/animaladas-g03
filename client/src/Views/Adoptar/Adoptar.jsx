@@ -52,7 +52,7 @@ export default function Adoptar() {
     return () => clearTimeout(timeoutId);
   }, []);
   
-  //const adoptable = animals.filter((animal) => animal.status === "adoptable");
+  
 
 
   const handleNextPage = (page) => {
