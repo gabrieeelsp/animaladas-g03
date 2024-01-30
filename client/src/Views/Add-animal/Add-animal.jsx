@@ -23,7 +23,9 @@ export default function Addanimal() {
     size: "",
     weight: "",
     vaccines: false,
-    estimatebirthyear: "",
+    estimatedBirthYear: "",
+    adoption_story: "",
+    rescued_story: "",
     castrated: false,
     disability_illness: false,
   });
@@ -53,36 +55,6 @@ export default function Addanimal() {
     ) {
       value = true;
     }
-    if (event.target.value === "Perro") {
-      value = "dog";
-    }
-    if (event.target.value === "Gato") {
-      value = "gato";
-    }
-    if (event.target.value === "Macho") {
-      value = "male";
-    }
-    if (event.target.value === "Hembra") {
-      value = "female";
-    }
-    if (event.target.value === "Rescatado") {
-      value = "rescued";
-    }
-    if (event.target.value === "Adopcion") {
-      value = "adoptable";
-    }
-    if (event.target.value === "Adoptado") {
-      value = "adopted";
-    }
-    if (event.target.value === "Pequeño") {
-      value = "small";
-    }
-    if (event.target.value === "Mediano") {
-      value = "medium";
-    }
-    if (event.target.value === "Grande") {
-      value = "big";
-    }
     Setdogdata({
       ...dogdata,
       [event.target.name]: value,
@@ -96,7 +68,7 @@ export default function Addanimal() {
       showerror: validate.showerror,
     });
   };
-
+  console.log(dogdata);
   const save_dog = (e) => {
     axios.post("http://localhost:3001/animal/createAnimals", dogdata);
     Setdogdata({
@@ -111,7 +83,7 @@ export default function Addanimal() {
       size: "",
       weight: "",
       vaccines: false,
-      estimatebirthyear: "",
+      eestimatedBirthYear: "",
       castrated: false,
       disability_illness: false,
     });
@@ -181,8 +153,8 @@ export default function Addanimal() {
                   name="gender"
                 >
                   <option selected>*Selecciona el genero</option>
-                  <option value="Macho">Macho</option>
-                  <option value="Hembra">Hembra</option>
+                  <option value="macho">Macho</option>
+                  <option value="hembra">Hembra</option>
                 </select>
               </div>
               <div className="input-group">
@@ -194,8 +166,8 @@ export default function Addanimal() {
                   onChange={(e) => handlechange(e)}
                 >
                   <option selected>*Selecciona la especie</option>
-                  <option value="Perro">Perro</option>
-                  <option value="Gato">Gato</option>
+                  <option value="perro">Perro</option>
+                  <option value="gato">Gato</option>
                 </select>
               </div>
               <div className="input-group">
@@ -207,9 +179,9 @@ export default function Addanimal() {
                   onChange={(e) => handlechange(e)}
                 >
                   <option selected>*Selecciona el estado actual</option>
-                  <option value="Rescatado">Rescatado</option>
-                  <option value="Adopcion">Adopcion</option>
-                  <option value="Adoptado">Adoptado</option>
+                  <option value="rescatado">Rescatado</option>
+                  <option value="adoptable">Adopcion</option>
+                  <option value="adoptado">Adoptado</option>
                 </select>
               </div>
               <div className="input-group">
@@ -221,9 +193,9 @@ export default function Addanimal() {
                   name="size"
                 >
                   <option selected>*Selecciona peso</option>
-                  <option value="Pequeño">Pequeño</option>
-                  <option value="Mediano">Mediano</option>
-                  <option value="Grande">Grande</option>
+                  <option value="chico">Pequeño</option>
+                  <option value="mediano">Mediano</option>
+                  <option value="grande">Grande</option>
                 </select>
               </div>
               <div className="input-group mb-1">
@@ -231,7 +203,7 @@ export default function Addanimal() {
                   type="text"
                   className="form-control form form-control-lg bg-light fs-6"
                   placeholder="Año de nacimiento"
-                  name="estimatebirthyear"
+                  name="estimatedBirthYear"
                   onChange={(e) => handlechange(e)}
                 ></input>
               </div>
@@ -243,6 +215,30 @@ export default function Addanimal() {
                   name="weight"
                   onChange={(e) => handlechange(e)}
                 ></input>
+              </div>
+              <div class="form-group">
+                <label className="input-group mb-1 mt-3 text-warning">
+                  Historia del rescate
+                </label>
+                <textarea
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  name="rescued_story"
+                  onChange={(e) => handlechange(e)}
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label className="input-group mb-1 mt-3 text-warning">
+                  Historia de la adopción
+                </label>
+                <textarea
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  name="adoption_story"
+                  onChange={(e) => handlechange(e)}
+                ></textarea>
               </div>
               <label className="input-group mb-1 mt-3 text-warning">
                 Foto del rescate (opcional):
