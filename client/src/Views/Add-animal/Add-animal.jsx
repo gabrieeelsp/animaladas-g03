@@ -28,8 +28,6 @@ export default function Addanimal() {
   });
   //cloud name:dwgufqzjd
   const uploadImage = async (e) => {
-    console.log("target name", e.target.name);
-    //  console.log("ingreso a la funcion");
     const file = e.target.files[0];
     const data = new FormData();
     data.append("file", file);
@@ -46,7 +44,6 @@ export default function Addanimal() {
   };
 
   const handlechange = (event) => {
-    console.log("ingres a hanldechanged", event.target.value);
     let value = event.target.value;
     if (
       event.target.name === "vaccines" ||
@@ -85,7 +82,6 @@ export default function Addanimal() {
     if (event.target.value === "Grande") {
       value = "big";
     }
-    console.log("poraqui");
     Setdogdata({
       ...dogdata,
       [event.target.name]: value,
@@ -101,7 +97,6 @@ export default function Addanimal() {
   };
 
   const save_dog = (e) => {
-    console.log("ingreo button savedog");
     axios.post("http://localhost:3001/animal/createAnimals", dogdata);
     Setdogdata({
       name: "",
@@ -120,8 +115,6 @@ export default function Addanimal() {
       disability_illness: false,
     });
   };
-
-  console.log(error);
   return (
     <div className="container d-flex justify-content-center align-items-center min-vh-100 mb-2 mt-2">
       <form>
