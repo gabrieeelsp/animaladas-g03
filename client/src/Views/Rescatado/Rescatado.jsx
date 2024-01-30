@@ -20,14 +20,16 @@ export default function Rescatado() {
     }, 1000);
   
     return () => clearTimeout(timeoutId);
-  }, [dispatch]);
+  }, []); // le saque discpatch del array de pendencias @gabrieeelsp
+  
+  //const rescued = animals.filter((animal) => animal.status === "rescued");
 
   const handleNextPage = (page) => {
-    dispatch(loadAnimals('rescatado', 'Todos', 'Todos', 'Todos'), page);
+    dispatch(loadAnimals('rescatado', 'Todos', 'Todos', 'Todos', page));
   };
 
   const handlePrevPage = (page) => {
-    dispatch(loadAnimals('rescatado', 'Todos', 'Todos', 'Todos'), page);
+    dispatch(loadAnimals('rescatado', 'Todos', 'Todos', 'Todos', page));
   };
 
   return (

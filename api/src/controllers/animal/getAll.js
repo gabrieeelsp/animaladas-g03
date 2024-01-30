@@ -94,7 +94,7 @@ const getOffset = (limit, page) => {
 };
 
 const getTotalPages = (limit, totalRecords) => {
-    return Math.floor(totalRecords / limit) + 1;
+    return Math.ceil(totalRecords / limit);
 };
 
 const getNextPage = (limit, page, totalRecords) => {
