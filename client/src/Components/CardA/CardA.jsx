@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function CardR(props) {
+export default function CardA(props) {
 
   const {id, name} = props;
 

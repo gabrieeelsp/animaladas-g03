@@ -29,7 +29,8 @@ function App() {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/add" element={<Addanimal />}></Route>
         <Route path="/requisitos" element={<Requisitos />}></Route>
-        <Route path="/donar" element ={<Donar />}></Route>
+        <Route path="/donar" element={<Donar />}></Route>
+      
       </Routes>
       <Footer />
     </div>
