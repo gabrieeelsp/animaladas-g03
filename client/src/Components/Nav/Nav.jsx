@@ -88,7 +88,7 @@ export default function Nav() {
                     className="btn btn-outline-warning p-1 mx-1"
                     type="button"
                   >
-                    Donar
+                    Aportar
                   </button>
                 </NavLink>
               </li>
