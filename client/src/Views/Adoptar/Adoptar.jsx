@@ -46,11 +46,11 @@ export default function Adoptar() {
   
 
   const handleNextPage = (page) => {
-    dispatch(loadAnimals('adoptable', size, species, castrado, page));
+    dispatch(loadAnimals(name, 'adoptable', size, species, castrado, page));
   };
 
   const handlePrevPage = (page) => {
-    dispatch(loadAnimals('adoptable', size, species, castrado, page));
+    dispatch(loadAnimals(name, 'adoptable', size, species, castrado, page));
   };
 
   const handleOrderByName = (order) => {
