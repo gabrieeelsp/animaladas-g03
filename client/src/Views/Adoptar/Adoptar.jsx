@@ -16,14 +16,14 @@ export default function Adoptar() {
 
 
   const [size, setSize] = useState('Todos');
-  const optionsSize = ['Todos', 'small', 'medium', 'big'];
+  const optionsSize = ['Todos', 'chico', 'mediano', 'grande'];
   const handleChangeSize = (event) => {
       setSize(event.target.value)
       dispatch(loadAnimals('adoptable', event.target.value, species, castrado));
   }
 
   const [species, setSpecies] = useState('Todos');
-  const optionsSpecies = ['Todos', 'dog', 'cat'];
+  const optionsSpecies = ['Todos', 'perro', 'gato'];
   const handleChangeSpecies = (event) => {
       setSpecies(event.target.value)
       dispatch(loadAnimals('adoptable', size, event.target.value, castrado));
