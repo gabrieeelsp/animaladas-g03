@@ -72,7 +72,6 @@ case ORDER_BY_AGE:
 
 
 
-
     default:
       return state;
   }
