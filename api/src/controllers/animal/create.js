@@ -14,7 +14,9 @@ module.exports = async (
     vaccines,
     estimatedBirthYear,
     castrated,
-    disabilityIllness,
+    disability_illness,
+    adoption_story,
+    rescued_story,
 ) => {
     let resp = null;
 
@@ -33,7 +35,9 @@ module.exports = async (
             vaccines,
             estimatedBirthYear,
             castrated,
-            disabilityIllness,
+            disability_illness,
+            adoption_story,
+            rescued_story,
         });
     } catch (error) {
         // revisar error.name posibles

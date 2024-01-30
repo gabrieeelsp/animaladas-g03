@@ -52,7 +52,9 @@ const createHandler = async (req, res) => {
         vaccines,
         estimatedBirthYear,
         castrated,
-        disabilityIllness,
+        disability_illness,
+        adoption_story,
+        rescued_story,
     } = req.body;
 
     const nameError = validateName(name);
@@ -85,8 +87,33 @@ const createHandler = async (req, res) => {
             gender: genderError,
         });
     }
-
+    console.log('imprimimo errores:');
+    console.log('valor de los errores', nameError);
+    console.log('valor de los imageError', imageError);
+    console.log('valor de los speciesError', speciesError);
+    console.log('valor de los sizeError', sizeError);
+    console.log('valor de los weightError', weightError);
+    console.log('valor de los statusError', statusError);
+    console.log('valor de los genderError', genderError);
     try {
+        /*
+        console.log('valor de name', name);
+        console.log('valor de gender', gender);
+        console.log('valor de image1', image1);
+        console.log('valor de image2', image2);
+        console.log('valor de image3', image3);
+        console.log('valor de image4', image4);
+        console.log('valor de species', species);
+        console.log('valor de status', status);
+        console.log('valor de size', size);
+        console.log('valor de weight', weight);
+        console.log('valor de vaccines', vaccines);
+        console.log('valor de estimatedBirthYear', estimatedBirthYear);
+        console.log('valor de castrated', castrated);
+        console.log('valor de disability_illness', disability_illness);
+        console.log('valor de adoption_story', adoption_story);
+        console.log('valor de rescued_story', rescued_story);
+        */
         const createdAnimal = await createAnimal(
             name,
             gender,
@@ -101,7 +128,9 @@ const createHandler = async (req, res) => {
             vaccines,
             estimatedBirthYear,
             castrated,
-            disabilityIllness,
+            disability_illness,
+            adoption_story,
+            rescued_story,
         );
         res.status(200).json(createdAnimal);
     } catch (error) {
