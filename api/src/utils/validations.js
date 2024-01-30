@@ -5,11 +5,12 @@ const validateName = (name) => {
     return null;
 };
 const validateImage = (image) => {
-    const imageFormatRegex = /\.(jpg|jpeg|png|gif)$/i;
-    if (!image) return 'El campo image no puede estar vacío';
-    if (!imageFormatRegex.test(image)) {
-        return 'El formato de la imagen no es válido. Por favor, utiliza una imagen en formato jpg, jpeg, png o gif.';
-    }
+    // const imageFormatRegex = /\.(jpg|jpeg|png|gif)$/i;
+    // if (!image) return 'El campo image no puede estar vacío';
+    // if (!imageFormatRegex.test(image)) {
+    //     return 'El formato de la imagen no es válido. Por favor, utiliza una imagen en formato jpg, jpeg, png o gif.';
+    // }
+    // return null;
     return null;
 };
 
