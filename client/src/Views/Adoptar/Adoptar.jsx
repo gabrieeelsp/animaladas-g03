@@ -14,25 +14,53 @@ export default function Adoptar() {
   const pagination = useSelector((state) => state.pagination);
 
 
+
+  const [size, setSize] = useState('Todos');
+  const optionsSize = ['Todos', 'small', 'medium', 'big'];
+  const handleChangeSize = (event) => {
+      setSize(event.target.value)
+      dispatch(loadAnimals('adoptable', event.target.value, species, castrado));
+  }
+
+  const [species, setSpecies] = useState('Todos');
+  const optionsSpecies = ['Todos', 'dog', 'cat'];
+  const handleChangeSpecies = (event) => {
+      setSpecies(event.target.value)
+      dispatch(loadAnimals('adoptable', size, event.target.value, castrado));
+  }
+
+
+
+  const [castrado, setCastrado] = useState('Todos');
+  const optionsCastrado = ['Todos', 'Si', 'No'];
+  const handleChangeCastrado = (event) => {
+      setCastrado(event.target.value)
+      dispatch(loadAnimals('adoptable', size, species, event.target.value));
+  }
+
+
+
+
+
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      dispatch(loadAnimals());  
+      dispatch(loadAnimals('adoptable', size, species, castrado));  
       setLoading(false);
     }, 1000);
   
     return () => clearTimeout(timeoutId);
-  }, [dispatch]);
+  }, []);
   
-  const adoptable = animals.filter((animal) => animal.status === "adoptable");
+  //const adoptable = animals.filter((animal) => animal.status === "adoptable");
 
-  console.log(adoptable);
 
   const handleNextPage = (page) => {
-    dispatch(loadAnimals(page));
+    dispatch(loadAnimals('adoptable', size, species, castrado, page));
   };
 
   const handlePrevPage = (page) => {
-    dispatch(loadAnimals(page));
+    dispatch(loadAnimals('adoptable', size, species, castrado, page));
   };
 
 
@@ -53,7 +81,7 @@ return (
         <div className="col-10">
           <div className="row w-100">
             <div className="col-12" style={{display:"flex", flexWrap:"wrap",rowGap:"15px", columnGap:"15px"}}>
-            {adoptable && adoptable.map((animal) => {
+            {animals && animals.map((animal) => {
               return(
                 <Card
                   key={animal.id}
@@ -76,8 +104,9 @@ return (
 <span className="text-warning btn-sm m-3">
             Ordenar por tamaño
           </span>
+          
           <div className="dropdown">
-             <button className="btn btn-warning btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+             <button  type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Tipo de tamaño
              </button>
             <ul className="dropdown-menu dropdown-menu-dark">
@@ -104,6 +133,40 @@ return (
           <span className="text-warning btn-sm m-3">
             Filtrar por tamaño
           </span>
+
+
+
+
+
+
+          <div className="dropdown">
+              <button className="btn btn-warning btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Tipo de tamaño
+              </button>
+              <select value={size} onChange={handleChangeSize}>
+                  {optionsSize.map((option) => <option key={option} value={option} >{option}</option>)}
+              </select>
+          </div>
+
+
+
+          
+          <div className="dropdown">
+              <button className="btn btn-warning btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Tipo de Animal
+              </button>
+              <select value={species} onChange={handleChangeSpecies}>
+                  {optionsSpecies.map((option) => <option key={option} value={option} >{option}</option>)}
+              </select>
+          </div>
+          <div className="dropdown">
+              <button className="btn btn-warning btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Castrado
+              </button>
+              <select value={castrado} onChange={handleChangeCastrado}>
+                  {optionsCastrado.map((option) => <option key={option} value={option} >{option}</option>)}
+              </select>
+          </div>
           <div className="dropdown">
              <button className="btn btn-warning btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Tipo de tamaño

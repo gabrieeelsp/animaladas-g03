@@ -1,10 +1,31 @@
 import { LOAD_ANIMALS, UPDATE_PAGINATION, ANIMAL_BY_ID, CLEAR_ALL, RESCUED_ANIMALS, ADOPTABLE_ANIMALS, ADOPTED_ANIMALS } from "./types";
 import axios from 'axios';
 
-export const loadAnimals = (page = 1, animalsPerPage = 4) => {
+export const loadAnimals = (status, size, species, castrado, page = 1, animalsPerPage = 4) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`http://localhost:3001/animal/getanimals?page=${page}&limit=${animalsPerPage}`);
+
+      const sizeValue = size === 'Todos' ? '' : size;
+
+      const speciesValue = species === 'Todos' ? '' : species;
+      
+      let castradoValue = null;
+      switch (castrado) {
+        case 'Todos': {
+          castradoValue = '';
+          break;
+        }
+        case 'Si': {
+          castradoValue = true;
+          break;
+        }
+        case 'No': {
+          castradoValue = false;
+          break;
+        }
+      }
+
+      const response = await axios.get(`http://localhost:3001/animal/getanimals?status=${status}&size=${sizeValue}&species=${speciesValue}&castrated=${castradoValue}&page=${page}&limit=${animalsPerPage}`);
       const data = response.data;
 
       // Despacha la acción para cargar los animales
