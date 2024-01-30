@@ -85,9 +85,11 @@ export default function Addanimal() {
       size: "",
       weight: "",
       vaccines: false,
-      estimatebirthyear: "",
+      estimatedBirthYear: "",
       castrated: false,
       disability_illness: false,
+      rescued_story:"",
+      adoption_story:"",
     });
   };
   return (
@@ -131,7 +133,7 @@ export default function Addanimal() {
                 <p>Subir una mascota para adopción</p>
               </div>
               {error.showerror ? (
-                <div class="input-group mb-1 alert alert-warning" role="alert">
+                <div className="input-group mb-1 alert alert-warning" role="alert">
                   {error.number_required}
                   {error.priority_filds}
                   {error.email}
@@ -196,8 +198,8 @@ export default function Addanimal() {
                 >
                   <option selected>*Selecciona peso</option>
                   <option value="chico">Chico</option>
-                  <option value="Mediano">Mediano</option>
-                  <option value="Grande">Grande</option>
+                  <option value="mediano">Mediano</option>
+                  <option value="grande">Grande</option>
                 </select>
               </div>
               <div className="input-group mb-1">
@@ -245,9 +247,9 @@ export default function Addanimal() {
               <label className="input-group mb-1 mt-3 text-warning">
                 Foto del rescate (opcional):
               </label>
-              <div class=" input-group mb-1 mt-3">
+              <div className=" input-group mb-1 mt-3">
                 <input
-                  class="form-control"
+                  className="form-control"
                   type="file"
                   id="formFile"
                   onChange={uploadImage}
@@ -257,9 +259,9 @@ export default function Addanimal() {
               <label className="input-group mb-1 mt-3 text-warning">
                 Foto para adopcion :
               </label>
-              <div class=" input-group mb-1 mt-3">
+              <div className=" input-group mb-1 mt-3">
                 <input
-                  class="form-control"
+                  className="form-control"
                   type="file"
                   id="formFile"
                   onChange={uploadImage}
@@ -269,9 +271,9 @@ export default function Addanimal() {
               <label className="input-group mb-1 mt-3 text-warning">
                 Foto adoptado:
               </label>
-              <div class=" input-group mb-1 mt-3">
+              <div className=" input-group mb-1 mt-3">
                 <input
-                  class="form-control"
+                  className="form-control"
                   type="file"
                   id="formFile"
                   onChange={uploadImage}
@@ -281,9 +283,9 @@ export default function Addanimal() {
               <label className="input-group mb-1 mt-3 text-warning">
                 Foto adicional (opcional):
               </label>
-              <div class=" input-group mb-1 mt-3">
+              <div className=" input-group mb-1 mt-3">
                 <input
-                  class="form-control"
+                  className="form-control"
                   type="file"
                   id="formFile"
                   onChange={uploadImage}
@@ -300,7 +302,7 @@ export default function Addanimal() {
                     onChange={(e) => handlechange(e)}
                   ></input>
                   <label
-                    for="formCheck"
+                    htmlFor="formCheck"
                     className="form-check-label text-warning"
                   >
                     <small>Vacunado(a)</small>
@@ -317,7 +319,7 @@ export default function Addanimal() {
                     onChange={(e) => handlechange(e)}
                   ></input>
                   <label
-                    for="formCheck"
+                    htmlFor="formCheck"
                     className="form-check-label text-warning"
                   >
                     <small>Cuidados especiales</small>
@@ -334,7 +336,7 @@ export default function Addanimal() {
                     onChange={(e) => handlechange(e)}
                   ></input>
                   <label
-                    for="formCheck"
+                    htmlFor="formCheck"
                     className="form-check-label text-warning"
                   >
                     <small>Castrado</small>
