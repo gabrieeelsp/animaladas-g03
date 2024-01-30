@@ -30,3 +30,4 @@ export default function validateform(data) {
   }
   return Error;
 }
+// terminado
