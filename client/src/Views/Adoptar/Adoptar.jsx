@@ -3,26 +3,29 @@ import { useEffect, useState } from "react";
 import Card from "../../Components/Card/Card";
 import Paginacion from "../../Components/Pagination/Pagination";
 import Loader from "../../Components/Loader/Loader"
-import { loadAnimals } from "../../redux/actions/actions";
+import { loadAnimals, clearAll, adoptableAnimals } from "../../redux/actions/actions";
 import "./Adoptar.css";
 import React from "react";
 
 export default function Adoptar() {
   const dispatch = useDispatch();
-  const animals = useSelector((state) => state.allAnimals);
   const [loading, setLoading] = useState(true);
+  const animals = useSelector((state) => state.allAnimals);
   const pagination = useSelector((state) => state.pagination);
 
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      dispatch(loadAnimals());
+      dispatch(loadAnimals());  
       setLoading(false);
     }, 1000);
-
+  
     return () => clearTimeout(timeoutId);
   }, [dispatch]);
+  
+  const adoptable = animals.filter((animal) => animal.status === "adoptable");
 
+  console.log(adoptable);
 
   const handleNextPage = (page) => {
     dispatch(loadAnimals(page));
@@ -50,7 +53,7 @@ return (
         <div className="col-10">
           <div className="row w-100">
             <div className="col-12" style={{display:"flex", flexWrap:"wrap",rowGap:"15px", columnGap:"15px"}}>
-            {animals && animals.map((animal) => {
+            {adoptable && adoptable.map((animal) => {
               return(
                 <Card
                   key={animal.id}

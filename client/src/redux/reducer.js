@@ -1,7 +1,8 @@
-import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID } from "./actions/types";
+import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, RESCUED_ANIMALS, ADOPTABLE_ANIMALS, ADOPTED_ANIMALS } from "./actions/types";
 
 const initialState = {
   allAnimals: [],
+  statusAnimals: [],
   pagination: {
     total_records: 0,
     current_page: 1,
@@ -18,12 +19,15 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         allAnimals: payload.animals,
+        statusAnimals: payload.animals,
         pagination: {
           ...state.pagination,
           ...payload.pagination,
         },
       };
     }
+
+
 
     case ANIMAL_BY_ID: {
       return {
@@ -39,6 +43,17 @@ const rootReducer = (state = initialState, { type, payload }) => {
             animalById: [],
           }
       }
+
+     case ADOPTABLE_ANIMALS: {
+      let filteredByAdoptable = [];
+
+      filteredByAdoptable = [...state.statusAnimals].filter((animal) => animal.data.status && animal.data.status === payload);
+    
+      return {
+        ...state,
+        allAnimals: filteredByAdoptable,
+      };
+    }
 
     default:
       return state;
