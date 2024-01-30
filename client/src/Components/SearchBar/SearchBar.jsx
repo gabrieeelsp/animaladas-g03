@@ -17,7 +17,7 @@ export default function Searchbar() {
   };
 
   const onSearch = (event) => {
-    event.preventDefault();
+    event.preventDefault(); // Detener la recarga de la página
     dispatch(loadAnimals(name, 'adoptable', 'Todos', 'Todos', 'Todos'));
   };
 
