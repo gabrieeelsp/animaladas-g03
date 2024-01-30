@@ -42,7 +42,11 @@ export default function Rescatado() {
               animals.map((animal) => {
                 return (
                   <div key={animal.id} className="col mb-4">
-                    <CardR id={animal.id} name={animal.name} />
+                    <CardR 
+                    id={animal.id}
+                    name={animal.name}
+                    image1={animal.image1}
+                    rescued_story={animal.rescued_story} />
                   </div>
                 );
               })}

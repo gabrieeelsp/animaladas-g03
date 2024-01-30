@@ -103,6 +103,7 @@ return (
                 <Card
                   key={animal.id}
                   id={animal.id}
+                  image2={animal.image2}
                   name={animal.name}
                   estimatedBirthYear={animal.estimatedBirthYear}
                   size={animal.size}
