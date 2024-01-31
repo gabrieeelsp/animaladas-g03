@@ -1,5 +1,6 @@
 const createUser = require('../controllers/user/createUser');
-const loginUser = require('../controllers/user/loginuser');
+const loginUser = require('../controllers/user/loginuser.js');
+
 const postUserHandler = async (req, res) => {
     const { name, lastName, email, password, phone, address, imageProfile } =
         req.body;
@@ -21,6 +22,7 @@ const postUserHandler = async (req, res) => {
         res.status(400).json(error.message);
     }
 };
+
 const loginUserHandler = async (req, res) => {
     const { email, password } = req.body;
 
