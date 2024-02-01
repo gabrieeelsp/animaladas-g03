@@ -1,7 +1,20 @@
+const { Op } = require('sequelize');
 const { Donation, User, Animal } = require('../../db');
 
 const getFiltersList = (filters) => {
     const filtersList = {};
+
+    if (filters.userId) {
+        filtersList.userId = filters.userId;
+    }
+
+    if (filters.animalId && filters.animalId !== 0) {
+        filtersList.animalId = filters.animalId;
+    }
+
+    if (Number(filters.animalId) === 0) {
+        filtersList.animalId = { [Op.is]: null };
+    }
 
     return filtersList;
 };
