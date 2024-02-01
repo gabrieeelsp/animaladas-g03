@@ -4,6 +4,16 @@ import adoptimg from "../../img/logoanimaladas.png";
 import axios from "axios";
 import validateform from "./validation";
 export default function Addanimal() {
+  const array_img = [];
+  let showlogo = true;
+  const [showimg1, Setshowimg1] = useState(false);
+  const [showimg2, Setshowimg2] = useState(false);
+  const [showimg3, Setshowimg3] = useState(false);
+  const [showimg4, Setshowimg4] = useState(false);
+  const [img1, Setimg1] = useState("");
+  const [img2, Setimg2] = useState("");
+  const [img3, Setimg3] = useState("");
+  const [img4, Setimg4] = useState("");
   const [Url_Imagen, setUrl_Imagen] = useState("");
   const [error, setError] = useState({
     email: "",
@@ -29,8 +39,20 @@ export default function Addanimal() {
     adoption_story: "",
     rescued_story: "",
   });
+  if (
+    showimg1 === true ||
+    showimg2 === true ||
+    showimg3 === true ||
+    showimg4 === true
+  ) {
+    showlogo = false;
+  } else {
+    showlogo = true;
+  }
   //cloud name:dwgufqzjd
   const uploadImage = async (e) => {
+    const file1 = document.getElementById("image1");
+    console.log("valor de file1", e.target.files[0]);
     const file = e.target.files[0];
     const data = new FormData();
     data.append("file", file);
@@ -40,10 +62,27 @@ export default function Addanimal() {
       data
     );
     setUrl_Imagen(response.data.secure_url);
+
     Setdogdata({
       ...dogdata,
       [e.target.name]: response.data.secure_url,
     });
+    if (e.target.name === "image1") {
+      Setimg1(response.data.secure_url);
+      Setshowimg1(true);
+    }
+    if (e.target.name === "image2") {
+      Setimg2(response.data.secure_url);
+      Setshowimg2(true);
+    }
+    if (e.target.name === "image3") {
+      Setimg3(response.data.secure_url);
+      Setshowimg3(true);
+    }
+    if (e.target.name === "image4") {
+      Setimg4(response.data.secure_url);
+      Setshowimg4(true);
+    }
   };
 
   const handlechange = (event) => {
@@ -88,25 +127,110 @@ export default function Addanimal() {
       estimatedBirthYear: "",
       castrated: false,
       disability_illness: false,
-      rescued_story:"",
-      adoption_story:"",
+      rescued_story: "",
+      adoption_story: "",
     });
+    Setimg1("");
+    Setimg2("");
+    Setimg3("");
+    Setimg4("");
+    Setshowimg1(false);
+    Setshowimg2(false);
+    Setshowimg3(false);
+    Setshowimg4(false);
   };
+  const string1 = "hola";
+
   return (
     <div className="container d-flex justify-content-center align-items-center min-vh-100 mb-2 mt-2">
       <form>
         <div className="row  rounded-5 p-3 bg-dark shadow box-area border-primary">
           <div
-            className="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
+            className=" gallery col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
             style={{ background: "#343a40" }}
           >
-            <div className="featured-image mb-3">
-              <img
-                src={adoptimg}
-                className="img-fluid"
-                style={{ width: "250px" }}
-              ></img>
+            {showlogo ? (
+              <div className="featured-image mb-3">
+                <img
+                  src={adoptimg}
+                  className="img-fluid"
+                  style={{ width: "250px" }}
+                ></img>
+              </div>
+            ) : null}
+            <div className="containerlg">
+              <div className="row gy-4 cols-1 ">
+                {showimg1 ? (
+                  <div className="col">
+                    <img
+                      src={img1}
+                      alt=""
+                      className="gallery-item"
+                      style={{
+                        maxWidth: "40vh",
+                        maxHeight: "40vh",
+                        backgroundColor: "white",
+                        padding: "10px",
+                        boxShadow: "0px 0px 15px rgba(0,0,0,1)",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </div>
+                ) : null}
+                {showimg2 ? (
+                  <div className="col">
+                    <img
+                      src={img2}
+                      alt=""
+                      className="gallery-item"
+                      style={{
+                        maxWidth: "40vh",
+                        maxHeight: "40vh",
+                        backgroundColor: "white",
+                        padding: "10px",
+                        boxShadow: "0px 0px 15px rgba(0,0,0,1)",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </div>
+                ) : null}
+                {showimg3 ? (
+                  <div className="col">
+                    <img
+                      src={img3}
+                      alt=""
+                      className="gallery-item"
+                      style={{
+                        maxWidth: "40vh",
+                        maxHeight: "40vh",
+                        backgroundColor: "white",
+                        padding: "10px",
+                        boxShadow: "0px 0px 15px rgba(0,0,0,1)",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </div>
+                ) : null}
+                {showimg4 ? (
+                  <div className="col">
+                    <img
+                      src={img4}
+                      alt=""
+                      className="gallery-item"
+                      style={{
+                        maxWidth: "40vh",
+                        maxHeight: "40vh",
+                        backgroundColor: "white",
+                        padding: "10px",
+                        boxShadow: "0px 0px 15px rgba(0,0,0,1)",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </div>
+                ) : null}
+              </div>
             </div>
+
             <p
               className="text-warning fs-2"
               style={{
@@ -126,6 +250,7 @@ export default function Addanimal() {
               "Mi raza favorita es adoptado"
             </small>
           </div>
+
           <div className="col-md-6 right-box">
             <div className="row align-items-center">
               <div className="header-tex text-warning mb4">
@@ -133,7 +258,10 @@ export default function Addanimal() {
                 <p>Subir una mascota para adopción</p>
               </div>
               {error.showerror ? (
-                <div className="input-group mb-1 alert alert-warning" role="alert">
+                <div
+                  className="input-group mb-1 alert alert-warning"
+                  role="alert"
+                >
                   {error.number_required}
                   {error.priority_filds}
                   {error.email}
@@ -251,7 +379,7 @@ export default function Addanimal() {
                 <input
                   className="form-control"
                   type="file"
-                  id="formFile"
+                  id="image1"
                   onChange={uploadImage}
                   name="image1"
                 ></input>
@@ -360,3 +488,13 @@ export default function Addanimal() {
 }
 
 /*terminado*/
+/*
+            <div className="featured-image mb-3">
+              <img
+                src="https://res.cloudinary.com/dwgufqzjd/image/upload/v1706718185/Proyecto_animaladas/asiduyraib7esnvk0uza.png"
+                className="img-fluid"
+                style={{ width: "250px" }}
+              ></img>
+            </div>
+
+            */
