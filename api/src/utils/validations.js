@@ -1,4 +1,28 @@
 const { sizeList, statusList, speciesList, genderList } = require('.');
+const { User, Animal } = require('../db');
+
+const validateUserId = async (userId) => {
+    const user = await User.findByPk(userId);
+    if (!user) return 'El usuario no existe en la base de datos';
+
+    return null;
+};
+
+const validateAnimalId = async (animalId) => {
+    const animal = await Animal.findByPk(animalId);
+    if (!animal) return 'El animal no existe en la base de datos';
+
+    return null;
+};
+
+const validateAmount = (amount) => {
+    if (!amount) return 'El campo amount no puede estar vacío.';
+
+    if (Number.isNaN(amount)) return 'Debe ingresar un número.';
+
+    if (Number(amount <= 0)) return 'De ser un valor mayor que 0';
+    return null;
+};
 
 const validateName = (name) => {
     if (!name) return 'El nombre no puede estar vacío';
@@ -53,6 +77,10 @@ module.exports = {
     validateSize,
     validateWeight,
     validateGender,
+
+    validateUserId,
+    validateAnimalId,
+    validateAmount,
 };
 
 //terminado
