@@ -55,6 +55,9 @@ AdoptionHistory.belongsTo(User);
 User.hasMany(Donation);
 Donation.belongsTo(User);
 
+Animal.hasMany(Donation);
+Donation.belongsTo(Animal);
+
 Animal.hasMany(AdoptionHistory);
 AdoptionHistory.belongsTo(Animal);
 
