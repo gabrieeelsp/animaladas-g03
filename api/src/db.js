@@ -1,4 +1,7 @@
-require('dotenv').config();
+if (!process.env.ENV || process.env.ENV === 'node') {
+    // eslint-disable-next-line global-require
+    require('dotenv').config();
+}
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
