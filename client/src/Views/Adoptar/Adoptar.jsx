@@ -38,9 +38,9 @@ export default function Adoptar() {
       dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, event.target.value, 1, 4, orderByValue, orderDirValue));
   }
 
-  const [name, setName] = useState('');
   useEffect(() => {
     const timeoutId = setTimeout(() => {
+      dispatch(clearAll());
       dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, castratedValue, 1, 4, '', ''));  
       setLoading(false);
     }, 2000);

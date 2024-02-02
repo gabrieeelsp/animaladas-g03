@@ -12,10 +12,10 @@ export default function Nav() {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100 fixed-top">
         <div className="container-fluid">
           <NavLink to="/">
-            <span className="navbar-brand text-warning" href="#">
+            <span className="navbar-brand text-warning mx-3">
               <i className="bi-house-door-fill"></i>
             </span>
           </NavLink>
@@ -35,7 +35,7 @@ export default function Nav() {
               <li className="nav-item">
                 <NavLink to="/rescatados">
                   <button
-                    className="btn btn-outline-warning p-1 mx-1"
+                    className="btn btn-outline-warning p-1 mx-3"
                     type="button"
                   >
                     Rescatados
@@ -45,7 +45,7 @@ export default function Nav() {
               <li className="nav-item">
                 <NavLink to="/adoptar">
                   <button
-                    className="btn btn-outline-warning p-1 mx-1"
+                    className="btn btn-outline-warning p-1 mx-3"
                     type="button"
                   >
                     Adoptar
@@ -55,7 +55,7 @@ export default function Nav() {
               <li className="nav-item">
                 <NavLink to="/adoptados">
                   <button
-                    className="btn btn-outline-warning p-1 mx-1"
+                    className="btn btn-outline-warning p-1 mx-3"
                     type="button"
                   >
                     Adoptados
@@ -65,7 +65,7 @@ export default function Nav() {
               <li className="nav-item">
                 <NavLink to="/contacto">
                   <button
-                    className="btn btn-outline-warning p-1 mx-1"
+                    className="btn btn-outline-warning p-1 mx-3"
                     type="button"
                   >
                     Contacto
@@ -75,7 +75,7 @@ export default function Nav() {
               <li className="nav-item">
                 <NavLink to="/add">
                   <button
-                    className="btn btn-outline-warning p-1 mx-1"
+                    className="btn btn-outline-warning p-1 mx-3"
                     type="button"
                   >
                     Agregar mascota
@@ -85,7 +85,7 @@ export default function Nav() {
               <li className="nav-item">
                 <NavLink to="/donar">
                   <button
-                    className="btn btn-outline-warning p-1 mx-1"
+                    className="btn btn-outline-warning p-1 mx-3"
                     type="button"
                   >
                     Aportar
@@ -96,14 +96,14 @@ export default function Nav() {
             <SearchBar />
             <NavLink to="/login">
               <button
-                className="btn btn-outline-warning p-1 mx-1"
+                className="btn btn-outline-warning p-1 mx-3"
                 type="button"
                 id="login"
               >
                 <i className="bi bi-person"></i>
                 <span
                   className="texto_responsive"
-                  data-phonetext=" Mi cuenta"
+                  data-phonetext="Mi cuenta"
                 > Iniciar sesión</span>
               </button>
             </NavLink>
