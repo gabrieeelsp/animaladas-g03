@@ -9,6 +9,7 @@ const userModel = require('./models/User');
 const animalModel = require('./models/Animal');
 const adoptionHistoryModel = require('./models/AdoptionHistory');
 const donationModel = require('./models/Donation');
+const { Console } = require('console');
 
 const { DB_USER, DB_PASSWORD, DB_NAME, DB_HOST } = process.env;
 
