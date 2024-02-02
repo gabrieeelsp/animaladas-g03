@@ -14,7 +14,6 @@ export default function Searchbar() {
   
   
   const location = useLocation();
-  const [name, setName] = useState("");
   const nameValue = useSelector((state) => state.searchBarValue)
   const dispatch = useDispatch();
 

@@ -14,7 +14,7 @@ export default function CardR(props) {
             alt="..."
           />
           <div className="card-body">
-            <h5 className="card-title">{name}</h5>
+            <h5 className="card-title">{name.split(" ", 1)}</h5>
             <p className="card-text">
               {rescued_story ? rescued_story: "Ejemplo de Historia de rescatos" }
             </p>
