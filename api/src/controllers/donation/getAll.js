@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { Donation, User, Animal } = require('../../db');
+const { Donation } = require('../../db');
 
 const getFiltersList = (filters) => {
     const filtersList = {};
@@ -58,7 +58,7 @@ module.exports = async (filters, limit, page = 1) => {
     if (!limit) {
         const { count, rows } = await Donation.findAndCountAll({
             where: getFiltersList(filters),
-            include: [{ model: User }, { model: Animal }],
+            include: ['user', 'animal'],
             order: getOrderList(filters),
         });
         cantidad = count;
@@ -66,7 +66,7 @@ module.exports = async (filters, limit, page = 1) => {
     } else {
         const { count, rows } = await Donation.findAndCountAll({
             where: getFiltersList(filters),
-            include: [{ model: User }, { model: Animal }],
+            include: ['user', 'animal'],
             order: getOrderList(filters),
             offset: getOffset(limit, page),
             limit,

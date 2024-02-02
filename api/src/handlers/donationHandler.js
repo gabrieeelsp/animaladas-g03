@@ -41,7 +41,8 @@ const createHandler = async (req, res) => {
         const item = await create(userId, amount, animalId);
         return res.status(200).json(item);
     } catch (error) {
-        res.status(500).json('Error al crear Donación');
+        // res.status(500).json('Error al crear Donación');
+        res.status(500).json(error.message);
     }
 };
 
