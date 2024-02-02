@@ -3,8 +3,6 @@
 const { MercadoPagoConfig, Preference } = require('mercadopago');
 
 const crearPreferencia = async (req, res) => {
-    console.log('Contenido de req.body.items:', req.body);
-    const { items } = req.body.body;
     try {
         const client = new MercadoPagoConfig({
             accessToken:
@@ -17,40 +15,28 @@ const crearPreferencia = async (req, res) => {
             body: {
                 items: [
                     {
-                        title: items[0].title,
-                        quantity: Number(items[0].quantity),
-                        unit_price: Number(items[0].unit_price),
-                        currency_id: items[0].currency_id,
+                        title: req.body.title,
+                        quantity: req.body.quantity,
+                        unit_price: req.body.unit_price,
+                        id: req.body.id,
+                        total_amount: req.body.total_amount,
                     },
                 ],
 
                 payer: {
-                    name: 'João',
-                    surname: 'Silva',
-                    email: 'user@email.com',
-                    phone: {
-                        area_code: '11',
-                        number: '4444-4444',
-                    },
-                    identification: {
-                        type: 'CPF',
-                        number: '19119119100',
-                    },
-                    address: {
-                        street_name: 'Street',
-                        street_number: 123,
-                        zip_code: '06233200',
-                    },
+                    name: req.body.name,
+                    surname: req.body.surname,
+                    email: req.body.email,
+                    client_id: req.body.client_id,
                 },
                 back_urls: {
-                    success: 'http://localhost:3000',
-                    failure: 'http://localhost:3000',
-                    pending: 'http://localhost:3000',
+                    success: 'https://www.success.com',
+                    failure: 'https://www.failure.com',
+                    pending: 'https://www.pending.com',
                 },
                 auto_return: 'approved',
             },
         });
-        console.log(response);
         const responseData = {
             id: response.id,
             total_amount: response.total_amount,
@@ -62,6 +48,7 @@ const crearPreferencia = async (req, res) => {
         };
 
         res.json({ responseData });
+        console.log(req.body.quantity);
     } catch (error) {
         console.error(error);
         if (
