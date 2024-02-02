@@ -4,7 +4,10 @@ import logo from "../../img/logoanimaladas.png";
 import logo_google from "../../img/logo_google.png";
 import axios from "axios";
 import validateform from "./validation_user";
+import { useRef } from "react";
+import emailjs from "@emailjs/browser";
 export default function Register() {
+  const form = useRef();
   const [error, Seterror] = useState({
     email: "",
     priority_filds: "",
@@ -38,9 +41,16 @@ export default function Register() {
   };
   const handlechange = (event) => {
     let value = event.target.value;
+    let valuename = event.target.name;
+    if (event.target.name === "user_name") {
+      valuename = "name";
+    }
+    if (event.target.name === "user_email") {
+      valuename = "email";
+    }
     Setuserdata({
       ...userdata,
-      [event.target.name]: value,
+      [valuename]: value,
     });
     let validate = validateform(userdata);
     Seterror({
@@ -52,11 +62,25 @@ export default function Register() {
     });
   };
   const register_user = (event) => {
-    const [data] = axios.post(
-      "http://localhost:3001/user/createUser",
-      userdata
-    );
+    event.preventDefault();
+    axios.post("http://localhost:3001/user/createUser", userdata);
+    emailjs
+      .sendForm(
+        "service_lfwvijk",
+        "template_bg3fyqz",
+        form.current,
+        "iOYw55Pr2RskRgQZ8"
+      )
+      .then(
+        (result) => {
+          console.log("resultado exitoso", result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
     alert("Usuario registrado!");
+
     Setuserdata({
       name: "",
       lastName: "",
@@ -69,7 +93,7 @@ export default function Register() {
   };
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
-      <form>
+      <form onSubmit={register_user}>
         <div
           className="bg-dark p-5 rounded-5 shadow"
           style={{ width: "25rem" }}
@@ -89,18 +113,32 @@ export default function Register() {
               {error.email}
             </div>
           ) : null}
-          <div className="input-group mt-4">
-            <div className="input-group-text bg-warning text-white">
-              <i className="bi bi-person-fill-add"></i>
+          <form ref={form}>
+            <div className="input-group mt-4">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-person-fill-add"></i>
+              </div>
+              <input
+                className="form-control bg-light"
+                type="text"
+                placeholder="Nombre*"
+                name="user_name"
+                onChange={(e) => handlechange(e)}
+              />
             </div>
-            <input
-              className="form-control bg-light"
-              type="text"
-              placeholder="Nombre*"
-              name="name"
-              onChange={(e) => handlechange(e)}
-            />
-          </div>
+            <div className="input-group mt-1">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-envelope-at"></i>
+              </div>
+              <input
+                className="form-control bg-light"
+                type="email"
+                placeholder="Correo Eletronico*"
+                name="user_email"
+                onChange={(e) => handlechange(e)}
+              />
+            </div>
+          </form>
           <div className="input-group mt-1">
             <div className="input-group-text bg-warning text-white">
               <i className="bi bi-person-fill-add"></i>
@@ -139,18 +177,6 @@ export default function Register() {
           </div>
           <div className="input-group mt-1">
             <div className="input-group-text bg-warning text-white">
-              <i className="bi bi-envelope-at"></i>
-            </div>
-            <input
-              className="form-control bg-light"
-              type="email"
-              placeholder="Correo Eletronico*"
-              name="email"
-              onChange={(e) => handlechange(e)}
-            />
-          </div>
-          <div className="input-group mt-1">
-            <div className="input-group-text bg-warning text-white">
               <i className="bi bi-lock"></i>
             </div>
             <input
@@ -173,12 +199,12 @@ export default function Register() {
               name="imageProfile"
             ></input>
           </div>
-          <div
+          <button
             className="btn text-white w-100 mt-4 fw-bold shadow-sm bg-warning"
-            onClick={(e) => register_user(e)}
+            onSubmit={(e) => register_user(e)}
           >
             Create Account
-          </div>
+          </button>
 
           <div className="d-flex gap-1 justify-content-center text-warning mt-1">
             <div>You have an account?</div>
