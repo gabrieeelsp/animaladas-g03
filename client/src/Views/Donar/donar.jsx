@@ -19,7 +19,8 @@ const Donar = () => {
 
   const createPreference = async (amount, userDetails) => {
     try {
-      const response = await axios.post('http://localhost:3001/mercadopago/crear-preferencia', {
+      // const response = await axios.post('http://localhost:3001/mercadopago/crear-preferencia', {
+        const response = await axios.post('https://animaladas.backhub.net.ar/mercadopago/crear-preferencia', {
         title: `Donación por $ ${amount}`,
         quantity: 1,
         unit_price: amount,
