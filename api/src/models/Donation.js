@@ -4,31 +4,19 @@ module.exports = (sequelize) => {
     sequelize.define('donation', {
         id: {
             type: DataTypes.INTEGER,
-            allowNull: false,
             primaryKey: true,
             autoIncrement: true,
         },
-        date: {
-            type: DataTypes.DATE,
+        amount: {
+            type: DataTypes.DOUBLE,
             allowNull: false,
         },
-        amount: {
-            type: DataTypes.FLOAT(2),
-            allowNull: true,
-            defaultValue: '0',
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
         },
-        destination: {
-            type: DataTypes.ARRAY(DataTypes.JSON),
-            defaultValue: [
-                {
-                    Foundation: false,
-                    AnimalFk: null,
-                },
-            ],
-        },
-        comment: {
-            type: DataTypes.TEXT,
-            allowNull: true,
+        animalId: {
+            type: DataTypes.INTEGER,
         },
     });
 };
