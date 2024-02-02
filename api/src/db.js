@@ -55,11 +55,17 @@ const { User, Animal, Donation, AdoptionHistory } = sequelize.models;
 User.hasMany(AdoptionHistory);
 AdoptionHistory.belongsTo(User);
 
-User.hasMany(Donation);
-Donation.belongsTo(User);
+User.hasMany(Donation, { as: 'donations', foreignKey: 'userId' });
+Donation.belongsTo(User, { foreignKey: 'userId' });
 
-Animal.hasMany(Donation);
-Donation.belongsTo(Animal);
+Animal.hasMany(Donation, {
+    foreignKey: 'animalId',
+    as: 'donations',
+});
+Donation.belongsTo(Animal, {
+    foreignKey: 'animalId',
+    as: 'animal',
+});
 
 Animal.hasMany(AdoptionHistory);
 AdoptionHistory.belongsTo(Animal);

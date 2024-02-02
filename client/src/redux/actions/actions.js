@@ -2,6 +2,8 @@ import { LOAD_ANIMALS,  UPDATE_PAGINATION,  ANIMAL_BY_ID,  CLEAR_ALL,  ORDER_BY_
   
 import axios from 'axios';
 
+const urlBaseAxios = 'http://localhost:3001';
+
 export const set_searchbar_value = (value) => {
   return (dispatch) => {
     dispatch({
@@ -101,7 +103,7 @@ export const loadAnimals = (
       orderdir: orderDir,
     })
 
-   const response = await axios.get(`http://localhost:3001/animal/getanimals`, {
+   const response = await axios.get(`${urlBaseAxios}/animal/getanimals`, {
         params: {
           name, 
           status,
@@ -141,7 +143,7 @@ export const loadAnimals = (
 export const loadAdopted = (status, page = 1, animalsPerPage = 4) => {
   return async (dispatch) => {
     try {
-const response = await axios.get(`http://localhost:3001/animal/getanimals?status=${status}&page=${page}&limit=${animalsPerPage}`);
+const response = await axios.get(`${urlBaseAxios}/animal/getanimals?status=${status}&page=${page}&limit=${animalsPerPage}`);
       const data = response.data;
 
       // Despacha la acción para cargar los animales
@@ -166,7 +168,7 @@ const response = await axios.get(`http://localhost:3001/animal/getanimals?status
 
 export const animalById = (id) => {
   return async (dispatch) => {
-    const response = await axios.get(`http://localhost:3001/animal/animals${id}`);
+    const response = await axios.get(`${urlBaseAxios}/animal/animals${id}`);
     dispatch({
       type: ANIMAL_BY_ID,
       payload: response.data,

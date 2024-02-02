@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,20 +19,21 @@ const Donar = () => {
 
   const createPreference = async (amount, userDetails) => {
     try {
-      const response = await axios.post('http://localhost:3001/api/crear-preferencia', {
-        title: "Donar",
+      const response = await axios.post('http://localhost:3001/mercadopago/crear-preferencia', {
+        title: `Donación por $ ${amount}`,
         quantity: 1,
         unit_price: amount,
         id: userDetails.id,
         total_amount: userDetails.total_amount,
         name: userDetails.name,
         surname: userDetails.surname,
-        identification: userDetails.identification,
+        // identification: userDetails.identification,
         email: userDetails.email,
         client_id: userDetails.client_id,
       });
-  
-      const { id } = response.data;
+      console.log("Respuesta de createPreference:", response.data);
+      const { id } = response.data.responseData;
+      console.log(id);
       return id;
     } catch (error) {
       console.error("Error al enviar la solicitud:", error)
@@ -43,18 +44,20 @@ const Donar = () => {
   const handleDonarClick = async (amount) => {
     const userDetails = {
       id: 1,
-      total_amount: 100,
+      total_amount: {amount},
       name: "Nombre",
       surname: "Apellido",
       identification: "12345678",
       email: "correo@ejemplo.com",
       client_id: "cliente123",
     };
-  
+    
     try {
+      
       const id = await createPreference(amount, userDetails);
+      console.log("ID de preferencia obtenida:", id);
       if (id) {
-        console.log("ID de preferencia obtenida:", id);
+        
         setPreferenceId(id);
       }
     } catch (error) {
@@ -152,7 +155,7 @@ const Donar = () => {
                   </button>
                 </a>
 
-        <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts: { valueProp: 'smart_option' } }} />
+         {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts: { valueProp: 'smart_option' } }} />}
 
                 <div className="gratitude-message mt-4">
                   <p>
