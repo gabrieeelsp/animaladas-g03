@@ -3,7 +3,7 @@ import { LOAD_ANIMALS,  UPDATE_PAGINATION,  ANIMAL_BY_ID,  CLEAR_ALL,  ORDER_BY_
 import axios from 'axios';
 
 // const urlBaseAxios = 'http://localhost:3001';
-const urlBaseAxios = 'https://animaladas.backhub.net.ar/';
+const urlBaseAxios = 'https://animaladas.backhub.net.ar';
 
 export const set_searchbar_value = (value) => {
   return (dispatch) => {
