@@ -88,6 +88,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
      case CLEAR_ALL: {
       return {
             ...state,
+            searchBarValue: '',
             allAnimals: [],
             animalById: [],
           }
