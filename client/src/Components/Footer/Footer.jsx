@@ -9,7 +9,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="container-fluid bg-dark text-white p-4 mt-5">
+    <footer className="container-fluid bg-dark align-items-center justify-content-center p-1 mt-2 fixed-bottom">
       <div className="row">
         <div className="col-md-6">
           <h5 className="text-warning">Redes Sociales</h5>
@@ -23,17 +23,16 @@ export default function Footer() {
             <i className="fab fa-instagram"></i> Instagram
           </a>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 align-items-center justify-content-center mt-2">
           <span className="text-warning">
             Adoptá, castrá, educá, concientizá.
           </span>
           <p className="text-warning">
             Adoptando cambias su vida y la tuya 🧡🐶🐱
           </p>
-          <span className="text-warning">SALTA-ARG</span>
         </div>
       </div>
-      <div className="text-center mt-3" style={{ color: "#fff" }}>
+      <div className="text-center text-white mt-0">
         <p>
           &copy; 2024 Animaladas. Todos los derechos reservados.
         </p>
