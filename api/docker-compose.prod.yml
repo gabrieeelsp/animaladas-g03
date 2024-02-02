@@ -1,6 +1,6 @@
 services:
     app:
-        build: 
+        build:
             dockerfile: Dockerfile.prod
         image: animaladas-app_prod
         ports:
@@ -19,12 +19,12 @@ services:
                 condition: service_healthy
         networks:
             example_network_prod:
-    
+
     db:
         #container_name: db
         image: postgres:16.1-bullseye
         healthcheck:
-            test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+            test: ['CMD-SHELL', 'pg_isready -U ${DB_USER} -d ${DB_NAME}']
             interval: 10s
             timeout: 5s
             retries: 5
@@ -38,7 +38,7 @@ services:
             - ./data_prod:/var/lib/postgresql/data
         networks:
             example_network_prod:
-  
+
     pgadmin:
         image: dpage/pgadmin4
         environment:
@@ -53,8 +53,9 @@ services:
             - pgadmin-data_prod:/var/lib/pgadmin
         networks:
             example_network_prod:
+
 volumes:
     pgadmin-data_prod:
-    
+
 networks:
     example_network_prod:
