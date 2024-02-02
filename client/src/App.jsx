@@ -13,7 +13,6 @@ import Footer from "./Components/Footer/Footer";
 import Requisitos from "./Views/Requisitos/Requisitos";
 import Donar from "./Views/Donar/donar";
 import Addanimal from "./Views/Add-animal/Add-animal";
-
 function App() {
   return (
     <div className="App">
@@ -30,7 +29,6 @@ function App() {
         <Route path="/add" element={<Addanimal />}></Route>
         <Route path="/requisitos" element={<Requisitos />}></Route>
         <Route path="/donar" element={<Donar />}></Route>
-      
       </Routes>
       <Footer />
     </div>
