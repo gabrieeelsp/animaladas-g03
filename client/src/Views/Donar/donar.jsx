@@ -71,8 +71,8 @@ const Donar = () => {
 
   return (
     <div className="container donar-container">
-      <div className="row mt-4">
-        <div className="col-md-6 mb-4 mt-5">
+      <div className="row mt-3">
+        <div className="col-md-6 mb-4 mt-0">
           <img
             src="https://img.freepik.com/fotos-premium/perro-gato-sobre-fondo-amarillo_875722-12107.jpg?w=740"
             className="img-fluid rounded"
