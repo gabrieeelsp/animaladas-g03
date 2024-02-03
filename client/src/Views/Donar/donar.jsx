@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -5,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import "./Donar.css";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
+
 
 library.add(faPaw);
 
@@ -14,14 +16,15 @@ const Donar = () => {
   const [customAmount, setCustomAmount] = useState("");
 
   useEffect(() => {
-    initMercadoPago("TEST-bcede1c4-b735-45f5-8ef1-0866cc790bc4", { locale: "es-AR" });
+    
+    initMercadoPago('APP_USR-9d5c0baf-712b-4827-bac3-0bb21186a695', { locale: "es-AR" });
     console.log("MercadoPago inicializado correctamente.");
   }, []);
 
   const createPreference = async (amount, userDetails) => {
     try {
       const response = await axios.post("http://localhost:3001/mercadopago/crear-preferencia", {
-        title: `Donación por $ ${amount}`,
+        title: 'Donación',
         quantity: 1,
         unit_price: amount,
         id: userDetails.id,
