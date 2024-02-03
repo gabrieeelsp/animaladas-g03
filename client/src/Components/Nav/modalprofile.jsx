@@ -1,17 +1,25 @@
 import React from "react";
 import "./modalprofile.css";
 
-export default function Modalprofile() {
+export default function Modalprofile({ children, modalstate, setmodalstate }) {
   return (
-    <div className="overlay">
-      <div className="Containermodal">
-        <div className="headermodal">
-          <h3>Titutlo</h3>
+    <>
+      {modalstate && (
+        <div className="overlay">
+          <div className="Containermodal">
+            <div className="headermodal">
+              <h3>EDITAR PERFIL</h3>
+            </div>
+            <button
+              className="buttonclose"
+              onClick={(e) => setmodalstate(false)}
+            >
+              <i class="bi bi-x-lg"></i>
+            </button>
+            {children}
+          </div>
         </div>
-        <button className="buttonclose">
-          <i class="bi bi-x-lg"></i>
-        </button>
-      </div>
-    </div>
+      )}
+    </>
   );
 }

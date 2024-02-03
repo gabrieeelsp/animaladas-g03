@@ -2,9 +2,16 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../img/logoanimaladas.png";
 import logo_google from "../../img/logo_google.png";
+import axios, { Axios } from "axios";
 
 export default function Login() {
-  const login_user = (e) => {};
+  const login_user = (e) => {
+    const response = axios.post(
+      "http://localhost:3001/user/createUser",
+      userdata
+    );
+    console.log("esta es la respuesta del post", response.data);
+  };
   return (
     <div className="d-flex justify-content-center align-items-center text-warning vh-100">
       <form>

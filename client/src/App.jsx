@@ -13,6 +13,7 @@ import Footer from "./Components/Footer/Footer";
 import Requisitos from "./Views/Requisitos/Requisitos";
 import Donar from "./Views/Donar/donar";
 import Addanimal from "./Views/Add-animal/Add-animal";
+import Verify_user from "./Views/VerifyUser/Verify_user";
 function App() {
   return (
     <div className="App">
@@ -29,6 +30,7 @@ function App() {
         <Route path="/add" element={<Addanimal />}></Route>
         <Route path="/requisitos" element={<Requisitos />}></Route>
         <Route path="/donar" element={<Donar />}></Route>
+        <Route path="/verifyUser/:infoUser" element={<Verify_user />}></Route>
       </Routes>
       <Footer />
     </div>

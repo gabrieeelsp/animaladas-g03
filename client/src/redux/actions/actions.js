@@ -1,8 +1,22 @@
-import { LOAD_ANIMALS,  UPDATE_PAGINATION,  ANIMAL_BY_ID,  CLEAR_ALL,  ORDER_BY_AGE,  ORDER_BY_NAME, SET_SEARCHBAR_VALUE, SET_ORDERBY_VALUE, SET_ORDERDIR_VALUE, SET_SIZE_VALUE, SET_SPECIES_VALUE, SET_CASTRATED_VALUE } from "./types";
-  
-import axios from 'axios';
+import {
+  LOAD_ANIMALS,
+  UPDATE_PAGINATION,
+  ANIMAL_BY_ID,
+  CLEAR_ALL,
+  ORDER_BY_AGE,
+  ORDER_BY_NAME,
+  SET_SEARCHBAR_VALUE,
+  SET_ORDERBY_VALUE,
+  SET_ORDERDIR_VALUE,
+  SET_SIZE_VALUE,
+  SET_SPECIES_VALUE,
+  SET_CASTRATED_VALUE,
+  USER_INFO,
+} from "./types";
 
-const urlBaseAxios = 'http://localhost:3001';
+import axios from "axios";
+
+const urlBaseAxios = "http://localhost:3001";
 
 export const set_searchbar_value = (value) => {
   return (dispatch) => {
@@ -59,7 +73,7 @@ export const set_castrated_value = (value) => {
 };
 
 export const loadAnimals = (
-  name, 
+  name,
   status,
   size,
   species,
@@ -67,45 +81,44 @@ export const loadAnimals = (
   page = 1,
   animalsPerPage = 4,
   orderBy = null,
-  orderDir = 'ASC') => {
-
+  orderDir = "ASC"
+) => {
   return async (dispatch) => {
     try {
+      const sizeValue = size === "Todos" ? "" : size;
 
-      const sizeValue = size === 'Todos' ? '' : size;
+      const speciesValue = species === "Todos" ? "" : species;
 
-      const speciesValue = species === 'Todos' ? '' : species;
-      
       let castradoValue = null;
       switch (castrado) {
-        case 'Todos': {
-          castradoValue = '';
+        case "Todos": {
+          castradoValue = "";
           break;
         }
-        case 'Si': {
+        case "Si": {
           castradoValue = true;
           break;
         }
-        case 'No': {
+        case "No": {
           castradoValue = false;
           break;
         }
       }
-    console.log({
-      name, 
-      status,
-      size: sizeValue,
-      species: speciesValue,
-      castrated: castradoValue,
-      page,
-      limit: animalsPerPage,
-      orderby: orderBy,
-      orderdir: orderDir,
-    })
+      console.log({
+        name,
+        status,
+        size: sizeValue,
+        species: speciesValue,
+        castrated: castradoValue,
+        page,
+        limit: animalsPerPage,
+        orderby: orderBy,
+        orderdir: orderDir,
+      });
 
-   const response = await axios.get(`${urlBaseAxios}/animal/getanimals`, {
+      const response = await axios.get(`${urlBaseAxios}/animal/getanimals`, {
         params: {
-          name, 
+          name,
           status,
           size: sizeValue,
           species: speciesValue,
@@ -128,22 +141,23 @@ export const loadAnimals = (
         },
       });
 
-            // Despacha la acción para actualizar la paginación
-            dispatch({
-              type: UPDATE_PAGINATION,
-              payload: data.pagination,
-            });
-          } catch (error) {
-            console.error("Error al cargar los animales:", error);
-          }
-        };
-      };
-
+      // Despacha la acción para actualizar la paginación
+      dispatch({
+        type: UPDATE_PAGINATION,
+        payload: data.pagination,
+      });
+    } catch (error) {
+      console.error("Error al cargar los animales:", error);
+    }
+  };
+};
 
 export const loadAdopted = (status, page = 1, animalsPerPage = 4) => {
   return async (dispatch) => {
     try {
-const response = await axios.get(`${urlBaseAxios}/animal/getanimals?status=${status}&page=${page}&limit=${animalsPerPage}`);
+      const response = await axios.get(
+        `${urlBaseAxios}/animal/getanimals?status=${status}&page=${page}&limit=${animalsPerPage}`
+      );
       const data = response.data;
 
       // Despacha la acción para cargar los animales
@@ -173,8 +187,8 @@ export const animalById = (id) => {
       type: ANIMAL_BY_ID,
       payload: response.data,
     });
+  };
 };
-}
 
 export const clearAll = () => {
   return (dispatch) => {
@@ -195,5 +209,12 @@ export const orderByAge = (order) => {
   return {
     type: ORDER_BY_AGE,
     payload: order,
+  };
+};
+
+export const set_userinfo = (data) => {
+  return {
+    type: USER_INFO,
+    payload: data,
   };
 };

@@ -8,6 +8,7 @@ import Modalprofile from "./modalprofile";
 export default function Nav() {
   const location = useLocation();
   const [showprofile, Setshowprofile] = useState(false);
+  const [showmodalprofile, Setshowmodalprofile] = useState(false);
   if (location.pathname === "/login" || location.pathname === "/register") {
     return null;
   }
@@ -126,7 +127,11 @@ export default function Nav() {
                     }}
                   ></hr>
 
-                  <a href="#" className="sub-menu-link">
+                  <a
+                    href="#"
+                    className="sub-menu-link"
+                    onClick={(e) => Setshowmodalprofile(!showmodalprofile)}
+                  >
                     <i className="bi bi-person-lines-fill"></i>
                     <p>Editar Perfil</p>
                     <span>{">"}</span>
@@ -152,7 +157,94 @@ export default function Nav() {
               </div>
             ) : null}
           </div>
-          <Modalprofile></Modalprofile>
+          <Modalprofile
+            modalstate={showmodalprofile}
+            setmodalstate={Setshowmodalprofile}
+          >
+            <div className="input-group mt-4">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-person-fill-add"></i>
+              </div>
+              <input
+                className="form-control bg-light"
+                type="text"
+                placeholder="Nombre*"
+                name="user_name"
+                value="Fabio"
+                onChange={(e) => handlechange(e)}
+              />
+            </div>
+            <div className="input-group mt-1">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-envelope-at"></i>
+              </div>
+              <input
+                className="form-control bg-light"
+                type="email"
+                placeholder="Correo Eletronico*"
+                name="user_email"
+                value="fagarces@gmail.com"
+                onChange={(e) => handlechange(e)}
+              />
+            </div>
+            <div className="input-group mt-1">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-person-fill-add"></i>
+              </div>
+              <input
+                className="form-control bg-light"
+                type="text"
+                placeholder="Apellido*"
+                name="lastName"
+                value="Garces"
+                onChange={(e) => handlechange(e)}
+              />
+            </div>
+            <div className="input-group mt-1">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-telephone"></i>
+              </div>
+              <input
+                className="form-control bg-light"
+                type="text"
+                placeholder="Numero de contacto*"
+                name="phone"
+                value="3318476"
+                onChange={(e) => handlechange(e)}
+              />
+            </div>
+            <div className="input-group mt-1">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-geo-alt-fill"></i>
+              </div>
+              <input
+                className="form-control bg-light"
+                type="text"
+                placeholder="Direccion*"
+                name="address"
+                value="Calle 65 #17-42"
+                onChange={(e) => handlechange(e)}
+              />
+            </div>
+            <div className="input-group mt-1">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-lock"></i>
+              </div>
+              <input
+                className="form-control bg-light"
+                type="password"
+                placeholder="Password"
+                name="password"
+                onChange={(e) => handlechange(e)}
+              />
+            </div>
+            <button
+              className="btn text-white w-100 mt-4 fw-bold shadow-sm bg-warning"
+              onSubmit={(e) => register_user(e)}
+            >
+              Actualizar
+            </button>
+          </Modalprofile>
         </div>
       </nav>
     </div>
