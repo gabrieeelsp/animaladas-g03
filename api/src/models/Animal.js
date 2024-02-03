@@ -78,6 +78,10 @@ module.exports = (sequelize) => {
                 type: DataTypes.TEXT,
                 default: '',
             },
+            enabled: {
+                type: DataTypes.BOOLEAN,
+                default: false,
+            },
             age: {
                 type: DataTypes.INTEGER,
                 get() {
