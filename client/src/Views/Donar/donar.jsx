@@ -70,47 +70,50 @@ const Donar = () => {
   };
 
   return (
-    <div className="container donar-container">
-      <div className="row mt-3">
-        <div className="col-md-6 mb-4 mt-0">
+    <div className="container donar-container align-items-center justify-content-center">
+      <div className="row mt-4">
+        <div className="col-md-6 mb-3 mt-2">
           <img
             src="https://img.freepik.com/fotos-premium/perro-gato-sobre-fondo-amarillo_875722-12107.jpg?w=740"
             className="img-fluid rounded"
-            style={{ border: "2px solid #ffc107", height: "100%" }}
+            style={{ border: "2px solid #ffc107", height: "390px" }}
             alt="Animales"
           />
         </div>
 
-        <div className="col-md-6 mb-4 mt-5">
+        <div className="col-md-6 mb-4 mt-3  align-items-center justify-content-center">
           <div className="card h-100 donar-custom-card home-card">
             <div className="card-donar-body d-flex flex-column align-items-center">
-              <h2 className="text-warning  mt-3 mb-4">
+              <h2 className="text-warning  mt-4 mb-5">
                 ¿Cuánto quieres aportar?
               </h2>
 
               <div className="donar-options d-flex flex-wrap justify-content-center">
-                <button
-                  className="btn btn-warning donar-custom-button home-button"
-                  onClick={() => handleDonarClick(1000)}
-                >
-                  Aportar $1000
-                </button>
+                <div className="donar-button-group">
+                  <button
+                    className="btn btn-warning donar-custom-button home-button"
+                    onClick={() => handleDonarClick(1000)}
+                  >
+                    Aportar $1000
+                  </button>
 
-                <button
-                  className="btn btn-warning donar-custom-button-transparent home-button"
-                  onClick={() => handleDonarClick(1500)}
-                >
-                  Aportar $1500
-                </button>
+                  <button
+                    className="btn btn-warning donar-custom-button-transparent home-button"
+                    onClick={() => handleDonarClick(1500)}
+                  >
+                    Aportar $1500
+                  </button>
 
-                <button
-                  className="btn btn-warning donar-custom-button home-button"
-                  onClick={() => handleDonarClick(2000)}
-                >
-                  Aportar $2000
-                </button>
+                  <button
+                    className="btn btn-warning donar-custom-button home-button"
+                    onClick={() => handleDonarClick(2000)}
+                  >
+                    Aportar $2000
+                  </button>
+                </div>
 
-                <button
+                <div className="donar-button-group">
+                   <button
                   className="btn btn-warning donar-custom-button-transparent home-button"
                   onClick={() => handleDonarClick(2500)}
                 >
@@ -130,7 +133,9 @@ const Donar = () => {
                 >
                   Aportar $3500
                 </button>
+                </div>
 
+                <div className="donar-button-group">
                 <button
                   className="btn btn-warning donar-custom-button home-button"
                   onClick={() => handleDonarClick(4000)}
@@ -154,6 +159,8 @@ const Donar = () => {
                     Personalizado
                   </button>
                 </a>
+                </div>
+              </div>
 
          {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts: { valueProp: 'smart_option' } }} />}
 
@@ -168,7 +175,6 @@ const Donar = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

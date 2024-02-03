@@ -284,7 +284,7 @@ export default function Addanimal() {
                   onChange={(e) => handlechange(e)}
                   name="gender"
                 >
-                  <option selected>*Selecciona el genero</option>
+                  <option selected>Seleccionar género</option>
                   <option value="macho">Macho</option>
                   <option value="hembra">Hembra</option>
                 </select>
@@ -297,7 +297,7 @@ export default function Addanimal() {
                   name="species"
                   onChange={(e) => handlechange(e)}
                 >
-                  <option selected>*Selecciona la especie</option>
+                  <option selected>Seleccionar especie</option>
                   <option value="perro">Perro</option>
                   <option value="gato">Gato</option>
                 </select>
@@ -310,7 +310,7 @@ export default function Addanimal() {
                   name="status"
                   onChange={(e) => handlechange(e)}
                 >
-                  <option selected>*Selecciona el estado actual</option>
+                  <option selected>Seleccionar estado actual</option>
                   <option value="rescatado">Rescatado</option>
                   <option value="adoptable">Adoptable</option>
                   <option value="adoptado">Adoptado</option>
@@ -324,7 +324,7 @@ export default function Addanimal() {
                   onChange={(e) => handlechange(e)}
                   name="size"
                 >
-                  <option selected>*Selecciona peso</option>
+                  <option selected>Seleccionar tamaño</option>
                   <option value="chico">Chico</option>
                   <option value="mediano">Mediano</option>
                   <option value="grande">Grande</option>

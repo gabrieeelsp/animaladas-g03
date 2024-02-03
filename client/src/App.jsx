@@ -13,6 +13,10 @@ import Footer from "./Components/Footer/Footer";
 import Requisitos from "./Views/Requisitos/Requisitos";
 import Donar from "./Views/Donar/donar";
 import Addanimal from "./Views/Add-animal/Add-animal";
+import UserProfile from "./Views/UserProfile/userProfile";
+import UserAdoptions from "./Views/UserAdoptions/UserAdoptions";
+import UserDonations from "./Views/UserDonations/UserDonations";
+
 function App() {
   return (
     <div className="App">
@@ -29,6 +33,9 @@ function App() {
         <Route path="/add" element={<Addanimal />}></Route>
         <Route path="/requisitos" element={<Requisitos />}></Route>
         <Route path="/donar" element={<Donar />}></Route>
+        <Route path="/user" element={<UserProfile />}></Route>
+        <Route path="/user/adoptions" element={<UserAdoptions />}></Route>
+        <Route path="/user/donations" element={<UserDonations />}></Route>
       </Routes>
       <Footer />
     </div>

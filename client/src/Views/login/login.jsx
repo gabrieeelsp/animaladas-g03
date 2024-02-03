@@ -1,10 +1,13 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../img/logoanimaladas.png";
 import logo_google from "../../img/logo_google.png";
 
 export default function Login() {
-  const login_user = (e) => {};
+  const navigate = useNavigate();
+  const login_user = (e) => {
+    navigate("/user");
+  };
   return (
     <div className="d-flex justify-content-center align-items-center text-warning vh-100">
       <form>
