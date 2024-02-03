@@ -1,16 +1,11 @@
 const createUser = require('../controllers/user/createUser');
-const loginUser = require('../controllers/user/loginuser.js');
+const loginUser = require('../controllers/user/loginuser');
+const verifyUser = require('../controllers/user/verifyUser');
 
 const postUserHandler = async (req, res) => {
     const { name, lastName, email, password, phone, address, imageProfile } =
         req.body;
-    console.log('valor de name', name);
-    console.log('valor de lastName', lastName);
-    console.log('valor de email', email);
-    console.log('valor de password', password);
-    console.log('valor de phone', phone);
-    console.log('valor de address', address);
-    console.log('valor de imageProfile', imageProfile);
+
     const emailToLowerCase = email.toLowerCase();
 
     try {
@@ -30,13 +25,28 @@ const postUserHandler = async (req, res) => {
     }
 };
 
+const getVerifyAccountHandler = async (req, res) => {
+    const { userEmail } = req.query;
+
+    try {
+        // change status verify account
+        const verifyAccount = await verifyUser(userEmail);
+        console.log(verifyAccount);
+        res.redirect(302, `http://localhost:5173/verifyUser/${verifyAccount}`);
+    } catch (error) {
+        // const errorMessage = error.message || "An unknown error occurred.";
+        console.log(error);
+        res.redirect(302, `http://localhost:5173/verifyUser/${error.message}`);
+    }
+};
+
 const loginUserHandler = async (req, res) => {
     const { email, password } = req.body;
 
     const emailToLowerCase = email.toLowerCase();
 
     try {
-        const newUser = await loginUser(email, password);
+        const newUser = await loginUser(emailToLowerCase, password);
         res.status(200).json(newUser);
     } catch (error) {
         res.status(400).json(error.message);
@@ -45,4 +55,5 @@ const loginUserHandler = async (req, res) => {
 module.exports = {
     postUserHandler,
     loginUserHandler,
+    getVerifyAccountHandler,
 };
