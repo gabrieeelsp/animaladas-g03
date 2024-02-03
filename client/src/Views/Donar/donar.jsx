@@ -92,7 +92,7 @@ const Donar = () => {
           <img
             src="https://img.freepik.com/fotos-premium/perro-gato-sobre-fondo-amarillo_875722-12107.jpg?w=740"
             className="img-fluid rounded"
-            style={{ border: "2px solid #ffc107", height: "100%", width: "100%" }}
+            style={{ border: "2px solid #ffc107", height: "100%", width: "100%", objectFit:"cover" }}
             alt="Animales"
           />
         </div>
@@ -108,7 +108,7 @@ const Donar = () => {
               <p className="text-info mt-3 mb-4">Monto seleccionado: Ninguno</p>
             )}
 
-            <div className="donar-options d-flex flex-wrap justify-content-center">
+            <div className="donar-options d-flex flex-wrap justify-content-center" style={{width:"90%"}}>
               <button
                 className="btn btn-warning donar-custom-button home-button"
                 onClick={() => handleDonarClick(1000)}
@@ -165,7 +165,9 @@ const Donar = () => {
                 Aportar $5000
               </button>
 
+              <div className="donar-options d-flex flex-wrap justify-content-center">
               <h5 className="text-warning mt-3 mb-4">O define un monto personalizado:</h5>
+              </div>
 
               <div className="donation-component-input-group mb-3 d-flex flex-column align-items-center">
                 <input
