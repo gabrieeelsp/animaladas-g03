@@ -8,10 +8,6 @@ const {
 const userRouter = Router();
 userRouter.post('/createUser', postUserHandler);
 userRouter.get('/verifyAccount', getVerifyAccountHandler);
-// userRouter.get('/verifyAccount', (req, res) => {
-//     console.log(req.query);
-//     res.json(req.query);
-// });
 userRouter.post('/login', loginUserHandler);
 
 module.exports = userRouter;
