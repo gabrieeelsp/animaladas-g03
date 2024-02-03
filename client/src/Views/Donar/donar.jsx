@@ -16,7 +16,7 @@ const Donar = () => {
 
   useEffect(() => {
     
-    initMercadoPago('APP_USR-9d5c0baf-712b-4827-bac3-0bb21186a695', { locale: "es-AR" });
+    initMercadoPago(import.meta.env.VITE_API_KEY_MERCADOPAGO, { locale: "es-AR" });
     console.log("MercadoPago inicializado correctamente.");
   }, []);
 
