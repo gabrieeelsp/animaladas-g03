@@ -77,3 +77,8 @@
   margin-left: 5px;
   font-size: 16px;
 }
+
+.wallet-container {
+  width: 60%; 
+  height: 100px; 
+}
