@@ -17,8 +17,6 @@ import {
 
 import axios from "axios";
 
-import axios from "axios";
-
 const urlBaseAxios = "http://localhost:3001";
 
 export const set_searchbar_value = (value) => {

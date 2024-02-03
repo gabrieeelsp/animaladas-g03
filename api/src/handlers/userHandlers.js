@@ -46,8 +46,8 @@ const loginUserHandler = async (req, res) => {
     const emailToLowerCase = email.toLowerCase();
 
     try {
-        const newUser = await loginUser(emailToLowerCase, password);
-        res.status(200).json(newUser);
+        const user = await loginUser(emailToLowerCase, password);
+        res.status(200).json(user);
     } catch (error) {
         res.status(400).json(error.message);
     }

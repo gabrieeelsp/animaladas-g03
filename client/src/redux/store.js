@@ -5,7 +5,6 @@ import UserReducer from "./actions/reducer_users.js";
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // esta línea es para conectar con la extensión del navegador => REDUX DEVTOOLS
 const reducer = combineReducers({
   rootReducer,
-  UserReducer,
 });
 
 const store = createStore(

@@ -1,4 +1,4 @@
-import { USER_INFO } from "./types";
+//import { USER_INFO } from "./types";
 const initialState = {
   userdata: {
     id: "",
