@@ -1,12 +1,13 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-console */
 const { MercadoPagoConfig, Preference } = require('mercadopago');
+require('dotenv').config();
 
 const crearPreferencia = async (req, res) => {
     try {
+        const { ACCESS_TOKEN } = process.env;
         const client = new MercadoPagoConfig({
-            accessToken:
-                'TEST-3430732621014049-013115-5b0563bd4865c7b19fd74b5312e6e171-723277092',
+            accessToken: ACCESS_TOKEN,
         });
 
         const preference = new Preference(client);
@@ -66,6 +67,38 @@ const crearPreferencia = async (req, res) => {
     }
 };
 
+// eslint-disable-next-line consistent-return
+function verificarFirma(req, res, next) {
+    const { SECRET_KEY } = process.env;
+    const secret = SECRET_KEY;
+
+    const signatureHeader = req.get('x-signature');
+    if (!signatureHeader) {
+        return res.status(400).json({ error: 'Firma ausente en la cabecera' });
+    }
+
+    const [timestamp, signature] = signatureHeader.split(',');
+
+    const signatureData = {
+        timestamp: timestamp.split('=')[1],
+        signature: signature.split('=')[1],
+    };
+
+    const template = `post;${req.protocol}://${req.get('host')}${req.path};data.id=${req.body.id};type=${req.query.topic};user-agent:mercadopago webhook v1.0;${signatureData.timestamp};action:${req.body.action};api_version:${req.body.api_version};date_created:${req.body.date_created};id:${req.body.id};live_mode:${req.body.live_mode};type:${req.body.type};user_id:${req.body.user_id}`;
+
+    const calculatedSignature = crypto
+        .createHmac('sha256', secret)
+        .update(template)
+        .digest('hex');
+
+    if (signatureData.signature !== calculatedSignature) {
+        return res.status(400).json({ error: 'Firma inválida' });
+    }
+
+    next();
+}
+
 module.exports = {
     crearPreferencia,
+    verificarFirma,
 };
