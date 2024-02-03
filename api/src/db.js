@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const userModel = require('./models/User');
 const animalModel = require('./models/Animal');
-const adoptionHistoryModel = require('./models/AdoptionHistory');
+const adoptionHistoryModel = require('./models/Adoption');
 const donationModel = require('./models/Donation');
 
 const { DB_USER, DB_PASSWORD, DB_NAME, DB_HOST } = process.env;
@@ -50,10 +50,7 @@ animalModel(sequelize);
 donationModel(sequelize);
 adoptionHistoryModel(sequelize);
 
-const { User, Animal, Donation, AdoptionHistory } = sequelize.models;
-
-User.hasMany(AdoptionHistory);
-AdoptionHistory.belongsTo(User);
+const { User, Animal, Donation, Adoption } = sequelize.models;
 
 User.hasMany(Donation, { as: 'donations', foreignKey: 'userId' });
 Donation.belongsTo(User, { foreignKey: 'userId' });
@@ -67,8 +64,17 @@ Donation.belongsTo(Animal, {
     as: 'animal',
 });
 
-Animal.hasMany(AdoptionHistory);
-AdoptionHistory.belongsTo(Animal);
+User.hasMany(Adoption, { as: 'adoptions', foreignKey: 'userId' });
+Adoption.belongsTo(User, { foreignKey: 'userId' });
+
+Animal.hasMany(Adoption, {
+    foreignKey: 'animalId',
+    as: 'adoptions',
+});
+Adoption.belongsTo(Animal, {
+    foreignKey: 'animalId',
+    as: 'animal',
+});
 
 module.exports = {
     ...sequelize.models,

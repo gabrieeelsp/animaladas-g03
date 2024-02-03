@@ -1,25 +1,26 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import "./Donar.css";
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 
 library.add(faPaw);
 
 const Donar = () => {
   const [preferenceId, setPreferenceId] = useState(null);
+  const [selectedAmount, setSelectedAmount] = useState(null);
+  const [customAmount, setCustomAmount] = useState("");
 
   useEffect(() => {
-
-    initMercadoPago('TEST-bcede1c4-b735-45f5-8ef1-0866cc790bc4', { locale: 'es-AR' });
+    initMercadoPago("TEST-bcede1c4-b735-45f5-8ef1-0866cc790bc4", { locale: "es-AR" });
+    console.log("MercadoPago inicializado correctamente.");
   }, []);
-
 
   const createPreference = async (amount, userDetails) => {
     try {
-      const response = await axios.post('http://localhost:3001/mercadopago/crear-preferencia', {
+      const response = await axios.post("http://localhost:3001/mercadopago/crear-preferencia", {
         title: `Donación por $ ${amount}`,
         quantity: 1,
         unit_price: amount,
@@ -27,7 +28,6 @@ const Donar = () => {
         total_amount: userDetails.total_amount,
         name: userDetails.name,
         surname: userDetails.surname,
-        // identification: userDetails.identification,
         email: userDetails.email,
         client_id: userDetails.client_id,
       });
@@ -36,7 +36,7 @@ const Donar = () => {
       console.log(id);
       return id;
     } catch (error) {
-      console.error("Error al enviar la solicitud:", error)
+      console.error("Error al enviar la solicitud:", error);
       throw error;
     }
   };
@@ -44,29 +44,38 @@ const Donar = () => {
   const handleDonarClick = async (amount) => {
     const userDetails = {
       id: 1,
-      total_amount: {amount},
+      total_amount: amount,
       name: "Nombre",
       surname: "Apellido",
       identification: "12345678",
       email: "correo@ejemplo.com",
       client_id: "cliente123",
     };
-    
+
     try {
-      
       const id = await createPreference(amount, userDetails);
       console.log("ID de preferencia obtenida:", id);
       if (id) {
-        
         setPreferenceId(id);
+        console.log("preferenceId actualizado:", id);
+        setSelectedAmount(amount);
+        setCustomAmount("");
       }
     } catch (error) {
       console.error("Error al crear la preferencia:", error);
     }
   };
 
-  const handlePersonalizadoClick = () => {
-    // Lógica para el botón personalizado
+  const handleCustomAmountChange = (event) => {
+    const value = event.target.value;
+    setCustomAmount(value);
+  };
+
+  const handleCustomAmountClick = () => {
+    const amount = parseFloat(customAmount);
+    if (!isNaN(amount)) {
+      handleDonarClick(amount);
+    }
   };
 
   return (
@@ -162,12 +171,40 @@ const Donar = () => {
                 </div>
               </div>
 
-         {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts: { valueProp: 'smart_option' } }} />}
+                <div className="donation-component-input-group mb-3 d-flex align-items-center">
+                  <input
+                    type="number"
+                    className="form-control form-control-sm mr-2"
+                    placeholder="Monto personalizado"
+                    aria-label="Monto personalizado"
+                    aria-describedby="basic-addon2"
+                    value={customAmount}
+                    onChange={handleCustomAmountChange}
+                    min="1"
+                  />
+                  <div className="input-group-append">
+                    <button
+                      className="btn btn-outline-warning btn-sm"
+                      type="button"
+                      onClick={handleCustomAmountClick}
+                    >
+                      Seleccionar
+                    </button>
+                  </div>
+                </div>
+
+            
+
+                {preferenceId && (
+                  <Wallet
+                    initialization={{ preferenceId: preferenceId }}
+                    customization={{ texts: { valueProp: "smart_option" } }}
+                  />
+                )}
 
                 <div className="gratitude-message mt-4">
                   <p>
-                    ¡Gracias por ayudar a nuestros amigos!{" "}
-                    <FontAwesomeIcon icon={faPaw} />
+                    ¡Gracias por ayudar a nuestros amigos! <FontAwesomeIcon icon={faPaw} />
                   </p>
                 </div>
               </div>
