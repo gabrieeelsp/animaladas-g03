@@ -18,23 +18,23 @@ export default function Requisitos() {
       </div>
       <div className="row">
         <div className="col">
-          <div className="card mb-3" style={{ backgroundColor: "#212529", borderRadius: "100%", padding: "2px" }}>
-            <img src="https://savehomelessanimals.org/wp-content/uploads/Home-Adopt-a-Dog-image-1024x1024.jpg.webp" className="card-img p-3" alt="..." style={{ borderRadius: "100%", width: "100%" }} />
+          <div className="card mb-3" style={{ backgroundColor: "#212529", borderRadius: "100%", padding: "2px", height:"300px" }}>
+            <img src="https://www.petlandflorida.com/wp-content/uploads/2022/04/shutterstock_1290320698-1-scaled.jpg" className="card-img p-3" alt="..." style={{ borderRadius: "100%", width: "100%",height:"300px", objectFit:"cover" }} />
           </div>
         </div>
         <div className="col">
-          <div className="card mb-3" style={{ backgroundColor: "#212529", borderRadius: "100%", padding: "2px" }}>
-            <img src="https://savehomelessanimals.org/wp-content/uploads/Home-Adopt-a-Dog-image-1024x1024.jpg.webp" className="card-img p-3" alt="..." style={{ borderRadius: "100%", width: "100%" }} />
+          <div className="card mb-3" style={{ backgroundColor: "#212529", borderRadius: "100%", padding: "2px", height:"300px" }}>
+            <img src="https://cdn.pixabay.com/photo/2020/07/03/20/49/puppy-5367588_1280.jpg" className="card-img p-3" alt="..." style={{ borderRadius: "100%", width: "100%",height:"300px", objectFit:"cover"  }} />
           </div>
         </div>
         <div className="col">
-          <div className="card mb-3" style={{ backgroundColor: "#212529", borderRadius: "100%", padding: "2px" }}>
-            <img src="https://savehomelessanimals.org/wp-content/uploads/Home-Adopt-a-Dog-image-1024x1024.jpg.webp" className="card-img p-3" alt="..." style={{ borderRadius: "100%", width: "100%" }} />
+          <div className="card mb-3" style={{ backgroundColor: "#212529", borderRadius: "100%", padding: "2px", height:"300px" }}>
+            <img src="https://www.clinicaveterinariaperrobueno.com/wp-content/uploads/2016/11/vacunas-perro-adulto-01.jpg" className="card-img p-3" alt="..." style={{ borderRadius: "100%", width: "100%",height:"300px", objectFit:"cover" }} />
           </div>
         </div>
         <div className="col">
-          <div className="card mb-3" style={{ backgroundColor: "#212529", borderRadius: "100%", padding: "2px" }}>
-            <img src="https://savehomelessanimals.org/wp-content/uploads/Home-Adopt-a-Dog-image-1024x1024.jpg.webp" className="card-img p-3" alt="..." style={{ borderRadius: "100%", width: "100%" }} />
+          <div className="card mb-3" style={{ backgroundColor: "#212529", borderRadius: "100%", padding: "2px", height:"300px" }}>
+            <img src="https://ibi.gsstatic.es/sfAttachPlugin/416996.jpg" className="card-img p-3" alt="..." style={{ borderRadius: "100%", width: "100%",height:"300px", objectFit:"cover" }} />
           </div>
         </div>
 
@@ -67,7 +67,6 @@ export default function Requisitos() {
                 <li>Los animales serán entregados tras una entrevista telefónica con nuestro equipo de adopción.</li>
                 <li>Los adoptantes deberán suscribir un contrato de adopción, comprometiéndose a garantizar una tenencia responsable a lo largo de la vida del animal.</li>
                 <li>Los animales mayores de 6 meses se entregarán castrados. En el caso de adoptar un cachorro más joven, el adoptante se compromete a castrarlo entre los 6 meses y el primer año de edad, de manera obligatoria.</li>
-                <li>Las adopciones están restringidas a la zona de Capital Federal y Gran Buenos Aires, Argentina, sujeto a consideración.</li>
                 <li>Nos reservamos el derecho de aprobar o rechazar una postulación según los criterios y valores de nuestra organización.</li>
                 <li>Los datos proporcionados por el postulante son confidenciales y se utilizan exclusivamente para el proceso de adopción, sin transferirse a terceros en ningún caso.</li></ul>
               <p className="card-text text-warning">Si ya lo decidiste y te sentís capacitado, es momento de comenzar con la postulación para elegir a tu nuevo compañero de vida.</p>
