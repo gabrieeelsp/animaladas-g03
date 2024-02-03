@@ -11,8 +11,11 @@ import {
   SET_SIZE_VALUE,
   SET_SPECIES_VALUE,
   SET_CASTRATED_VALUE,
-  USER_INFO,
+  CREATE_FORM_SUCCESS,
+  CREATE_FORM_FAILURE,
 } from "./types";
+
+import axios from "axios";
 
 import axios from "axios";
 
@@ -212,9 +215,29 @@ export const orderByAge = (order) => {
   };
 };
 
-export const set_userinfo = (data) => {
-  return {
-    type: USER_INFO,
-    payload: data,
+export const createForm = (formData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/adoptions",
+        formData
+      );
+      const createdForm = response.data;
+
+      dispatch(createFormSuccess(createdForm));
+    } catch (error) {
+      console.error("Error creating activity:", error.message);
+      dispatch(createFormFailure("Error creating Form"));
+    }
   };
 };
+
+export const createFormSuccess = (form) => ({
+  type: CREATE_FORM_SUCCESS,
+  form,
+});
+
+export const createFormFailure = (error) => ({
+  type: CREATE_FORM_FAILURE,
+  error,
+});

@@ -1,4 +1,4 @@
-import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME, SET_SEARCHBAR_VALUE, SET_CASTRATED_VALUE, SET_SPECIES_VALUE, SET_SIZE_VALUE, SET_ORDERDIR_VALUE, SET_ORDERBY_VALUE } from "./actions/types";
+import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME, SET_SEARCHBAR_VALUE, SET_CASTRATED_VALUE, SET_SPECIES_VALUE, SET_SIZE_VALUE, SET_ORDERDIR_VALUE, SET_ORDERBY_VALUE, CREATE_FORM_SUCCESS, CREATE_FORM_FAILURE } from "./actions/types";
 
 const initialState = {
   allAnimals: [],
@@ -119,7 +119,14 @@ case ORDER_BY_AGE:
     allAnimals: animalsByAge,
   };
 
-
+  case CREATE_FORM_SUCCESS: {
+    return state;
+  }
+  
+  case CREATE_FORM_FAILURE: {
+    console.error('Error creating form:', payload);
+    return state;
+  }
 
 
 
