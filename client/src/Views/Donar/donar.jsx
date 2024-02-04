@@ -110,56 +110,56 @@ const Donar = () => {
 
             <div className="donar-options d-flex flex-wrap justify-content-center" style={{width:"90%"}}>
               <button
-                className="btn btn-warning donar-custom-button home-button"
+                className="btn btn-warning donar-custom-button home-button col-sm-6 col-md-4"
                 onClick={() => handleDonarClick(1000)}
               >
                 Aportar $1000
               </button>
 
               <button
-                className="btn btn-warning donar-custom-button-transparent home-button"
+                className="btn btn-warning donar-custom-button-transparent home-button col-sm-6 col-md-4"
                 onClick={() => handleDonarClick(1500)}
               >
                 Aportar $1500
               </button>
 
               <button
-                className="btn btn-warning donar-custom-button home-button"
+                className="btn btn-warning donar-custom-button-transparent home-button col-sm-6 col-md-4"
                 onClick={() => handleDonarClick(2000)}
               >
                 Aportar $2000
               </button>
 
               <button
-                className="btn btn-warning donar-custom-button-transparent home-button"
+                className="btn btn-warning donar-custom-button home-button col-sm-6 col-md-4"
                 onClick={() => handleDonarClick(2500)}
               >
                 Aportar $2500
               </button>
 
               <button
-                className="btn btn-warning donar-custom-button home-button"
+                className="btn btn-warning donar-custom-button home-button col-sm-6 col-md-4"
                 onClick={() => handleDonarClick(3000)}
               >
                 Aportar $3000
               </button>
 
               <button
-                className="btn btn-warning donar-custom-button-transparent home-button"
+                className="btn btn-warning donar-custom-button-transparent home-button col-sm-6 col-md-4"
                 onClick={() => handleDonarClick(3500)}
               >
                 Aportar $3500
               </button>
 
               <button
-                className="btn btn-warning donar-custom-button-transparent home-button"
+                className="btn btn-warning donar-custom-button-transparent home-button col-sm-6 col-md-4"
                 onClick={() => handleDonarClick(4000)}
               >
                 Aportar $4000
               </button>
 
               <button
-                className="btn btn-warning donar-custom-button-transparent home-button"
+                className="btn btn-warning donar-custom-button home-button col-sm-6 col-md-4"
                 onClick={() => handleDonarClick(5000)}
               >
                 Aportar $5000
