@@ -18,9 +18,11 @@ const loginUser = async (email, password) => {
     const userInfo = {
         id: user.id,
         name: user.name,
+        lastName: user.lastName,
         email: user.email,
+        imageProfile: user.imageProfile,
         phone: user.phone,
-        discount: user.discount,
+        address: user.address,
         isAdmin: user.isAdmin,
         is_verified: user.is_verified,
         tokenUser: token,
