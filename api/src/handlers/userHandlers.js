@@ -1,5 +1,5 @@
 const createUser = require('../controllers/user/createUser');
-const loginUser = require('../controllers/user/loginUser');
+const loginUser = require('../controllers/user/loginuser');
 const verifyUser = require('../controllers/user/verifyUser');
 
 const postUserHandler = async (req, res) => {
