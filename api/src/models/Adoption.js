@@ -27,5 +27,20 @@ module.exports = (sequelize) => {
         animalId: {
             type: DataTypes.INTEGER,
         },
+        familyIntegrants: {
+            type: DataTypes.INTEGER,
+        },
+        allFamilyAgree: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
+        yardTerraceBalcony: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
+        takeResponsibility: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
     });
 };

@@ -27,7 +27,15 @@ const getAllHandler = async (req, res) => {
 };
 
 const createHandler = async (req, res) => {
-    const { userId, animalId } = req.body;
+    const {
+        userId,
+        animalId,
+        description,
+        familyIntegrants,
+        allFamilyAgree,
+        yardTerraceBalcony,
+        takeResponsibility,
+    } = req.body;
     const userError = await validateUserId(userId);
     const animalError = await validateAnimalId(animalId);
     const adoptionError = await validateAdoptionPending(userId, animalId);
@@ -40,7 +48,15 @@ const createHandler = async (req, res) => {
         });
     }
     try {
-        const item = await create(userId, animalId);
+        const item = await create(
+            userId,
+            animalId,
+            description,
+            familyIntegrants,
+            allFamilyAgree,
+            yardTerraceBalcony,
+            takeResponsibility,
+        );
         return res.status(200).json(item);
     } catch (error) {
         // res.status(500).json('Error al crear Donación');
