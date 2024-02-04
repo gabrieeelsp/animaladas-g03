@@ -56,6 +56,9 @@
 .sub-menu-link:hover p{
    font-weight: 600;
 }
+.texto_responsive:before{
+   content: "Iniciar Sesión"
+ }
 @media only screen and (max-width:900px){
  button{
     width: 100%;
@@ -64,3 +67,5 @@
     content: attr(data-phonetext);
 }
 }
+
+  

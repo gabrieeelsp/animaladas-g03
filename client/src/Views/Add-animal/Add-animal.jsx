@@ -3,7 +3,13 @@ import "./Add-animal.css";
 import adoptimg from "../../img/logoanimaladas.png";
 import axios from "axios";
 import validateform from "./validation";
-export default function Addanimal() {
+import SuccesModal from "../../Components/SuccessModal/SuccesModal";
+import ModalError from "../../Components/ErrorModal/ErrorModal";
+export default function Addanimal(props) {
+  const { MessageModal } = props;
+  const { SetMessageModal } = props;
+  const [ShowModalSuccess, SetShowModalSucess] = useState(false);
+  const [ShowModalErorr, SetShowModalError] = useState(false);
   const array_img = [];
   let showlogo = true;
   const [showimg1, Setshowimg1] = useState(false);
@@ -52,7 +58,6 @@ export default function Addanimal() {
   //cloud name:dwgufqzjd
   const uploadImage = async (e) => {
     const file1 = document.getElementById("image1");
-    console.log("valor de file1", e.target.files[0]);
     const file = e.target.files[0];
     const data = new FormData();
     data.append("file", file);
@@ -87,7 +92,6 @@ export default function Addanimal() {
 
   const handlechange = (event) => {
     let value = event.target.value;
-    console.log(value);
     if (
       event.target.name === "vaccines" ||
       event.target.name === "disability_illness" ||
@@ -109,9 +113,22 @@ export default function Addanimal() {
       showerror: validate.showerror,
     });
   };
-  console.log(dogdata);
-  const save_dog = (e) => {
-    axios.post("http://localhost:3001/animal/createAnimals", dogdata);
+  const save_dog = async (e) => {
+    if (error.showerror) {
+      console.log("ingreso ");
+      SetMessageModal("Opps, hay errores en el formulario");
+      SetShowModalError(true);
+    } else {
+      const { data } = await axios.post(
+        "http://localhost:3001/animal/createAnimals",
+        dogdata
+      );
+      if (data) {
+        SetMessageModal("!Bien! Se ha cargado con exito.");
+        SetShowModalSucess(true);
+      }
+    }
+
     Setdogdata({
       name: "",
       gender: "",
@@ -143,346 +160,355 @@ export default function Addanimal() {
 
   return (
     <div className="container d-flex justify-content-center align-items-center min-vh-100 mb-2 mt-2">
-      <form>
-        <div className="row  rounded-5 p-3 bg-dark shadow box-area border-primary">
-          <div
-            className=" gallery col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
-            style={{ background: "#343a40" }}
-          >
-            {showlogo ? (
-              <div className="featured-image mb-3">
-                <img
-                  src={adoptimg}
-                  className="img-fluid"
-                  style={{ width: "250px" }}
-                ></img>
-              </div>
-            ) : null}
-            <div className="containerlg">
-              <div className="row gy-4 cols-1 ">
-                {showimg1 ? (
-                  <div className="col">
-                    <img
-                      src={img1}
-                      alt=""
-                      className="gallery-item"
-                      style={{
-                        maxWidth: "40vh",
-                        maxHeight: "40vh",
-                        backgroundColor: "white",
-                        padding: "10px",
-                        boxShadow: "0px 0px 15px rgba(0,0,0,1)",
-                        cursor: "pointer",
-                      }}
-                    />
-                  </div>
-                ) : null}
-                {showimg2 ? (
-                  <div className="col">
-                    <img
-                      src={img2}
-                      alt=""
-                      className="gallery-item"
-                      style={{
-                        maxWidth: "40vh",
-                        maxHeight: "40vh",
-                        backgroundColor: "white",
-                        padding: "10px",
-                        boxShadow: "0px 0px 15px rgba(0,0,0,1)",
-                        cursor: "pointer",
-                      }}
-                    />
-                  </div>
-                ) : null}
-                {showimg3 ? (
-                  <div className="col">
-                    <img
-                      src={img3}
-                      alt=""
-                      className="gallery-item"
-                      style={{
-                        maxWidth: "40vh",
-                        maxHeight: "40vh",
-                        backgroundColor: "white",
-                        padding: "10px",
-                        boxShadow: "0px 0px 15px rgba(0,0,0,1)",
-                        cursor: "pointer",
-                      }}
-                    />
-                  </div>
-                ) : null}
-                {showimg4 ? (
-                  <div className="col">
-                    <img
-                      src={img4}
-                      alt=""
-                      className="gallery-item"
-                      style={{
-                        maxWidth: "40vh",
-                        maxHeight: "40vh",
-                        backgroundColor: "white",
-                        padding: "10px",
-                        boxShadow: "0px 0px 15px rgba(0,0,0,1)",
-                        cursor: "pointer",
-                      }}
-                    />
-                  </div>
-                ) : null}
-              </div>
+      <div className="row  rounded-5 p-3 bg-dark shadow box-area border-primary">
+        <div
+          className=" gallery col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
+          style={{ background: "#343a40" }}
+        >
+          {showlogo ? (
+            <div className="featured-image mb-3">
+              <img
+                src={adoptimg}
+                className="img-fluid"
+                style={{ width: "250px" }}
+              ></img>
             </div>
-
-            <p
-              className="text-warning fs-2"
-              style={{
-                fontFamily: "font-family: 'Courier New', Courier, monospace",
-                fontWeight: "600",
-              }}
-            >
-              <i className="bi bi-heart-fill"></i>
-            </p>
-            <small
-              className="text-warning text-wrap text-center"
-              style={{
-                width: "17rem",
-                fontFamily: "Courier New', Courier, monospace",
-              }}
-            >
-              "Mi raza favorita es adoptado"
-            </small>
-          </div>
-
-          <div className="col-md-6 right-box">
-            <div className="row align-items-center">
-              <div className="header-tex text-warning mb4">
-                <h2>INGRESO DE MASCOTAS</h2>
-                <p>Subir una mascota para adopción</p>
-              </div>
-              {error.showerror ? (
-                <div
-                  className="input-group mb-1 alert alert-warning"
-                  role="alert"
-                >
-                  {error.number_required}
-                  {error.priority_filds}
-                  {error.email}
+          ) : null}
+          <div className="containerlg">
+            <div className="row gy-4 cols-1 ">
+              {showimg1 ? (
+                <div className="col">
+                  <img
+                    src={img1}
+                    alt=""
+                    className="gallery-item"
+                    style={{
+                      maxWidth: "40vh",
+                      maxHeight: "40vh",
+                      backgroundColor: "white",
+                      padding: "10px",
+                      boxShadow: "0px 0px 15px rgba(0,0,0,1)",
+                      cursor: "pointer",
+                    }}
+                  />
                 </div>
               ) : null}
-              <div className="input-group mb-1">
+              {showimg2 ? (
+                <div className="col">
+                  <img
+                    src={img2}
+                    alt=""
+                    className="gallery-item"
+                    style={{
+                      maxWidth: "40vh",
+                      maxHeight: "40vh",
+                      backgroundColor: "white",
+                      padding: "10px",
+                      boxShadow: "0px 0px 15px rgba(0,0,0,1)",
+                      cursor: "pointer",
+                    }}
+                  />
+                </div>
+              ) : null}
+              {showimg3 ? (
+                <div className="col">
+                  <img
+                    src={img3}
+                    alt=""
+                    className="gallery-item"
+                    style={{
+                      maxWidth: "40vh",
+                      maxHeight: "40vh",
+                      backgroundColor: "white",
+                      padding: "10px",
+                      boxShadow: "0px 0px 15px rgba(0,0,0,1)",
+                      cursor: "pointer",
+                    }}
+                  />
+                </div>
+              ) : null}
+              {showimg4 ? (
+                <div className="col">
+                  <img
+                    src={img4}
+                    alt=""
+                    className="gallery-item"
+                    style={{
+                      maxWidth: "40vh",
+                      maxHeight: "40vh",
+                      backgroundColor: "white",
+                      padding: "10px",
+                      boxShadow: "0px 0px 15px rgba(0,0,0,1)",
+                      cursor: "pointer",
+                    }}
+                  />
+                </div>
+              ) : null}
+            </div>
+          </div>
+
+          <p
+            className="text-warning fs-2"
+            style={{
+              fontFamily: "font-family: 'Courier New', Courier, monospace",
+              fontWeight: "600",
+            }}
+          >
+            <i className="bi bi-heart-fill"></i>
+          </p>
+          <small
+            className="text-warning text-wrap text-center"
+            style={{
+              width: "17rem",
+              fontFamily: "Courier New', Courier, monospace",
+            }}
+          >
+            "Mi raza favorita es adoptado"
+          </small>
+        </div>
+
+        <div className="col-md-6 right-box">
+          <div className="row align-items-center">
+            <div className="header-tex text-warning mb4">
+              <h2>INGRESO DE MASCOTAS</h2>
+              <p>Subir una mascota para adopción</p>
+            </div>
+            {error.showerror ? (
+              <div
+                className="input-group mb-1 alert alert-warning"
+                role="alert"
+              >
+                {error.number_required}
+                {error.priority_filds}
+                {error.email}
+              </div>
+            ) : null}
+            <div className="input-group mb-1">
+              <input
+                name="name"
+                type="text"
+                className="form-control form form-control-lg bg-light fs-6"
+                placeholder="*Nombre"
+                onChange={(e) => handlechange(e)}
+              ></input>
+            </div>
+            <div className="input-group">
+              <select
+                className=" form-select  mb-1 col-2"
+                aria-label="Default select example"
+                style={{ width: "" }}
+                onChange={(e) => handlechange(e)}
+                name="gender"
+              >
+                <option selected>*Selecciona el genero</option>
+                <option value="macho">Macho</option>
+                <option value="hembra">Hembra</option>
+              </select>
+            </div>
+            <div className="input-group">
+              <select
+                className=" form-select  mb-1 col-2"
+                aria-label="Default select example"
+                style={{ width: "" }}
+                name="species"
+                onChange={(e) => handlechange(e)}
+              >
+                <option selected>*Selecciona la especie</option>
+                <option value="perro">Perro</option>
+                <option value="gato">Gato</option>
+              </select>
+            </div>
+            <div className="input-group">
+              <select
+                className=" form-select  mb-1 col-2"
+                aria-label="Default select example"
+                style={{ width: "" }}
+                name="status"
+                onChange={(e) => handlechange(e)}
+              >
+                <option selected>*Selecciona el estado actual</option>
+                <option value="rescatado">Rescatado</option>
+                <option value="adoptable">Adoptable</option>
+                <option value="adoptado">Adoptado</option>
+              </select>
+            </div>
+            <div className="input-group">
+              <select
+                className=" form-select  mb-1 col-2"
+                aria-label="Default select example"
+                style={{ width: "" }}
+                onChange={(e) => handlechange(e)}
+                name="size"
+              >
+                <option selected>*Selecciona peso</option>
+                <option value="chico">Chico</option>
+                <option value="mediano">Mediano</option>
+                <option value="grande">Grande</option>
+              </select>
+            </div>
+            <div className="input-group mb-1">
+              <input
+                type="text"
+                className="form-control form form-control-lg bg-light fs-6"
+                placeholder="Año de nacimiento"
+                name="estimatedBirthYear"
+                onChange={(e) => handlechange(e)}
+              ></input>
+            </div>
+            <div className="input-group mb-1">
+              <input
+                type="text"
+                className="form-control form form-control-lg bg-light fs-6"
+                placeholder="Peso"
+                name="weight"
+                onChange={(e) => handlechange(e)}
+              ></input>
+            </div>
+            <div className="form-group">
+              <label className="input-group mb-1 mt-3 text-warning">
+                Historia del rescate
+              </label>
+              <textarea
+                className="form-control"
+                id="exampleFormControlTextarea1"
+                rows="3"
+                name="rescued_story"
+                onChange={(e) => handlechange(e)}
+              ></textarea>
+            </div>
+            <div className="form-group">
+              <label className="input-group mb-1 mt-3 text-warning">
+                Historia de la adopción
+              </label>
+              <textarea
+                className="form-control"
+                id="exampleFormControlTextarea1"
+                rows="3"
+                name="adoption_story"
+                onChange={(e) => handlechange(e)}
+              ></textarea>
+            </div>
+            <label className="input-group mb-1 mt-3 text-warning">
+              Foto del rescate (opcional):
+            </label>
+            <div className=" input-group mb-1 mt-3">
+              <input
+                className="form-control"
+                type="file"
+                id="image1"
+                onChange={uploadImage}
+                name="image1"
+              ></input>
+            </div>
+            <label className="input-group mb-1 mt-3 text-warning">
+              Foto para adopcion :
+            </label>
+            <div className=" input-group mb-1 mt-3">
+              <input
+                className="form-control"
+                type="file"
+                id="formFile"
+                onChange={uploadImage}
+                name="image2"
+              ></input>
+            </div>
+            <label className="input-group mb-1 mt-3 text-warning">
+              Foto adoptado:
+            </label>
+            <div className=" input-group mb-1 mt-3">
+              <input
+                className="form-control"
+                type="file"
+                id="formFile"
+                onChange={uploadImage}
+                name="image3"
+              ></input>
+            </div>
+            <label className="input-group mb-1 mt-3 text-warning">
+              Foto adicional (opcional):
+            </label>
+            <div className=" input-group mb-1 mt-3">
+              <input
+                className="form-control"
+                type="file"
+                id="formFile"
+                onChange={uploadImage}
+                name="image4"
+              ></input>
+            </div>
+            <div className="input-group mb-1 d-flex ">
+              <div className="form-check">
                 <input
-                  name="name"
-                  type="text"
-                  className="form-control form form-control-lg bg-light fs-6"
-                  placeholder="*Nombre"
+                  type="checkbox"
+                  className="form-check-input"
+                  id="formCheck"
+                  name="vaccines"
                   onChange={(e) => handlechange(e)}
                 ></input>
-              </div>
-              <div className="input-group">
-                <select
-                  className=" form-select  mb-1 col-2"
-                  aria-label="Default select example"
-                  style={{ width: "" }}
-                  onChange={(e) => handlechange(e)}
-                  name="gender"
+                <label
+                  htmlFor="formCheck"
+                  className="form-check-label text-warning"
                 >
-                  <option selected>*Selecciona el genero</option>
-                  <option value="macho">Macho</option>
-                  <option value="hembra">Hembra</option>
-                </select>
-              </div>
-              <div className="input-group">
-                <select
-                  className=" form-select  mb-1 col-2"
-                  aria-label="Default select example"
-                  style={{ width: "" }}
-                  name="species"
-                  onChange={(e) => handlechange(e)}
-                >
-                  <option selected>*Selecciona la especie</option>
-                  <option value="perro">Perro</option>
-                  <option value="gato">Gato</option>
-                </select>
-              </div>
-              <div className="input-group">
-                <select
-                  className=" form-select  mb-1 col-2"
-                  aria-label="Default select example"
-                  style={{ width: "" }}
-                  name="status"
-                  onChange={(e) => handlechange(e)}
-                >
-                  <option selected>*Selecciona el estado actual</option>
-                  <option value="rescatado">Rescatado</option>
-                  <option value="adoptable">Adoptable</option>
-                  <option value="adoptado">Adoptado</option>
-                </select>
-              </div>
-              <div className="input-group">
-                <select
-                  className=" form-select  mb-1 col-2"
-                  aria-label="Default select example"
-                  style={{ width: "" }}
-                  onChange={(e) => handlechange(e)}
-                  name="size"
-                >
-                  <option selected>*Selecciona peso</option>
-                  <option value="chico">Chico</option>
-                  <option value="mediano">Mediano</option>
-                  <option value="grande">Grande</option>
-                </select>
-              </div>
-              <div className="input-group mb-1">
-                <input
-                  type="text"
-                  className="form-control form form-control-lg bg-light fs-6"
-                  placeholder="Año de nacimiento"
-                  name="estimatedBirthYear"
-                  onChange={(e) => handlechange(e)}
-                ></input>
-              </div>
-              <div className="input-group mb-1">
-                <input
-                  type="text"
-                  className="form-control form form-control-lg bg-light fs-6"
-                  placeholder="Peso"
-                  name="weight"
-                  onChange={(e) => handlechange(e)}
-                ></input>
-              </div>
-              <div className="form-group">
-                <label className="input-group mb-1 mt-3 text-warning">
-                  Historia del rescate
+                  <small>Vacunado(a)</small>
                 </label>
-                <textarea
-                  className="form-control"
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                  name="rescued_story"
+              </div>
+            </div>
+            <div className="input-group mb-1 d-flex ">
+              <div className="form-check">
+                <input
+                  type="checkbox"
+                  className="form-check-input"
+                  id="formCheck"
+                  name="disability_illness"
                   onChange={(e) => handlechange(e)}
-                ></textarea>
-              </div>
-              <div className="form-group">
-                <label className="input-group mb-1 mt-3 text-warning">
-                  Historia de la adopción
-                </label>
-                <textarea
-                  className="form-control"
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                  name="adoption_story"
-                  onChange={(e) => handlechange(e)}
-                ></textarea>
-              </div>
-              <label className="input-group mb-1 mt-3 text-warning">
-                Foto del rescate (opcional):
-              </label>
-              <div className=" input-group mb-1 mt-3">
-                <input
-                  className="form-control"
-                  type="file"
-                  id="image1"
-                  onChange={uploadImage}
-                  name="image1"
                 ></input>
-              </div>
-              <label className="input-group mb-1 mt-3 text-warning">
-                Foto para adopcion :
-              </label>
-              <div className=" input-group mb-1 mt-3">
-                <input
-                  className="form-control"
-                  type="file"
-                  id="formFile"
-                  onChange={uploadImage}
-                  name="image2"
-                ></input>
-              </div>
-              <label className="input-group mb-1 mt-3 text-warning">
-                Foto adoptado:
-              </label>
-              <div className=" input-group mb-1 mt-3">
-                <input
-                  className="form-control"
-                  type="file"
-                  id="formFile"
-                  onChange={uploadImage}
-                  name="image3"
-                ></input>
-              </div>
-              <label className="input-group mb-1 mt-3 text-warning">
-                Foto adicional (opcional):
-              </label>
-              <div className=" input-group mb-1 mt-3">
-                <input
-                  className="form-control"
-                  type="file"
-                  id="formFile"
-                  onChange={uploadImage}
-                  name="image4"
-                ></input>
-              </div>
-              <div className="input-group mb-1 d-flex ">
-                <div className="form-check">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="formCheck"
-                    name="vaccines"
-                    onChange={(e) => handlechange(e)}
-                  ></input>
-                  <label
-                    htmlFor="formCheck"
-                    className="form-check-label text-warning"
-                  >
-                    <small>Vacunado(a)</small>
-                  </label>
-                </div>
-              </div>
-              <div className="input-group mb-1 d-flex ">
-                <div className="form-check">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="formCheck"
-                    name="disability_illness"
-                    onChange={(e) => handlechange(e)}
-                  ></input>
-                  <label
-                    htmlFor="formCheck"
-                    className="form-check-label text-warning"
-                  >
-                    <small>Cuidados especiales</small>
-                  </label>
-                </div>
-              </div>
-              <div className="input-group mb-1 d-flex ">
-                <div className="form-check">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="formCheck"
-                    name="castrated"
-                    onChange={(e) => handlechange(e)}
-                  ></input>
-                  <label
-                    htmlFor="formCheck"
-                    className="form-check-label text-warning"
-                  >
-                    <small>Castrado</small>
-                  </label>
-                </div>
-              </div>
-              <div className="input-group mb-3">
-                <button
-                  onClick={(e) => save_dog(e)}
-                  className="btn btn-lg btn-warning w-100 fs-6 text-white fw-bold"
+                <label
+                  htmlFor="formCheck"
+                  className="form-check-label text-warning"
                 >
-                  Crear
-                </button>
+                  <small>Cuidados especiales</small>
+                </label>
               </div>
+            </div>
+            <div className="input-group mb-1 d-flex ">
+              <div className="form-check">
+                <input
+                  type="checkbox"
+                  className="form-check-input"
+                  id="formCheck"
+                  name="castrated"
+                  onChange={(e) => handlechange(e)}
+                ></input>
+                <label
+                  htmlFor="formCheck"
+                  className="form-check-label text-warning"
+                >
+                  <small>Castrado</small>
+                </label>
+              </div>
+            </div>
+            <div className="input-group mb-3">
+              <button
+                onClick={(e) => save_dog(e)}
+                className="btn btn-lg btn-warning w-100 fs-6 text-white fw-bold"
+              >
+                Crear
+              </button>
             </div>
           </div>
         </div>
-      </form>
+      </div>
+
+      <SuccesModal
+        MessageModal={MessageModal}
+        ShowModalMessage={ShowModalSuccess}
+        SetShowModalMessage={SetShowModalSucess}
+      ></SuccesModal>
+      <ModalError
+        MessageModal={MessageModal}
+        ShowModalMessage={ShowModalErorr}
+        SetShowModalMessage={SetShowModalError}
+      ></ModalError>
     </div>
   );
 }

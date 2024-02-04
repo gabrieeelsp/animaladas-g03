@@ -5,8 +5,19 @@ import "./Nav.css";
 import perfil_img from "../../img/perfil_default.png";
 import Profilemenu from "../PropdownProfile/Profilemenu";
 import Modalprofile from "./modalprofile";
+//import { useLocalstore } from "../../scripts/uselocalstore";
 export default function Nav() {
   const location = useLocation();
+  let showloginbutton = true;
+  let showprofile_img = false;
+  let user_info = "";
+  if (window.localStorage.user_info) {
+    user_info = JSON.parse(localStorage.getItem("user_info"));
+    showloginbutton = false;
+    showprofile_img = true;
+  }
+
+  console.log("esta es la super info", user_info);
   const [showprofile, Setshowprofile] = useState(false);
   const [showmodalprofile, Setshowmodalprofile] = useState(false);
   if (location.pathname === "/login" || location.pathname === "/register") {
@@ -17,7 +28,12 @@ export default function Nav() {
     console.log("clik");
     Setshowprofile(!showprofile);
   };
-  console.log("valor de showprofiel", showprofile);
+  const handlechange = (e) => {
+    setuserinfo({
+      ...user_info,
+      [e.target.name]: e.target.value,
+    });
+  };
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100 fixed-top">
@@ -112,12 +128,29 @@ export default function Nav() {
               </li>
             </ul>
             <SearchBar />
-            <NavLink to="/login"></NavLink>
-            <img
-              onClick={(e) => menuprofile(e)}
-              src={perfil_img}
-              style={{ width: "40px", cursor: "pointer" }}
-            ></img>
+            {showloginbutton && (
+              <NavLink to="/login">
+                <button
+                  className="btn btn-outline-warning p-1 mx-3"
+                  type="button"
+                  id="login"
+                >
+                  <i className="bi bi-person"></i>
+                  <span
+                    className="texto_responsive"
+                    data-phonetext="Mi cuenta"
+                    desktoptext="Iniciar Sesión"
+                  ></span>
+                </button>
+              </NavLink>
+            )}
+            {showprofile_img && (
+              <img
+                onClick={(e) => menuprofile(e)}
+                src={perfil_img}
+                style={{ width: "40px", cursor: "pointer" }}
+              ></img>
+            )}
 
             {showprofile ? (
               <div className="sub-menu-wrap">
@@ -167,6 +200,7 @@ export default function Nav() {
               </div>
             ) : null}
           </div>
+
           <Modalprofile
             modalstate={showmodalprofile}
             setmodalstate={Setshowmodalprofile}
@@ -179,8 +213,8 @@ export default function Nav() {
                 className="form-control bg-light"
                 type="text"
                 placeholder="Nombre*"
-                name="user_name"
-                value="Fabio"
+                name="name"
+                value={user_info.name}
                 onChange={(e) => handlechange(e)}
               />
             </div>
@@ -192,21 +226,8 @@ export default function Nav() {
                 className="form-control bg-light"
                 type="email"
                 placeholder="Correo Eletronico*"
-                name="user_email"
-                value="fagarces@gmail.com"
-                onChange={(e) => handlechange(e)}
-              />
-            </div>
-            <div className="input-group mt-1">
-              <div className="input-group-text bg-warning text-white">
-                <i className="bi bi-person-fill-add"></i>
-              </div>
-              <input
-                className="form-control bg-light"
-                type="text"
-                placeholder="Apellido*"
-                name="lastName"
-                value="Garces"
+                name="email"
+                value={user_info.email}
                 onChange={(e) => handlechange(e)}
               />
             </div>
@@ -219,32 +240,7 @@ export default function Nav() {
                 type="text"
                 placeholder="Numero de contacto*"
                 name="phone"
-                value="3318476"
-                onChange={(e) => handlechange(e)}
-              />
-            </div>
-            <div className="input-group mt-1">
-              <div className="input-group-text bg-warning text-white">
-                <i className="bi bi-geo-alt-fill"></i>
-              </div>
-              <input
-                className="form-control bg-light"
-                type="text"
-                placeholder="Direccion*"
-                name="address"
-                value="Calle 65 #17-42"
-                onChange={(e) => handlechange(e)}
-              />
-            </div>
-            <div className="input-group mt-1">
-              <div className="input-group-text bg-warning text-white">
-                <i className="bi bi-lock"></i>
-              </div>
-              <input
-                className="form-control bg-light"
-                type="password"
-                placeholder="Password"
-                name="password"
+                value={user_info.phone}
                 onChange={(e) => handlechange(e)}
               />
             </div>
@@ -262,15 +258,5 @@ export default function Nav() {
 }
 
 /*
-              <button
-                className="btn btn-outline-warning p-1 mx-3"
-                type="button"
-                id="login"
-              >
-                <i className="bi bi-person"></i>
-                <span className="texto_responsive" data-phonetext="Mi cuenta">
-                  {" "}
-                  Iniciar sesión
-                </span>
-              </button>
+
               */
