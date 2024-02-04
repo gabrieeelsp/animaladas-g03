@@ -1,6 +1,6 @@
 import React from "react";
 import "../Nav/modalprofile.css";
-import error_img from "../../img/error.png";
+import error_img from "../../img/Error.png";
 export default function ModalError({
   children,
   MessageModal,
