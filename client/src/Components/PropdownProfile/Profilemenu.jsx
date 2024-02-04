@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./Profilemenu.css";
+import "../Profilemenu.css";
 
 export default function Profilemenu() {
   return (
