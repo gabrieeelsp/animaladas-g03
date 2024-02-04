@@ -6,9 +6,8 @@ const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; 
 const reducer = combineReducers({
   rootReducer,
 });
-
 const store = createStore(
-  reducer,
+  rootReducer,
   composeEnhancer(applyMiddleware(thunk)) // esta línea es para poder hacer peticiones a un server
 );
 export default store;

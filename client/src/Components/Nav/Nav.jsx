@@ -151,7 +151,6 @@ export default function Nav() {
                 style={{ width: "40px", cursor: "pointer" }}
               ></img>
             )}
-
             {showprofile ? (
               <div className="sub-menu-wrap">
                 <div className="sub-menu">
