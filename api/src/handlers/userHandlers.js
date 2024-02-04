@@ -44,11 +44,13 @@ const loginUserHandler = async (req, res) => {
     const { email, password } = req.body;
 
     const emailToLowerCase = email.toLowerCase();
-
+    console.log("Ingreso loginHandler");
+  
     try {
         const user = await loginUser(emailToLowerCase, password);
         res.status(200).json(user);
     } catch (error) {
+        console.log(error);
         res.status(400).json(error.message);
     }
 };
