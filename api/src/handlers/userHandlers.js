@@ -1,5 +1,6 @@
 const createUser = require('../controllers/user/createUser');
 const loginUser = require('../controllers/user/loginuser.js');
+const putEnabledUser = require('../controllers/user/putIsEnabledUser.js');
 
 const postUserHandler = async (req, res) => {
     const { name, lastName, email, password, phone, address, imageProfile } =
@@ -42,7 +43,18 @@ const loginUserHandler = async (req, res) => {
         res.status(400).json(error.message);
     }
 };
+
+const putEnabledsUsers = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const logicDeletion = await putEnabledUser(id);
+        res.json(logicDeletion);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 module.exports = {
     postUserHandler,
     loginUserHandler,
+    putEnabledsUsers,
 };
