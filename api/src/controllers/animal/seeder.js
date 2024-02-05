@@ -111,6 +111,7 @@ module.exports = async () => {
                 weight: Math.floor(
                     Math.random() * (weightMax - weightMin + 1) + weightMin,
                 ),
+                enabled: Math.random() < 0.9,
                 vaccines: Math.random() < 0.5,
                 // color: colorList[0],
                 disability_illness: Math.random() < 0.5,
