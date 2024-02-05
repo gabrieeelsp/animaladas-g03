@@ -82,7 +82,7 @@ export const loadAnimals = (
   page = 1,
   animalsPerPage = 4,
   orderBy = null,
-  orderDir = "ASC"
+  orderDir = ""
 ) => {
   return async (dispatch) => {
     try {
