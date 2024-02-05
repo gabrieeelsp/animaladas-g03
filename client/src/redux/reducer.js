@@ -14,7 +14,7 @@ const initialState = {
   orderByValue: '',
   orderDirValue: '',
   sizeValue: 'Todos',
-  speciesValues: 'Todos',
+  speciesValue: 'Todos',
   castratedValue: 'Todos',
   animalById: [],
 };
@@ -52,7 +52,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case SET_SPECIES_VALUE: {
       return {
         ...state,
-        speciesValues: payload,
+        speciesValue: payload,
       }
     }
 

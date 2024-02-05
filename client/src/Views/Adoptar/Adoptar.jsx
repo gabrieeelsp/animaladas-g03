@@ -15,27 +15,28 @@ export default function Adoptar() {
   const [loading, setLoading] = useState(true);
   const animals = useSelector((state) => state.allAnimals);
   const pagination = useSelector((state) => state.pagination);
-
-
+  const orderByValue = useSelector((state) => state.orderByValue);
+  const orderDirValue = useSelector((state) => state.orderDirValue);
   const sizeValue = useSelector((state) => state.sizeValue);
+  const speciesValue = useSelector((state) => state.speciesValue);
+  const castratedValue = useSelector((state) => state.castratedValue);
+
+  const optionsCastrated = ['Todos', 'Si', 'No'];
+  const handleChangeCastrated = (event) => {
+      dispatch(set_castrated_value(event.target.value));  
+      dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, event.target.value, 1, 4, orderByValue, orderDirValue));
+  }
+
   const optionsSize = ['Todos', 'chico', 'mediano', 'grande'];
   const handleChangeSize = (event) => {
       dispatch(set_size_value(event.target.value));  
       dispatch(loadAnimals(nameValue, 'adoptable', event.target.value, speciesValue, castratedValue, 1, 4, orderByValue, orderDirValue));
   }
 
-  const speciesValue = useSelector((state) => state.speciesValue);
   const optionsSpecies = ['Todos', 'perro', 'gato'];
   const handleChangeSpecies = (event) => {
       dispatch(set_species_value(event.target.value));  
       dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, event.target.value, castratedValue, 1, 4, orderByValue, orderDirValue));
-  }
-
-  const castratedValue = useSelector((state) => state.castratedValue);
-  const optionsCastrated = ['Todos', 'Si', 'No'];
-  const handleChangeCastrated = (event) => {
-      dispatch(set_castrated_value(event.target.value));  
-      dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, event.target.value, 1, 4, orderByValue, orderDirValue));
   }
 
   useEffect(() => {
@@ -61,25 +62,22 @@ export default function Adoptar() {
 
   const [orderDir, setOrderDir] = useState('asc');
 
-  
 
-  const orderByValue = useSelector((state) => state.orderByValue);
-  const orderDirValue = useSelector((state) => state.orderDirValue);
   const handleOrderNameDir = (event) => {
     let orderByValueLocal = event.target.value === '' ? '' : 'name';
-    dispatch(set_orderby_value(orderByValueLocal));  
-      dispatch(set_orderdir_value(event.target.value));  
-      dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, castratedValue, 1, 4, orderByValue, event.target.value ));
-  }
-  
+    dispatch(set_orderby_value(orderByValueLocal));
+    dispatch(set_orderdir_value(event.target.value));
+    dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, castratedValue, 1, 4, orderByValueLocal, event.target.value));
+  };
 
   
   const resetFilters = () => {
     dispatch(set_size_value('Todos'))
-    dispatch(set_species_value('Todos'))
+    dispatch(set_species_value('Todos'));
     dispatch(set_castrated_value('Todos'))
-    dispatch(loadAnimals(nameValue,'adoptable', 'Todos', 'Todos', 'Todos', 1, 4, ''));
+    dispatch(loadAnimals(nameValue,'adoptable', 'Todos', 'Todos', 'Todos', 1, 4, orderByValue, orderDirValue));
   };
+  
 
 return (
   <div>
@@ -106,6 +104,7 @@ return (
                   image2={animal.image2}
                   name={animal.name}
                   estimatedBirthYear={animal.estimatedBirthYear}
+                  castrated={animal.castrated}
                   size={animal.size}
                   weight={animal.weight}
                   species={animal.species}
