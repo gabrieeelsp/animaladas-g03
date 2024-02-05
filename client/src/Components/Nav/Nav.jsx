@@ -1,15 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import "./Nav.css";
-
+import perfil_img from "../../img/perfil_default.png";
+import Profilemenu from "../PropdownProfile/Profilemenu";
+import Modalprofile from "./modalprofile";
+//import { useLocalstore } from "../../scripts/uselocalstore";
 export default function Nav() {
   const location = useLocation();
+  let showloginbutton = true;
+  let showprofile_img = false;
+  let user_info = "";
+  if (window.localStorage.user_info) {
+    user_info = JSON.parse(localStorage.getItem("user_info"));
+    showloginbutton = false;
+    showprofile_img = true;
+  }
 
+  console.log("esta es la super info", user_info);
+  const [showprofile, Setshowprofile] = useState(false);
+  const [showmodalprofile, Setshowmodalprofile] = useState(false);
   if (location.pathname === "/login" || location.pathname === "/register") {
     return null;
   }
 
+  const menuprofile = (e) => {
+    console.log("clik");
+    Setshowprofile(!showprofile);
+  };
+  const handlechange = (e) => {
+    setuserinfo({
+      ...user_info,
+      [e.target.name]: e.target.value,
+    });
+  };
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100 fixed-top">
@@ -92,25 +116,146 @@ export default function Nav() {
                   </button>
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink to="/requisitos">
+                  <button
+                    className="btn btn-outline-warning p-1 mx-3"
+                    type="button"
+                  >
+                    Requisitos
+                  </button>
+                </NavLink>
+              </li>
             </ul>
             <SearchBar />
-            <NavLink to="/login">
-              <button
-                className="btn btn-outline-warning p-1 mx-3"
-                type="button"
-                id="login"
-              >
-                <i className="bi bi-person"></i>
-                <span
-                  className="texto_responsive"
-                  data-phonetext="Mi cuenta"
-                > Iniciar sesión</span>
-              </button>
-            </NavLink>
+            {showloginbutton && (
+              <NavLink to="/login">
+                <button
+                  className="btn btn-outline-warning p-1 mx-3"
+                  type="button"
+                  id="login"
+                >
+                  <i className="bi bi-person"></i>
+                  <span
+                    className="texto_responsive"
+                    data-phonetext="Mi cuenta"
+                    desktoptext="Iniciar Sesión"
+                  ></span>
+                </button>
+              </NavLink>
+            )}
+            {showprofile_img && (
+              <img
+                onClick={(e) => menuprofile(e)}
+                src={perfil_img}
+                style={{ width: "40px", cursor: "pointer" }}
+              ></img>
+            )}
+            {showprofile ? (
+              <div className="sub-menu-wrap">
+                <div className="sub-menu">
+                  <div className="user-info">
+                    <img
+                      src={perfil_img}
+                      style={{ width: "40px", cursor: "pointer" }}
+                    ></img>
+                    <h2>Fabio Garces</h2>
+                  </div>
+                  <hr
+                    style={{
+                      border: "1px solid #E4A11B",
+                      width: "100%",
+                      margin: "15px 0 10px",
+                    }}
+                  ></hr>
+
+                  <a
+                    href="#"
+                    className="sub-menu-link"
+                    onClick={(e) => Setshowmodalprofile(!showmodalprofile)}
+                  >
+                    <i className="bi bi-person-lines-fill"></i>
+                    <p>Editar Perfil</p>
+                    <span>{">"}</span>
+                  </a>
+
+                  <a href="#" className="sub-menu-link">
+                    <i className="bi bi-bag-heart"></i>
+                    <p>Adopciones</p>
+                    <span>{">"}</span>
+                  </a>
+                  <a href="#" className="sub-menu-link">
+                    <i className="bi bi-box2-heart"></i>
+                    <p>Donaciones</p>
+                    <span>{">"}</span>
+                  </a>
+
+                  <a href="#" className="sub-menu-link">
+                    <i className="bi bi-escape"></i>
+                    <p>Cerrar sesion</p>
+                    <span>{">"}</span>
+                  </a>
+                </div>
+              </div>
+            ) : null}
           </div>
+
+          <Modalprofile
+            modalstate={showmodalprofile}
+            setmodalstate={Setshowmodalprofile}
+          >
+            <div className="input-group mt-4">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-person-fill-add"></i>
+              </div>
+              <input
+                className="form-control bg-light"
+                type="text"
+                placeholder="Nombre*"
+                name="name"
+                value={user_info.name}
+                onChange={(e) => handlechange(e)}
+              />
+            </div>
+            <div className="input-group mt-1">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-envelope-at"></i>
+              </div>
+              <input
+                className="form-control bg-light"
+                type="email"
+                placeholder="Correo Eletronico*"
+                name="email"
+                value={user_info.email}
+                onChange={(e) => handlechange(e)}
+              />
+            </div>
+            <div className="input-group mt-1">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-telephone"></i>
+              </div>
+              <input
+                className="form-control bg-light"
+                type="text"
+                placeholder="Numero de contacto*"
+                name="phone"
+                value={user_info.phone}
+                onChange={(e) => handlechange(e)}
+              />
+            </div>
+            <button
+              className="btn text-white w-100 mt-4 fw-bold shadow-sm bg-warning"
+              onSubmit={(e) => register_user(e)}
+            >
+              Actualizar
+            </button>
+          </Modalprofile>
         </div>
       </nav>
     </div>
   );
 }
 
+/*
+
+              */

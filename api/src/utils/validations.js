@@ -1,5 +1,13 @@
 const { sizeList, statusList, speciesList, genderList } = require('.');
-const { User, Animal } = require('../db');
+const { User, Animal, Adoption } = require('../db');
+const { adoptionStatusList } = require('./index');
+
+const validateAdoption = async (adoptioId) => {
+    const adoption = await Adoption.findByPk(adoptioId);
+    if (!adoption) return 'La adopcion no existe en la base de datos';
+
+    return null;
+};
 
 const validateUserId = async (userId) => {
     const user = await User.findByPk(userId);
@@ -11,6 +19,21 @@ const validateUserId = async (userId) => {
 const validateAnimalId = async (animalId) => {
     const animal = await Animal.findByPk(animalId);
     if (!animal) return 'El animal no existe en la base de datos';
+
+    return null;
+};
+
+const validateAdoptionPending = async (userId, animalId) => {
+    const pendingAdoption = await Adoption.findOne({
+        where: {
+            userId,
+            animalId,
+            status: adoptionStatusList[0],
+        },
+    });
+
+    if (pendingAdoption)
+        return 'Ya tienes una solicitud pendiente para este animalito';
 
     return null;
 };
@@ -81,6 +104,7 @@ module.exports = {
     validateUserId,
     validateAnimalId,
     validateAmount,
-};
 
-//terminado
+    validateAdoptionPending,
+    validateAdoption,
+};

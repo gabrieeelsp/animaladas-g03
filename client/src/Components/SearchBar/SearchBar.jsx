@@ -14,7 +14,6 @@ export default function Searchbar() {
   
   
   const location = useLocation();
-  const [name, setName] = useState("");
   const nameValue = useSelector((state) => state.searchBarValue)
   const dispatch = useDispatch();
 
@@ -29,6 +28,7 @@ export default function Searchbar() {
   const onSearch = (event) => {
     event.preventDefault(); 
     dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValues, castratedValue, 1, 4, orderByValue, orderDirValue));
+    dispatch(set_searchbar_value(''));
   };
 
   const onKeyDown = (event) => {

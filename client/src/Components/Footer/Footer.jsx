@@ -9,10 +9,10 @@ export default function Footer() {
   }
 
   return (
-    <footer className="container-fluid bg-dark align-items-center justify-content-center p-1 mt-2 fixed-bottom">
+    <footer className="container-fluid bg-dark align-items-center justify-content-center p-1 mt-2 fixed-bottom" style={{height:"100px"}}>
       <div className="row">
-        <div className="col-md-6">
-          <h5 className="text-warning">Redes Sociales</h5>
+
+        <div className="col-md-4" style={{marginTop:"20px"}}>
           <a href="#" className="btn btn-outline-warning mx-2">
             <i className="fab fa-facebook"></i> Facebook
           </a>
@@ -23,20 +23,24 @@ export default function Footer() {
             <i className="fab fa-instagram"></i> Instagram
           </a>
         </div>
-        <div className="col-md-6 align-items-center justify-content-center mt-2">
+
+        
+        <div className="col-md-4 align-items-center justify-content-center mt-2" style={{ display: "flex",marginTop:"20px"}}>
           <span className="text-warning">
-            Adoptá, castrá, educá, concientizá.
-          </span>
-          <p className="text-warning">
-            Adoptando cambias su vida y la tuya 🧡🐶🐱
-          </p>
-        </div>
-      </div>
-      <div className="text-center text-white mt-0">
-        <p>
           &copy; 2024 Animaladas. Todos los derechos reservados.
-        </p>
+          </span>
+        </div>
+
+        <div className="col-md-4 align-items-center justify-content-center mt-2" style={{display: "flex",marginTop:"20px"}}>
+          <span className="text-warning">
+          Adoptando cambias su vida y la tuya 🧡🐶🐱
+          </span>
+        </div>
+
+
+
       </div>
+      
     </footer>
   );
 }

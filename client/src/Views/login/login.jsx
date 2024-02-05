@@ -1,10 +1,42 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, Navigate } from "react-router-dom";
 import logo from "../../img/logoanimaladas.png";
 import logo_google from "../../img/logo_google.png";
+import axios, { Axios } from "axios";
+import ModalError from "../../Components/ErrorModal/ErrorModal.jsx";
+import { useNavigate } from "react-router-dom";
 
-export default function Login() {
-  const login_user = (e) => {};
+export default function Login(props) {
+  const navigate = useNavigate();
+  const { MessageModal, SetMessageModal } = props;
+  const [ShowModalMessage, SetShowModalMessage] = useState(false);
+  const [userdata, Setuserdata] = useState({
+    email: "",
+    password: "",
+  });
+  const handlechange = (e) => {
+    Setuserdata({
+      ...userdata,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const login_user = async (e) => {
+    const response = await axios.post(
+      "http://localhost:3001/user/login",
+      userdata
+    );
+    const { data } = response;
+    if (data.is_verified != true) {
+      SetShowModalMessage(true);
+      SetMessageModal(
+        "No puede iniciar sesion sin antes haber verificado su cuenta."
+      );
+    } else {
+      window.localStorage.setItem("user_info", JSON.stringify(data));
+      navigate("/");
+    }
+  };
+
   return (
     <div className="d-flex justify-content-center align-items-center text-warning vh-100">
       <form>
@@ -20,6 +52,7 @@ export default function Login() {
               Iniciar Sesión
             </h1>
           </div>
+
           <div className="input-group mt-4">
             <div className="input-group-text bg-warning text-white">
               <i className="bi bi-person"></i>
@@ -28,6 +61,8 @@ export default function Login() {
               className="form-control bg-light"
               type="text"
               placeholder="Usuario"
+              name="email"
+              onChange={(e) => handlechange(e)}
             />
           </div>
           <div className="input-group mt-1">
@@ -38,6 +73,8 @@ export default function Login() {
               className="form-control bg-light"
               type="password"
               placeholder="Contraseña"
+              name="password"
+              onChange={(e) => handlechange(e)}
             />
           </div>
           <div className="d-flex justify-content-around mt-1">
@@ -99,6 +136,11 @@ export default function Login() {
           </NavLink>
         </div>
       </form>
+      <ModalError
+        MessageModal={MessageModal}
+        ShowModalMessage={ShowModalMessage}
+        SetShowModalMessage={SetShowModalMessage}
+      ></ModalError>
     </div>
   );
 }

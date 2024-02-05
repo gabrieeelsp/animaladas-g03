@@ -6,6 +6,7 @@ import axios from "axios";
 import validateform from "./validation_user";
 import { useRef } from "react";
 import emailjs from "@emailjs/browser";
+
 export default function Register() {
   const form = useRef();
   const [error, Seterror] = useState({
@@ -23,6 +24,11 @@ export default function Register() {
     phone: "",
     address: "",
     imageProfile: "",
+  });
+  const [email_data, Setemail_data] = useState({
+    user_name: "",
+    user_email: "",
+    user_id: "",
   });
   const uploadImage = async (e) => {
     const file = e.target.files[0];
@@ -61,9 +67,21 @@ export default function Register() {
       showerror: validate.showerror,
     });
   };
-  const register_user = (event) => {
+  const register_user = async (event) => {
     event.preventDefault();
-    axios.post("http://localhost:3001/user/createUser", userdata);
+    const resp = await axios.post(
+      "http://localhost:3001/user/createUser",
+      userdata
+    );
+    const { data } = resp;
+    console.log("reusltado de form ", form.current);
+
+    Setemail_data({
+      ...email_data,
+      user_name: data.name,
+      user_email: data.email,
+      user_id: data.id,
+    });
     emailjs
       .sendForm(
         "service_lfwvijk",
@@ -243,3 +261,4 @@ export default function Register() {
     </div>
   );
 }
+//http://localhost:3001/user/verify?userId=${userId}

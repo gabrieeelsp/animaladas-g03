@@ -39,6 +39,7 @@ const getByIdHandler = async (req, res) => {
 };
 
 const createHandler = async (req, res) => {
+    console.log('valor del body', req);
     const {
         name,
         gender,
@@ -57,6 +58,18 @@ const createHandler = async (req, res) => {
         adoption_story,
         rescued_story,
     } = req.body;
+    console.log('nombre: ', name);
+    console.log('gender: ', gender);
+    console.log('image1: ', image1);
+    console.log('image2: ', image2);
+    console.log('image3: ', image3);
+    console.log('image4: ', image4);
+    console.log('species: ', species);
+    console.log('status: ', status);
+    console.log('size: ', size);
+    console.log('weight: ', weight);
+    console.log('vaccines: ', vaccines);
+    console.log('species: ', species);
 
     const nameError = validateName(name);
     const imageError =
@@ -69,7 +82,14 @@ const createHandler = async (req, res) => {
     const sizeError = validateSize(size);
     const weightError = validateWeight(weight);
     const genderError = validateGender(gender);
-
+    console.log('imprimimo errores:');
+    console.log('valor de los errores', nameError);
+    console.log('valor de los imageError', imageError);
+    console.log('valor de los speciesError', speciesError);
+    console.log('valor de los sizeError', sizeError);
+    console.log('valor de los weightError', weightError);
+    console.log('valor de los statusError', statusError);
+    console.log('valor de los genderError', genderError);
     if (
         nameError ||
         imageError ||
