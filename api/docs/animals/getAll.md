@@ -10,12 +10,13 @@ Este endpoint devuelve una lista de animales disponibles.
 
 -   `name` : Filtra animales por nombre, no es case sensitive.
 -   `gender`: [ male, female ]
+-   `enabled` : [ true, false ]
 -   `species` : [ dog, cat ]
 -   `size` : [ small, medium, large ]
 -   `status` : [ rescued, adoptable, adopted ]
--   `vaccines` : boolean
--   `disability_illness` : boolean
--   `castrated` : bollean
+-   `vaccines` : [ true, false ]
+-   `disability_illness` : [ true, false ]
+-   `castrated` : [ true, false ]
 -   `age_min` : Filtra animales por edad, considerando mayores o iguales a.
 -   `age_max` : Filtra animales por edad, considerando menores o iguales a.
     ( los filtros `age_min` y `age_min` se pueden aplicar juntos o separados)
