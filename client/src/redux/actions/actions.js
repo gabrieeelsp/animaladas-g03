@@ -13,6 +13,7 @@ import {
   SET_CASTRATED_VALUE,
   CREATE_FORM_SUCCESS,
   CREATE_FORM_FAILURE,
+  DELETE_ANIMAL,
 } from "./types";
 
 import axios from "axios";
@@ -239,3 +240,20 @@ export const createFormFailure = (error) => ({
   type: CREATE_FORM_FAILURE,
   error,
 });
+
+export const deleteAnimal = (id,enabled) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`${urlBaseAxios}/animal/animal/${id}`, { enabled });
+      dispatch({
+        type: DELETE_ANIMAL,
+        payload: {
+          id,
+          enabled,
+        },
+      });
+    } catch (error) {
+      console.error('Error al borrar animal:', error);
+    }
+  };
+};

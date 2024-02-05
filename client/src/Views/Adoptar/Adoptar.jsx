@@ -77,6 +77,8 @@ export default function Adoptar() {
     dispatch(set_castrated_value('Todos'))
     dispatch(loadAnimals(nameValue,'adoptable', 'Todos', 'Todos', 'Todos', 1, 4, orderByValue, orderDirValue));
   };
+
+
   
 
 return (
@@ -97,6 +99,7 @@ return (
           <div className="row w-100">
             <div className="col-12" style={{display:"flex", flexWrap:"wrap",rowGap:"15px", columnGap:"15px"}}>
             {animals && animals.map((animal) => {
+            
               return(
                 <Card
                   key={animal.id}
@@ -109,8 +112,12 @@ return (
                   weight={animal.weight}
                   species={animal.species}
                   gender={animal.gender}
-                />)
+                  enabled={animal.enabled}
+                />
+             
+              )
             })}
+         
             </div>
           </div>
         </div>
