@@ -2,6 +2,7 @@
 const getAllAnimals = require('../controllers/animal/getAll');
 const createAnimal = require('../controllers/animal/create');
 const getOneById = require('../controllers/animal/getOneById');
+const putIsEnabledAnimal = require('../controllers/animal/putIsEnabledAnimal');
 const {
     validateName,
     validateImage,
@@ -158,8 +159,19 @@ const createHandler = async (req, res) => {
     }
 };
 
+const putEnabledsAnimals = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const logicDeletion = await putIsEnabledAnimal(id);
+        res.json(logicDeletion);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 module.exports = {
     getAllHandler,
     createHandler,
     getByIdHandler,
+    putEnabledsAnimals,
 };
