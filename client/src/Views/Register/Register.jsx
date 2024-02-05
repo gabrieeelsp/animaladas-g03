@@ -1,19 +1,33 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import logo from "../../img/logoanimaladas.png";
 import logo_google from "../../img/logo_google.png";
 import axios from "axios";
 import validateform from "./validation_user";
 import { useRef } from "react";
 import emailjs from "@emailjs/browser";
-
-export default function Register() {
+import SuccesModal from "../../Components/SuccessModal/SuccesModal";
+import ModalError from "../../Components/ErrorModal/ErrorModal";
+export default function Register(props) {
+  const Navigate = useNavigate();
+  const { MessageModal } = props;
+  const { SetMessageModal } = props;
+  const [ShowModalSuccess, SetShowModalSucess] = useState(false);
+  const [ShowModalErorr, SetShowModalError] = useState(false);
   const form = useRef();
   const [error, Seterror] = useState({
+    name: "",
+    lastName: "",
     email: "",
-    priority_filds: "",
-    number_required: "",
-    showerror: false,
+    phone: "",
+    address: "",
+    priority_fields: "",
+    showerror_name: false,
+    showerror_email: false,
+    showerror_lastName: false,
+    showerror_phone: false,
+    showerror_address: false,
+    showerror_priority_fields: false,
   });
   const [Url_Imagen, setUrl_Imagen] = useState("");
   const [userdata, Setuserdata] = useState({
@@ -61,21 +75,42 @@ export default function Register() {
     let validate = validateform(userdata);
     Seterror({
       ...error,
+      name: validate.name,
+      lastName: validate.lastName,
       email: validate.email,
-      priority_filds: validate.priority_filds,
-      number_required: validate.number_required,
-      showerror: validate.showerror,
+      phone: validate.phone,
+      address: validate.address,
+      showerror_email: validate.showerror_email,
+      showerror_name: validate.showerror_name,
+      showerror_lastName: validate.showerror_lastName,
+      showerror_phone: validate.showerror_phone,
+      showerror_address: validate.showerror_address,
     });
   };
   const register_user = async (event) => {
+    if (
+      userdata.name === "" ||
+      userdata.email === "" ||
+      userdata.phone === "" ||
+      userdata.lastName === "" ||
+      userdata.address === ""
+    ) {
+      SetMessageModal("Debe completar todo los campos obligatorios ff(*)");
+      SetShowModalError(true);
+    }
     event.preventDefault();
     const resp = await axios.post(
       "http://localhost:3001/user/createUser",
       userdata
     );
     const { data } = resp;
-    console.log("reusltado de form ", form.current);
-
+    if (data) {
+      SetMessageModal(
+        "Bien! se ha registrado el usuario. Te hemos enviado un correo para verificar tu cuenta"
+      );
+      SetShowModalSucess(true);
+      Navigate("/");
+    }
     Setemail_data({
       ...email_data,
       user_name: data.name,
@@ -124,30 +159,22 @@ export default function Register() {
               Create Account
             </h1>
           </div>
-          {error.showerror ? (
+          {error.showerror_priority_fields ? (
             <div class="input-group mb-1 alert alert-warning" role="alert">
-              {error.number_required}
-              {error.priority_filds}
-              {error.email}
+              {error.priority_fields}
             </div>
           ) : null}
           <form ref={form}>
-            <div className="input-group mt-4">
-              <div className="input-group-text bg-warning text-white">
-                <i className="bi bi-person-fill-add"></i>
+            {error.showerror_email ? (
+              <div class="input-group mb-1 alert alert-warning" role="alert">
+                {error.email}
               </div>
-              <input
-                className="form-control bg-light"
-                type="text"
-                placeholder="Nombre*"
-                name="user_name"
-                onChange={(e) => handlechange(e)}
-              />
-            </div>
+            ) : null}
             <div className="input-group mt-1">
               <div className="input-group-text bg-warning text-white">
                 <i className="bi bi-envelope-at"></i>
               </div>
+
               <input
                 className="form-control bg-light"
                 type="email"
@@ -156,11 +183,35 @@ export default function Register() {
                 onChange={(e) => handlechange(e)}
               />
             </div>
+            {error.showerror_name ? (
+              <div class="input-group mb-1 alert alert-warning" role="alert">
+                {error.name}dd
+              </div>
+            ) : null}
+            <div className="input-group mt-4">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-person-fill-add"></i>
+              </div>
+
+              <input
+                className="form-control bg-light"
+                type="text"
+                placeholder="Nombre*"
+                name="user_name"
+                onChange={(e) => handlechange(e)}
+              />
+            </div>
           </form>
+          {error.showerror_lastName ? (
+            <div class="input-group mb-1 alert alert-warning" role="alert">
+              {error.lastName}
+            </div>
+          ) : null}
           <div className="input-group mt-1">
             <div className="input-group-text bg-warning text-white">
               <i className="bi bi-person-fill-add"></i>
             </div>
+
             <input
               className="form-control bg-light"
               type="text"
@@ -169,10 +220,16 @@ export default function Register() {
               onChange={(e) => handlechange(e)}
             />
           </div>
+          {error.showerror_phone ? (
+            <div class="input-group mb-1 alert alert-warning" role="alert">
+              {error.phone}
+            </div>
+          ) : null}
           <div className="input-group mt-1">
             <div className="input-group-text bg-warning text-white">
               <i className="bi bi-telephone"></i>
             </div>
+
             <input
               className="form-control bg-light"
               type="text"
@@ -181,10 +238,16 @@ export default function Register() {
               onChange={(e) => handlechange(e)}
             />
           </div>
+          {error.showerror_address ? (
+            <div class="input-group mb-1 alert alert-warning" role="alert">
+              {error.address}
+            </div>
+          ) : null}
           <div className="input-group mt-1">
             <div className="input-group-text bg-warning text-white">
               <i className="bi bi-geo-alt-fill"></i>
             </div>
+
             <input
               className="form-control bg-light"
               type="text"
@@ -258,6 +321,20 @@ export default function Register() {
           </NavLink>
         </div>
       </form>
+      {ShowModalSuccess && (
+        <SuccesModal
+          MessageModal={MessageModal}
+          ShowModalMessage={ShowModalSuccess}
+          SetShowModalMessage={SetShowModalSucess}
+        ></SuccesModal>
+      )}
+      {ShowModalErorr && (
+        <ModalError
+          MessageModal={MessageModal}
+          ShowModalMessage={ShowModalErorr}
+          SetShowModalMessage={SetShowModalError}
+        ></ModalError>
+      )}
     </div>
   );
 }

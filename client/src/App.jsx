@@ -38,8 +38,16 @@ function App() {
             />
           }
         />
-        <Route path="/register" element={<Register />}></Route>
 
+        <Route
+          path="/register"
+          element={
+            <Register
+              MessageModal={MessageModal}
+              SetMessageModal={SetMessageModal}
+            />
+          }
+        />
         <Route
           path="/add"
           element={
@@ -51,7 +59,15 @@ function App() {
         />
         <Route path="/requisitos" element={<Requisitos />}></Route>
         <Route path="/donar" element={<Donar />}></Route>
-        <Route path="/verifyUser/:infoUser" element={<Verify_user />}></Route>
+        <Route
+          path="/verifyUser/:infoUser"
+          element={
+            <Verify_user
+              MessageModal={MessageModal}
+              SetMessageModal={SetMessageModal}
+            />
+          }
+        />
       </Routes>
       <Footer />
     </div>
