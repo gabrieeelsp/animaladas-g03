@@ -37,13 +37,14 @@ export default function Login(props) {
     }
   };
 
+  const signInWithGoogle = () => {
+    window.location.href = "http://localhost:3001/auth/google";
+  };
+
   return (
     <div className="d-flex justify-content-center align-items-center text-warning vh-100">
       <form>
-        <div
-          className="bg-dark p-5 rounded-5 shadow"
-          style={{ width: "25rem" }}
-        >
+        <div className="bg-dark p-5 rounded-5 shadow" style={{ width: "25rem" }}>
           <div className="d-flex justify-content-center">
             <img src={logo} alt="login-icon" style={{ width: "7rem" }} />
           </div>
@@ -119,7 +120,10 @@ export default function Login(props) {
               <span className="bg-dark">O también puedes...</span>
             </div>
           </div>
-          <div className="btn d-flex gap-2 justify-content-center border mt-3 shadow-sm">
+          <div
+            className="btn d-flex gap-2 justify-content-center border mt-3 shadow-sm"
+            onClick={signInWithGoogle}
+          >
             <img
               src={logo_google}
               alt="google-icon"

@@ -62,6 +62,10 @@ const getFiltersList = (filters) => {
         filtersList.status = filters.status;
     }
 
+    if (filters.enabled) {
+        filtersList.enabled = filters.enabled;
+    }
+
     if (filters.disability_illness) {
         filtersList.disability_illness = filters.disability_illness;
     }
