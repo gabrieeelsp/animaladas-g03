@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavLink, Navigate } from "react-router-dom";
 import logo from "../../img/logoanimaladas.png";
 import logo_google from "../../img/logo_google.png";
-import axios, { Axios } from "axios";
+import axios from "axios";
 import ModalError from "../../Components/ErrorModal/ErrorModal.jsx";
 import { useNavigate } from "react-router-dom";
 
@@ -38,7 +38,7 @@ export default function Login(props) {
   };
 
   const signInWithGoogle = () => {
-    window.location.href = "http://localhost:3001/auth/google";
+    window.location.href = "http://localhost:3001/user/auth/google";
   };
 
   return (
