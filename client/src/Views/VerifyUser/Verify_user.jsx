@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import SuccesModal from "../../Components/SuccessModal/SuccesModal";
-export default function Verify_user() {
+
+export default function Verify_user(props) {
   const { infouser } = useParams();
-  console.log(infouser);
+  const { MessageModal } = props;
+  const { SetMessageModal } = props;
+  const [ShowModalSuccess, SetShowModalSucess] = useState(true);
+  SetMessageModal("Bien hecho! se ha verificado tu cuenta.");
+
   return (
     <div>
-      <SuccesModal>
-        <h1>Usuario verificado</h1>
-        <p></p>
-
-        <button to="/home">Regresar Home</button>
-      </SuccesModal>
+      <SuccesModal
+        MessageModal={MessageModal}
+        ShowModalMessage={ShowModalSuccess}
+        SetShowModalMessage={SetShowModalSucess}
+      ></SuccesModal>
     </div>
   );
 }
+/*terminado*/

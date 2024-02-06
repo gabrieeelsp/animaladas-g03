@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import "./Nav.css";
 import perfil_img from "../../img/perfil_default.png";
@@ -7,15 +7,11 @@ import Profilemenu from "../PropdownProfile/Profilemenu";
 import Modalprofile from "./modalprofile";
 //import { useLocalstore } from "../../scripts/uselocalstore";
 export default function Nav() {
+  const Navigate = useNavigate();
   const location = useLocation();
   let showloginbutton = true;
   let showprofile_img = false;
   let user_info = "";
-  if (window.localStorage.user_info) {
-    user_info = JSON.parse(localStorage.getItem("user_info"));
-    showloginbutton = false;
-    showprofile_img = true;
-  }
 
   console.log("esta es la super info", user_info);
   const [showprofile, Setshowprofile] = useState(false);
@@ -34,6 +30,16 @@ export default function Nav() {
       [e.target.name]: e.target.value,
     });
   };
+  const closeprofilemenu = (e) => {
+    localStorage.removeItem("user_info");
+    Navigate("/");
+    menuprofile(e);
+  };
+  if (window.localStorage.user_info) {
+    user_info = JSON.parse(localStorage.getItem("user_info"));
+    showloginbutton = false;
+    showprofile_img = true;
+  }
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100 fixed-top">
@@ -159,7 +165,7 @@ export default function Nav() {
                       src={perfil_img}
                       style={{ width: "40px", cursor: "pointer" }}
                     ></img>
-                    <h2>Fabio Garces</h2>
+                    <h2>{user_info.name}</h2>
                   </div>
                   <hr
                     style={{
@@ -192,7 +198,7 @@ export default function Nav() {
 
                   <a href="#" className="sub-menu-link">
                     <i className="bi bi-escape"></i>
-                    <p>Cerrar sesion</p>
+                    <p onClick={(e) => closeprofilemenu(e)}>Cerrar sesion</p>
                     <span>{">"}</span>
                   </a>
                 </div>

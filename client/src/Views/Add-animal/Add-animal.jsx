@@ -22,10 +22,22 @@ export default function Addanimal(props) {
   const [img4, Setimg4] = useState("");
   const [Url_Imagen, setUrl_Imagen] = useState("");
   const [error, setError] = useState({
-    email: "",
-    number_required: "",
+    name: "",
+    species: "",
+    status: "",
+    size: "",
+    weight: "",
+    gender: "",
     priority_filds: "",
-    showerror: false,
+    estimatedBirthYear: "",
+    showerror_priority_filds: false,
+    showerror_name: false,
+    showerror_species: false,
+    showerror_email: false,
+    showerror_status: false,
+    showerror_weight: false,
+    showerror_gender: false,
+    showerror_estimatedBirthYear: false,
   });
   const [dogdata, Setdogdata] = useState({
     name: "",
@@ -108,17 +120,41 @@ export default function Addanimal(props) {
     let validate = validateform(dogdata);
     setError({
       ...error,
-      number_required: validate.number_required,
-      priority_filds: validate.priority_filds,
-      showerror: validate.showerror,
+      name: validate.name,
+      species: validate.species,
+      status: validate.status,
+      size: validate.size,
+      weight: validate.weight,
+      gender: validate.gender,
+      estimatedBirthYear: validate.estimatedBirthYear,
+      showerror_name: validate.showerror_name,
+      showerror_species: validate.showerror_species,
+      showerror_status: validate.showerror_status,
+      showerror_weight: validate.showerror_weight,
+      showerror_gender: validate.showerror_gender,
+      showerror_estimatedBirthYear: validate.showerror_estimatedBirthYear,
     });
   };
   const save_dog = async (e) => {
-    if (error.showerror) {
-      console.log("ingreso ");
-      SetMessageModal("Opps, hay errores en el formulario");
+    if (
+      dogdata.name === "" ||
+      dogdata.gender === "" ||
+      dogdata.species === "" ||
+      dogdata.status === "" ||
+      dogdata.weight === "" ||
+      dogdata.estimatedBirthYear === "" ||
+      dogdata.size === ""
+    ) {
+      /*console.log("ingresandooo");
+      error.priority_filds =
+        "Debe completar todo los campos obligatorios ff(*)";
+      error.showerror_priority_filds = true;*/
+      SetMessageModal("Debe completar todo los campos obligatorios ff(*)");
       SetShowModalError(true);
     } else {
+      error.priority_filds = "";
+      error.showerror_priority_filds = false;
+      console.log("ingreso para cargar a la base de datos");
       const { data } = await axios.post(
         "http://localhost:3001/animal/createAnimals",
         dogdata
@@ -126,6 +162,9 @@ export default function Addanimal(props) {
       if (data) {
         SetMessageModal("!Bien! Se ha cargado con exito.");
         SetShowModalSucess(true);
+      } else {
+        SetMessageModal("Opps ocurrio un error");
+        SetShowModalError(true);
       }
     }
 
@@ -157,7 +196,7 @@ export default function Addanimal(props) {
     Setshowimg4(false);
   };
   const string1 = "hola";
-
+  console.log(error);
   return (
     <div className="container d-flex justify-content-center align-items-center min-vh-100 mb-2 mt-2">
       <div className="row  rounded-5 p-3 bg-dark shadow box-area border-primary">
@@ -273,17 +312,23 @@ export default function Addanimal(props) {
               <h2>INGRESO DE MASCOTAS</h2>
               <p>Subir una mascota para adopción</p>
             </div>
-            {error.showerror ? (
+            {error.showerror_priority_filds ? (
               <div
                 className="input-group mb-1 alert alert-warning"
                 role="alert"
               >
-                {error.number_required}
                 {error.priority_filds}
-                {error.email}
               </div>
             ) : null}
             <div className="input-group mb-1">
+              {error.showerror_name ? (
+                <div
+                  className="input-group mb-1 alert alert-warning"
+                  role="alert"
+                >
+                  {error.name}
+                </div>
+              ) : null}
               <input
                 name="name"
                 type="text"
@@ -340,26 +385,42 @@ export default function Addanimal(props) {
                 onChange={(e) => handlechange(e)}
                 name="size"
               >
-                <option selected>*Selecciona peso</option>
+                <option selected>*Selecciona el tamaño</option>
                 <option value="chico">Chico</option>
                 <option value="mediano">Mediano</option>
                 <option value="grande">Grande</option>
               </select>
             </div>
             <div className="input-group mb-1">
+              {error.showerror_estimatedBirthYear ? (
+                <div
+                  className="input-group mb-1 alert alert-warning"
+                  role="alert"
+                >
+                  {error.estimatedBirthYear}
+                </div>
+              ) : null}
               <input
                 type="text"
                 className="form-control form form-control-lg bg-light fs-6"
-                placeholder="Año de nacimiento"
+                placeholder="*Año de nacimiento "
                 name="estimatedBirthYear"
                 onChange={(e) => handlechange(e)}
               ></input>
             </div>
             <div className="input-group mb-1">
+              {error.showerror_weight ? (
+                <div
+                  className="input-group mb-1 alert alert-warning"
+                  role="alert"
+                >
+                  {error.weight}
+                </div>
+              ) : null}
               <input
                 type="text"
                 className="form-control form form-control-lg bg-light fs-6"
-                placeholder="Peso"
+                placeholder="*Peso"
                 name="weight"
                 onChange={(e) => handlechange(e)}
               ></input>
@@ -499,16 +560,20 @@ export default function Addanimal(props) {
         </div>
       </div>
 
-      <SuccesModal
-        MessageModal={MessageModal}
-        ShowModalMessage={ShowModalSuccess}
-        SetShowModalMessage={SetShowModalSucess}
-      ></SuccesModal>
-      <ModalError
-        MessageModal={MessageModal}
-        ShowModalMessage={ShowModalErorr}
-        SetShowModalMessage={SetShowModalError}
-      ></ModalError>
+      {ShowModalSuccess && (
+        <SuccesModal
+          MessageModal={MessageModal}
+          ShowModalMessage={ShowModalSuccess}
+          SetShowModalMessage={SetShowModalSucess}
+        ></SuccesModal>
+      )}
+      {ShowModalErorr && (
+        <ModalError
+          MessageModal={MessageModal}
+          ShowModalMessage={ShowModalErorr}
+          SetShowModalMessage={SetShowModalError}
+        ></ModalError>
+      )}
     </div>
   );
 }
