@@ -5,7 +5,7 @@ import logo_google from "../../img/logo_google.png";
 import axios from "axios";
 import ModalError from "../../Components/ErrorModal/ErrorModal.jsx";
 import { useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
 export default function Login(props) {
   const navigate = useNavigate();
   const { MessageModal, SetMessageModal } = props;
@@ -41,7 +41,6 @@ export default function Login(props) {
     window.location.href = "http://localhost:3001/user/auth/google";
   };
 
-
   useEffect(() => {
     const userDataFromGoogle = JSON.parse(
       window.localStorage.getItem("user_info_google")
@@ -54,11 +53,13 @@ export default function Login(props) {
     }
   }, []);
 
-
   return (
     <div className="d-flex justify-content-center align-items-center text-warning vh-100">
       <form>
-        <div className="bg-dark p-5 rounded-5 shadow" style={{ width: "25rem" }}>
+        <div
+          className="bg-dark p-5 rounded-5 shadow"
+          style={{ width: "25rem" }}
+        >
           <div className="d-flex justify-content-center">
             <img src={logo} alt="login-icon" style={{ width: "7rem" }} />
           </div>
