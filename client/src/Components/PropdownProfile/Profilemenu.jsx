@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./Profilemenu.css";
+import { Navigate } from "react-router-dom";
 
 export default function Profilemenu() {
   return (
@@ -8,7 +9,8 @@ export default function Profilemenu() {
       <ul className="flex flex-col gap-4">
         <li>Perfil</li>
         <li>Mensajes</li>
-        <li>Cerrar Sesion</li>
+        <li>Mensajes</li>
+        <li onClick={(e) => close_profilemenu(e)}>Cerrar Sesions</li>
       </ul>
     </div>
   );
