@@ -1,4 +1,4 @@
-import React, { useState,useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../img/logoanimaladas.png";
 import logo_google from "../../img/logo_google.png";
@@ -6,8 +6,10 @@ import axios from "axios";
 import ModalError from "../../Components/ErrorModal/ErrorModal.jsx";
 import { useNavigate } from "react-router-dom";
 
-
 export default function Login(props) {
+  const urlParams = new URLSearchParams(window.location.search);
+  const serializedUser = urlParams.get("userGoogle");
+  window.localStorage.setItem("user_info", serializedUser);
   const navigate = useNavigate();
   const { MessageModal, SetMessageModal } = props;
   const [ShowModalMessage, SetShowModalMessage] = useState(false);
@@ -43,24 +45,19 @@ export default function Login(props) {
     window.location.href = `${urlBaseAxios}/user/auth/google`;
   };
 
-
   useEffect(() => {
-    const userDataFromGoogle = JSON.parse(
-      window.localStorage.getItem("user_info_google")
-    );
-    if (userDataFromGoogle) {
-      window.localStorage.setItem(
-        "user_info",
-        JSON.stringify(userDataFromGoogle)
-      );
+    if (serializedUser) {
+      navigate("/");
     }
   }, []);
-
 
   return (
     <div className="d-flex justify-content-center align-items-center text-warning vh-100">
       <form>
-        <div className="bg-dark p-5 rounded-5 shadow" style={{ width: "25rem" }}>
+        <div
+          className="bg-dark p-5 rounded-5 shadow"
+          style={{ width: "25rem" }}
+        >
           <div className="d-flex justify-content-center">
             <img src={logo} alt="login-icon" style={{ width: "7rem" }} />
           </div>

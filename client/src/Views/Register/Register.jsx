@@ -93,56 +93,59 @@ export default function Register(props) {
       userdata.email === "" ||
       userdata.phone === "" ||
       userdata.lastName === "" ||
-      userdata.address === ""
+      userdata.address === "" ||
+      userdata.password === ""
     ) {
       SetMessageModal("Debe completar todo los campos obligatorios ff(*)");
       SetShowModalError(true);
-    }
-    event.preventDefault();
-    const resp = await axios.post(
-      "http://localhost:3001/user/createUser",
-      userdata
-    );
-    const { data } = resp;
-    if (data) {
-      SetMessageModal(
-        "Bien! se ha registrado el usuario. Te hemos enviado un correo para verificar tu cuenta"
+    } else {
+      event.preventDefault();
+      const resp = await axios.post(
+        "http://localhost:3001/user/createUser",
+        userdata
       );
-      SetShowModalSucess(true);
-      Navigate("/");
-    }
-    Setemail_data({
-      ...email_data,
-      user_name: data.name,
-      user_email: data.email,
-      user_id: data.id,
-    });
-    emailjs
-      .sendForm(
-        "service_lfwvijk",
-        "template_bg3fyqz",
-        form.current,
-        "iOYw55Pr2RskRgQZ8"
-      )
-      .then(
-        (result) => {
-          console.log("resultado exitoso", result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
+      const { data } = resp;
+      if (data) {
+        SetMessageModal(
+          "Bien! se ha registrado el usuario. Te hemos enviado un correo para verificar tu cuenta"
+        );
+        SetShowModalSucess(true);
+        Navigate("/");
+      }
+      Setemail_data({
+        ...email_data,
+        user_name: data.name,
+        user_email: data.email,
+        user_id: data.id,
+      });
+      emailjs
+        .sendForm(
+          "service_lfwvijk",
+          "template_bg3fyqz",
+          form.current,
+          "iOYw55Pr2RskRgQZ8"
+        )
+        .then(
+          (result) => {
+            console.log("resultado exitoso", result.text);
+          },
+          (error) => {
+            console.log(error.text);
+          }
+        );
 
-    Setuserdata({
-      name: "",
-      lastName: "",
-      email: "",
-      password: "",
-      phone: "",
-      address: "",
-      imageProfile: "",
-    });
+      Setuserdata({
+        name: "",
+        lastName: "",
+        email: "",
+        password: "",
+        phone: "",
+        address: "",
+        imageProfile: "",
+      });
+    }
   };
+
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <form onSubmit={register_user}>
