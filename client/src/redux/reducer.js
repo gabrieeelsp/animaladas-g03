@@ -130,20 +130,7 @@ case ORDER_BY_AGE:
     return state;
   }
   case DELETE_ANIMAL: {
-    const updatedAnimals = state.allAnimals.map(animal => {
-      if (animal.id === payload.id) {
-        return {
-          ...animal,
-          enabled: payload.enabled, // Actualiza con el valor actual de enabled
-        };
-      }
-      return animal;
-    });
-  
-    return {
-      ...state,
-      allAnimals: updatedAnimals,
-    };
+   return state;
   }
 
 
