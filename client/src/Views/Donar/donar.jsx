@@ -13,6 +13,7 @@ const Donar = () => {
   const [preferenceId, setPreferenceId] = useState(null);
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [customAmount, setCustomAmount] = useState("");
+  const [showGratitudeMessage, setShowGratitudeMessage] = useState(true);
 
   useEffect(() => {
     
@@ -62,6 +63,7 @@ const Donar = () => {
         console.log("preferenceId actualizado:", id);
         setSelectedAmount(amount);
         setCustomAmount("");
+        setShowGratitudeMessage(false);
       }
     } catch (error) {
       console.error("Error al crear la preferencia:", error);
@@ -88,17 +90,17 @@ const Donar = () => {
   return (
     <div className="container donar-container">
       <div className="row mt-3">
-        <div className="col-md-6 mb-4 mt-5">
+        <div className="col-md-6 mb-4 mt-5" style={{height:"700px"}}>
           <img
             src="https://img.freepik.com/fotos-premium/perro-gato-sobre-fondo-amarillo_875722-12107.jpg?w=740"
-            className="img-fluid rounded"
-            style={{ border: "2px solid #ffc107", height: "100%", width: "100%", objectFit:"cover" }}
+            className="img-fluid"
+            style={{ border: "2px solid #ffc107", height: "100%", width: "100%", objectFit:"cover", borderRadius:"30px" }}
             alt="Animales"
           />
         </div>
   
-         <div className="col-md-6 mb-4 mt-5">
-        <div className="card h-100 donar-custom-card home-card">
+         <div className="col-md-6 mb-4 mt-5"style={{height:"700px"}}>
+        <div className="card h-100 donar-custom-card home-card"style={{borderRadius:"30px"}}>
           <div className="card-donar-body d-flex flex-column align-items-center">
             <h3 className="text-warning mt-3 mb-4">¿Cuánto quieres aportar?</h3>
 
@@ -200,13 +202,17 @@ const Donar = () => {
                     style={{ width: "70%", height: "400px" }}
                   />
                 )}
-              </div>
-
-              <div className="gratitude-message mt-4">
-                <p>
+                {showGratitudeMessage && (
+                 <div className="gratitude-message mt-4">
+                 <p>
                   ¡Gracias por ayudar a nuestros amigos! <FontAwesomeIcon icon={faPaw} />
                 </p>
+                </div>
+                  )}
+                
               </div>
+
+             
             </div>
           </div>
         </div>
