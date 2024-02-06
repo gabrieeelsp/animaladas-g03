@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import logo from "../../img/logoanimaladas.png";
 import logo_google from "../../img/logo_google.png";
 import axios from "axios";
 import ModalError from "../../Components/ErrorModal/ErrorModal.jsx";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+
 export default function Login(props) {
+  const { name } = useParams();
   const navigate = useNavigate();
   const { MessageModal, SetMessageModal } = props;
   const [ShowModalMessage, SetShowModalMessage] = useState(false);
@@ -52,7 +53,7 @@ export default function Login(props) {
       );
     }
   }, []);
-
+  console.log("hola", name);
   return (
     <div className="d-flex justify-content-center align-items-center text-warning vh-100">
       <form>
