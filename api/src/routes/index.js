@@ -5,6 +5,8 @@ const initRouter = require('./initRouter');
 const donationRouter = require('./donationRouter');
 const adoptionRouter = require('./adoptionRouter');
 const mercadopagoRouter = require('./mercadopagoRouter');
+const passport = require('passport');
+require('../services/google');
 
 const router = Router();
 
@@ -17,5 +19,14 @@ router.use('/init', initRouter);
 router.use('/donations', donationRouter);
 router.use('/adoptions', adoptionRouter);
 router.use('/mercadopago', mercadopagoRouter);
+
+router.use(
+    '/user/auth',
+    passport.authenticate('auth-google', {
+        scope: ['profile', 'email'],
+        session: false,
+    }),
+    userRouter,
+);
 
 module.exports = router;

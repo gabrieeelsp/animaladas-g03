@@ -22,14 +22,15 @@ module.exports = (sequelize) => {
         },
         password: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         phone: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
         },
         address: {
             type: DataTypes.STRING,
+            allowNull: true,
         },
         imageProfile: {
             type: DataTypes.STRING,
