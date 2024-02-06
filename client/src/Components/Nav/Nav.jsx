@@ -11,7 +11,7 @@ export default function Nav() {
   const location = useLocation();
   let showloginbutton = true;
   let showprofile_img = false;
-  let user_info = "";
+  let user_info = {};
 
   console.log("esta es la super info", user_info);
   const [showprofile, Setshowprofile] = useState(false);
@@ -165,7 +165,7 @@ export default function Nav() {
                       src={perfil_img}
                       style={{ width: "40px", cursor: "pointer" }}
                     ></img>
-                    <h2>{user_info.name}</h2>
+                    <h2>{user_info && user_info.name ? user_info.name : ''}</h2>
                   </div>
                   <hr
                     style={{
@@ -219,7 +219,7 @@ export default function Nav() {
                 type="text"
                 placeholder="Nombre*"
                 name="name"
-                value={user_info.name}
+                value={user_info && user_info.name ? user_info.name : ''}
                 onChange={(e) => handlechange(e)}
               />
             </div>
@@ -232,7 +232,7 @@ export default function Nav() {
                 type="email"
                 placeholder="Correo Eletronico*"
                 name="email"
-                value={user_info.email}
+                value={user_info && user_info.email ? user_info.email : ''}
                 onChange={(e) => handlechange(e)}
               />
             </div>
@@ -245,7 +245,7 @@ export default function Nav() {
                 type="text"
                 placeholder="Numero de contacto*"
                 name="phone"
-                value={user_info.phone}
+               value={user_info && user_info.phone ? user_info.phone : ''}
                 onChange={(e) => handlechange(e)}
               />
             </div>
