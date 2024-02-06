@@ -110,7 +110,7 @@ export default function Register(props) {
           "Bien! se ha registrado el usuario. Te hemos enviado un correo para verificar tu cuenta"
         );
         SetShowModalSucess(true);
-        Navigate("/");
+        // Navigate("/");
       }
       Setemail_data({
         ...email_data,
