@@ -16,7 +16,7 @@ const initialState = {
   sizeValue: 'Todos',
   speciesValue: 'Todos',
   castratedValue: 'Todos',
-  enabledValue: 'No',
+  enabledValue: 'Si',
   animalById: [],
 };
 
