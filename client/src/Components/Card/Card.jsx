@@ -16,7 +16,6 @@ export default function Card(props) {
 
   
   const {id, name, estimatedBirthYear, size, species, gender, image2, castrated, enabled} = props;
-  console.log(name)
   const calculateAge = (estimatedBirthYear) => {
     if (!estimatedBirthYear) {
         return "Edad desconocida";
