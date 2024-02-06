@@ -148,14 +148,14 @@ export default function Register(props) {
       <form onSubmit={register_user}>
         <div
           className="bg-dark p-5 rounded-5 shadow"
-          style={{ width: "25rem" }}
+          style={{ width: "30rem" }}
         >
           <div className="d-flex justify-content-center">
             <img src={logo} alt="login-icon" style={{ width: "7rem" }} />
           </div>
           <div>
             <h1 className="text-center fs-1 fw-bold text-warning">
-              Create Account
+              Crear cuenta
             </h1>
           </div>
           {error.showerror_priority_fields ? (
@@ -177,7 +177,7 @@ export default function Register(props) {
               <input
                 className="form-control bg-light"
                 type="email"
-                placeholder="Correo Eletronico*"
+                placeholder="Correo Electrónico*"
                 name="user_email"
                 onChange={(e) => handlechange(e)}
               />
@@ -232,7 +232,7 @@ export default function Register(props) {
             <input
               className="form-control bg-light"
               type="text"
-              placeholder="Numero de contacto*"
+              placeholder="Número de contacto*"
               name="phone"
               onChange={(e) => handlechange(e)}
             />
@@ -250,7 +250,7 @@ export default function Register(props) {
             <input
               className="form-control bg-light"
               type="text"
-              placeholder="Direccion*"
+              placeholder="Dirección*"
               name="address"
               onChange={(e) => handlechange(e)}
             />
@@ -262,7 +262,7 @@ export default function Register(props) {
             <input
               className="form-control bg-light"
               type="password"
-              placeholder="Password"
+              placeholder="Contraseña*"
               name="password"
               onChange={(e) => handlechange(e)}
             />
@@ -272,7 +272,7 @@ export default function Register(props) {
           </label>
           <div class=" input-group mb-1 mt-3">
             <input
-              class="form-control"
+              class="form-control text-center"
               type="file"
               id="formFile"
               onChange={uploadImage}
@@ -283,24 +283,24 @@ export default function Register(props) {
             className="btn text-white w-100 mt-4 fw-bold shadow-sm bg-warning"
             onSubmit={(e) => register_user(e)}
           >
-            Create Account
+            Crear cuenta
           </button>
 
           <div className="d-flex gap-1 justify-content-center text-warning mt-1">
-            <div>You have an account?</div>
+            <div>¿Tienes una cuenta?</div>
             <NavLink to="/login" style={{ textDecoration: "none" }}>
               <a
                 href="#"
                 className="text-decoration-none fw-semibold text-warning"
               >
-                Sing in
+                Iniciar sesión
               </a>
             </NavLink>
           </div>
 
           <div className="p-3">
-            <div className="border-bottom text-center text-warning">
-              <span className="bg-dark">or</span>
+            <div className="text-center text-warning">
+              <span className="bg-dark">o</span>
             </div>
           </div>
           <div className="btn d-flex gap-2 justify-content-center border mt-3 shadow-sm">
@@ -310,12 +310,12 @@ export default function Register(props) {
               style={{ height: "1.6rem" }}
             />
             <div className="fw-semibold text-secondary">
-              Continue with Google
+              Continuar con Google
             </div>
           </div>
           <NavLink to="/">
             <div className="btn text-white w-100 mt-4 fw-bold shadow-sm bg-warning">
-              Return to Home
+              Volver a Home
             </div>
           </NavLink>
         </div>

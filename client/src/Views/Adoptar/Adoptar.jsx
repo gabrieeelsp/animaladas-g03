@@ -124,7 +124,7 @@ return (
         </div>
         <div
           className="bg-dark col-1 my-3 d-flex flex-column align-items-center justify-content-center"
-          style={{ width: "auto", height: "750px", borderRadius: "20px" }}
+          style={{ width: "auto", height: "650px", borderRadius: "20px" }}
         >
           
           <span className="text-warning btn-sm m-3 fw-bold">
