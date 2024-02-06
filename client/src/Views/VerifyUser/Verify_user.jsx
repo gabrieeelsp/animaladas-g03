@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import SuccesModal from "../../Components/SuccessModal/SuccesModal";
 
 export default function Verify_user(props) {
-  Navigate = useNavigate();
   const { infouser } = useParams();
   const { MessageModal } = props;
   const { SetMessageModal } = props;
@@ -20,3 +19,4 @@ export default function Verify_user(props) {
     </div>
   );
 }
+/*terminado*/
