@@ -18,7 +18,8 @@ import {
 
 import axios from "axios";
 
-const urlBaseAxios = "http://localhost:3001";
+const urlBaseAxios = import.meta.env.VITE_ENV === 'DEV' ? import.meta.env.VITE_URL_DEV : import.meta.env.VITE_URL_PROD;
+
 
 export const set_searchbar_value = (value) => {
   return (dispatch) => {

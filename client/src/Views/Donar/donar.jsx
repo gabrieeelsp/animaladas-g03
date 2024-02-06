@@ -20,9 +20,11 @@ const Donar = () => {
     console.log("MercadoPago inicializado correctamente.");
   }, []);
 
+  const urlBaseAxios = import.meta.env.VITE_ENV === 'DEV' ? import.meta.env.VITE_URL_DEV : import.meta.env.VITE_URL_PROD;
+
   const createPreference = async (amount, userDetails) => {
     try {
-      const response = await axios.post("http://localhost:3001/mercadopago/crear-preferencia", {
+      const response = await axios.post(`${urlBaseAxios}/mercadopago/crear-preferencia`, {
         title: 'Donación',
         quantity: 1,
         unit_price: amount,
