@@ -101,11 +101,12 @@ export default function Login(props) {
           >
             Iniciar sesión
           </div>
+          <p></p>
           <div
             className="d-flex gap-1 justify-content-center text-warning mt-1"
             style={{ fontSize: "0.8rem" }}
           >
-            <div>¡No tienes una cuenta?</div>
+            <div>¿No tienes una cuenta?</div>
             <NavLink to="/register" style={{ textDecoration: "none" }}>
               <a
                 href="#"
@@ -130,7 +131,7 @@ export default function Login(props) {
               style={{ height: "1.6rem" }}
             />
             <div className="fw-semibold text-secondary text-white">
-              Continúa con Google
+              Continuar con Google
             </div>
           </div>
           <NavLink to="/">

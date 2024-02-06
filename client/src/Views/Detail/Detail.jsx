@@ -67,13 +67,13 @@ export default function Detail() {
                 <Loader />
             ) : (
                 <div className="container d-flex align-items-center justify-content-center my-5">
-                    <div className="row bg-dark p-4 align-items-center justify-content-center" style={{ width: "2000px", borderRadius: "30px" }}>
+                    <div className="row bg-dark p-4 align-items-center justify-content-center" style={{ width: "1000px", borderRadius: "50px" }}>
                         <div className="col">
-                            <img src={animal.image2 ? animal.image2 : "https://i.pinimg.com/originals/48/cf/7f/48cf7fff6428fe2b9665c4f6f6d20975.jpg"} className="card-img p-3" alt={animal.image2} style={{ borderRadius: "100%", width: "100%", objectFit: "cover" }} />
+                            <img src={animal.image2 ? animal.image2 : "https://i.pinimg.com/originals/48/cf/7f/48cf7fff6428fe2b9665c4f6f6d20975.jpg"} className="card-img p-3" alt={animal.image2} style={{ borderRadius: "500px", width: "450px", height: "450px", objectFit: "cover" }} />
                         </div>
                         <div className="col">
                             <div className="row bg-dark p-4 text-warning" style={{ width: "auto", borderRadius: "30px", textAlign: "left" }}>
-                                <div className="container " style={{ backgroundColor: "#FFC107", marginBottom: "30px", borderRadius: "30px", width: "auto" }}> <h1 className="card-title" style={{ textAlign: "center", alignContent: "center", padding: "5px", color: "#212529" }}>{animal.name}</h1></div>
+                                <div className="container bg-warning" style={{marginBottom: "30px", borderRadius: "20px", width: "auto" }}> <h1 className="card-title" style={{ textAlign: "center", alignContent: "center", padding: "5px", color: "#212529" }}>{animal.name}</h1></div>
                                 <h4 className="card-text text-left">Sexo: {animal.gender}</h4>
                                 <h4 className="card-text text-left">Especie: {animal.species}</h4>
                                 <h4 className="card-text text-left">Edad (estimada): {calculateAge(animal.estimatedBirthYear)}</h4>
