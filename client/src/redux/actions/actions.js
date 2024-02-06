@@ -13,6 +13,7 @@ import {
   SET_CASTRATED_VALUE,
   CREATE_FORM_SUCCESS,
   CREATE_FORM_FAILURE,
+  DELETE_ANIMAL,
 } from "./types";
 
 import axios from "axios";
@@ -82,7 +83,8 @@ export const loadAnimals = (
   page = 1,
   animalsPerPage = 4,
   orderBy = null,
-  orderDir = ""
+  orderDir = "",
+  enabled,
 ) => {
   return async (dispatch) => {
     try {
@@ -102,6 +104,18 @@ export const loadAnimals = (
         }
         case "No": {
           castradoValue = false;
+          break;
+        }
+      }
+
+      let enabledValue = null;
+      switch (enabled) {
+        case "Si": {
+          enabledValue = true;
+          break;
+        }
+        case "No": {
+          enabledValue = false;
           break;
         }
       }
@@ -128,6 +142,8 @@ export const loadAnimals = (
           limit: animalsPerPage,
           orderby: orderBy,
           orderdir: orderDir,
+          enabled: enabledValue,
+      
         },
       });
 
@@ -239,3 +255,20 @@ export const createFormFailure = (error) => ({
   type: CREATE_FORM_FAILURE,
   error,
 });
+
+export const deleteAnimal = (id,enabled) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`${urlBaseAxios}/animal/animal/${id}`, { enabled });
+      dispatch({
+        type: DELETE_ANIMAL,
+        payload: {
+          id,
+          enabled,
+        },
+      });
+    } catch (error) {
+      console.error('Error al borrar animal:', error);
+    }
+  };
+};
