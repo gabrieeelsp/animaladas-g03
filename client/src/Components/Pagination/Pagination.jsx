@@ -33,17 +33,17 @@ const Paginacion = ({ onNextPage, onPrevPage, pagination }) => {
   };
 
   return (
-    <div>
-      <button className="btn btn-warning btn-sm m-1 font-weight-bold" onClick={() => onPrevPage(pagination.prev_page)} disabled={!pagination || !pagination.prev_page}>
+    <div className='d-flex justify-content-center align-items-center'>
+      <button className="btn bg-dark text-warning btn-sm m-1 border-dark" onClick={() => onPrevPage(pagination.prev_page)} disabled={!pagination || !pagination.prev_page}>
         Anterior
       </button>
       <input 
-      className="bg-dark text-warning mx-2 w-10" 
-      style={{ width: `25px` }}
+      className="bg-dark text-warning mx-2 w-10 text-center" 
+      style={{ width: `28px`, borderRadius: '10px' }}
       onChange={onChange} 
       onKeyDown={(e) => onKeyDown(e)} value={input} />
-      <span className=' bg-dark text-warning'>de {Math.ceil(total_pages)}</span>
-      <button className="btn btn-warning btn-sm m-1 font-weight-bold" onClick={() => onNextPage(pagination.next_page)} disabled={!pagination || !pagination.next_page}>
+      <span className='fw-bold' style={{ color: "#FFC107", WebkitTextStroke: '1px black' }}>de {Math.ceil(total_pages)}</span>
+      <button className="btn bg-dark text-warning btn-sm m-1 border-dark" onClick={() => onNextPage(pagination.next_page)} disabled={!pagination || !pagination.next_page}>
         Siguiente
       </button>
     </div>

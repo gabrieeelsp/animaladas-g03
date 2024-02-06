@@ -1,14 +1,21 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { deleteAnimal } from '../../redux/actions/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteAnimal, loadAnimals } from '../../redux/actions/actions';
 
 export default function Card(props) {
   const dispatch = useDispatch();
 
+  const nameValue = useSelector((state) => state.searchBarValue);
+  const orderByValue = useSelector((state) => state.orderByValue);
+  const orderDirValue = useSelector((state) => state.orderDirValue);
+  const sizeValue = useSelector((state) => state.sizeValue);
+  const speciesValue = useSelector((state) => state.speciesValue);
+  const castratedValue = useSelector((state) => state.castratedValue);
+  const enabledValue = useSelector((state) => state.enabledValue);
 
+  
   const {id, name, estimatedBirthYear, size, species, gender, image2, castrated, enabled} = props;
-
   const calculateAge = (estimatedBirthYear) => {
     if (!estimatedBirthYear) {
         return "Edad desconocida";
@@ -21,10 +28,12 @@ export default function Card(props) {
 };
 
 const handleDeleteAnimal = () => {
-  dispatch(deleteAnimal(id));
+  dispatch(deleteAnimal(id)).then(() => {
+    dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, castratedValue, 1, 4, orderByValue, orderDirValue,enabledValue));
+  });
 };
 
-if(!enabled){
+if(enabled){
   return(
     <div className="card text-bg-dark text-warning mb-3 d-inline-block p-0 mt-3 mb-3" style={{ width: "250px", height:"600px", borderRadius: "30px", justifyContent:"space-evenly" }}>
       <img src={image2 ? image2: "https://i.pinimg.com/originals/48/cf/7f/48cf7fff6428fe2b9665c4f6f6d20975.jpg"} className="card-img p-3" alt="..." style={{ borderRadius: "30px", height:"200px", objectFit:"cover" }} />
