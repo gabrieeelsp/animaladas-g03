@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import logo from "../../img/logoanimaladas.png";
 import logo_google from "../../img/logo_google.png";
 import axios from "axios";
@@ -7,7 +7,9 @@ import ModalError from "../../Components/ErrorModal/ErrorModal.jsx";
 import { useNavigate } from "react-router-dom";
 
 export default function Login(props) {
-  const { name } = useParams();
+  const urlParams = new URLSearchParams(window.location.search);
+  const serializedUser = urlParams.get("userGoogle");
+  window.localStorage.setItem("user_info", serializedUser);
   const navigate = useNavigate();
   const { MessageModal, SetMessageModal } = props;
   const [ShowModalMessage, SetShowModalMessage] = useState(false);
@@ -43,17 +45,11 @@ export default function Login(props) {
   };
 
   useEffect(() => {
-    const userDataFromGoogle = JSON.parse(
-      window.localStorage.getItem("user_info_google")
-    );
-    if (userDataFromGoogle) {
-      window.localStorage.setItem(
-        "user_info",
-        JSON.stringify(userDataFromGoogle)
-      );
+    if (serializedUser) {
+      navigate("/");
     }
   }, []);
-  console.log("hola", name);
+
   return (
     <div className="d-flex justify-content-center align-items-center text-warning vh-100">
       <form>
