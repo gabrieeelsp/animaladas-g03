@@ -132,7 +132,6 @@ export default function Register(props) {
           console.log(error.text);
         }
       );
-    alert("Usuario registrado!");
 
     Setuserdata({
       name: "",
