@@ -41,6 +41,21 @@ export default function Login(props) {
     window.location.href = "http://localhost:3001/user/auth/google";
   };
 
+
+  useEffect(() => {
+    const userDataFromGoogle = JSON.parse(
+      window.localStorage.getItem("user_info_google")
+    );
+    if (userDataFromGoogle) {
+      window.localStorage.setItem(
+        "user_info",
+        JSON.stringify(userDataFromGoogle)
+      );
+    }
+  }, []);
+
+
+
   return (
     <div className="d-flex justify-content-center align-items-center text-warning vh-100">
       <form>
