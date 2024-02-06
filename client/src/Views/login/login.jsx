@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function Login(props) {
   const urlParams = new URLSearchParams(window.location.search);
   const serializedUser = urlParams.get("userGoogle");
-  window.localStorage.setItem("user_info", serializedUser);
+  serializedUser !== null ? window.localStorage.setItem("user_info", serializedUser) : "";
   const navigate = useNavigate();
   const { MessageModal, SetMessageModal } = props;
   const [ShowModalMessage, SetShowModalMessage] = useState(false);
