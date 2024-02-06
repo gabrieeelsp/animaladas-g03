@@ -31,9 +31,9 @@ const crearPreferencia = async (req, res) => {
                     client_id: req.body.client_id,
                 },
                 back_urls: {
-                    success: 'https://www.success.com',
-                    failure: 'https://www.failure.com',
-                    pending: 'https://www.pending.com',
+                    success: 'https://animaladas03.vercel.app/',
+                    failure: 'https://animaladas03.vercel.app/donar',
+                    pending: 'https://animaladas03.vercel.app/',
                 },
                 auto_return: 'approved',
             },
