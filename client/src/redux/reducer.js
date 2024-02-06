@@ -16,6 +16,7 @@ const initialState = {
   sizeValue: 'Todos',
   speciesValue: 'Todos',
   castratedValue: 'Todos',
+  enabledValue: 'No',
   animalById: [],
 };
 
@@ -131,10 +132,9 @@ case ORDER_BY_AGE:
   case DELETE_ANIMAL: {
     const updatedAnimals = state.allAnimals.map(animal => {
       if (animal.id === payload.id) {
-        // Invierte el valor actual de 'enabled'
         return {
           ...animal,
-          enabled: !animal.enabled,
+          enabled: payload.enabled, // Actualiza con el valor actual de enabled
         };
       }
       return animal;

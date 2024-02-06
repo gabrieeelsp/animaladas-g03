@@ -21,7 +21,6 @@ export default function Card(props) {
 };
 
 const handleDeleteAnimal = () => {
-  // Llama a la acción deleteAnimal con el ID del animal
   dispatch(deleteAnimal(id));
 };
 

@@ -20,29 +20,30 @@ export default function Adoptar() {
   const sizeValue = useSelector((state) => state.sizeValue);
   const speciesValue = useSelector((state) => state.speciesValue);
   const castratedValue = useSelector((state) => state.castratedValue);
+  const enabledValue = useSelector((state) => state.enabledValue);
 
   const optionsCastrated = ['Todos', 'Si', 'No'];
   const handleChangeCastrated = (event) => {
       dispatch(set_castrated_value(event.target.value));  
-      dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, event.target.value, 1, 4, orderByValue, orderDirValue));
+      dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, event.target.value, 1, 4, orderByValue, orderDirValue, enabledValue));
   }
 
   const optionsSize = ['Todos', 'chico', 'mediano', 'grande'];
   const handleChangeSize = (event) => {
       dispatch(set_size_value(event.target.value));  
-      dispatch(loadAnimals(nameValue, 'adoptable', event.target.value, speciesValue, castratedValue, 1, 4, orderByValue, orderDirValue));
+      dispatch(loadAnimals(nameValue, 'adoptable', event.target.value, speciesValue, castratedValue, 1, 4, orderByValue, orderDirValue,enabledValue));
   }
 
   const optionsSpecies = ['Todos', 'perro', 'gato'];
   const handleChangeSpecies = (event) => {
       dispatch(set_species_value(event.target.value));  
-      dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, event.target.value, castratedValue, 1, 4, orderByValue, orderDirValue));
+      dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, event.target.value, castratedValue, 1, 4, orderByValue, orderDirValue,enabledValue));
   }
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       dispatch(clearAll());
-      dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, castratedValue, 1, 4, '', ''));  
+      dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, castratedValue, 1, 4, '', '',enabledValue));  
       setLoading(false);
     }, 2000);
   
@@ -51,11 +52,11 @@ export default function Adoptar() {
   
 
   const handleNextPage = (page) => {
-    dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, castratedValue, page, 4, orderByValue, orderDirValue));
+    dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, castratedValue, page, 4, orderByValue, orderDirValue,enabledValue));
   };
 
   const handlePrevPage = (page) => {
-    dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, castratedValue, page, 4, orderByValue, orderDirValue));
+    dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, castratedValue, page, 4, orderByValue, orderDirValue,enabledValue));
   };
 
   const [orderby, setOrderBy] = useState('');
@@ -67,7 +68,7 @@ export default function Adoptar() {
     let orderByValueLocal = event.target.value === '' ? '' : 'name';
     dispatch(set_orderby_value(orderByValueLocal));
     dispatch(set_orderdir_value(event.target.value));
-    dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, castratedValue, 1, 4, orderByValueLocal, event.target.value));
+    dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValue, castratedValue, 1, 4, orderByValueLocal, event.target.value,enabledValue));
   };
 
   
@@ -75,7 +76,7 @@ export default function Adoptar() {
     dispatch(set_size_value('Todos'))
     dispatch(set_species_value('Todos'));
     dispatch(set_castrated_value('Todos'))
-    dispatch(loadAnimals(nameValue,'adoptable', 'Todos', 'Todos', 'Todos', 1, 4, orderByValue, orderDirValue));
+    dispatch(loadAnimals(nameValue,'adoptable', 'Todos', 'Todos', 'Todos', 1, 4, orderByValue, orderDirValue,enabledValue));
   };
 
 
