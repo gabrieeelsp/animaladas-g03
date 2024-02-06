@@ -21,9 +21,10 @@ export default function Login(props) {
       [e.target.name]: e.target.value,
     });
   };
+  const urlBaseAxios = import.meta.env.VITE_ENV === 'DEV' ? import.meta.env.VITE_URL_DEV : import.meta.env.VITE_URL_PROD;
   const login_user = async (e) => {
     const response = await axios.post(
-      "http://localhost:3001/user/login",
+      `${urlBaseAxios}/user/login`,
       userdata
     );
     const { data } = response;
@@ -39,7 +40,7 @@ export default function Login(props) {
   };
 
   const signInWithGoogle = () => {
-    window.location.href = "http://localhost:3001/user/auth/google";
+    window.location.href = `${urlBaseAxios}/user/auth/google`;
   };
 
 
