@@ -37,7 +37,7 @@ export default function Contact() {
               <label htmlFor="email" className="form-label text-warning">Correo electrónico</label>
               <input
                 type="email"
-                className="form-control"
+                className="form-control text-center"
                 id="email"
                 name="email"
                 value={formData.email}
@@ -49,7 +49,7 @@ export default function Contact() {
               <label htmlFor="motivo" className="form-label text-warning">Motivo de contacto</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control text-center"
                 id="motivo"
                 name="motivo"
                 value={formData.motivo}

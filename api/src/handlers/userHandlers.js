@@ -1,16 +1,12 @@
 const createUser = require('../controllers/user/createUser');
-const loginUser = require('../controllers/user/loginuser.js');
+const loginUser = require('../controllers/user/loginuser');
+const putEnabledUser = require('../controllers/user/putIsEnabledUser');
+const verifyUser = require('../controllers/user/verifyUser');
 
 const postUserHandler = async (req, res) => {
     const { name, lastName, email, password, phone, address, imageProfile } =
         req.body;
-    console.log('valor de name', name);
-    console.log('valor de lastName', lastName);
-    console.log('valor de email', email);
-    console.log('valor de password', password);
-    console.log('valor de phone', phone);
-    console.log('valor de address', address);
-    console.log('valor de imageProfile', imageProfile);
+
     const emailToLowerCase = email.toLowerCase();
 
     try {
@@ -30,19 +26,48 @@ const postUserHandler = async (req, res) => {
     }
 };
 
+const getVerifyAccountHandler = async (req, res) => {
+    const { userEmail } = req.query;
+
+    try {
+        // change status verify account
+        const verifyAccount = await verifyUser(userEmail);
+        console.log(verifyAccount);
+        res.redirect(302, `http://localhost:5173/verifyUser/${verifyAccount}`);
+    } catch (error) {
+        // const errorMessage = error.message || "An unknown error occurred.";
+        console.log(error);
+        res.redirect(302, `http://localhost:5173/verifyUser/${error.message}`);
+    }
+};
+
 const loginUserHandler = async (req, res) => {
     const { email, password } = req.body;
 
     const emailToLowerCase = email.toLowerCase();
-
+    console.log("Ingreso loginHandler");
+  
     try {
-        const newUser = await loginUser(email, password);
-        res.status(200).json(newUser);
+        const user = await loginUser(emailToLowerCase, password);
+        res.status(200).json(user);
     } catch (error) {
+        console.log(error);
         res.status(400).json(error.message);
+    }
+};
+
+const putEnabledsUsers = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const logicDeletion = await putEnabledUser(id);
+        res.json(logicDeletion);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };
 module.exports = {
     postUserHandler,
     loginUserHandler,
+    putEnabledsUsers,
+    getVerifyAccountHandler,
 };

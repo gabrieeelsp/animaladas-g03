@@ -13,7 +13,12 @@ import Footer from "./Components/Footer/Footer";
 import Requisitos from "./Views/Requisitos/Requisitos";
 import Donar from "./Views/Donar/donar";
 import Addanimal from "./Views/Add-animal/Add-animal";
+import Verify_user from "./Views/VerifyUser/Verify_user";
+import { useState } from "react";
+//!Bien! Tu cuenta ha sido verificada.
 function App() {
+  const [MessageModal, SetMessageModal] = useState("");
+
   return (
     <div className="App">
       <Nav />
@@ -24,11 +29,45 @@ function App() {
         <Route path="/rescatados" element={<Rescatado />}></Route>
         <Route path="/detail/:id" element={<Detail />}></Route>
         <Route path="/contacto" element={<Contact />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/register" element={<Register />}></Route>
-        <Route path="/add" element={<Addanimal />}></Route>
+        <Route
+          path="/login"
+          element={
+            <Login
+              MessageModal={MessageModal}
+              SetMessageModal={SetMessageModal}
+            />
+          }
+        />
+
+        <Route
+          path="/register"
+          element={
+            <Register
+              MessageModal={MessageModal}
+              SetMessageModal={SetMessageModal}
+            />
+          }
+        />
+        <Route
+          path="/add"
+          element={
+            <Addanimal
+              MessageModal={MessageModal}
+              SetMessageModal={SetMessageModal}
+            />
+          }
+        />
         <Route path="/requisitos" element={<Requisitos />}></Route>
         <Route path="/donar" element={<Donar />}></Route>
+        <Route
+          path="/verifyUser/:infoUser"
+          element={
+            <Verify_user
+              MessageModal={MessageModal}
+              SetMessageModal={SetMessageModal}
+            />
+          }
+        />
       </Routes>
       <Footer />
     </div>

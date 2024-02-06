@@ -1,4 +1,4 @@
-import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME, SET_SEARCHBAR_VALUE, SET_CASTRATED_VALUE, SET_SPECIES_VALUE, SET_SIZE_VALUE, SET_ORDERDIR_VALUE, SET_ORDERBY_VALUE } from "./actions/types";
+import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME, SET_SEARCHBAR_VALUE, SET_CASTRATED_VALUE, SET_SPECIES_VALUE, SET_SIZE_VALUE, SET_ORDERDIR_VALUE, SET_ORDERBY_VALUE, CREATE_FORM_SUCCESS, CREATE_FORM_FAILURE, DELETE_ANIMAL } from "./actions/types";
 
 const initialState = {
   allAnimals: [],
@@ -14,8 +14,9 @@ const initialState = {
   orderByValue: '',
   orderDirValue: '',
   sizeValue: 'Todos',
-  speciesValues: 'Todos',
+  speciesValue: 'Todos',
   castratedValue: 'Todos',
+  enabledValue: 'Si',
   animalById: [],
 };
 
@@ -52,7 +53,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case SET_SPECIES_VALUE: {
       return {
         ...state,
-        speciesValues: payload,
+        speciesValue: payload,
       }
     }
 
@@ -88,6 +89,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
      case CLEAR_ALL: {
       return {
             ...state,
+            searchBarValue: '',
             allAnimals: [],
             animalById: [],
           }
@@ -103,6 +105,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
           return 0;
         }
       });
+      
       return {
         ...state,
         allAnimals: animalsByName,
@@ -118,7 +121,17 @@ case ORDER_BY_AGE:
     allAnimals: animalsByAge,
   };
 
-
+  case CREATE_FORM_SUCCESS: {
+    return state;
+  }
+  
+  case CREATE_FORM_FAILURE: {
+    console.error('Error creating form:', payload);
+    return state;
+  }
+  case DELETE_ANIMAL: {
+   return state;
+  }
 
 
 
