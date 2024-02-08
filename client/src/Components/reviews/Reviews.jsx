@@ -82,8 +82,8 @@ export default function Reviews() {
               <div className="reviews">
                 <i className="bi bi-star-fill"></i>
                 <i className="bi bi-star-fill"></i>
-                <i className="bi bi-star-fill"></i>
-                <i className="bi bi-star-fill"></i>
+                <i className="bi bi-star"></i>
+                <i className="bi bi-star"></i>
                 <i className="bi bi-star"></i>
               </div>
             </div>
@@ -113,7 +113,7 @@ export default function Reviews() {
                 <i className="bi bi-star-fill"></i>
                 <i className="bi bi-star-fill"></i>
                 <i className="bi bi-star-fill"></i>
-                <i className="bi bi-star"></i>
+                <i className="bi bi-star-fill"></i>
               </div>
             </div>
             <div className="user-comment">
@@ -141,7 +141,7 @@ export default function Reviews() {
                 <i className="bi bi-star-fill"></i>
                 <i className="bi bi-star-fill"></i>
                 <i className="bi bi-star-fill"></i>
-                <i className="bi bi-star-fill"></i>
+                <i className="bi bi-star"></i>
                 <i className="bi bi-star"></i>
               </div>
             </div>
