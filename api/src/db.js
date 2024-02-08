@@ -9,6 +9,7 @@ const userModel = require('./models/User');
 const animalModel = require('./models/Animal');
 const adoptionHistoryModel = require('./models/Adoption');
 const donationModel = require('./models/Donation');
+const reviewModel = require('./models/Reviews');
 
 const { DB_USER, DB_PASSWORD, DB_NAME, DB_HOST } = process.env;
 
@@ -49,8 +50,9 @@ userModel(sequelize);
 animalModel(sequelize);
 donationModel(sequelize);
 adoptionHistoryModel(sequelize);
+reviewModel(sequelize);
 
-const { User, Animal, Donation, Adoption } = sequelize.models;
+const { User, Animal, Donation, Adoption, Reviews } = sequelize.models;
 
 User.hasMany(Donation, { as: 'donations', foreignKey: 'userId' });
 Donation.belongsTo(User, { foreignKey: 'userId' });
@@ -74,6 +76,12 @@ Animal.hasMany(Adoption, {
 Adoption.belongsTo(Animal, {
     foreignKey: 'animalId',
     as: 'animal',
+});
+
+Reviews.belongsTo(User, {
+    foreignKey: {
+        allowNull: false, // La revisión debe tener un usuario asociado
+    },
 });
 
 module.exports = {
