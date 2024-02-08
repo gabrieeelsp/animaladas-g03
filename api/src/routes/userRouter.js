@@ -14,7 +14,8 @@ userRouter.put('/users/:id', putEnabledsUsers);
 userRouter.get('/google', (req, res) => {
     const { user } = req;
     const serializedUser = JSON.stringify(user);
-    const redirectUrl = `http://localhost:5173/login/?userGoogle=${encodeURIComponent(serializedUser)}`;
+    // const redirectUrl = `http://localhost:5173/login/?userGoogle=${encodeURIComponent(serializedUser)}`;
+    const redirectUrl = `https://animaladas03.vercel.app/login/?userGoogle=${encodeURIComponent(serializedUser)}`;
     res.redirect(redirectUrl);
 });
 
