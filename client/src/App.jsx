@@ -58,7 +58,16 @@ function App() {
           }
         />
         <Route path="/requisitos" element={<Requisitos />}></Route>
-        <Route path="/donar" element={<Donar />}></Route>
+
+        <Route
+          path="/donar"
+          element={
+            <Donar
+              MessageModal={MessageModal}
+              SetMessageModal={SetMessageModal}
+            />
+          }
+        />
         <Route
           path="/verifyUser/:infoUser"
           element={
