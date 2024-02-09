@@ -5,11 +5,12 @@ if (!process.env.ENV || process.env.ENV === 'node') {
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const userModel = require('./models/User');
-const animalModel = require('./models/Animal');
-const adoptionHistoryModel = require('./models/Adoption');
-const donationModel = require('./models/Donation');
-const reviewModel = require('./models/Reviews');
+
+// const userModel = require('./models/User');
+// const animalModel = require('./models/Animal');
+// const adoptionHistoryModel = require('./models/Adoption');
+// const donationModel = require('./models/Donation');
+// const reviewModel = require('./models/Reviews');
 
 const { DB_USER, DB_PASSWORD, DB_NAME, DB_HOST } = process.env;
 
@@ -46,13 +47,14 @@ const capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-userModel(sequelize);
-animalModel(sequelize);
-donationModel(sequelize);
-adoptionHistoryModel(sequelize);
-reviewModel(sequelize);
+// ! ---- IMPORTANTE esto se esta ejecuantdo en la linea 41 ---- !
+// userModel(sequelize);
+// animalModel(sequelize);
+// donationModel(sequelize);
+// adoptionHistoryModel(sequelize);
+// reviewModel(sequelize);
 
-const { User, Animal, Donation, Adoption, Reviews } = sequelize.models;
+const { User, Animal, Donation, Adoption, Review } = sequelize.models;
 
 User.hasMany(Donation, { as: 'donations', foreignKey: 'userId' });
 Donation.belongsTo(User, { foreignKey: 'userId' });
@@ -78,7 +80,7 @@ Adoption.belongsTo(Animal, {
     as: 'animal',
 });
 
-Reviews.belongsTo(User, {
+Review.belongsTo(User, {
     foreignKey: {
         allowNull: false, // La revisión debe tener un usuario asociado
     },
