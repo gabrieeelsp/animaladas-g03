@@ -31,7 +31,17 @@ function App() {
         <Route path="/adoptar" element={<Adoptar />}></Route>
         <Route path="/adoptados" element={<Adoptado />}></Route>
         <Route path="/rescatados" element={<Rescatado />}></Route>
-        <Route path="/detail/:id" element={<Detail />}></Route>
+
+        <Route
+          path="/detail/:id"
+          element={
+            <Detail
+              MessageModal={MessageModal}
+              SetMessageModal={SetMessageModal}
+            />
+          }
+        />
+
         <Route path="/contacto" element={<Contact />}></Route>
         <Route path="/login" element={<Login MessageModal={MessageModal} SetMessageModal={SetMessageModal}/>} />
         <Route path="/register" element={<Register MessageModal={MessageModal} SetMessageModal={SetMessageModal} />} />
