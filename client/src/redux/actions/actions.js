@@ -233,7 +233,7 @@ export const createForm = (formData) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/adoptions",
+        `${urlBaseAxios}/adoptions`,
         formData
       );
       const createdForm = response.data;
@@ -271,4 +271,14 @@ export const deleteAnimal = (id,enabled) => {
       console.error('Error al borrar animal:', error);
     }
   };
+};
+
+export const allAdoptions = async () => {
+  try {
+    const response = await axios.get(`${urlBaseAxios}/adoptions`);
+    return response.data.data;
+  } catch (error) {
+    console.error('Error fetching adoptions:', error);
+    throw error;
+  }
 };
