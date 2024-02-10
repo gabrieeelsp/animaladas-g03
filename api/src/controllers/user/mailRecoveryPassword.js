@@ -3,6 +3,7 @@ const { sendMail } = require('../../services/nodemailer');
 const getUserByEmail = require('./getUserByEmail');
 
 const mailRecoveryPassword = async (email) => {
+    console.log('valor de email en back', email);
     const user = await getUserByEmail(email);
 
     const token = generateTokenRecoveryPass(user);

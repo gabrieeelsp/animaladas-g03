@@ -16,11 +16,10 @@ import Addanimal from "./Views/Add-animal/Add-animal";
 import Verify_user from "./Views/VerifyUser/Verify_user";
 import { useState } from "react";
 import Reviews from "./Components/reviews/Reviews";
-//!Bien! Tu cuenta ha sido verificada.
 import AdminView from "./Views/AdminView/AdminView";
 import AdminUsers from "./Views/AdminUsers/AdminUsers";
 import AdminAnimals from "./Views/AdminAnimals/AdminAnimals";
-
+import PasswordRecover from "./Components/PasswordRecover/PasswordRecover";
 function App() {
   const [MessageModal, SetMessageModal] = useState("");
 
@@ -122,6 +121,15 @@ function App() {
         <Route path="/admin" element={<AdminView />} />
         <Route path="/admin/users" element={<AdminUsers />} />
         <Route path="/admin/animals" element={<AdminAnimals />} />
+        <Route
+          path="/changePassword/:id"
+          element={
+            <PasswordRecover
+              MessageModal={MessageModal}
+              SetMessageModal={SetMessageModal}
+            />
+          }
+        />
       </Routes>
 
       <Footer />

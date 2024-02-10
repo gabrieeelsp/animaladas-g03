@@ -6,6 +6,7 @@ import axios from "axios";
 import ModalError from "../../Components/ErrorModal/ErrorModal.jsx";
 import { useNavigate } from "react-router-dom";
 import GeneralModal from "../../Components/GeneralModal/generalmodal.jsx";
+import SuccesModal from "../../Components/SuccessModal/SuccesModal.jsx";
 export default function Login(props) {
   const urlParams = new URLSearchParams(window.location.search);
   const serializedUser = urlParams.get("userGoogle");
@@ -15,6 +16,8 @@ export default function Login(props) {
   const navigate = useNavigate();
   const { MessageModal, SetMessageModal } = props;
   const [ShowModalMessage, SetShowModalMessage] = useState(false);
+  const [ShowModalSucces, SetShowModalSucces] = useState(false);
+  const [showGeneralModal, SetShowGeneralModal] = useState(false);
   const [userdata, Setuserdata] = useState({
     email: "",
     password: "",
@@ -46,7 +49,33 @@ export default function Login(props) {
   const signInWithGoogle = () => {
     window.location.href = `${urlBaseAxios}/user/auth/google`;
   };
+  const passwordrecover = (e) => {
+    SetMessageModal(
+      "Por favor ingresa tu correo. Te enviaremos un enlace para recuperar la contraseña"
+    );
+    SetShowGeneralModal(true);
+  };
 
+  const send_recoverpassword = async (e) => {
+    console.log("clickiad", userdata.email);
+    if (userdata.email !== "") {
+      const response = await axios.post(
+        "http://localhost:3001/user/recoverPassword",
+        userdata
+      );
+      const { data } = response;
+      if (data) {
+        console.log("estas es la data modal", data);
+        SetMessageModal(
+          "Te hemos enviado un correo para cambiar tu contraseña"
+        );
+        SetShowModalSucces(true);
+        SetShowGeneralModal(false);
+      }
+    } else {
+      console.log("no ha ingresado el correo para recuperar contraseña");
+    }
+  };
   useEffect(() => {
     if (serializedUser) {
       navigate("/");
@@ -76,7 +105,7 @@ export default function Login(props) {
             <input
               className="form-control bg-light"
               type="text"
-              placeholder="Usuario"
+              placeholder="Email"
               name="email"
               onChange={(e) => handlechange(e)}
             />
@@ -100,7 +129,7 @@ export default function Login(props) {
                 Recuerdame
               </div>
             </div>
-            <div className="pt-1">
+            <div className="pt-1" onClick={(e) => passwordrecover(e)}>
               <a
                 href="#"
                 className="text-decoration-none fw-semibold text-warning"
@@ -156,11 +185,42 @@ export default function Login(props) {
           </NavLink>
         </div>
       </form>
+      <SuccesModal
+        MessageModal={MessageModal}
+        ShowModalMessage={ShowModalSucces}
+        SetShowModalMessage={SetShowModalSucces}
+      ></SuccesModal>
       <ModalError
         MessageModal={MessageModal}
         ShowModalMessage={ShowModalMessage}
         SetShowModalMessage={SetShowModalMessage}
-      ></ModalError>
+      >
+        <span>holamundo</span>
+      </ModalError>
+      <GeneralModal
+        MessageModal={MessageModal}
+        SetShowModalMessage={SetShowGeneralModal}
+        ShowModalMessage={showGeneralModal}
+      >
+        <div className="input-group mt-4">
+          <div className="input-group-text bg-warning text-white">
+            <i className="bi bi-envelope-at"></i>
+          </div>
+          <input
+            className="form-control bg-light"
+            type="text"
+            placeholder="Email"
+            name="email"
+            onChange={(e) => handlechange(e)}
+          />
+        </div>
+        <div
+          className="btn text-dark w-100 mt-4 fw-bold shadow-sm bg-warning"
+          onClick={send_recoverpassword}
+        >
+          Enviar
+        </div>
+      </GeneralModal>
     </div>
   );
 }

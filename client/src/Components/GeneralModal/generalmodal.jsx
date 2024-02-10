@@ -19,7 +19,7 @@ export default function GeneralModal({
               <i class="bi bi-x-lg"></i>
             </button>
             <h3 style={{ color: "#E4A11B" }}>{MessageModal}</h3>
-            <span></span>
+            {children}
           </div>
         </div>
       ) : null}

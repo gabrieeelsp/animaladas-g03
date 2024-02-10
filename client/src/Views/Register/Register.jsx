@@ -16,7 +16,6 @@ export default function Register(props) {
   const { SetMessageModal } = props;
   const [ShowModalSuccess, SetShowModalSucess] = useState(false);
   const [ShowModalErorr, SetShowModalError] = useState(false);
-
   const [error, Seterror] = useState({
     name: "",
     lastName: "",
