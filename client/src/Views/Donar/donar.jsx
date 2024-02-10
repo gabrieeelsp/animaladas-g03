@@ -6,6 +6,8 @@ import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import "./Donar.css";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import ModalError from "../../Components/ErrorModal/ErrorModal";
+import PagoAprobado from "./PagoAprobado";
+
 
 library.add(faPaw);
 
@@ -19,6 +21,8 @@ const Donar = (props) => {
   const [customAmount, setCustomAmount] = useState("");
   const [showGratitudeMessage, setShowGratitudeMessage] = useState(true);
   const [ShowModalErorr, SetShowModalError] = useState(false);
+ 
+
   useEffect(() => {
     initMercadoPago(import.meta.env.VITE_API_KEY_MERCADOPAGO, {
       locale: "es-AR",
@@ -94,6 +98,7 @@ const Donar = (props) => {
     const value = event.target.value;
     setCustomAmount(value);
   };
+
   const handleCustomAmountClick = () => {
     const amount = parseFloat(customAmount);
 
@@ -203,67 +208,76 @@ const Donar = (props) => {
                 >
                   Aportar $5000
                 </button>
+              </div>
 
-                <div className="donar-options d-flex flex-wrap justify-content-center">
-                  <h5 className="text-warning mt-3 mb-4">
-                    O define un monto personalizado:
-                  </h5>
+              <div className="donar-options d-flex flex-wrap justify-content-center">
+                <h5 className="text-warning mt-3 mb-4">
+                  O define un monto personalizado:
+                </h5>
+              </div>
+
+              <div className="donation-component-input-group mb-3 d-flex flex-column align-items-center">
+                <input
+                  type="number"
+                  className="form-control form-control-sm mb-2"
+                  placeholder="Monto personalizado"
+                  aria-label="Monto personalizado"
+                  aria-describedby="basic-addon2"
+                  value={customAmount}
+                  onChange={handleCustomAmountChange}
+                  min="100"
+                />
+
+                <div className="input-group-append">
+                  <button
+                    className="btn btn-warning donar-custom-button home-button"
+                    type="button"
+                    onClick={handleCustomAmountClick}
+                  >
+                    Seleccionar
+                  </button>
                 </div>
+                <p className="text-light small">
+                  El monto mínimo es de $100 ARS.
+                </p>
+              </div>
 
-                <div className="donation-component-input-group mb-3 d-flex flex-column align-items-center">
-                  <input
-                    type="number"
-                    className="form-control form-control-sm mb-2"
-                    placeholder="Monto personalizado"
-                    aria-label="Monto personalizado"
-                    aria-describedby="basic-addon2"
-                    value={customAmount}
-                    onChange={handleCustomAmountChange}
-                    min="100"
+              <div className="wallet-container">
+                {preferenceId && (
+                  <Wallet
+                    initialization={{ preferenceId: preferenceId }}
+                    customization={{ texts: { valueProp: "smart_option" } }}
+                    style={{ width: "70%", height: "400px" }}
                   />
-
-                  <div className="input-group-append">
-                    <button
-                      className="btn btn-warning donar-custom-button home-button"
-                      type="button"
-                      onClick={handleCustomAmountClick}
-                    >
-                      Seleccionar
-                    </button>
+                )}
+                {showGratitudeMessage && (
+                  <div className="gratitude-message mt-4">
+                    <p>
+                      ¡Gracias por ayudar a nuestros amigos!{" "}
+                      <FontAwesomeIcon icon={faPaw} />
+                    </p>
                   </div>
-                  <p className="text-light small">
-                    El monto mínimo es de $100 ARS.
-                  </p>
-                </div>
-
-                <div className="wallet-container">
-                  {preferenceId && (
-                    <Wallet
-                      initialization={{ preferenceId: preferenceId }}
-                      customization={{ texts: { valueProp: "smart_option" } }}
-                      style={{ width: "70%", height: "400px" }}
-                    />
-                  )}
-                  {showGratitudeMessage && (
-                    <div className="gratitude-message mt-4">
-                      <p>
-                        ¡Gracias por ayudar a nuestros amigos!{" "}
-                        <FontAwesomeIcon icon={faPaw} />
-                      </p>
-                    </div>
-                  )}
-                </div>
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {selectedAmount && (
+        <div className="row mt-3">
+          <div className="col-md-12">
+            <PagoAprobado />
+          </div>
+        </div>
+      )}
+
       {ShowModalErorr && (
         <ModalError
           MessageModal={MessageModal}
           ShowModalMessage={ShowModalErorr}
           SetShowModalMessage={SetShowModalError}
-        ></ModalError>
+        />
       )}
     </div>
   );
