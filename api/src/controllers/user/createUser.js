@@ -41,7 +41,7 @@ const createUser = async (
         <p>Para terminar la creacion de tu cuenta y puedas optar por la adopcion de tu
         nuevo mejor amigo.</br>
         Necesitamos que le des click al siguiente link para verificar tu correo:
-        http://localhost:3001/user//verifyAccount?token=${token}&userId=${user.id}
+        http://localhost:3001/user/verifyAccount?token=${token}&userId=${user.id}
         `,
     };
 
