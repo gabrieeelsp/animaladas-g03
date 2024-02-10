@@ -27,16 +27,13 @@ const postUserHandler = async (req, res) => {
 };
 
 const getVerifyAccountHandler = async (req, res) => {
-    const { userEmail } = req.query;
+    const { token, userId } = req.query;
 
     try {
         // change status verify account
-        const verifyAccount = await verifyUser(userEmail);
-        console.log(verifyAccount);
+        const verifyAccount = await verifyUser(token, userId);
         res.redirect(302, `http://localhost:5173/verifyUser/${verifyAccount}`);
     } catch (error) {
-        // const errorMessage = error.message || "An unknown error occurred.";
-        console.log(error);
         res.redirect(302, `http://localhost:5173/verifyUser/${error.message}`);
     }
 };
@@ -45,8 +42,8 @@ const loginUserHandler = async (req, res) => {
     const { email, password } = req.body;
 
     const emailToLowerCase = email.toLowerCase();
-    console.log("Ingreso loginHandler");
-  
+    console.log('Ingreso loginHandler');
+
     try {
         const user = await loginUser(emailToLowerCase, password);
         res.status(200).json(user);
