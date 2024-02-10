@@ -1,6 +1,7 @@
 const createUser = require('../controllers/user/createUser');
 const loginUser = require('../controllers/user/loginuser');
 const mailRecoveryPassword = require('../controllers/user/mailRecoveryPassword');
+const putChangePass = require('../controllers/user/putChangePass');
 const putEnabledUser = require('../controllers/user/putIsEnabledUser');
 const verifyToken = require('../controllers/user/verifyToken');
 const verifyUser = require('../controllers/user/verifyUser');
@@ -45,7 +46,8 @@ const getVerifyToken = async (req, res) => {
 
     try {
         const verify = await verifyToken(token);
-        res.redirect(302, `http://localhost:5173/changePassword/${verify}`);
+        const { userId } = verify;
+        res.redirect(302, `http://localhost:5173/changePassword/${userId}`);
     } catch (error) {
         // error.message = jwt expired
         res.redirect(
@@ -91,6 +93,18 @@ const postRevoverPassword = async (req, res) => {
         res.status(400).json(error.message);
     }
 };
+
+const putChangePassword = async (req, res) => {
+    const { userId, password } = req.body;
+    try {
+        const newPassword = await putChangePass(userId, password);
+        res.status(200).json(newPassword);
+    } catch (error) {
+        console.log(error);
+        res.status(400).json(error.message);
+    }
+};
+
 module.exports = {
     postUserHandler,
     loginUserHandler,
@@ -98,4 +112,5 @@ module.exports = {
     getVerifyAccountHandler,
     postRevoverPassword,
     getVerifyToken,
+    putChangePassword,
 };
