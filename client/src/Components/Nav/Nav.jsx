@@ -131,6 +131,16 @@ export default function Nav() {
                   </button>
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink to="/reviews">
+                  <button
+                    className="btn btn-outline-warning p-1 mx-3"
+                    type="button"
+                  >
+                    Opiniones
+                  </button>
+                </NavLink>
+              </li>
             </ul>
             <SearchBar />
             {showloginbutton && (
@@ -164,7 +174,7 @@ export default function Nav() {
                       src={perfil_img}
                       style={{ width: "40px", cursor: "pointer" }}
                     ></img>
-                    <h2>{user_info && user_info.name ? user_info.name : ''}</h2>
+                    <h2>{user_info && user_info.name ? user_info.name : ""}</h2>
                   </div>
                   <hr
                     style={{
@@ -218,7 +228,7 @@ export default function Nav() {
                 type="text"
                 placeholder="Nombre*"
                 name="name"
-                value={user_info && user_info.name ? user_info.name : ''}
+                value={user_info && user_info.name ? user_info.name : ""}
                 onChange={(e) => handlechange(e)}
               />
             </div>
@@ -231,7 +241,7 @@ export default function Nav() {
                 type="email"
                 placeholder="Correo Eletronico*"
                 name="email"
-                value={user_info && user_info.email ? user_info.email : ''}
+                value={user_info && user_info.email ? user_info.email : ""}
                 onChange={(e) => handlechange(e)}
               />
             </div>
@@ -244,7 +254,7 @@ export default function Nav() {
                 type="text"
                 placeholder="Numero de contacto*"
                 name="phone"
-               value={user_info && user_info.phone ? user_info.phone : ''}
+                value={user_info && user_info.phone ? user_info.phone : ""}
                 onChange={(e) => handlechange(e)}
               />
             </div>

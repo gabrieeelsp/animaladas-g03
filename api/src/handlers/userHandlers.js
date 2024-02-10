@@ -96,6 +96,8 @@ const postRevoverPassword = async (req, res) => {
 
 const putChangePassword = async (req, res) => {
     const { userId, password } = req.body;
+    console.log('valor de user id en back', userId);
+    console.log('valor de password en back', password);
     try {
         const newPassword = await putChangePass(userId, password);
         res.status(200).json(newPassword);

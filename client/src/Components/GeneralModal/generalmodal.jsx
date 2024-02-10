@@ -1,7 +1,6 @@
 import React from "react";
 import "../Nav/modalprofile.css";
-import error_img from "../../img/Error.png";
-export default function ModalError({
+export default function GeneralModal({
   children,
   MessageModal,
   SetShowModalMessage,
@@ -12,17 +11,15 @@ export default function ModalError({
       {ShowModalMessage ? (
         <div className="overlay">
           <div className="Containermodal">
-            <div className="headermodal">
-              <img src={error_img} style={{ width: "100px" }}></img>
-            </div>
+            <div className="headermodal"></div>
             <button
               className="buttonclose"
               onClick={(e) => SetShowModalMessage(false)}
             >
-              <i className="bi bi-x-lg"></i>
+              <i class="bi bi-x-lg"></i>
             </button>
             <h3 style={{ color: "#E4A11B" }}>{MessageModal}</h3>
-            <span></span>
+            {children}
           </div>
         </div>
       ) : null}

@@ -16,7 +16,6 @@ export default function Register(props) {
   const { SetMessageModal } = props;
   const [ShowModalSuccess, SetShowModalSucess] = useState(false);
   const [ShowModalErorr, SetShowModalError] = useState(false);
-
   const [error, Seterror] = useState({
     name: "",
     lastName: "",
@@ -43,11 +42,7 @@ export default function Register(props) {
     imageProfile:
       "https://res.cloudinary.com/dwgufqzjd/image/upload/v1707404450/Proyecto_animaladas/default/w2jbmtfjvfjn1alnnpxb.png",
   });
-  const [email_data, Setemail_data] = useState({
-    user_name: "",
-    user_email: "",
-    user_id: "",
-  });
+
   const button_disabled = true;
   const uploadImage = async (e) => {
     const file = e.target.files[0];
@@ -110,6 +105,7 @@ export default function Register(props) {
         "http://localhost:3001/user/createUser",
         userdata
       );
+
       const { data } = resp;
       if (data) {
         SetMessageModal(
@@ -118,27 +114,6 @@ export default function Register(props) {
         SetShowModalSucess(true);
         // Navigate("/");
       }
-      Setemail_data({
-        ...email_data,
-        user_name: data.name,
-        user_email: data.email,
-        user_id: data.id,
-      });
-      emailjs
-        .sendForm(
-          "service_lfwvijk",
-          "template_bg3fyqz",
-          form.current,
-          "iOYw55Pr2RskRgQZ8"
-        )
-        .then(
-          (result) => {
-            console.log("resultado exitoso", result.text);
-          },
-          (error) => {
-            console.log(error.text);
-          }
-        );
 
       Setuserdata({
         name: "",
@@ -150,10 +125,8 @@ export default function Register(props) {
         imageProfile: "",
       });
     }
-    form.current.reset();
   };
 
-  console.log(userdata);
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <form onSubmit={register_user}>
@@ -174,46 +147,46 @@ export default function Register(props) {
               {error.priority_fields}
             </div>
           ) : null}
-          <form ref={form}>
-            {error.showerror_email ? (
-              <div class="input-group mb-1 alert alert-warning" role="alert">
-                {error.email}
-              </div>
-            ) : null}
-            <div className="input-group mt-1">
-              <div className="input-group-text bg-warning text-white">
-                <i className="bi bi-envelope-at"></i>
-              </div>
 
-              <input
-                className="form-control bg-light"
-                type="email"
-                placeholder="Correo Electrónico*"
-                name="user_email"
-                onChange={handlechange}
-                value={userdata.email}
-              />
+          {error.showerror_email ? (
+            <div class="input-group mb-1 alert alert-warning" role="alert">
+              {error.email}
             </div>
-            {error.showerror_name ? (
-              <div class="input-group mb-1 alert alert-warning" role="alert">
-                {error.name}dd
-              </div>
-            ) : null}
-            <div className="input-group mt-4">
-              <div className="input-group-text bg-warning text-white">
-                <i className="bi bi-person-fill-add"></i>
-              </div>
+          ) : null}
+          <div className="input-group mt-1">
+            <div className="input-group-text bg-warning text-white">
+              <i className="bi bi-envelope-at"></i>
+            </div>
 
-              <input
-                className="form-control bg-light"
-                type="text"
-                placeholder="Nombre*"
-                name="user_name"
-                onChange={handlechange}
-                value={userdata.name}
-              />
+            <input
+              className="form-control bg-light"
+              type="email"
+              placeholder="Correo Electrónico*"
+              name="user_email"
+              onChange={handlechange}
+              value={userdata.email}
+            />
+          </div>
+          {error.showerror_name ? (
+            <div class="input-group mb-1 alert alert-warning" role="alert">
+              {error.name}dd
             </div>
-          </form>
+          ) : null}
+          <div className="input-group mt-4">
+            <div className="input-group-text bg-warning text-white">
+              <i className="bi bi-person-fill-add"></i>
+            </div>
+
+            <input
+              className="form-control bg-light"
+              type="text"
+              placeholder="Nombre*"
+              name="user_name"
+              onChange={handlechange}
+              value={userdata.name}
+            />
+          </div>
+
           {error.showerror_lastName ? (
             <div class="input-group mb-1 alert alert-warning" role="alert">
               {error.lastName}
