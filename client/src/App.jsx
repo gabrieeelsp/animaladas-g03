@@ -20,6 +20,7 @@ import AdminView from "./Views/AdminView/AdminView";
 import AdminUsers from "./Views/AdminUsers/AdminUsers";
 import AdminAnimals from "./Views/AdminAnimals/AdminAnimals";
 import PasswordRecover from "./Components/PasswordRecover/PasswordRecover";
+import PagoAprobado from "./Views/Donar/PagoAprobado";
 function App() {
   const [MessageModal, SetMessageModal] = useState("");
 
@@ -131,6 +132,7 @@ function App() {
           }
         />
       </Routes>
+      <Route path="/pago-aprobado" component={PagoAprobado} />
 
       <Footer />
     </div>
