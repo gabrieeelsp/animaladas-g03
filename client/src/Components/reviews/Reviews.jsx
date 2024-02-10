@@ -1,9 +1,26 @@
 import React from "react";
 import "./reviews.css";
 import default_user from "../../img/perfil_default.png";
-export default function Reviews() {
+export default function Reviews(props) {
+  const score = 3;
+  const ArrayStarts = [...new Array(5)];
+  console.log(ArrayStarts);
+  const scoring = (score) => {
+    console.log("este es el scoring", score);
+  };
   return (
     <div style={{ boxSizing: "border-box", margin: "0px", padding: "0px" }}>
+      {ArrayStarts.map((start, index) => {
+        return index < score ? (
+          <i
+            className="bi bi-star-fill"
+            onClick={(e) => scoring(index)}
+            style={{ cursor: "pointer" }}
+          ></i>
+        ) : (
+          <i className="bi bi-star"></i>
+        );
+      })}
       <section id="testimonials">
         <div className="testimonial-heading">
           <span>Comentarios</span>

@@ -15,6 +15,7 @@ import Donar from "./Views/Donar/donar";
 import Addanimal from "./Views/Add-animal/Add-animal";
 import Verify_user from "./Views/VerifyUser/Verify_user";
 import { useState } from "react";
+import Reviews from "./Components/reviews/Reviews";
 //!Bien! Tu cuenta ha sido verificada.
 function App() {
   const [MessageModal, SetMessageModal] = useState("");
@@ -29,6 +30,7 @@ function App() {
         <Route path="/rescatados" element={<Rescatado />}></Route>
         <Route path="/detail/:id" element={<Detail />}></Route>
         <Route path="/contacto" element={<Contact />}></Route>
+        <Route path="/reviews" element={<Reviews />}></Route>
         <Route
           path="/login"
           element={
@@ -78,6 +80,7 @@ function App() {
           }
         />
       </Routes>
+
       <Footer />
     </div>
   );
