@@ -57,7 +57,6 @@ export default function Login(props) {
   };
 
   const send_recoverpassword = async (e) => {
-    console.log("clickiad", userdata.email);
     if (userdata.email !== "") {
       const response = await axios.post(
         "http://localhost:3001/user/recoverPassword",
@@ -65,7 +64,6 @@ export default function Login(props) {
       );
       const { data } = response;
       if (data) {
-        console.log("estas es la data modal", data);
         SetMessageModal(
           "Te hemos enviado un correo para cambiar tu contraseña"
         );

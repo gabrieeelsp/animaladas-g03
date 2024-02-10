@@ -107,7 +107,6 @@ export default function Register(props) {
       );
 
       const { data } = resp;
-      console.log("termino data", data);
       if (data) {
         SetMessageModal(
           "Bien! se ha registrado el usuario. Te hemos enviado un correo para verificar tu cuenta"
@@ -128,7 +127,6 @@ export default function Register(props) {
     }
   };
 
-  console.log(userdata);
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <form onSubmit={register_user}>

@@ -26,7 +26,6 @@ export default function PasswordRecover(props) {
     });
   };
   const navigateto = (e) => {
-    console.log("ingreso a navigateto");
     SetShowModalSucess(false);
     navigate("/login");
   };
