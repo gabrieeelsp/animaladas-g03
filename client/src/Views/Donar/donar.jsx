@@ -6,6 +6,8 @@ import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import "./Donar.css";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import ModalError from "../../Components/ErrorModal/ErrorModal";
+import ModalProcessing from "./ModalProcessing";
+import ModalRejected from "./ModalRejected";
 import PagoAprobado from "./PagoAprobado";
 
 
@@ -21,7 +23,10 @@ const Donar = (props) => {
   const [customAmount, setCustomAmount] = useState("");
   const [showGratitudeMessage, setShowGratitudeMessage] = useState(true);
   const [ShowModalErorr, SetShowModalError] = useState(false);
- 
+  const [showProcessingModal, setShowProcessingModal] = useState(false);
+  const [showRejectedModal, setShowRejectedModal] = useState(false);
+
+
 
   useEffect(() => {
     initMercadoPago(import.meta.env.VITE_API_KEY_MERCADOPAGO, {
@@ -66,7 +71,7 @@ const Donar = (props) => {
       SetMessageModal(
         "Para hacer una donacion debe registrarse o iniciar sesión con su cuenta"
       );
-      SetShowModalError(true);
+      setShowErrorModal(true);
       return;
     }
     const userDetails = {
@@ -78,8 +83,9 @@ const Donar = (props) => {
       email: "correo@ejemplo.com",
       client_id: "cliente123",
     };
-
+  
     try {
+      setShowProcessingModal(true); 
       const id = await createPreference(amount, userDetails);
       console.log("ID de preferencia obtenida:", id);
       if (id) {
@@ -88,11 +94,16 @@ const Donar = (props) => {
         setSelectedAmount(amount);
         setCustomAmount("");
         setShowGratitudeMessage(false);
+        setShowProcessingModal(false); 
       }
     } catch (error) {
       console.error("Error al crear la preferencia:", error);
+      setShowErrorModal(true);
+      setShowProcessingModal(false); 
+      setShowRejectedModal(true); 
     }
   };
+  
 
   const handleCustomAmountChange = (event) => {
     const value = event.target.value;
@@ -138,16 +149,6 @@ const Donar = (props) => {
               <h3 className="text-warning mt-3 mb-4">
                 ¿Cuánto quieres aportar?
               </h3>
-
-              {selectedAmount !== null ? (
-                <p className="text-info mt-3 mb-4">
-                  Monto seleccionado: ${selectedAmount}
-                </p>
-              ) : (
-                <p className="text-info mt-3 mb-4">
-                  Monto seleccionado: Ninguno
-                </p>
-              )}
 
               <div
                 className="donar-options d-flex flex-wrap justify-content-center"
@@ -242,6 +243,21 @@ const Donar = (props) => {
                 </p>
               </div>
 
+
+              {selectedAmount !== null ? (
+                <p className="text-info mt-3 mb-4">
+                  Monto seleccionado: ${selectedAmount}
+                </p>
+              ) : (
+                <p className="text-info mt-3 mb-4">
+                  Monto seleccionado: Ninguno
+                </p>
+              )}
+
+
+
+
+
               <div className="wallet-container">
                 {preferenceId && (
                   <Wallet
@@ -271,6 +287,16 @@ const Donar = (props) => {
           </div>
         </div>
       )}
+
+<ModalProcessing
+  show={showProcessingModal}
+  setShow={setShowProcessingModal}
+/>
+
+<ModalRejected
+  show={showRejectedModal}
+  setShow={setShowRejectedModal}
+/>
 
       {ShowModalErorr && (
         <ModalError
