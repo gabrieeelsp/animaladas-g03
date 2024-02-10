@@ -1,6 +1,8 @@
 const createUser = require('../controllers/user/createUser');
 const loginUser = require('../controllers/user/loginuser');
+const mailRecoveryPassword = require('../controllers/user/mailRecoveryPassword');
 const putEnabledUser = require('../controllers/user/putIsEnabledUser');
+const verifyToken = require('../controllers/user/verifyToken');
 const verifyUser = require('../controllers/user/verifyUser');
 
 const postUserHandler = async (req, res) => {
@@ -38,6 +40,21 @@ const getVerifyAccountHandler = async (req, res) => {
     }
 };
 
+const getVerifyToken = async (req, res) => {
+    const { token } = req.query;
+
+    try {
+        const verify = await verifyToken(token);
+        res.redirect(302, `http://localhost:5173/changePassword/${verify}`);
+    } catch (error) {
+        // error.message = jwt expired
+        res.redirect(
+            302,
+            `http://localhost:5173/changePassword/${error.message}`,
+        );
+    }
+};
+
 const loginUserHandler = async (req, res) => {
     const { email, password } = req.body;
 
@@ -62,9 +79,23 @@ const putEnabledsUsers = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+const postRevoverPassword = async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        const sendMail = await mailRecoveryPassword(email);
+        res.status(200).json(sendMail);
+    } catch (error) {
+        console.log(error);
+        res.status(400).json(error.message);
+    }
+};
 module.exports = {
     postUserHandler,
     loginUserHandler,
     putEnabledsUsers,
     getVerifyAccountHandler,
+    postRevoverPassword,
+    getVerifyToken,
 };

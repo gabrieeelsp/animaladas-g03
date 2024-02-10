@@ -16,6 +16,21 @@ const generateToken = (user) => {
     return token;
 };
 
+const generateTokenRecoveryPass = (user) => {
+    const secret = process.env.JWT_SECRET;
+    const payload = {
+        userId: user.id,
+    };
+
+    const options = {
+        expiresIn: '1hr',
+    };
+
+    const token = jwt.sign(payload, secret, options);
+
+    return token;
+};
+
 const generateTokenVerifyAccount = (user) => {
     const secret = process.env.JWT_SECRET;
     const payload = {
@@ -37,4 +52,9 @@ const tokenDecoded = (token) => {
     return decoded;
 };
 
-module.exports = { generateToken, generateTokenVerifyAccount, tokenDecoded };
+module.exports = {
+    generateToken,
+    generateTokenRecoveryPass,
+    generateTokenVerifyAccount,
+    tokenDecoded,
+};
