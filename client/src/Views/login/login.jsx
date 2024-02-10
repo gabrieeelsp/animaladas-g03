@@ -5,11 +5,13 @@ import logo_google from "../../img/logo_google.png";
 import axios from "axios";
 import ModalError from "../../Components/ErrorModal/ErrorModal.jsx";
 import { useNavigate } from "react-router-dom";
-
+import GeneralModal from "../../Components/GeneralModal/generalmodal.jsx";
 export default function Login(props) {
   const urlParams = new URLSearchParams(window.location.search);
   const serializedUser = urlParams.get("userGoogle");
-  serializedUser !== null ? window.localStorage.setItem("user_info", serializedUser) : "";
+  serializedUser !== null
+    ? window.localStorage.setItem("user_info", serializedUser)
+    : "";
   const navigate = useNavigate();
   const { MessageModal, SetMessageModal } = props;
   const [ShowModalMessage, SetShowModalMessage] = useState(false);
@@ -23,12 +25,12 @@ export default function Login(props) {
       [e.target.name]: e.target.value,
     });
   };
-  const urlBaseAxios = import.meta.env.VITE_ENV === 'DEV' ? import.meta.env.VITE_URL_DEV : import.meta.env.VITE_URL_PROD;
+  const urlBaseAxios =
+    import.meta.env.VITE_ENV === "DEV"
+      ? import.meta.env.VITE_URL_DEV
+      : import.meta.env.VITE_URL_PROD;
   const login_user = async (e) => {
-    const response = await axios.post(
-      `${urlBaseAxios}/user/login`,
-      userdata
-    );
+    const response = await axios.post(`${urlBaseAxios}/user/login`, userdata);
     const { data } = response;
     if (data.is_verified != true) {
       SetShowModalMessage(true);
