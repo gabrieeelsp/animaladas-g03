@@ -13,10 +13,9 @@ export default function Nav() {
   let showprofile_img = false;
   let user_info = {};
 
-  console.log("esta es la super info", user_info);
   const [showprofile, Setshowprofile] = useState(false);
   const [showmodalprofile, Setshowmodalprofile] = useState(false);
-  if (location.pathname === "/login" || location.pathname === "/register") {
+  if (location.pathname === "/login" || location.pathname === "/admin" || location.pathname === "/register") {
     return null;
   }
 

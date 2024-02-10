@@ -119,17 +119,6 @@ export const loadAnimals = (
           break;
         }
       }
-      console.log({
-        name,
-        status,
-        size: sizeValue,
-        species: speciesValue,
-        castrated: castradoValue,
-        page,
-        limit: animalsPerPage,
-        orderby: orderBy,
-        orderdir: orderDir,
-      });
 
       const response = await axios.get(`${urlBaseAxios}/animal/getanimals`, {
         params: {
