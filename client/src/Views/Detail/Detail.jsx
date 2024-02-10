@@ -2,29 +2,38 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { clearAll, animalById, createForm } from "../../redux/actions/actions";
-import Reviews from "../../Components/reviews/Reviews";
-import Loader from "../../Components/Loader/Loader";
+import { clearAll, animalById, createForm, allAdoptions } from "../../redux/actions/actions";
+import ModalError from "../../Components/ErrorModal/ErrorModal";
 
-export default function Detail() {
+export default function Detail(props) {
+  const { MessageModal, SetMessageModal } = props;
   const { id } = useParams();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
-  const animal = useSelector((state) => state.animalById);
-  const loggedInUser = useSelector((state) => state.user);
-
+  const [ShowModalError, SetShowModalError] = useState(false);
   const [formData, setFormData] = useState({
-    familyMembers: 1,
+    familyMembers: 0,
     allAgree: "si",
     hasOutdoorSpace: "si",
-    assumesResponsibility: "si",
+    assumesResponsibility: "si"
   });
+  const animal = useSelector((state) => state.animalById);
+  const userId = window.localStorage.getItem('user_info') ? JSON.parse(window.localStorage.getItem('user_info')).id : null;
+  const allAdoptions = useSelector((state)=> state.allAdoptions)
+  
 
-  const handleFormSubmit = async (e) => {
+  useEffect(() => {
+    const getAnimalDetail = () => {
+      dispatch(clearAll());
+      dispatch(animalById(id));
+    };
+    getAnimalDetail();
+  }, [dispatch, id]);
+
+
+  const handleFormSubmit = (e) => {
     e.preventDefault();
-
     const adoptionFormData = {
-      userId: loggedInUser.id,
+      userId: userId,
       animalId: animal.id,
       familyMembers: formData.familyMembers,
       allAgree: formData.allAgree,
@@ -34,14 +43,7 @@ export default function Detail() {
     dispatch(createForm(adoptionFormData));
   };
 
-  useEffect(() => {
-    const getAnimalDetail = async () => {
-      dispatch(clearAll());
-      await dispatch(animalById(id));
-      setLoading(false);
-    };
-    getAnimalDetail();
-  }, [dispatch, id]);
+
 
   const calculateAge = (estimatedBirthYear) => {
     if (!estimatedBirthYear) {
@@ -54,11 +56,11 @@ export default function Detail() {
     return `${age} años`;
   };
 
+
+
   return (
     <div>
-      {loading ? (
-        <Loader />
-      ) : (
+      
         <div className="container d-flex align-items-center justify-content-center my-5">
           <div
             className="row bg-dark p-4 align-items-center justify-content-center"
@@ -167,91 +169,105 @@ export default function Detail() {
                       aria-label="Close"
                     ></button>
                   </div>
-                  <div className="modal-body">
-                    <label htmlFor="familyMembers">
-                      Cuantos integrantes por familia:
-                    </label>
-                    <input
-                      type="number"
-                      id="familyMembers"
-                      name="familyMembers"
-                      value={formData.familyMembers}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          familyMembers: parseInt(e.target.value, 10),
-                        })
-                      }
-                    />
+                  <form onSubmit={handleFormSubmit}>
+                    <div className="modal-body">
+                      <label htmlFor="familyMembers">
+                        Cuantos integrantes por familia:
+                      </label>
+                      <input
+                        type="number"
+                        id="familyMembers"
+                        name="familyMembers"
+                        value={formData.familyMembers}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            familyMembers: parseInt(e.target.value, 10),
+                          })
+                        }
+                      />
 
-                    <label htmlFor="allAgree">Todos están de acuerdo:</label>
-                    <select
-                      id="allAgree"
-                      name="allAgree"
-                      value={formData.allAgree}
-                      onChange={(e) =>
-                        setFormData({ ...formData, allAgree: e.target.value })
-                      }
-                    >
-                      <option value="si">Si</option>
-                      <option value="no">No</option>
-                    </select>
+                      <label htmlFor="allAgree">Todos están de acuerdo:</label>
+                      <select
+                        id="allAgree"
+                        name="allAgree"
+                        value={formData.allAgree}
+                        onChange={(e) =>
+                          setFormData({ ...formData, allAgree: e.target.value })
+                        }
+                      >
+                        <option value="si">Si</option>
+                        <option value="no">No</option>
+                      </select>
 
-                    <label htmlFor="hasOutdoorSpace">
-                      Tienes patio/balcón/terraza:
-                    </label>
-                    <select
-                      id="hasOutdoorSpace"
-                      name="hasOutdoorSpace"
-                      value={formData.hasOutdoorSpace}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          hasOutdoorSpace: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="si">Si</option>
-                      <option value="no">No</option>
-                    </select>
+                      <label htmlFor="hasOutdoorSpace">
+                        Tienes patio/balcón/terraza:
+                      </label>
+                      <select
+                        id="hasOutdoorSpace"
+                        name="hasOutdoorSpace"
+                        value={formData.hasOutdoorSpace}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            hasOutdoorSpace: e.target.value,
+                          })
+                        }
+                      >
+                        <option value="si">Si</option>
+                        <option value="no">No</option>
+                      </select>
 
-                    <label htmlFor="assumesResponsibility">
-                      Está dispuesto a asumir la responsabilidad:
-                    </label>
-                    <select
-                      id="assumesResponsibility"
-                      name="assumesResponsibility"
-                      value={formData.assumesResponsibility}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          assumesResponsibility: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="si">Si</option>
-                      <option value="no">No</option>
-                    </select>
-                  </div>
-                  <div className="modal-footer">
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
+                      <label htmlFor="assumesResponsibility">
+                        Está dispuesto a asumir la responsabilidad:
+                      </label>
+                      <select
+                        id="assumesResponsibility"
+                        name="assumesResponsibility"
+                        value={formData.assumesResponsibility}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            assumesResponsibility: e.target.value,
+                          })
+                        }
+                      >
+                        <option value="si">Si</option>
+                        <option value="no">No</option>
+                      </select>
+                    </div>
+                    <div className="modal-footer">
+                      <button
+                        type="button"
+                        className="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button type="submit"
+                      className="btn btn-primary"
                       data-bs-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                    <button type="button" className="btn btn-primary">
-                      Understood
-                    </button>
-                  </div>
+                      >
+                        Submit
+
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      
+
+      {ShowModalError && (
+        <ModalError
+          MessageModal={MessageModal}
+          ShowModalMessage={ShowModalError}
+          SetShowModalMessage={SetShowModalError}
+        ></ModalError>
       )}
-      <Reviews></Reviews>
+
     </div>
   );
 }
