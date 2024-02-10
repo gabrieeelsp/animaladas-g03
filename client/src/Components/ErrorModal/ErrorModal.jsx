@@ -7,6 +7,8 @@ export default function ModalError({
   SetShowModalMessage,
   ShowModalMessage,
 }) {
+  console.log("el mensaje de error es", MessageModal);
+  console.log("se muestra el modal?", ShowModalMessage);
   return (
     <>
       {ShowModalMessage ? (

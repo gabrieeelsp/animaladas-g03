@@ -8,6 +8,7 @@ const items = [
         password: 'password',
         phone: '12345',
         address: 'calle falsa 123',
+        is_verified: true,
     },
     {
         name: 'Omar',
@@ -16,11 +17,15 @@ const items = [
         password: 'password',
         phone: '12345',
         address: 'calle falsa 123',
+        is_verified: true,
     },
 ];
 
 module.exports = async () => {
-    await User.truncate();
+    await User.destroy({
+        where: {},
+        force: true,
+    });
 
     await User.bulkCreate(items);
 };

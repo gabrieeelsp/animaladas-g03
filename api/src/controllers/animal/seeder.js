@@ -93,7 +93,10 @@ const estimatedBirthYearMin = 2005;
 const estimatedBirthYearMax = 2024;
 
 module.exports = async () => {
-    await Animal.truncate();
+    await Animal.destroy({
+        where: {},
+        force: true,
+    });
 
     await Animal.bulkCreate(
         nombreArray.map((item) => {
