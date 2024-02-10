@@ -1,11 +1,56 @@
 import React from "react";
 import GeneralModal from "../GeneralModal/generalmodal";
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import SuccesModal from "../SuccessModal/SuccesModal";
+import axios from "axios";
 export default function PasswordRecover(props) {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  let user_connect = false;
+
   const { MessageModal, SetMessageModal } = props;
   const [ShowModalMessage, SetShowModalMessage] = useState(true);
   const [showGeneralModal, SetShowGeneralModal] = useState(true);
-  SetMessageModal("Por favor ingresa la nueva contraseña");
+  const [ShowModalSucces, SetShowModalSucess] = useState(false);
+  const [userdata, Setuserdata] = useState({
+    password: "",
+    passwordcopy: "",
+    userId: Number(id),
+    statusrecovered: false,
+  });
+  const handlechange = (e) => {
+    Setuserdata({
+      ...userdata,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const navigateto = (e) => {
+    console.log("ingreso a navigateto");
+    SetShowModalSucess(false);
+    navigate("/login");
+  };
+  const save_newpassword = async (e) => {
+    if (userdata.password === userdata.passwordcopy) {
+      const response = await axios.put(
+        "http://localhost:3001/user/changePassword",
+        userdata
+      );
+
+      const { data } = response;
+      if (data) {
+        userdata.statusrecovered = true;
+        SetMessageModal(
+          "!Bien! se ha cambiado a la contraseña. Ya puedes iniciar Sesión"
+        );
+        SetShowModalSucess(true);
+        SetShowGeneralModal(false);
+      }
+    }
+  };
+  if (userdata.statusrecovered === false) {
+    SetMessageModal("Por favor ingresa la nueva contraseña");
+  }
 
   return (
     <>
@@ -37,11 +82,20 @@ export default function PasswordRecover(props) {
             name="passwordcopy"
             onChange={(e) => handlechange(e)}
           />
-          <div className="btn text-dark w-100 mt-4 fw-bold shadow-sm bg-warning">
+          <div
+            className="btn text-dark w-100 mt-4 fw-bold shadow-sm bg-warning"
+            onClick={(e) => save_newpassword(e)}
+          >
             Guardar
           </div>
         </div>
       </GeneralModal>
+      <SuccesModal
+        MessageModal={MessageModal}
+        SetShowModalMessage={SetShowModalSucess}
+        ShowModalMessage={ShowModalSucces}
+        navigateto={navigateto}
+      ></SuccesModal>
     </>
   );
 }
