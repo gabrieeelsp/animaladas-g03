@@ -15,8 +15,12 @@ import Donar from "./Views/Donar/donar";
 import Addanimal from "./Views/Add-animal/Add-animal";
 import Verify_user from "./Views/VerifyUser/Verify_user";
 import { useState } from "react";
-//!Bien! Tu cuenta ha sido verificada.
+import AdminView from "./Views/AdminView/AdminView";
+import AdminUsers from "./Views/AdminUsers/AdminUsers";
+import AdminAnimals from "./Views/AdminAnimals/AdminAnimals";
+
 function App() {
+
   const [MessageModal, SetMessageModal] = useState("");
 
   return (
@@ -39,54 +43,15 @@ function App() {
         />
 
         <Route path="/contacto" element={<Contact />}></Route>
-        <Route
-          path="/login"
-          element={
-            <Login
-              MessageModal={MessageModal}
-              SetMessageModal={SetMessageModal}
-            />
-          }
-        />
-
-        <Route
-          path="/register"
-          element={
-            <Register
-              MessageModal={MessageModal}
-              SetMessageModal={SetMessageModal}
-            />
-          }
-        />
-        <Route
-          path="/add"
-          element={
-            <Addanimal
-              MessageModal={MessageModal}
-              SetMessageModal={SetMessageModal}
-            />
-          }
-        />
+        <Route path="/login" element={<Login MessageModal={MessageModal} SetMessageModal={SetMessageModal}/>} />
+        <Route path="/register" element={<Register MessageModal={MessageModal} SetMessageModal={SetMessageModal} />} />
+        <Route path="/add" element={<Addanimal MessageModal={MessageModal} SetMessageModal={SetMessageModal} />} />
         <Route path="/requisitos" element={<Requisitos />}></Route>
-
-        <Route
-          path="/donar"
-          element={
-            <Donar
-              MessageModal={MessageModal}
-              SetMessageModal={SetMessageModal}
-            />
-          }
-        />
-        <Route
-          path="/verifyUser/:infoUser"
-          element={
-            <Verify_user
-              MessageModal={MessageModal}
-              SetMessageModal={SetMessageModal}
-            />
-          }
-        />
+        <Route path="/donar" element={<Donar MessageModal={MessageModal} SetMessageModal={SetMessageModal} />} />
+        <Route path="/verifyUser/:infoUser" element={<Verify_user MessageModal={MessageModal} SetMessageModal={SetMessageModal} />} />
+        <Route path="/admin" element={<AdminView />} />
+        <Route path="/admin/users" element={<AdminUsers />} />
+        <Route path="/admin/animals" element={<AdminAnimals />} />
       </Routes>
       <Footer />
     </div>
