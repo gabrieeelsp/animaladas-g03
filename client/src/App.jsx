@@ -129,10 +129,15 @@ function App() {
               MessageModal={MessageModal}
               SetMessageModal={SetMessageModal}
             />
-          }
-        />
+          } />
+
+         <Route 
+         path="/donar/pago-aprobado" 
+         element={<PagoAprobado />} />
+
+
       </Routes>
-      <Route path="/pago-aprobado" component={PagoAprobado} />
+    
 
       <Footer />
     </div>
