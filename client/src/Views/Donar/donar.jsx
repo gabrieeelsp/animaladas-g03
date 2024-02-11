@@ -71,7 +71,7 @@ const Donar = (props) => {
       SetMessageModal(
         "Para hacer una donacion debe registrarse o iniciar sesión con su cuenta"
       );
-      setShowErrorModal(true);
+      SetShowModalError(true);
       return;
     }
     const userDetails = {
