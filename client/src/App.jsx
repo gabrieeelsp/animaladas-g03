@@ -45,34 +45,7 @@ function App() {
 
         <Route path="/contacto" element={<Contact />}></Route>
         <Route path="/reviews" element={<Reviews />}></Route>
-        <Route
-          path="/login"
-          element={
-            <Login
-              MessageModal={MessageModal}
-              SetMessageModal={SetMessageModal}
-            />
-          }
-        />
-
-        <Route
-          path="/register"
-          element={
-            <Register
-              MessageModal={MessageModal}
-              SetMessageModal={SetMessageModal}
-            />
-          }
-        />
-        <Route
-          path="/add"
-          element={
-            <Addanimal
-              MessageModal={MessageModal}
-              SetMessageModal={SetMessageModal}
-            />
-          }
-        />
+       
         <Route
           path="/login"
           element={
