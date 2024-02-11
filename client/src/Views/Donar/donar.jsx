@@ -21,7 +21,7 @@ const Donar = (props) => {
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [customAmount, setCustomAmount] = useState("");
   const [showGratitudeMessage, setShowGratitudeMessage] = useState(true);
-  const [ShowModalErorr, SetShowModalError] = useState(false);
+  const [ShowModalError, setShowModalError] = useState(false);
   const [showRejectedModal, setShowRejectedModal] = useState(false);
 
 
@@ -94,7 +94,7 @@ const Donar = (props) => {
       }
     } catch (error) {
       console.error("Error al crear la preferencia:", error);
-      setShowModalError(true);
+      SetShowModalError(true);
       setShowRejectedModal(true);
     }
   };
@@ -104,7 +104,6 @@ const Donar = (props) => {
     const value = event.target.value;
     setCustomAmount(value);
   };
-
   const handleCustomAmountClick = () => {
     const amount = parseFloat(customAmount);
 
@@ -115,8 +114,7 @@ const Donar = (props) => {
       document.getElementById("customAmountError").innerText =
         "El monto personalizado debe ser al menos de 100 pesos.";
     }
-  };
-
+};
   return (
     <div className="container donar-container">
       <div className="row mt-3">
@@ -288,11 +286,11 @@ const Donar = (props) => {
   setShow={setShowRejectedModal}
 />
 
-      {ShowModalErorr && (
+{ShowModalError && (
         <ModalError
           MessageModal={MessageModal}
-          ShowModalMessage={ShowModalErorr}
-          SetShowModalMessage={SetShowModalError}
+          ShowModalMessage={ShowModalError}
+          SetShowModalMessage={setShowModalError}
         />
       )}
     </div>
