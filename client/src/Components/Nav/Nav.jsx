@@ -15,7 +15,7 @@ export default function Nav() {
 
   const [showprofile, Setshowprofile] = useState(false);
   const [showmodalprofile, Setshowmodalprofile] = useState(false);
-  if (location.pathname === "/login" || location.pathname === "/admin" || location.pathname === "/register") {
+  if (location.pathname === "/login" || location.pathname === "/admin" || location.pathname === "/admin/users" || location.pathname === "/admin/animals" || location.pathname === "/register") {
     return null;
   }
 

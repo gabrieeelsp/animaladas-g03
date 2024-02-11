@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loadAnimals, set_searchbar_value } from "../../redux/actions/actions";
-import { useSelector } from "react-redux";
 
 export default function Searchbar() {
   
@@ -11,13 +10,13 @@ export default function Searchbar() {
   const sizeValue = useSelector((state) => state.sizeValue)
   const speciesValues = useSelector((state) => state.speciesValues)
   const castratedValue = useSelector((state) => state.castratedValue)
-  
-  
+  const enabledValue = useSelector((state) => state.enabledValue);
   const location = useLocation();
   const nameValue = useSelector((state) => state.searchBarValue)
+  const animals = useSelector((state) => state.allAnimals);
   const dispatch = useDispatch();
 
-  if (location.pathname !== "/adoptar") {
+  if (location.pathname !== "/adoptar" && location.pathname !== "/admin/users" && location.pathname !== "/admin/animals") {
     return null;
   }
 
@@ -27,9 +26,25 @@ export default function Searchbar() {
 
   const onSearch = (event) => {
     event.preventDefault(); 
-    dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValues, castratedValue, 1, 4, orderByValue, orderDirValue));
-    dispatch(set_searchbar_value(''));
+    if(location.pathname === "/adoptar"){
+      dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValues, castratedValue, 1, 4, orderByValue, orderDirValue, enabledValue))
+        .then(() => {
+          if (animals.length === 0) {
+            alert("No se encontraron animales.");
+          }
+        })
+        .then(() => dispatch(set_searchbar_value('')));
+    } else {
+      dispatch(loadAnimals(nameValue, '', sizeValue, speciesValues, castratedValue, 1, 3, orderByValue, orderDirValue, enabledValue))
+        .then(() => {
+          if (animals.length === 0) {
+            alert("No se encontraron animales.");
+          }
+        });
+    }
   };
+  
+  
 
   const onKeyDown = (event) => {
     if (event.keyCode === 13) {
