@@ -6,6 +6,7 @@ const donationRouter = require('./donationRouter');
 const adoptionRouter = require('./adoptionRouter');
 const mercadopagoRouter = require('./mercadopagoRouter');
 const passport = require('passport');
+const reviews = require('./reviewRouter');
 require('../services/google');
 
 const router = Router();
@@ -19,6 +20,7 @@ router.use('/init', initRouter);
 router.use('/donations', donationRouter);
 router.use('/adoptions', adoptionRouter);
 router.use('/mercadopago', mercadopagoRouter);
+router.use('/review', reviews);
 
 router.use(
     '/user/auth',
