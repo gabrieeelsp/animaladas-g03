@@ -14,6 +14,7 @@ import {
   CREATE_FORM_SUCCESS,
   CREATE_FORM_FAILURE,
   DELETE_ANIMAL,
+  SET_ENABLED_VALUE,
 } from "./types";
 
 import axios from "axios";
@@ -73,6 +74,14 @@ export const set_castrated_value = (value) => {
     });
   };
 };
+export const set_enabled_value = (value) => {
+  return (dispatch) => {
+    dispatch({
+      type: SET_ENABLED_VALUE,
+      payload: value,
+    });
+  };
+};
 
 export const loadAnimals = (
   name,
@@ -110,6 +119,10 @@ export const loadAnimals = (
 
       let enabledValue = null;
       switch (enabled) {
+        case "Todos": {
+          enabledValue = "";
+          break;
+        }
         case "Si": {
           enabledValue = true;
           break;
