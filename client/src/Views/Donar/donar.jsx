@@ -6,8 +6,7 @@ import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import "./Donar.css";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import ModalError from "../../Components/ErrorModal/ErrorModal";
-import ModalProcessing from "./ModalProcessing";
-import ModalRejected from "./ModalRejected";
+
 
 library.add(faPaw);
 
@@ -21,8 +20,7 @@ const Donar = (props) => {
   const [customAmount, setCustomAmount] = useState("");
   const [showGratitudeMessage, setShowGratitudeMessage] = useState(true);
   const [ShowModalErorr, SetShowModalError] = useState(false);
-  const [showProcessingModal, setShowProcessingModal] = useState(false);
-  const [showRejectedModal, setShowRejectedModal] = useState(false);
+
 
 
 
@@ -83,7 +81,6 @@ const Donar = (props) => {
     };
   
     try {
-      setShowProcessingModal(true); 
       const id = await createPreference(amount, userDetails);
       console.log("ID de preferencia obtenida:", id);
       if (id) {
@@ -92,16 +89,12 @@ const Donar = (props) => {
         setSelectedAmount(amount);
         setCustomAmount("");
         setShowGratitudeMessage(false);
-        setShowProcessingModal(false); 
       }
     } catch (error) {
       console.error("Error al crear la preferencia:", error);
-      // setShowErrorModal(true);
-      setShowProcessingModal(false); 
-      setShowRejectedModal(true); 
+      //SetShowModalError(true);
     }
   };
-  
 
   const handleCustomAmountChange = (event) => {
     const value = event.target.value;
@@ -280,17 +273,7 @@ const Donar = (props) => {
 
     
 
-<ModalProcessing
-  show={showProcessingModal}
-  setShow={setShowProcessingModal}
-/>
-
-<ModalRejected
-  show={showRejectedModal}
-  setShow={setShowRejectedModal}
-/>
-
-      {ShowModalErorr && (
+       {ShowModalErorr && (
         <ModalError
           MessageModal={MessageModal}
           ShowModalMessage={ShowModalErorr}
