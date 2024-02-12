@@ -20,9 +20,13 @@ import AdminView from "./Views/AdminView/AdminView";
 import AdminUsers from "./Views/AdminUsers/AdminUsers";
 import AdminAnimals from "./Views/AdminAnimals/AdminAnimals";
 import PasswordRecover from "./Components/PasswordRecover/PasswordRecover";
+<<<<<<< HEAD
 import { useDispatch, useSelector } from "react-redux";
 import { infologin } from "./redux/actions/user_action";
 import { isTokenExpired } from "./scripts/istokenexpired";
+=======
+import PagoAprobado from "./Views/Donar/PagoAprobado";
+>>>>>>> 8d55c6426edc028f021d56ae78f3aad5e8e8aa41
 function App() {
   const dispatch = useDispatch();
   const { userdata } = useSelector((state) => state.UserReducer);
@@ -145,6 +149,7 @@ function App() {
             />
           }
         />
+        <Route path="donar/pago-aprobado" element={<PagoAprobado />} />
       </Routes>
 
       <Footer />

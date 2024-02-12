@@ -8,16 +8,14 @@ import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import ModalError from "../../Components/ErrorModal/ErrorModal";
 import ModalProcessing from "./ModalProcessing";
 import ModalRejected from "./ModalRejected";
-import PagoAprobado from "./PagoAprobado";
-
 
 library.add(faPaw);
 
 const Donar = (props) => {
-  const { MessageModal } = props;
-  const { SetMessageModal } = props;
-  console.log("valor de messagemmodal", MessageModal);
-  console.log("setmessamodal", SetMessageModal);
+  // const { MessageModal } = props;
+  // const { SetMessageModal } = props;
+  // console.log("valor de messagemmodal", MessageModal);
+  // console.log("setmessamodal", SetMessageModal);
   const [preferenceId, setPreferenceId] = useState(null);
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [customAmount, setCustomAmount] = useState("");
@@ -67,13 +65,13 @@ const Donar = (props) => {
   };
 
   const handleDonarClick = async (amount) => {
-    if (!window.localStorage.userinfo) {
-      SetMessageModal(
-        "Para hacer una donacion debe registrarse o iniciar sesión con su cuenta"
-      );
-      SetShowModalError(true);
-      return;
-    }
+    // if (!window.localStorage.userinfo) {
+    //   SetMessageModal(
+    //     "Para hacer una donacion debe registrarse o iniciar sesión con su cuenta"
+    //   );
+    //   SetShowModalError(true);
+    //   return;
+    // }
     const userDetails = {
       id: 1,
       total_amount: amount,
@@ -98,7 +96,7 @@ const Donar = (props) => {
       }
     } catch (error) {
       console.error("Error al crear la preferencia:", error);
-      setShowErrorModal(true);
+      // setShowErrorModal(true);
       setShowProcessingModal(false); 
       setShowRejectedModal(true); 
     }
@@ -280,13 +278,7 @@ const Donar = (props) => {
         </div>
       </div>
 
-      {selectedAmount && (
-        <div className="row mt-3">
-          <div className="col-md-12">
-            <PagoAprobado />
-          </div>
-        </div>
-      )}
+    
 
 <ModalProcessing
   show={showProcessingModal}
