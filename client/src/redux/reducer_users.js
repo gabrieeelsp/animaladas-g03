@@ -1,11 +1,10 @@
-//import { USER_INFO } from "./types";
+import { USER_INFO } from "./actions/user_type";
 const initialState = {
   userdata: {
     id: "",
     name: "",
     lastName: "",
     email: "",
-    password: "",
     phone: "",
     address: "",
   },
@@ -20,7 +19,6 @@ const UserReducer = (state = initialState, { type, payload }) => {
         name: payload.name,
         lastName: payload.lastName,
         email: payload.email,
-        password: payload.password,
         phone: payload.phone,
         address: payload.address,
       };

@@ -8,6 +8,7 @@ export default function Reviews(props) {
   const [opinion_data, Setopiniondata] = useState({
     score: "",
     comment: "",
+    userId: 1,
   });
   const ArrayStarts = [...new Array(5)];
   const handleonchange = (e) => {
@@ -25,10 +26,13 @@ export default function Reviews(props) {
     });
   };
   const post_comment = async () => {
+    console.log("la data que se va en axis", opinion_data);
     const resp = await axios.post(
-      "http://localhost:3001/user/createUser",
+      "http://localhost:3001/review/createReviews",
       opinion_data
     );
+    const { data } = opinion_data;
+    console.log("la data que responde", data);
   };
   const remove_content = () => {
     Setopiniondata({
@@ -100,6 +104,7 @@ export default function Reviews(props) {
               type="button"
               className="btn btn-warning"
               style={{ width: "100%" }}
+              onClick={post_comment}
             >
               Publicar
             </div>
