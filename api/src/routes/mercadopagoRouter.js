@@ -1,10 +1,10 @@
 const { Router } = require('express');
 
-const { crearPreferencia, verificarFirma } = require('../services/mercadopago');
+const { crearPreferencia, crearOrden } = require('../services/mercadopago');
 
 const mercadopagoRouter = Router();
 
 mercadopagoRouter.post('/crear-preferencia', crearPreferencia);
-mercadopagoRouter.post('/mercadopago-notificaciones', verificarFirma);
+mercadopagoRouter.post('/pago-aprobado', crearOrden);
 
 module.exports = mercadopagoRouter;

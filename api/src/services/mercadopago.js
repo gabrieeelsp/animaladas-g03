@@ -2,7 +2,50 @@
 /* eslint-disable no-console */
 const { MercadoPagoConfig, Preference } = require('mercadopago');
 require('dotenv').config();
+// eslint-disable-next-line import/no-extraneous-dependencies
+const axios = require('axios');
 
+const crearOrden = async (req, res) => {
+    try {
+        const url = 'https://api.mercadopago.com/merchant_orders';
+        const { ACCESS_TOKEN } = process.env;
+        const accessToken = ACCESS_TOKEN;
+
+        const headers = {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+        };
+
+        const { preferenceId } = req.body;
+        const orderData = {
+            external_reference: 'default',
+            items: [
+                {
+                    currency_id: 'ARS',
+                    title: 'donación',
+                    quantity: 1,
+                    unit_price: 100,
+                },
+            ],
+            payer: {
+                nickname: 'USER',
+            },
+            site_id: 'MLA',
+            preference_id: preferenceId,
+        };
+        const response = await axios.post(url, orderData, { headers });
+        const totalAmount = response.data.total_amount;
+        const { status } = response.data;
+
+        res.status(200).json({
+            message: 'Orden creada exitosamente',
+            totalAmount,
+            status,
+        });
+    } catch (error) {
+        console.error('Error al crear la orden:', error.response);
+    }
+};
 const crearPreferencia = async (req, res) => {
     try {
         const { ACCESS_TOKEN } = process.env;
@@ -31,11 +74,12 @@ const crearPreferencia = async (req, res) => {
                     client_id: req.body.client_id,
                 },
                 back_urls: {
-                    success: 'https://animaladas03.vercel.app/',
-                    failure: 'https://animaladas03.vercel.app/donar',
-                    pending: 'https://animaladas03.vercel.app/',
+                    success: 'http://127.0.0.1:5173/donar/pago-aprobado',
+                    failure: 'http://127.0.0.1:5173/donar',
+                    pending: 'http://127.0.0.1:5173/',
                 },
-                auto_return: 'approved',
+                auto_return: 'all',
+                external_reference: 'default',
             },
         });
         const responseData = {
@@ -49,7 +93,6 @@ const crearPreferencia = async (req, res) => {
         };
 
         res.json({ responseData });
-        console.log(req.body.quantity);
     } catch (error) {
         console.error(error);
         if (
@@ -68,37 +111,8 @@ const crearPreferencia = async (req, res) => {
 };
 
 // eslint-disable-next-line consistent-return
-function verificarFirma(req, res, next) {
-    const { SECRET_KEY } = process.env;
-    const secret = SECRET_KEY;
-
-    const signatureHeader = req.get('x-signature');
-    if (!signatureHeader) {
-        return res.status(400).json({ error: 'Firma ausente en la cabecera' });
-    }
-
-    const [timestamp, signature] = signatureHeader.split(',');
-
-    const signatureData = {
-        timestamp: timestamp.split('=')[1],
-        signature: signature.split('=')[1],
-    };
-
-    const template = `post;${req.protocol}://${req.get('host')}${req.path};data.id=${req.body.id};type=${req.query.topic};user-agent:mercadopago webhook v1.0;${signatureData.timestamp};action:${req.body.action};api_version:${req.body.api_version};date_created:${req.body.date_created};id:${req.body.id};live_mode:${req.body.live_mode};type:${req.body.type};user_id:${req.body.user_id}`;
-
-    const calculatedSignature = crypto
-        .createHmac('sha256', secret)
-        .update(template)
-        .digest('hex');
-
-    if (signatureData.signature !== calculatedSignature) {
-        return res.status(400).json({ error: 'Firma inválida' });
-    }
-
-    next();
-}
 
 module.exports = {
     crearPreferencia,
-    verificarFirma,
+    crearOrden,
 };
