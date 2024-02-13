@@ -22,6 +22,8 @@ import AdminAnimals from "./Views/AdminAnimals/AdminAnimals";
 import PasswordRecover from "./Components/PasswordRecover/PasswordRecover";
 import axios from "axios";
 import PagoAprobado from "./Views/Donar/PagoAprobado";
+import AdminForms from "./Views/AdminForms/AdminForms";
+
 function App() {
   const [MessageModal, SetMessageModal] = useState("");
 
@@ -133,6 +135,7 @@ function App() {
           }
         />
         <Route path="donar/pago-aprobado" element={<PagoAprobado />} />
+        <Route path="/admin/forms" element={<AdminForms />} />
       </Routes>
 
       <Footer />
