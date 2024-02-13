@@ -12,6 +12,8 @@ export default function Reviews(props) {
   let profile_singin = false;
   console.log("valor de user_profile", user_profile);
   const [score_initial, Setscore_initial] = useState(0);
+  let errornumber = "";
+  let showerrornumber = false;
   const [opinion_data, Setopiniondata] = useState({
     score: "",
     comment: "",
@@ -52,13 +54,24 @@ export default function Reviews(props) {
   if (opinion_data.score !== "" || opinion_data.comment !== "") {
     deletedisabled = false;
   }
-  if (opinion_data.score !== "" && opinion_data.comment !== "") {
+  if (
+    opinion_data.score !== "" &&
+    opinion_data.comment !== "" &&
+    errornumber === ""
+  ) {
     disabled = false;
   }
   if (user_profile.email !== undefined) {
     profile_singin = true;
   }
-
+  console.log();
+  if (Number(opinion_data.comment)) {
+    showerrornumber = true;
+    errornumber = "El campo debe contener letras y/o alfanumericos";
+  } else {
+    errornumber = "";
+    showerrornumber = false;
+  }
   return (
     <>
       {profile_singin && (
@@ -110,6 +123,11 @@ export default function Reviews(props) {
               >
                 Escribe tu opinion
               </label>
+              {showerrornumber && (
+                <div class="input-group mb-1 alert alert-warning" role="alert">
+                  {errornumber}
+                </div>
+              )}
               <textarea
                 name="comment"
                 ref={ref}
