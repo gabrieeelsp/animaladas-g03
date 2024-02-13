@@ -29,7 +29,7 @@ export default function Contact() {
   return (
     <div className="container d-flex justify-content-center my-5">
       <div className="row bg-dark p-4 align-items-center justify-content-center" style={{ width: "1000px", borderRadius: "30px" }}>
-        <h2 className="text-warning mb-4 fs-4">Formulario de Contacto</h2> {/* Título del contenedor */}
+        <h2 className="text-warning mb-4 fs-4">Formulario de Contacto</h2> 
         <div className="col">
           <Map />
         </div>
