@@ -16,9 +16,9 @@ export default function Detail(props) {
     hasOutdoorSpace: "si",
     assumesResponsibility: "si"
   });
-  const animal = useSelector((state) => state.animalById);
+  const animal = useSelector((state) => state.rootReducer.animalById);
   const userId = window.localStorage.getItem('user_info') ? JSON.parse(window.localStorage.getItem('user_info')).id : null;
-  const allAdoptions = useSelector((state)=> state.allAdoptions)
+  const allAdoptions = useSelector((state)=> state.rootReducer.allAdoptions)
   
 
   useEffect(() => {
