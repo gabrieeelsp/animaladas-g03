@@ -15,6 +15,7 @@ const store = createStore(
 );
 
 store.subscribe(function () {
-  saveState(store.getState(UserReducer));
+  saveState(store.getState());
 });
+
 export default store;

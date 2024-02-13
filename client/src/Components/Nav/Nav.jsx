@@ -42,7 +42,7 @@ export default function Nav() {
   };
   const closeprofilemenu = (e) => {
     localStorage.removeItem("user_info");
-    dispatch(sign_out({}));
+    // dispatch(sign_out({}));
     Navigate("/");
     menuprofile(e);
   };
