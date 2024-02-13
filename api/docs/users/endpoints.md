@@ -55,3 +55,10 @@ esta no la hice yo pero por lo que veo recibe un id por params el cual usa para 
 recibe del front: email del usuario a buscar.
 
 busca el usuario si existe retorna un json con la info del usuario, si no existe tira un mensaje con el error.
+
+-put http://localhost:3001/user/searchAllUsers
+
+recibe del front: id, name, lastName, password, phone, address, imageProfile.
+
+el back se encarga de buscar el usuario por el id, y despues remplaza la nueva info
+con la nueva y retorna un mensaje 'Informacion del Usuario actualizada.'

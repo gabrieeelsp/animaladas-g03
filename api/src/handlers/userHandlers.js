@@ -1,3 +1,4 @@
+const changeUserData = require('../controllers/user/changeUserData');
 const createUser = require('../controllers/user/createUser');
 const getAllUsers = require('../controllers/user/getAllUsers');
 const getUserByEmail = require('../controllers/user/getUserByEmail');
@@ -129,6 +130,26 @@ const searchUser = async (req, res) => {
     }
 };
 
+const putChageUserData = async (req, res) => {
+    const { id, name, lastName, password, phone, address, imageProfile } =
+        req.body;
+    try {
+        const user = await changeUserData(
+            id,
+            name,
+            lastName,
+            password,
+            phone,
+            address,
+            imageProfile,
+        );
+        res.status(200).json(user);
+    } catch (error) {
+        console.log(error);
+        res.status(400).json(error.message);
+    }
+};
+
 module.exports = {
     postUserHandler,
     loginUserHandler,
@@ -139,4 +160,5 @@ module.exports = {
     putChangePassword,
     searchAllUsers,
     searchUser,
+    putChageUserData,
 };

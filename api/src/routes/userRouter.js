@@ -9,6 +9,7 @@ const {
     putChangePassword,
     searchAllUsers,
     searchUser,
+    putChageUserData,
 } = require('../handlers/userHandlers');
 
 const userRouter = Router();
@@ -22,6 +23,7 @@ userRouter.post('/login', loginUserHandler);
 userRouter.post('/searchUser', searchUser);
 userRouter.get('/searchAllUsers', searchAllUsers);
 userRouter.put('/users/:id', putEnabledsUsers);
+userRouter.put('/changeUserData', putChageUserData);
 userRouter.get('/google', (req, res) => {
     const { user } = req;
     const serializedUser = JSON.stringify(user);
