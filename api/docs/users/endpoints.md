@@ -58,7 +58,9 @@ busca el usuario si existe retorna un json con la info del usuario, si no existe
 
 -put http://localhost:3001/user/searchAllUsers
 
-recibe del front: id, name, lastName, password, phone, address, imageProfile.
+recibe del front por body: id, name, lastName, password, phone, address, imageProfile.
 
 el back se encarga de buscar el usuario por el id, y despues remplaza la nueva info
 con la nueva y retorna un mensaje 'Informacion del Usuario actualizada.'
+
+si el usuario no cambia la password enviar un string vacio.

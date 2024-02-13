@@ -13,7 +13,9 @@ const changeUserData = async (
 
     user.name = name;
     user.lastName = lastName;
-    user.password = password;
+    if (password.length !== 0 && password !== undefined) {
+        user.password = password;
+    }
     user.phone = phone;
     user.address = address;
     user.imageProfile = imageProfile;
