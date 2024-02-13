@@ -17,7 +17,30 @@ export default function Nav() {
   let showprofile_img = false;
   let user_info = {};
   const user_profile = useSelector((state) => state.UserReducer);
+  console.log("valor de user_profile", user_profile);
 
+  const [form_edituser, Setformedituser] = useState({
+    name: user_profile.name,
+    email: user_profile.email,
+    lastName: user_profile.lastName,
+    address: user_profile.address,
+    phone: user_profile.phone,
+    imageProfile: user_profile.imageProfile,
+    password: "",
+  });
+
+  /*
+  const [form_edituser, Setformedituser] = useState({
+    name: "",
+    email: "",
+    lastName: "",
+    address: "",
+    phone: "",
+    imageProfile: "",
+    password: "",
+  });
+*/
+  console.log("valor de form_editer", form_edituser);
   const [showprofile, Setshowprofile] = useState(false);
   const [showmodalprofile, Setshowmodalprofile] = useState(false);
   if (
@@ -36,8 +59,8 @@ export default function Nav() {
     Setshowprofile(!showprofile);
   };
   const handlechange = (e) => {
-    setuserinfo({
-      ...user_info,
+    Setformedituser({
+      ...form_edituser,
       [e.target.name]: e.target.value,
     });
   };
@@ -182,7 +205,11 @@ export default function Nav() {
               <img
                 onClick={(e) => menuprofile(e)}
                 src={user_profile.imageProfile}
-                style={{ width: "40px", cursor: "pointer" }}
+                style={{
+                  width: "40px",
+                  cursor: "pointer",
+                  borderRadius: "50%",
+                }}
               ></img>
             )}
             {showprofile ? (
@@ -212,18 +239,13 @@ export default function Nav() {
                     <p>Editar Perfil</p>
                     <span>{">"}</span>
                   </a>
-
-                  <a href="#" className="sub-menu-link">
-                    <i className="bi bi-bag-heart"></i>
-                    <p>Adopciones</p>
-                    <span>{">"}</span>
-                  </a>
-                  <a href="#" className="sub-menu-link">
-                    <i className="bi bi-box2-heart"></i>
-                    <p>Donaciones</p>
-                    <span>{">"}</span>
-                  </a>
-
+                  <NavLink to="admin">
+                    <a href="#" className="sub-menu-link">
+                      <i className="bi bi-bag-heart"></i>
+                      <p>Panel</p>
+                      <span>{">"}</span>
+                    </a>
+                  </NavLink>
                   <a href="#" className="sub-menu-link">
                     <i className="bi bi-escape"></i>
                     <p onClick={(e) => closeprofilemenu(e)}>Cerrar sesion</p>
@@ -237,6 +259,7 @@ export default function Nav() {
           <Modalprofile
             modalstate={showmodalprofile}
             setmodalstate={Setshowmodalprofile}
+            form_edituser={form_edituser}
           >
             <div className="input-group mt-4">
               <div className="input-group-text bg-warning text-white">
@@ -247,7 +270,20 @@ export default function Nav() {
                 type="text"
                 placeholder="Nombre*"
                 name="name"
-                value={user_info && user_info.name ? user_info.name : ""}
+                value={form_edituser.name}
+                onChange={(e) => handlechange(e)}
+              />
+            </div>
+            <div className="input-group mt-1">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-person-fill-add"></i>
+              </div>
+              <input
+                className="form-control bg-light"
+                type="text"
+                placeholder="Lastname*"
+                name="lastName"
+                value={form_edituser.lastName}
                 onChange={(e) => handlechange(e)}
               />
             </div>
@@ -260,8 +296,9 @@ export default function Nav() {
                 type="email"
                 placeholder="Correo Eletronico*"
                 name="email"
-                value={user_info && user_info.email ? user_info.email : ""}
+                value={form_edituser.email}
                 onChange={(e) => handlechange(e)}
+                disabled="disabled"
               />
             </div>
             <div className="input-group mt-1">
@@ -273,9 +310,45 @@ export default function Nav() {
                 type="text"
                 placeholder="Numero de contacto*"
                 name="phone"
-                value={user_info && user_info.phone ? user_info.phone : ""}
+                value={form_edituser.phone}
                 onChange={(e) => handlechange(e)}
               />
+            </div>
+            <div className="input-group mt-1">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-geo-alt-fill"></i>
+              </div>
+              <input
+                className="form-control bg-light"
+                type="text"
+                placeholder="Direccion*"
+                name="address"
+                value={form_edituser.address}
+                onChange={(e) => handlechange(e)}
+              />
+            </div>
+
+            <div className="input-group mt-1">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-lock"></i>
+              </div>
+              <input
+                className="form-control bg-light"
+                type="password"
+                placeholder="Contraseña*"
+                name="password"
+                value={form_edituser.password}
+                onChange={(e) => handlechange(e)}
+              />
+            </div>
+            <div class=" input-group mb-1 mt-3">
+              <input
+                class="form-control text-center"
+                type="file"
+                id="formFile"
+                //  onChange={uploadImage}
+                name="imageProfile"
+              ></input>
             </div>
             <button
               className="btn text-white w-100 mt-4 fw-bold shadow-sm bg-warning"
@@ -291,5 +364,5 @@ export default function Nav() {
 }
 
 /*
-
+https://res.cloudinary.com/dwgufqzjd/image/upload/v1707404450/Proyecto_animaladas/default/w2jbmtfjvfjn1alnnpxb.png
               */
