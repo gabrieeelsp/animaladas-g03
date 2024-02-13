@@ -137,7 +137,6 @@ export default function Nav() {
                     className="btn btn-outline-warning p-1 mx-3"
                     type="button"
                   >
-                    Estadisticas
                     Opiniones
                   </button>
                 </NavLink>
