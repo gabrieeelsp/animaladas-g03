@@ -5,7 +5,7 @@ import "./Nav.css";
 import perfil_img from "../../img/perfil_default.png";
 import Profilemenu from "../PropdownProfile/Profilemenu";
 import Modalprofile from "./modalprofile";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { infologin } from "../../redux/actions/user_action";
 import { sign_out } from "../../redux/actions/user_action";
 //import { useLocalstore } from "../../scripts/uselocalstore";
@@ -16,6 +16,7 @@ export default function Nav() {
   let showloginbutton = true;
   let showprofile_img = false;
   let user_info = {};
+  const user_profile = useSelector((state) => state.UserReducer);
 
   const [showprofile, Setshowprofile] = useState(false);
   const [showmodalprofile, Setshowmodalprofile] = useState(false);
@@ -42,7 +43,7 @@ export default function Nav() {
   };
   const closeprofilemenu = (e) => {
     localStorage.removeItem("user_info");
-    // dispatch(sign_out({}));
+    dispatch(sign_out({}));
     Navigate("/");
     menuprofile(e);
   };
@@ -51,6 +52,12 @@ export default function Nav() {
     showloginbutton = false;
     showprofile_img = true;
   }
+  if (JSON.parse(localStorage.getItem("user_info")) === "") {
+    console.log("entro aqui");
+    showloginbutton = true;
+    showprofile_img = false;
+  }
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100 fixed-top">
@@ -174,7 +181,7 @@ export default function Nav() {
             {showprofile_img && (
               <img
                 onClick={(e) => menuprofile(e)}
-                src={perfil_img}
+                src={user_profile.imageProfile}
                 style={{ width: "40px", cursor: "pointer" }}
               ></img>
             )}
@@ -183,7 +190,7 @@ export default function Nav() {
                 <div className="sub-menu">
                   <div className="user-info">
                     <img
-                      src={perfil_img}
+                      src={user_profile.imageProfile}
                       style={{ width: "40px", cursor: "pointer" }}
                     ></img>
                     <h2>{user_info && user_info.name ? user_info.name : ""}</h2>
