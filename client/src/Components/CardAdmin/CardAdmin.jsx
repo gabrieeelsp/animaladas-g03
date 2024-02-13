@@ -1,7 +1,7 @@
-import React from "react";
+import { React } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteAnimal, loadAnimals } from '../../redux/actions/actions';
-
+import ModalAnimals from "../ModalAnimals/ModalAnimals";
 
 export default function CardAdmin(props) {
   const dispatch = useDispatch();
@@ -21,12 +21,15 @@ export default function CardAdmin(props) {
   };
 
   return (
+    <>
       <div className="card text-bg-dark text-warning d-inline-block p-0 mx-1" style={{ width: "310px", height: "430px", borderRadius: "20px", justifyContent: "space-evenly" }}>
         <img className="my-2" src={status==="rescatado" && image1 ? image1 : status==="adoptable" && image2 ? image2 : image3} alt={name} style={{ borderRadius: "20px", height:"220px", width: "290px", objectFit:"cover" }}/>
         <div className="card-body d-flex py-0" style={{ height: "180px"}}>
           <div className="align-items-center" style={{ display: "flex", flexDirection: "column" }}>
             <button
               className="btn btn-warning btn-block text-dark fw-bold my-3"
+              data-bs-toggle="modal" 
+              data-bs-target="#exampleModal"
               style={{ width: "120px" }}
             >
               Modificar
@@ -47,5 +50,7 @@ export default function CardAdmin(props) {
           </div>
         </div>
       </div>
-    );
+      <ModalAnimals />
+    </>
+  );
 }
