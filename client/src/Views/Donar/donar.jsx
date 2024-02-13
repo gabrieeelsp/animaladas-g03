@@ -7,18 +7,23 @@ import "./Donar.css";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import ModalError from "../../Components/ErrorModal/ErrorModal";
 
+
 library.add(faPaw);
 
 const Donar = (props) => {
-  const { MessageModal } = props;
-  const { SetMessageModal } = props;
-  console.log("valor de messagemmodal", MessageModal);
-  console.log("setmessamodal", SetMessageModal);
+  // const { MessageModal } = props;
+  // const { SetMessageModal } = props;
+  // console.log("valor de messagemmodal", MessageModal);
+  // console.log("setmessamodal", SetMessageModal);
   const [preferenceId, setPreferenceId] = useState(null);
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [customAmount, setCustomAmount] = useState("");
   const [showGratitudeMessage, setShowGratitudeMessage] = useState(true);
   const [ShowModalErorr, SetShowModalError] = useState(false);
+
+
+
+
   useEffect(() => {
     initMercadoPago(import.meta.env.VITE_API_KEY_MERCADOPAGO, {
       locale: "es-AR",
@@ -58,13 +63,13 @@ const Donar = (props) => {
   };
 
   const handleDonarClick = async (amount) => {
-    if (!window.localStorage.userinfo) {
-      SetMessageModal(
-        "Para hacer una donacion debe registrarse o iniciar sesión con su cuenta"
-      );
-      SetShowModalError(true);
-      return;
-    }
+    // if (!window.localStorage.userinfo) {
+    //   SetMessageModal(
+    //     "Para hacer una donacion debe registrarse o iniciar sesión con su cuenta"
+    //   );
+    //   SetShowModalError(true);
+    //   return;
+    // }
     const userDetails = {
       id: 1,
       total_amount: amount,
@@ -74,7 +79,7 @@ const Donar = (props) => {
       email: "correo@ejemplo.com",
       client_id: "cliente123",
     };
-
+  
     try {
       const id = await createPreference(amount, userDetails);
       console.log("ID de preferencia obtenida:", id);
@@ -87,6 +92,7 @@ const Donar = (props) => {
       }
     } catch (error) {
       console.error("Error al crear la preferencia:", error);
+      //SetShowModalError(true);
     }
   };
 
@@ -94,6 +100,7 @@ const Donar = (props) => {
     const value = event.target.value;
     setCustomAmount(value);
   };
+
   const handleCustomAmountClick = () => {
     const amount = parseFloat(customAmount);
 
@@ -133,16 +140,6 @@ const Donar = (props) => {
               <h3 className="text-warning mt-3 mb-4">
                 ¿Cuánto quieres aportar?
               </h3>
-
-              {selectedAmount !== null ? (
-                <p className="text-info mt-3 mb-4">
-                  Monto seleccionado: ${selectedAmount}
-                </p>
-              ) : (
-                <p className="text-info mt-3 mb-4">
-                  Monto seleccionado: Ninguno
-                </p>
-              )}
 
               <div
                 className="donar-options d-flex flex-wrap justify-content-center"
@@ -203,67 +200,85 @@ const Donar = (props) => {
                 >
                   Aportar $5000
                 </button>
+              </div>
 
-                <div className="donar-options d-flex flex-wrap justify-content-center">
-                  <h5 className="text-warning mt-3 mb-4">
-                    O define un monto personalizado:
-                  </h5>
+              <div className="donar-options d-flex flex-wrap justify-content-center">
+                <h5 className="text-warning mt-3 mb-4">
+                  O define un monto personalizado:
+                </h5>
+              </div>
+
+              <div className="donation-component-input-group mb-3 d-flex flex-column align-items-center">
+                <input
+                  type="number"
+                  className="form-control form-control-sm mb-2"
+                  placeholder="Monto personalizado"
+                  aria-label="Monto personalizado"
+                  aria-describedby="basic-addon2"
+                  value={customAmount}
+                  onChange={handleCustomAmountChange}
+                  min="100"
+                />
+
+                <div className="input-group-append">
+                  <button
+                    className="btn btn-warning donar-custom-button home-button"
+                    type="button"
+                    onClick={handleCustomAmountClick}
+                  >
+                    Seleccionar
+                  </button>
                 </div>
+                <p className="text-light small">
+                  El monto mínimo es de $100 ARS.
+                </p>
+              </div>
 
-                <div className="donation-component-input-group mb-3 d-flex flex-column align-items-center">
-                  <input
-                    type="number"
-                    className="form-control form-control-sm mb-2"
-                    placeholder="Monto personalizado"
-                    aria-label="Monto personalizado"
-                    aria-describedby="basic-addon2"
-                    value={customAmount}
-                    onChange={handleCustomAmountChange}
-                    min="100"
+
+              {selectedAmount !== null ? (
+                <p className="text-info mt-3 mb-4">
+                  Monto seleccionado: ${selectedAmount}
+                </p>
+              ) : (
+                <p className="text-info mt-3 mb-4">
+                  Monto seleccionado: Ninguno
+                </p>
+              )}
+
+
+
+
+
+              <div className="wallet-container">
+                {preferenceId && (
+                  <Wallet
+                    initialization={{ preferenceId: preferenceId }}
+                    customization={{ texts: { valueProp: "smart_option" } }}
+                    style={{ width: "70%", height: "400px" }}
                   />
-
-                  <div className="input-group-append">
-                    <button
-                      className="btn btn-warning donar-custom-button home-button"
-                      type="button"
-                      onClick={handleCustomAmountClick}
-                    >
-                      Seleccionar
-                    </button>
+                )}
+                {showGratitudeMessage && (
+                  <div className="gratitude-message mt-4">
+                    <p>
+                      ¡Gracias por ayudar a nuestros amigos!{" "}
+                      <FontAwesomeIcon icon={faPaw} />
+                    </p>
                   </div>
-                  <p className="text-light small">
-                    El monto mínimo es de $100 ARS.
-                  </p>
-                </div>
-
-                <div className="wallet-container">
-                  {preferenceId && (
-                    <Wallet
-                      initialization={{ preferenceId: preferenceId }}
-                      customization={{ texts: { valueProp: "smart_option" } }}
-                      style={{ width: "70%", height: "400px" }}
-                    />
-                  )}
-                  {showGratitudeMessage && (
-                    <div className="gratitude-message mt-4">
-                      <p>
-                        ¡Gracias por ayudar a nuestros amigos!{" "}
-                        <FontAwesomeIcon icon={faPaw} />
-                      </p>
-                    </div>
-                  )}
-                </div>
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
-      {ShowModalErorr && (
+
+    
+
+       {ShowModalErorr && (
         <ModalError
           MessageModal={MessageModal}
           ShowModalMessage={ShowModalErorr}
           SetShowModalMessage={SetShowModalError}
-        ></ModalError>
+        />
       )}
     </div>
   );

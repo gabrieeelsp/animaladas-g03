@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Card from "../../Components/Card/Card";
 import Paginacion from "../../Components/Pagination/Pagination";
 import Loader from "../../Components/Loader/Loader"
-import { loadAnimals, clearAll, orderByAge, orderByName, set_size_value, set_species_value, set_castrated_value, set_orderdir_value, set_orderby_value } from "../../redux/actions/actions";
+import { loadAnimals, clearAll, set_size_value, set_species_value, set_castrated_value, set_orderdir_value, set_orderby_value } from "../../redux/actions/actions";
 import "./Adoptar.css";
 import React from "react";
 

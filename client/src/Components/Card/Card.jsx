@@ -45,13 +45,6 @@ if(enabled){
         <h6 className="card-text text-left">Especie: {species}</h6>
         <h6 className="card-text text-left">Castrado/a: {castrated ? "Si" : "No"}</h6>
         <Link to={`/detail/${id}`} className="btn btn-warning btn-block text-dark" style={{margin: "10px"}}>Adoptar</Link>
-        <button
-          onClick={handleDeleteAnimal}
-          className="btn btn-danger btn-block text-dark"
-          style={{ margin: "10px" }}
-        >
-          Eliminar
-        </button>
       </div>
     </div>
   )}else{

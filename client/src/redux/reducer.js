@@ -1,4 +1,4 @@
-import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME, SET_SEARCHBAR_VALUE, SET_CASTRATED_VALUE, SET_SPECIES_VALUE, SET_SIZE_VALUE, SET_ORDERDIR_VALUE, SET_ORDERBY_VALUE, CREATE_FORM_SUCCESS, CREATE_FORM_FAILURE, DELETE_ANIMAL } from "./actions/types";
+import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME, SET_SEARCHBAR_VALUE, SET_CASTRATED_VALUE, SET_SPECIES_VALUE, SET_SIZE_VALUE, SET_ENABLED_VALUE, SET_ORDERDIR_VALUE, SET_ORDERBY_VALUE, CREATE_FORM_SUCCESS, CREATE_FORM_FAILURE, DELETE_ANIMAL } from "./actions/types";
 
 const initialState = {
   allAnimals: [],
@@ -54,6 +54,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         speciesValue: payload,
+      }
+    }
+    case SET_ENABLED_VALUE: {
+      return {
+        ...state,
+        enabledValue: payload,
       }
     }
 
@@ -132,7 +138,6 @@ case ORDER_BY_AGE:
   case DELETE_ANIMAL: {
    return state;
   }
-
 
 
     default:

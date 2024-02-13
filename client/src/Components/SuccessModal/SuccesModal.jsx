@@ -6,6 +6,7 @@ export default function SuccesModal({
   MessageModal,
   SetShowModalMessage,
   ShowModalMessage,
+  navigateto,
 }) {
   return (
     <>
@@ -17,7 +18,7 @@ export default function SuccesModal({
             </div>
             <button
               className="buttonclose"
-              onClick={(e) => SetShowModalMessage(false)}
+              onClick={(e) => SetShowModalMessage(navigateto)}
             >
               <i class="bi bi-x-lg"></i>
             </button>

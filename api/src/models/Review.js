@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
             autoIncrement: true,
         },
         score: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 min: 1,

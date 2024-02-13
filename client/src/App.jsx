@@ -16,7 +16,12 @@ import Addanimal from "./Views/Add-animal/Add-animal";
 import Verify_user from "./Views/VerifyUser/Verify_user";
 import Estadisticas from "./Views/Estadisticas/Estadisticas";
 import { useState } from "react";
-//!Bien! Tu cuenta ha sido verificada.
+import Reviews from "./Components/reviews/Reviews";
+import AdminView from "./Views/AdminView/AdminView";
+import AdminUsers from "./Views/AdminUsers/AdminUsers";
+import AdminAnimals from "./Views/AdminAnimals/AdminAnimals";
+import PasswordRecover from "./Components/PasswordRecover/PasswordRecover";
+import PagoAprobado from "./Views/Donar/PagoAprobado";
 function App() {
   const [MessageModal, SetMessageModal] = useState("");
 
@@ -40,6 +45,7 @@ function App() {
         />
 
         <Route path="/contacto" element={<Contact />}></Route>
+        <Route path="/reviews" element={<Reviews />}></Route>
         <Route
           path="/login"
           element={
@@ -68,8 +74,34 @@ function App() {
             />
           }
         />
+        <Route
+          path="/login"
+          element={
+            <Login
+              MessageModal={MessageModal}
+              SetMessageModal={SetMessageModal}
+            />
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <Register
+              MessageModal={MessageModal}
+              SetMessageModal={SetMessageModal}
+            />
+          }
+        />
+        <Route
+          path="/add"
+          element={
+            <Addanimal
+              MessageModal={MessageModal}
+              SetMessageModal={SetMessageModal}
+            />
+          }
+        />
         <Route path="/requisitos" element={<Requisitos />}></Route>
-
         <Route
           path="/donar"
           element={
@@ -88,13 +120,28 @@ function App() {
             />
           }
         />
+
         <Route
           path="/estadisticas"
           element={
             <Estadisticas />
           }
         />
+        <Route path="/admin" element={<AdminView />} />
+        <Route path="/admin/users" element={<AdminUsers />} />
+        <Route path="/admin/animals" element={<AdminAnimals />} />
+        <Route
+          path="/changePassword/:id"
+          element={
+            <PasswordRecover
+              MessageModal={MessageModal}
+              SetMessageModal={SetMessageModal}
+            />
+          }
+        />
+        <Route path="donar/pago-aprobado" element={<PagoAprobado />} />
       </Routes>
+
       <Footer />
     </div>
   );
