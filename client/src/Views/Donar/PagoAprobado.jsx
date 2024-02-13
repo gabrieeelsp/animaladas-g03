@@ -1,6 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaw } from "@fortawesome/free-solid-svg-icons";
+import "./PagoAprobado.css"
 
 export default function PagoAprobado() {
   const navigate = useNavigate();
@@ -71,12 +75,20 @@ export default function PagoAprobado() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalAmount]);
 
-    return (
-      <div>
-        <h2>Pago Aprobado</h2>
-        <p>¡Gracias por tu donación! Tu pago se ha procesado correctamente.</p>
-        <p>¡Gracias por tu apoyo!</p>
+  return (
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-md-8">
+          <div className="card donar-custom-card mt-3 pago-aprobado-card">
+            <div className="card-body card-donar-body text-center">
+              <div className="text-warning display-4 mb-3">¡Pago Aprobado!</div>
+              <p className="card-text">¡Tu pago ha sido procesado exitosamente!</p>
+              <p className="card-text">Te agradecemos enormemente por tu contribución.</p>
+              <FontAwesomeIcon icon={faPaw} />
+            </div>
+          </div>
+        </div>
       </div>
-    );
-  }
-
+    </div>
+  );
+}
