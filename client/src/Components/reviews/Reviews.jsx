@@ -2,12 +2,20 @@ import React, { useRef, useState } from "react";
 import "./reviews.css";
 import default_user from "../../img/perfil_default.png";
 import axios from "axios";
+import { useSelector } from "react-redux";
 export default function Reviews(props) {
   const ref = useRef();
+  let disabled = true;
+  let deletedisabled = true;
+  let disabledpost = true;
+  const user_profile = useSelector((state) => state.UserReducer);
+  let profile_singin = false;
+  console.log("valor de user_profile", user_profile);
   const [score_initial, Setscore_initial] = useState(0);
   const [opinion_data, Setopiniondata] = useState({
     score: "",
     comment: "",
+    userId: 1,
   });
   const ArrayStarts = [...new Array(5)];
   const handleonchange = (e) => {
@@ -25,10 +33,13 @@ export default function Reviews(props) {
     });
   };
   const post_comment = async () => {
+    console.log("la data que se va en axis", opinion_data);
     const resp = await axios.post(
-      "http://localhost:3001/user/createUser",
+      "http://localhost:3001/review/createReviews",
       opinion_data
     );
+    const { data } = opinion_data;
+    console.log("la data que responde", data);
   };
   const remove_content = () => {
     Setopiniondata({
@@ -38,83 +49,105 @@ export default function Reviews(props) {
     Setscore_initial(0);
     ref.current.value = "";
   };
+  if (opinion_data.score !== "" || opinion_data.comment !== "") {
+    deletedisabled = false;
+  }
+  if (opinion_data.score !== "" && opinion_data.comment !== "") {
+    disabled = false;
+  }
+  if (user_profile.email !== undefined) {
+    profile_singin = true;
+  }
 
   return (
     <>
-      <div className="testimonial-box-container" style={{ marginTop: "50px" }}>
-        <div className="testimonial-box">
-          <div className="box-top">
-            <div className="profile">
-              <div className="profile-img">
-                <img src={default_user} />
+      {profile_singin && (
+        <div
+          className="testimonial-box-container"
+          style={{ marginTop: "50px" }}
+        >
+          <div className="testimonial-box">
+            <div className="box-top">
+              <div className="profile">
+                <div className="profile-img">
+                  <img src={user_profile.imageProfile} />
+                </div>
+                <div className="name-user">
+                  <strong>
+                    {user_profile.name} {user_profile.lastName}
+                  </strong>
+                  <span>
+                    @{user_profile.name}
+                    {user_profile.lastName}
+                  </span>
+                </div>
               </div>
-              <div className="name-user">
-                <strong>Fabio Garces</strong>
-                <span>@fgarces06</span>
+              <div className="reviews">
+                {ArrayStarts.map((start, index) => {
+                  return index < score_initial ? (
+                    <i
+                      className="bi bi-star-fill"
+                      onClick={(e) => scoring_opinion(index)}
+                      style={{ cursor: "pointer" }}
+                    ></i>
+                  ) : (
+                    <i
+                      className="bi bi-star"
+                      onClick={(e) => scoring_opinion(index)}
+                    ></i>
+                  );
+                })}
               </div>
             </div>
-            <div className="reviews">
-              {ArrayStarts.map((start, index) => {
-                return index < score_initial ? (
-                  <i
-                    className="bi bi-star-fill"
-                    onClick={(e) => scoring_opinion(index)}
-                    style={{ cursor: "pointer" }}
-                  ></i>
-                ) : (
-                  <i
-                    className="bi bi-star"
-                    onClick={(e) => scoring_opinion(index)}
-                  ></i>
-                );
-              })}
+            <div className="form-group">
+              <label
+                for="exampleFormControlTextarea1"
+                style={{
+                  fontSize: "1.5rem",
+                  color: "#f9d71c",
+                  fontWeight: "bold",
+                }}
+              >
+                Escribe tu opinion
+              </label>
+              <textarea
+                name="comment"
+                ref={ref}
+                class="form-control"
+                id="exampleFormControlTextarea1"
+                rows="3"
+                onChange={handleonchange}
+              ></textarea>
             </div>
-          </div>
-          <div className="form-group">
-            <label
-              for="exampleFormControlTextarea1"
+            <div
               style={{
-                fontSize: "1.5rem",
-                color: "#f9d71c",
-                fontWeight: "bold",
+                justifyContent: "space-between",
+                display: "flex",
               }}
             >
-              Escribe tu opinion
-            </label>
-            <textarea
-              name="comment"
-              ref={ref}
-              class="form-control"
-              id="exampleFormControlTextarea1"
-              rows="3"
-              onChange={handleonchange}
-            ></textarea>
-          </div>
-          <div
-            style={{
-              justifyContent: "space-between",
-              display: "flex",
-            }}
-          >
-            <div
-              type="button"
-              className="btn btn-warning"
-              style={{ width: "100%" }}
-            >
-              Publicar
-            </div>
+              <button
+                type="button"
+                className="btn btn-warning"
+                style={{ width: "100%" }}
+                onClick={post_comment}
+                disabled={disabled}
+              >
+                Publicar
+              </button>
 
-            <div
-              type="button"
-              className="btn btn-danger"
-              style={{ width: "100%" }}
-              onClick={remove_content}
-            >
-              Borrar
+              <button
+                type="button"
+                className="btn btn-danger"
+                style={{ width: "100%" }}
+                onClick={remove_content}
+                disabled={deletedisabled}
+              >
+                Borrar
+              </button>
             </div>
           </div>
         </div>
-      </div>
+      )}
       <div style={{ boxSizing: "border-box", margin: "0px", padding: "0px" }}>
         <section id="testimonials">
           <div className="testimonial-heading">
