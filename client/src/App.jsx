@@ -14,6 +14,7 @@ import Requisitos from "./Views/Requisitos/Requisitos";
 import Donar from "./Views/Donar/donar";
 import Addanimal from "./Views/Add-animal/Add-animal";
 import Verify_user from "./Views/VerifyUser/Verify_user";
+import Estadisticas from "./Views/Estadisticas/Estadisticas";
 import { useState } from "react";
 //!Bien! Tu cuenta ha sido verificada.
 function App() {
@@ -85,6 +86,12 @@ function App() {
               MessageModal={MessageModal}
               SetMessageModal={SetMessageModal}
             />
+          }
+        />
+        <Route
+          path="/estadisticas"
+          element={
+            <Estadisticas />
           }
         />
       </Routes>

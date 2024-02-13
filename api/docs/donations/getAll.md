@@ -10,7 +10,7 @@ Este endpoint devuelve una lista de donaciones disponibles.
 
 -   `userId` : Filtra donaciones por id de usuario.
 -   `animalId`: Filtra donaciones por id de animal, un animalId = 0 significa que trera todas las donaciones que no esten asociadas a un animal
--
+-   `dateFrom` & `dateTo`: Filtra donaciones por createdAt. se deben enviar ambos parametros para que lo tenga en cuenta.
 
 ### Paginación
 
