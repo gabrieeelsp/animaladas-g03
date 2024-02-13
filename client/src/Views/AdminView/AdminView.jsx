@@ -12,24 +12,29 @@ export default function AdminView() {
           <span className="bg-dark text-center text-warning p-2 my-2" style={{borderRadius: "10px"}}>ESTADISTICAS DONACIONES</span>
           <img src="https://static.fundacion-affinity.org/cdn/farfuture/4G3-8zXoQB9HA7QUsy2P93bbtdNHuirWz3EC-c5rRbI/mtime:1686144577/sites/default/files/fig5-23.png" style={{borderRadius: "20px", height:"285px", width: "820px"}}></img>
         </div>
-        <div className="col-md-3 mb-4 mt-3 bg-dark text-warning d-flex flex-column align-items-center justify-content-center fs-5" style={{ border: "2px solid black", borderRadius: "10px", padding: "15px", height: "710px" }}>
+        <div className="col-md-2 bg-dark text-warning d-flex flex-column align-items-center justify-content-center" style={{ border: "2px solid black", borderRadius: "10px", padding: "15px", height: "600px", width: "300px" }}>
           <NavLink to="/admin">
-              <button className="btn btn-warning btn-block fs-5 fw-bold my-5" style={{ width: "180px" }}>
+              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "180px" }}>
                 ESTADÍSTICAS
               </button>
               </NavLink>
               <NavLink to="/admin/users">
-              <button className="btn btn-warning btn-block fs-5 fw-bold my-5" style={{ width: "180px" }}>
+              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "180px" }}>
                 USUARIOS
               </button>
               </NavLink>
               <NavLink to="/admin/animals">
-              <button className="btn btn-warning btn-block fs-5 fw-bold my-5" style={{ width: "180px" }}>
+              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "180px" }}>
                 ANIMALES
               </button>
               </NavLink>
+              <NavLink to="/admin/forms">
+              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "180px" }}>
+                FORMULARIOS
+              </button>
+              </NavLink>
               <NavLink to="/">
-              <button className="btn btn-warning btn-block fs-5 fw-bold my-5" style={{ width: "50px" }}>
+              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "50px" }}>
               <i className="bi-house-door-fill"></i>
               </button>
               </NavLink>

@@ -15,6 +15,7 @@ import {
   CREATE_FORM_FAILURE,
   DELETE_ANIMAL,
   SET_ENABLED_VALUE,
+  LOAD_USERS,
 } from "./types";
 
 import axios from "axios";
@@ -283,4 +284,14 @@ export const allAdoptions = async () => {
     console.error('Error fetching adoptions:', error);
     throw error;
   }
+};
+
+export const loadUsers = () => {
+  return async (dispatch) => {
+    const response = await axios.get(`${urlBaseAxios}/user/searchAllUsers`);
+    dispatch({
+      type: LOAD_USERS,
+      payload: response.data,
+    });
+  };
 };
