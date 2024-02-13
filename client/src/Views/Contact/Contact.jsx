@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Map from '../../Components/Map/Map.jsx'; 
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -26,15 +27,16 @@ export default function Contact() {
   };
 
   return (
-    <div className="container d-flex align-items-center justify-content-center my-5">
+    <div className="container d-flex justify-content-center my-5">
       <div className="row bg-dark p-4 align-items-center justify-content-center" style={{ width: "1000px", borderRadius: "30px" }}>
+        <h2 className="text-warning mb-4 fs-4">Formulario de Contacto</h2> 
         <div className="col">
-          <img src="https://cdn.pixabay.com/photo/2018/03/06/03/57/jelly-carpet-ghz-3202485_1280.jpg" className="card-img p-2" alt="..." style={{ borderRadius: "30px" }} />
+          <Map />
         </div>
         <div className="col">
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <label htmlFor="email" className="form-label text-warning">Correo electrónico</label>
+              <label htmlFor="email" className="form-label text-warning fs-5">Correo electrónico:</label>
               <input
                 type="email"
                 className="form-control text-center"
@@ -46,7 +48,7 @@ export default function Contact() {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="motivo" className="form-label text-warning">Motivo de contacto</label>
+              <label htmlFor="motivo" className="form-label text-warning fs-5">Motivo de contacto:</label>
               <input
                 type="text"
                 className="form-control text-center"
@@ -58,7 +60,7 @@ export default function Contact() {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="detalle" className="form-label text-warning">Detalle el motivo aquí:</label>
+              <label htmlFor="detalle" className="form-label text-warning fs-5">Detalle el motivo aquí:</label>
               <textarea
                 className="form-control"
                 id="detalle"
@@ -69,7 +71,7 @@ export default function Contact() {
               ></textarea>
             </div>
             <div className="col-auto">
-              <button type="submit" className="btn btn-warning mb-3 font-weight-bold">Enviar</button>
+              <button type="submit" className="btn btn-warning mb-3 font-weight-bold fs-7">Enviar</button>
             </div>
           </form>
         </div>
