@@ -7,6 +7,8 @@ const {
     postRevoverPassword,
     getVerifyToken,
     putChangePassword,
+    searchAllUsers,
+    searchUser,
 } = require('../handlers/userHandlers');
 
 const userRouter = Router();
@@ -17,6 +19,8 @@ userRouter.post('/recoverPassword', postRevoverPassword);
 userRouter.get('/verifyToken', getVerifyToken);
 userRouter.put('/changePassword', putChangePassword);
 userRouter.post('/login', loginUserHandler);
+userRouter.post('/searchUser', searchUser);
+userRouter.get('/searchAllUsers', searchAllUsers);
 userRouter.put('/users/:id', putEnabledsUsers);
 userRouter.get('/google', (req, res) => {
     const { user } = req;
