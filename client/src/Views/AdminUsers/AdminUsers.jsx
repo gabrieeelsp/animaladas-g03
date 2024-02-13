@@ -8,7 +8,7 @@ import ModalUsers from "../../Components/ModalUsers/ModalUsers";
 export default function AdminUsers() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const users = useSelector((state) => state.allUsers);
+  const users = useSelector((state) => state.rootReducer.allUsers);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
