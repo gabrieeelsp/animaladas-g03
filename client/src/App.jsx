@@ -20,28 +20,11 @@ import AdminView from "./Views/AdminView/AdminView";
 import AdminUsers from "./Views/AdminUsers/AdminUsers";
 import AdminAnimals from "./Views/AdminAnimals/AdminAnimals";
 import PasswordRecover from "./Components/PasswordRecover/PasswordRecover";
-<<<<<<< HEAD
-import { useDispatch, useSelector } from "react-redux";
-import { infologin } from "./redux/actions/user_action";
-import { isTokenExpired } from "./scripts/istokenexpired";
-=======
+import axios from "axios";
 import PagoAprobado from "./Views/Donar/PagoAprobado";
->>>>>>> 8d55c6426edc028f021d56ae78f3aad5e8e8aa41
 function App() {
-  const dispatch = useDispatch();
-  const { userdata } = useSelector((state) => state.UserReducer);
-  console.log("valor del reducer en app", userdata);
   const [MessageModal, SetMessageModal] = useState("");
 
-  if (
-    window.localStorage.user_info &&
-    (userdata.email == "") & (userdata.id == "")
-  ) {
-    console.log("esto es app");
-    let user_info = JSON.parse(localStorage.getItem("user_info"));
-    user_info = isTokenExpired(user_info.tokenUser);
-    dispatch(infologin(user_info));
-  }
   return (
     <div className="App">
       <Nav />

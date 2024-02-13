@@ -4,6 +4,7 @@ import { isTokenExpired } from "../../scripts/istokenexpired";
 import "./Home.css";
 
 export default function Home() {
+  console.log("pagina home.jsx");
   return (
     <div>
       <div

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import GeneralModal from "../../Components/GeneralModal/generalmodal.jsx";
 import SuccesModal from "../../Components/SuccessModal/SuccesModal.jsx";
 import { useDispatch } from "react-redux";
+import { infologin } from "../../redux/actions/user_action.js";
 export default function Login(props) {
   const dispatch = useDispatch();
   const urlParams = new URLSearchParams(window.location.search);
@@ -44,8 +45,8 @@ export default function Login(props) {
       );
     } else {
       window.localStorage.setItem("user_info", JSON.stringify(data));
-
       navigate("/");
+      dispatch(infologin(data));
     }
   };
 
