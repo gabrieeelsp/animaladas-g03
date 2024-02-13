@@ -9,8 +9,8 @@ import { useEffect, useState } from "react";
 export default function Rescatado() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const animals = useSelector((state) => state.allAnimals);
-  const pagination = useSelector((state) => state.pagination);
+  const animals = useSelector((state) => state.rootReducer.allAnimals);
+  const pagination = useSelector((state) => state.rootReducer.pagination);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
