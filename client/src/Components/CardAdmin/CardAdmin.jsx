@@ -5,12 +5,12 @@ import ModalAnimals from "../ModalAnimals/ModalAnimals";
 
 export default function CardAdmin(props) {
   const dispatch = useDispatch();
-  const nameValue = useSelector((state) => state.searchBarValue);
-  const orderByValue = useSelector((state) => state.orderByValue);
-  const orderDirValue = useSelector((state) => state.orderDirValue);
-  const sizeValue = useSelector((state) => state.sizeValue);
-  const speciesValue = useSelector((state) => state.speciesValue);
-  const castratedValue = useSelector((state) => state.castratedValue);
+  const nameValue = useSelector((state) => state.rootReducer.searchBarValue);
+  const orderByValue = useSelector((state) => state.rootReducer.orderByValue);
+  const orderDirValue = useSelector((state) => state.rootReducer.orderDirValue);
+  const sizeValue = useSelector((state) => state.rootReducer.sizeValue);
+  const speciesValue = useSelector((state) => state.rootReducer.speciesValue);
+  const castratedValue = useSelector((state) => state.rootReducer.castratedValue);
 
   const { id, name, status, image1, image2, image3, enabled } = props;
 

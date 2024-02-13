@@ -16,7 +16,7 @@ import "./Adoptar.css";
 import React from "react";
 
 export default function Adoptar() {
-  const nameValue = useSelector((state) => state.searchBarValue);
+  const nameValue = useSelector((state) => state.rootReducer.searchBarValue);
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);

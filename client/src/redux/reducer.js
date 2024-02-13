@@ -1,4 +1,5 @@
-import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME, SET_SEARCHBAR_VALUE, SET_CASTRATED_VALUE, SET_SPECIES_VALUE, SET_SIZE_VALUE, SET_ENABLED_VALUE, SET_ORDERDIR_VALUE, SET_ORDERBY_VALUE, CREATE_FORM_SUCCESS, CREATE_FORM_FAILURE, DELETE_ANIMAL } from "./actions/types";
+import { loadAdopted } from "./actions/actions";
+import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME, SET_SEARCHBAR_VALUE, SET_CASTRATED_VALUE, SET_SPECIES_VALUE, SET_SIZE_VALUE, SET_ENABLED_VALUE, SET_ORDERDIR_VALUE, SET_ORDERBY_VALUE, CREATE_FORM_SUCCESS, CREATE_FORM_FAILURE, DELETE_ANIMAL, LOAD_USERS } from "./actions/types";
 
 const initialState = {
   allAnimals: [],
@@ -18,6 +19,7 @@ const initialState = {
   castratedValue: 'Todos',
   enabledValue: 'Si',
   animalById: [],
+  allUsers: [],
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -98,6 +100,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
             searchBarValue: '',
             allAnimals: [],
             animalById: [],
+            allUsers: [],
           }
       }
 
@@ -137,6 +140,13 @@ case ORDER_BY_AGE:
   }
   case DELETE_ANIMAL: {
    return state;
+  }
+
+  case LOAD_USERS: {
+    return {
+      ...state,
+      allUsers: payload,
+    };
   }
 
 

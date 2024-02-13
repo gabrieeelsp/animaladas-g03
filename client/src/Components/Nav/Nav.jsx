@@ -24,7 +24,8 @@ export default function Nav() {
     location.pathname === "/admin" ||
     location.pathname === "/admin/users" ||
     location.pathname === "/admin/animals" ||
-    location.pathname === "/register"
+    location.pathname === "/register" ||
+    location.pathname === "/admin/forms"
   ) {
     return null;
   }

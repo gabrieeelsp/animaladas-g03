@@ -10,15 +10,15 @@ import { NavLink } from "react-router-dom";
 export default function AdminAnimals() {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
-    const animals = useSelector((state) => state.allAnimals);
-    const pagination = useSelector((state) => state.pagination);
-    const nameValue = useSelector((state) => state.searchBarValue);
-    const orderByValue = useSelector((state) => state.orderByValue);
-    const orderDirValue = useSelector((state) => state.orderDirValue);
-    const sizeValue = useSelector((state) => state.sizeValue);
-    const speciesValue = useSelector((state) => state.speciesValue);
-    const castratedValue = useSelector((state) => state.castratedValue);
-    const enabledValue = useSelector((state) => state.enabledValue);
+    const animals = useSelector((state) => state.rootReducer.allAnimals);
+    const pagination = useSelector((state) => state.rootReducer.pagination);
+    const nameValue = useSelector((state) => state.rootReducer.searchBarValue);
+    const orderByValue = useSelector((state) => state.rootReducer.orderByValue);
+    const orderDirValue = useSelector((state) => state.rootReducer.orderDirValue);
+    const sizeValue = useSelector((state) => state.rootReducer.sizeValue);
+    const speciesValue = useSelector((state) => state.rootReducer.speciesValue);
+    const castratedValue = useSelector((state) => state.rootReducer.castratedValue);
+    const enabledValue = useSelector((state) => state.rootReducer.enabledValue);
 
     const optionsEnabled = ['Todos', 'Si', 'No'];
     const handleChangeEnabled = (event) => {
@@ -49,7 +49,7 @@ export default function AdminAnimals() {
     return (
         <div className="container">
             <div className="row mt-0">
-                <div className="col-md-9">
+                <div className="col-md-9" style={{height: "550px"}}>
                     <div className="dropdown">
                         <p className="fw-bold btn-sm m-1">
                             Habilitado
@@ -85,12 +85,12 @@ export default function AdminAnimals() {
                         />
                     </div>
                 </div>
-                <div className="col-md-2 bg-dark text-warning d-flex flex-column align-items-center justify-content-center" style={{ border: "2px solid black", borderRadius: "10px", padding: "15px", height: "610px", width: "300px" }}>
-                    <div className="my-5">
+                <div className="col-md-2 bg-dark text-warning d-flex flex-column align-items-center justify-content-center" style={{ border: "2px solid black", borderRadius: "10px", padding: "10px", height: "600px", width: "300px" }}>
+                    <div className="my-4">
                         <SearchBar />
                     </div>
                     <NavLink to="/admin">
-                        <button className="btn btn-warning btn-block fs-5 fw-bold my-5" style={{ width: "180px" }}>
+                        <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "180px" }}>
                             ESTADÍSTICAS
                         </button>
                     </NavLink>
@@ -100,17 +100,22 @@ export default function AdminAnimals() {
                         </button>
                     </NavLink>
                     <NavLink to="/admin/animals">
-                        <button className="btn btn-warning btn-block fs-5 fw-bold my-5" style={{ width: "180px" }}>
+                        <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "180px" }}>
                             ANIMALES
                         </button>
                     </NavLink>
-                    <NavLink to="/">
-                        <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "50px" }}>
-                            <i className="bi-house-door-fill"></i>
-                        </button>
-                    </NavLink>
-                </div>
-            </div>
+              <NavLink to="/admin/forms">
+              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "180px" }}>
+                FORMULARIOS
+              </button>
+              </NavLink>
+              <NavLink to="/">
+              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "50px" }}>
+              <i className="bi-house-door-fill"></i>
+              </button>
+              </NavLink>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
