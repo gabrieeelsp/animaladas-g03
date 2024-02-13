@@ -56,7 +56,7 @@ recibe del front: email del usuario a buscar.
 
 busca el usuario si existe retorna un json con la info del usuario, si no existe tira un mensaje con el error.
 
--put http://localhost:3001/user/searchAllUsers
+-put http://localhost:3001/user/changeUserData
 
 recibe del front por body: id, name, lastName, password, phone, address, imageProfile.
 
