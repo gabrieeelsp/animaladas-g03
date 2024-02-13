@@ -1,4 +1,6 @@
 const createUser = require('../controllers/user/createUser');
+const getAllUsers = require('../controllers/user/getAllUsers');
+const getUserByEmail = require('../controllers/user/getUserByEmail');
 const loginUser = require('../controllers/user/loginuser');
 const mailRecoveryPassword = require('../controllers/user/mailRecoveryPassword');
 const putChangePass = require('../controllers/user/putChangePass');
@@ -96,11 +98,31 @@ const postRevoverPassword = async (req, res) => {
 
 const putChangePassword = async (req, res) => {
     const { userId, password } = req.body;
-    console.log('valor de user id en back', userId);
-    console.log('valor de password en back', password);
+
     try {
         const newPassword = await putChangePass(userId, password);
         res.status(200).json(newPassword);
+    } catch (error) {
+        console.log(error);
+        res.status(400).json(error.message);
+    }
+};
+
+const searchAllUsers = async (req, res) => {
+    try {
+        const users = await getAllUsers();
+        res.status(200).json(users);
+    } catch (error) {
+        console.log(error);
+        res.status(400).json(error.message);
+    }
+};
+
+const searchUser = async (req, res) => {
+    const { email } = req.body;
+    try {
+        const user = await getUserByEmail(email);
+        res.status(200).json(user);
     } catch (error) {
         console.log(error);
         res.status(400).json(error.message);
@@ -115,4 +137,6 @@ module.exports = {
     postRevoverPassword,
     getVerifyToken,
     putChangePassword,
+    searchAllUsers,
+    searchUser,
 };
