@@ -30,7 +30,7 @@ form > div{
 form img{
   width: 200px;
   border-radius: 50%;
-  border: 6px solid #E4A11B;
+  border: 6px solid #AAA;
 }
 
 form div:first-child{

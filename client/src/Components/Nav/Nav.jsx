@@ -5,17 +5,27 @@ import "./Nav.css";
 import perfil_img from "../../img/perfil_default.png";
 import Profilemenu from "../PropdownProfile/Profilemenu";
 import Modalprofile from "./modalprofile";
+import { useDispatch } from "react-redux";
+import { infologin } from "../../redux/actions/user_action";
+import { sign_out } from "../../redux/actions/user_action";
 //import { useLocalstore } from "../../scripts/uselocalstore";
 export default function Nav() {
   const Navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   let showloginbutton = true;
   let showprofile_img = false;
   let user_info = {};
 
   const [showprofile, Setshowprofile] = useState(false);
   const [showmodalprofile, Setshowmodalprofile] = useState(false);
-  if (location.pathname === "/login" || location.pathname === "/admin" || location.pathname === "/admin/users" || location.pathname === "/admin/animals" || location.pathname === "/register") {
+  if (
+    location.pathname === "/login" ||
+    location.pathname === "/admin" ||
+    location.pathname === "/admin/users" ||
+    location.pathname === "/admin/animals" ||
+    location.pathname === "/register"
+  ) {
     return null;
   }
 
@@ -31,6 +41,7 @@ export default function Nav() {
   };
   const closeprofilemenu = (e) => {
     localStorage.removeItem("user_info");
+    dispatch(sign_out({}));
     Navigate("/");
     menuprofile(e);
   };

@@ -1,15 +1,7 @@
-//import { USER_INFO } from "./types";
-const initialState = {
-  userdata: {
-    id: "",
-    name: "",
-    lastName: "",
-    email: "",
-    password: "",
-    phone: "",
-    address: "",
-  },
-};
+import { USER_INFO } from "./actions/user_type";
+import { loadState, saveState } from "../scripts/Localstore";
+import { SIGN_OUT } from "./actions/user_type";
+const initialState = loadState();
 
 const UserReducer = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -20,10 +12,13 @@ const UserReducer = (state = initialState, { type, payload }) => {
         name: payload.name,
         lastName: payload.lastName,
         email: payload.email,
-        password: payload.password,
         phone: payload.phone,
+        imageProfile: payload.imageProfile,
         address: payload.address,
       };
+    }
+    case SIGN_OUT: {
+      return loadState();
     }
     default:
       return state;
