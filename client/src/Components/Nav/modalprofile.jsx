@@ -6,6 +6,7 @@ export default function Modalprofile({
   modalstate,
   setmodalstate,
   form_edituser,
+  doit,
 }) {
   return (
     <>
@@ -18,12 +19,13 @@ export default function Modalprofile({
                 style={{
                   width: "120px",
                   borderRadius: "50%",
+                  height: "120px",
                 }}
               ></img>
             </div>
             <button
               className="buttonclose"
-              onClick={(e) => setmodalstate(false)}
+              onClick={(e) => setmodalstate(doit)}
             >
               <i class="bi bi-x-lg"></i>
             </button>

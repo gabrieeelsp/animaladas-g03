@@ -8,11 +8,17 @@ import Modalprofile from "./modalprofile";
 import { useDispatch, useSelector } from "react-redux";
 import { infologin } from "../../redux/actions/user_action";
 import { sign_out } from "../../redux/actions/user_action";
+import SuccesModal from "../SuccessModal/SuccesModal";
+import axios from "axios";
 //import { useLocalstore } from "../../scripts/uselocalstore";
-export default function Nav() {
+export default function Nav(props) {
   const Navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const [MessageModal, SetMessageModal] = useState("");
+
+  console.log("estas son las props", SetMessageModal);
+  const [ShowModalSucces, SetShowModalSucces] = useState(false);
   let showloginbutton = true;
   let showprofile_img = false;
   let user_info = {};
@@ -20,6 +26,7 @@ export default function Nav() {
   console.log("valor de user_profile", user_profile);
 
   const [form_edituser, Setformedituser] = useState({
+    id: user_profile.id,
     name: user_profile.name,
     email: user_profile.email,
     lastName: user_profile.lastName,
@@ -29,19 +36,9 @@ export default function Nav() {
     password: "",
   });
 
-  /*
-  const [form_edituser, Setformedituser] = useState({
-    name: "",
-    email: "",
-    lastName: "",
-    address: "",
-    phone: "",
-    imageProfile: "",
-    password: "",
-  });
-*/
   console.log("valor de form_editer", form_edituser);
   const [showprofile, Setshowprofile] = useState(false);
+
   const [showmodalprofile, Setshowmodalprofile] = useState(false);
   if (
     location.pathname === "/login" ||
@@ -55,7 +52,6 @@ export default function Nav() {
   }
 
   const menuprofile = (e) => {
-    console.log("clik");
     Setshowprofile(!showprofile);
   };
   const handlechange = (e) => {
@@ -69,6 +65,37 @@ export default function Nav() {
     dispatch(sign_out({}));
     Navigate("/");
     menuprofile(e);
+  };
+  const uploadImage = async (e) => {
+    const file = e.target.files[0];
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "animaldas_pets");
+    const response = await axios.post(
+      "https://api.cloudinary.com/v1_1/dwgufqzjd/image/upload",
+      data
+    );
+
+    Setformedituser({
+      ...form_edituser,
+      [e.target.name]: response.data.secure_url,
+    });
+  };
+  const urlBaseAxios =
+    import.meta.env.VITE_ENV === "DEV"
+      ? import.meta.env.VITE_URL_DEV
+      : import.meta.env.VITE_URL_PROD;
+  const updateprofile = async (e) => {
+    const response = await axios.put(
+      `${urlBaseAxios}/user/changeUserData`,
+      form_edituser
+    );
+    const { data } = response;
+    if (data === "Informacion del Usuario actualizada.") {
+      console.log("ingreso al condicional de usuario actualizado");
+      SetMessageModal("¡Bien! se actualizo tu informacion.");
+      SetShowModalSucces(true);
+    }
   };
   if (window.localStorage.user_info) {
     user_info = JSON.parse(localStorage.getItem("user_info"));
@@ -212,7 +239,7 @@ export default function Nav() {
                 }}
               ></img>
             )}
-            {showprofile ? (
+            {showprofile && (
               <div className="sub-menu-wrap">
                 <div className="sub-menu">
                   <div className="user-info">
@@ -253,13 +280,14 @@ export default function Nav() {
                   </a>
                 </div>
               </div>
-            ) : null}
+            )}
           </div>
 
           <Modalprofile
             modalstate={showmodalprofile}
             setmodalstate={Setshowmodalprofile}
             form_edituser={form_edituser}
+            doit={menuprofile}
           >
             <div className="input-group mt-4">
               <div className="input-group-text bg-warning text-white">
@@ -346,18 +374,24 @@ export default function Nav() {
                 class="form-control text-center"
                 type="file"
                 id="formFile"
-                //  onChange={uploadImage}
+                onChange={uploadImage}
                 name="imageProfile"
               ></input>
             </div>
             <button
               className="btn text-white w-100 mt-4 fw-bold shadow-sm bg-warning"
-              onSubmit={(e) => register_user(e)}
+              onClick={(e) => updateprofile(e)}
             >
               Actualizar
             </button>
           </Modalprofile>
         </div>
+
+        <SuccesModal
+          MessageModal={MessageModal}
+          ShowModalMessage={ShowModalSucces}
+          SetShowModalMessage={SetShowModalSucces}
+        ></SuccesModal>
       </nav>
     </div>
   );
