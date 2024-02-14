@@ -5,14 +5,16 @@ import axios from "axios";
 import SuccesModal from "../SuccessModal/SuccesModal";
 import { useSelector } from "react-redux";
 export default function Reviews(props) {
+  console.log("esta son las props de reviews", props);
   const ref = useRef();
   let disabled = true;
   let deletedisabled = true;
   let disabledpost = true;
   const user_profile = useSelector((state) => state.UserReducer);
   let profile_singin = false;
-  console.log("valor de user_profile", user_profile);
+
   const { MessageModal, SetMessageModal } = props;
+  console.log("valor de setmessagep", MessageModal);
   const [score_initial, Setscore_initial] = useState(0);
   const [ShowModalSucces, SetShowModalSucces] = useState(false);
   let errornumber = "";
@@ -43,8 +45,9 @@ export default function Reviews(props) {
       "http://localhost:3001/review/createReviews",
       opinion_data
     );
-    const { data } = opinion_data;
+    const { data } = resp;
     if (data) {
+      console.log("ingreso al condicional del data");
       SetMessageModal(
         "¡Bien! se ha registrado tu opinion. En breve un administrador la revisara para su aprobación."
       );

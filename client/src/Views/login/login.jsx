@@ -10,6 +10,7 @@ import SuccesModal from "../../Components/SuccessModal/SuccesModal.jsx";
 import { useDispatch } from "react-redux";
 import { infologin } from "../../redux/actions/user_action.js";
 export default function Login(props) {
+  console.log("valor de las props en login", props);
   const dispatch = useDispatch();
   const urlParams = new URLSearchParams(window.location.search);
   const serializedUser = urlParams.get("userGoogle");
