@@ -1,0 +1,26 @@
+.pago-aprobado-card {
+    background-color: #343a40;
+    border: 1px solid #ffc107;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .pago-aprobado-card .card-body {
+    padding: 20px;
+  }
+  
+  .pago-aprobado-card .card-text {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #ffffff;
+  }
+  
+  .pago-aprobado-card .display-4 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #ffc107;
+  }
+  
+  .pago-aprobado-card .fa-paw {
+    margin-left: 5px;
+  }

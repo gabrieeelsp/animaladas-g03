@@ -7,7 +7,10 @@ import ModalError from "../../Components/ErrorModal/ErrorModal.jsx";
 import { useNavigate } from "react-router-dom";
 import GeneralModal from "../../Components/GeneralModal/generalmodal.jsx";
 import SuccesModal from "../../Components/SuccessModal/SuccesModal.jsx";
+import { useDispatch } from "react-redux";
+import { infologin } from "../../redux/actions/user_action.js";
 export default function Login(props) {
+  const dispatch = useDispatch();
   const urlParams = new URLSearchParams(window.location.search);
   const serializedUser = urlParams.get("userGoogle");
   serializedUser !== null
@@ -43,6 +46,7 @@ export default function Login(props) {
     } else {
       window.localStorage.setItem("user_info", JSON.stringify(data));
       navigate("/");
+      dispatch(infologin(data));
     }
   };
 
@@ -79,7 +83,7 @@ export default function Login(props) {
       navigate("/");
     }
   }, []);
-
+  console.log("estoy en e login");
   return (
     <div className="d-flex justify-content-center align-items-center text-warning vh-100">
       <form>
