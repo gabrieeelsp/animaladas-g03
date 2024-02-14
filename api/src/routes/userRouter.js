@@ -10,6 +10,8 @@ const {
     searchAllUsers,
     searchUser,
     putChageUserData,
+    addFavoriteHandler,
+    removeFavoriteHandler,
 } = require('../handlers/userHandlers');
 
 const userRouter = Router();
@@ -24,6 +26,8 @@ userRouter.post('/searchUser', searchUser);
 userRouter.get('/searchAllUsers', searchAllUsers);
 userRouter.put('/users/:id', putEnabledsUsers);
 userRouter.put('/changeUserData', putChageUserData);
+userRouter.post('/:id_user/addFavorite/:id_animal', addFavoriteHandler);
+userRouter.delete('/:id_user/removeFavorite/:id_animal', removeFavoriteHandler);
 userRouter.get('/google', (req, res) => {
     const { user } = req;
     const serializedUser = JSON.stringify(user);
