@@ -1,15 +1,7 @@
 import { USER_INFO } from "./actions/user_type";
 import { loadState, saveState } from "../scripts/Localstore";
 import { SIGN_OUT } from "./actions/user_type";
-const initialState = {
-  id: "",
-  name: "",
-  lastName: "",
-  email: "",
-  phone: "",
-  imageProfile: "",
-  address: "",
-};
+const initialState = loadState();
 
 const UserReducer = (state = initialState, { type, payload }) => {
   switch (type) {

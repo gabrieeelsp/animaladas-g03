@@ -5,19 +5,40 @@ import "./Nav.css";
 import perfil_img from "../../img/perfil_default.png";
 import Profilemenu from "../PropdownProfile/Profilemenu";
 import Modalprofile from "./modalprofile";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { infologin } from "../../redux/actions/user_action";
 import { sign_out } from "../../redux/actions/user_action";
+import SuccesModal from "../SuccessModal/SuccesModal";
+import axios from "axios";
 //import { useLocalstore } from "../../scripts/uselocalstore";
-export default function Nav() {
+export default function Nav(props) {
   const Navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const [MessageModal, SetMessageModal] = useState("");
+
+  console.log("estas son las props", SetMessageModal);
+  const [ShowModalSucces, SetShowModalSucces] = useState(false);
   let showloginbutton = true;
   let showprofile_img = false;
   let user_info = {};
+  const user_profile = useSelector((state) => state.UserReducer);
+  console.log("valor de user_profile", user_profile);
 
+  const [form_edituser, Setformedituser] = useState({
+    id: user_profile.id,
+    name: user_profile.name,
+    email: user_profile.email,
+    lastName: user_profile.lastName,
+    address: user_profile.address,
+    phone: user_profile.phone,
+    imageProfile: user_profile.imageProfile,
+    password: "",
+  });
+
+  console.log("valor de form_editer", form_edituser);
   const [showprofile, Setshowprofile] = useState(false);
+
   const [showmodalprofile, Setshowmodalprofile] = useState(false);
   if (
     location.pathname === "/login" ||
@@ -31,26 +52,62 @@ export default function Nav() {
   }
 
   const menuprofile = (e) => {
-    console.log("clik");
     Setshowprofile(!showprofile);
   };
   const handlechange = (e) => {
-    setuserinfo({
-      ...user_info,
+    Setformedituser({
+      ...form_edituser,
       [e.target.name]: e.target.value,
     });
   };
   const closeprofilemenu = (e) => {
     localStorage.removeItem("user_info");
-    // dispatch(sign_out({}));
+    dispatch(sign_out({}));
     Navigate("/");
     menuprofile(e);
+  };
+  const uploadImage = async (e) => {
+    const file = e.target.files[0];
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "animaldas_pets");
+    const response = await axios.post(
+      "https://api.cloudinary.com/v1_1/dwgufqzjd/image/upload",
+      data
+    );
+
+    Setformedituser({
+      ...form_edituser,
+      [e.target.name]: response.data.secure_url,
+    });
+  };
+  const urlBaseAxios =
+    import.meta.env.VITE_ENV === "DEV"
+      ? import.meta.env.VITE_URL_DEV
+      : import.meta.env.VITE_URL_PROD;
+  const updateprofile = async (e) => {
+    const response = await axios.put(
+      `${urlBaseAxios}/user/changeUserData`,
+      form_edituser
+    );
+    const { data } = response;
+    if (data === "Informacion del Usuario actualizada.") {
+      console.log("ingreso al condicional de usuario actualizado");
+      SetMessageModal("¡Bien! se actualizo tu informacion.");
+      SetShowModalSucces(true);
+    }
   };
   if (window.localStorage.user_info) {
     user_info = JSON.parse(localStorage.getItem("user_info"));
     showloginbutton = false;
     showprofile_img = true;
   }
+  if (JSON.parse(localStorage.getItem("user_info")) === "") {
+    console.log("entro aqui");
+    showloginbutton = true;
+    showprofile_img = false;
+  }
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100 fixed-top">
@@ -174,16 +231,20 @@ export default function Nav() {
             {showprofile_img && (
               <img
                 onClick={(e) => menuprofile(e)}
-                src={perfil_img}
-                style={{ width: "40px", cursor: "pointer" }}
+                src={user_profile.imageProfile}
+                style={{
+                  width: "40px",
+                  cursor: "pointer",
+                  borderRadius: "50%",
+                }}
               ></img>
             )}
-            {showprofile ? (
+            {showprofile && (
               <div className="sub-menu-wrap">
                 <div className="sub-menu">
                   <div className="user-info">
                     <img
-                      src={perfil_img}
+                      src={user_profile.imageProfile}
                       style={{ width: "40px", cursor: "pointer" }}
                     ></img>
                     <h2>{user_info && user_info.name ? user_info.name : ""}</h2>
@@ -205,18 +266,13 @@ export default function Nav() {
                     <p>Editar Perfil</p>
                     <span>{">"}</span>
                   </a>
-
-                  <a href="#" className="sub-menu-link">
-                    <i className="bi bi-bag-heart"></i>
-                    <p>Adopciones</p>
-                    <span>{">"}</span>
-                  </a>
-                  <a href="#" className="sub-menu-link">
-                    <i className="bi bi-box2-heart"></i>
-                    <p>Donaciones</p>
-                    <span>{">"}</span>
-                  </a>
-
+                  <NavLink to="admin">
+                    <a href="#" className="sub-menu-link">
+                      <i className="bi bi-bag-heart"></i>
+                      <p>Panel</p>
+                      <span>{">"}</span>
+                    </a>
+                  </NavLink>
                   <a href="#" className="sub-menu-link">
                     <i className="bi bi-escape"></i>
                     <p onClick={(e) => closeprofilemenu(e)}>Cerrar sesion</p>
@@ -224,12 +280,14 @@ export default function Nav() {
                   </a>
                 </div>
               </div>
-            ) : null}
+            )}
           </div>
 
           <Modalprofile
             modalstate={showmodalprofile}
             setmodalstate={Setshowmodalprofile}
+            form_edituser={form_edituser}
+            doit={menuprofile}
           >
             <div className="input-group mt-4">
               <div className="input-group-text bg-warning text-white">
@@ -240,7 +298,20 @@ export default function Nav() {
                 type="text"
                 placeholder="Nombre*"
                 name="name"
-                value={user_info && user_info.name ? user_info.name : ""}
+                value={form_edituser.name}
+                onChange={(e) => handlechange(e)}
+              />
+            </div>
+            <div className="input-group mt-1">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-person-fill-add"></i>
+              </div>
+              <input
+                className="form-control bg-light"
+                type="text"
+                placeholder="Lastname*"
+                name="lastName"
+                value={form_edituser.lastName}
                 onChange={(e) => handlechange(e)}
               />
             </div>
@@ -253,8 +324,9 @@ export default function Nav() {
                 type="email"
                 placeholder="Correo Eletronico*"
                 name="email"
-                value={user_info && user_info.email ? user_info.email : ""}
+                value={form_edituser.email}
                 onChange={(e) => handlechange(e)}
+                disabled="disabled"
               />
             </div>
             <div className="input-group mt-1">
@@ -266,23 +338,65 @@ export default function Nav() {
                 type="text"
                 placeholder="Numero de contacto*"
                 name="phone"
-                value={user_info && user_info.phone ? user_info.phone : ""}
+                value={form_edituser.phone}
                 onChange={(e) => handlechange(e)}
               />
             </div>
+            <div className="input-group mt-1">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-geo-alt-fill"></i>
+              </div>
+              <input
+                className="form-control bg-light"
+                type="text"
+                placeholder="Direccion*"
+                name="address"
+                value={form_edituser.address}
+                onChange={(e) => handlechange(e)}
+              />
+            </div>
+
+            <div className="input-group mt-1">
+              <div className="input-group-text bg-warning text-white">
+                <i className="bi bi-lock"></i>
+              </div>
+              <input
+                className="form-control bg-light"
+                type="password"
+                placeholder="Contraseña*"
+                name="password"
+                value={form_edituser.password}
+                onChange={(e) => handlechange(e)}
+              />
+            </div>
+            <div class=" input-group mb-1 mt-3">
+              <input
+                class="form-control text-center"
+                type="file"
+                id="formFile"
+                onChange={uploadImage}
+                name="imageProfile"
+              ></input>
+            </div>
             <button
               className="btn text-white w-100 mt-4 fw-bold shadow-sm bg-warning"
-              onSubmit={(e) => register_user(e)}
+              onClick={(e) => updateprofile(e)}
             >
               Actualizar
             </button>
           </Modalprofile>
         </div>
+
+        <SuccesModal
+          MessageModal={MessageModal}
+          ShowModalMessage={ShowModalSucces}
+          SetShowModalMessage={SetShowModalSucces}
+        ></SuccesModal>
       </nav>
     </div>
   );
 }
 
 /*
-
+https://res.cloudinary.com/dwgufqzjd/image/upload/v1707404450/Proyecto_animaladas/default/w2jbmtfjvfjn1alnnpxb.png
               */

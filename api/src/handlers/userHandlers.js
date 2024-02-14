@@ -10,7 +10,11 @@ const verifyToken = require('../controllers/user/verifyToken');
 const verifyUser = require('../controllers/user/verifyUser');
 const addFavoriteController = require('../controllers/user/addFavorite');
 const removeFavoriteController = require('../controllers/user/removeFavorite');
-
+/*
+const {
+    default: Profilemenu,
+} = require('../../../client/src/Components/PropdownProfile/Profilemenu');
+*/
 const postUserHandler = async (req, res) => {
     const { name, lastName, email, password, phone, address, imageProfile } =
         req.body;
@@ -135,6 +139,13 @@ const searchUser = async (req, res) => {
 const putChageUserData = async (req, res) => {
     const { id, name, lastName, password, phone, address, imageProfile } =
         req.body;
+    console.log('valor del id', id);
+    console.log('valor del name', name);
+    console.log('valor del lastName', lastName);
+    console.log('valor del password', password);
+    console.log('valor del phone', phone);
+    console.log('valor del address', address);
+    console.log('valor del imageprofile', imageProfile);
     try {
         const user = await changeUserData(
             id,

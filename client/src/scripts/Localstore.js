@@ -2,7 +2,7 @@ export const loadState = () => {
   try {
     const serializedData = localStorage.getItem("user_info");
     if (serializedData === null) {
-      return null; // Si no existe el state en el local storage devolvemos undefined para que cargue el state inicial que hayamos definido
+      return ""; // Si no existe el state en el local storage devolvemos undefined para que cargue el state inicial que hayamos definido
     }
     return JSON.parse(serializedData); // Si encontramos con exito nuestro storage lo devolvemos.
   } catch (error) {

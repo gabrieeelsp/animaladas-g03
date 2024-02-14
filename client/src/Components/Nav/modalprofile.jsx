@@ -1,18 +1,31 @@
 import React from "react";
 import "./modalprofile.css";
 
-export default function Modalprofile({ children, modalstate, setmodalstate }) {
+export default function Modalprofile({
+  children,
+  modalstate,
+  setmodalstate,
+  form_edituser,
+  doit,
+}) {
   return (
     <>
       {modalstate && (
         <div className="overlay">
           <div className="Containermodal">
             <div className="headermodal">
-              <h3>EDITAR PERFIL</h3>
+              <img
+                src={form_edituser.imageProfile}
+                style={{
+                  width: "120px",
+                  borderRadius: "50%",
+                  height: "120px",
+                }}
+              ></img>
             </div>
             <button
               className="buttonclose"
-              onClick={(e) => setmodalstate(false)}
+              onClick={(e) => setmodalstate(doit)}
             >
               <i class="bi bi-x-lg"></i>
             </button>
