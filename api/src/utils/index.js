@@ -13,6 +13,5 @@ module.exports = {
     sizeList,
     statusList,
     speciesList,
-
     adoptionStatusList,
 };

@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import "./reviews.css";
 import default_user from "../../img/perfil_default.png";
 import axios from "axios";
+import SuccesModal from "../SuccessModal/SuccesModal";
 import { useSelector } from "react-redux";
 export default function Reviews(props) {
   const ref = useRef();
@@ -11,7 +12,9 @@ export default function Reviews(props) {
   const user_profile = useSelector((state) => state.UserReducer);
   let profile_singin = false;
   console.log("valor de user_profile", user_profile);
+  const { MessageModal, SetMessageModal } = props;
   const [score_initial, Setscore_initial] = useState(0);
+  const [ShowModalSucces, SetShowModalSucces] = useState(false);
   let errornumber = "";
   let showerrornumber = false;
   const [opinion_data, Setopiniondata] = useState({
@@ -41,7 +44,12 @@ export default function Reviews(props) {
       opinion_data
     );
     const { data } = opinion_data;
-    console.log("la data que responde", data);
+    if (data) {
+      SetMessageModal(
+        "¡Bien! se ha registrado tu opinion. En breve un administrador la revisara para su aprobación."
+      );
+      SetShowModalSucces(true);
+    }
   };
   const remove_content = () => {
     Setopiniondata({
@@ -319,6 +327,11 @@ export default function Reviews(props) {
             </div>
           </div>
         </section>
+        <SuccesModal
+          MessageModal={MessageModal}
+          ShowModalMessage={ShowModalSucces}
+          SetShowModalMessage={SetShowModalSucces}
+        ></SuccesModal>
       </div>
     </>
   );
