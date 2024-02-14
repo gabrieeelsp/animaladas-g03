@@ -86,6 +86,9 @@ Review.belongsTo(User, {
     },
 });
 
+User.belongsToMany(Animal, { through: 'User_Animals' });
+Animal.belongsToMany(User, { through: 'User_Animals' });
+
 module.exports = {
     ...sequelize.models,
     conn: sequelize,

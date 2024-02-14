@@ -44,7 +44,7 @@ que le envia al front: un json con la info del usuario justo al token creado.
 
 -get http://localhost:3001/user/searchAllUsers
 
-busca todos los usuarios en la db y se los retorna al front en un json.
+busca todos los usuarios en la db y se los retorna al front en un json (incluye los favoritos(aparecen como animals)).
 
 -put http://localhost:3001/user/users/:id
 
@@ -54,7 +54,7 @@ esta no la hice yo pero por lo que veo recibe un id por params el cual usa para 
 
 recibe del front: email del usuario a buscar.
 
-busca el usuario si existe retorna un json con la info del usuario, si no existe tira un mensaje con el error.
+busca el usuario si existe retorna un json con la info del usuario, incluyendo los favoritos (aparecen como animals) si no existe tira un mensaje con el error.
 
 -put http://localhost:3001/user/changeUserData
 
@@ -64,3 +64,9 @@ el back se encarga de buscar el usuario por el id, y despues remplaza la nueva i
 con la nueva y retorna un mensaje 'Informacion del Usuario actualizada.'
 
 si el usuario no cambia la password enviar un string vacio.
+
+-post http://localhost:3001/user/2/addFavorite/1374
+agrega un id_animal y un id_user a la tabla intermedia User_Animals para asociar los favoritos
+
+-delete http://localhost:3001/user/2/removeFavorite/1374
+elimina el registro de id_user y id_animal de la tabla intermedia User_Animals

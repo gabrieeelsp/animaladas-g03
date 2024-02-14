@@ -8,6 +8,8 @@ const putChangePass = require('../controllers/user/putChangePass');
 const putEnabledUser = require('../controllers/user/putIsEnabledUser');
 const verifyToken = require('../controllers/user/verifyToken');
 const verifyUser = require('../controllers/user/verifyUser');
+const addFavoriteController = require('../controllers/user/addFavorite');
+const removeFavoriteController = require('../controllers/user/removeFavorite');
 
 const postUserHandler = async (req, res) => {
     const { name, lastName, email, password, phone, address, imageProfile } =
@@ -150,6 +152,28 @@ const putChageUserData = async (req, res) => {
     }
 };
 
+const addFavoriteHandler = async (req, res) => {
+    // eslint-disable-next-line camelcase
+    const { id_user, id_animal } = req.params;
+    try {
+        const result = await addFavoriteController(id_user, id_animal);
+        res.status(201).json(result);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+const removeFavoriteHandler = async (req, res) => {
+    // eslint-disable-next-line camelcase
+    const { id_user, id_animal } = req.params;
+    try {
+        const result = await removeFavoriteController(id_user, id_animal);
+        res.status(201).json(result);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 module.exports = {
     postUserHandler,
     loginUserHandler,
@@ -161,4 +185,6 @@ module.exports = {
     searchAllUsers,
     searchUser,
     putChageUserData,
+    addFavoriteHandler,
+    removeFavoriteHandler,
 };
