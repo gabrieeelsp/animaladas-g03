@@ -7,6 +7,7 @@ const app = require('./src/app');
 const seederAnimals = require('./src/controllers/animal/seeder');
 const seederUsers = require('./src/controllers/user/seeder');
 const seederDonations = require('./src/controllers/donation/seeder');
+const seederAdoptins = require('./src/controllers/adoption/seeder');
 
 const { PORT_APP } = process.env;
 const { conn } = require('./src/db');
@@ -16,6 +17,7 @@ conn.sync({ force: true })
         await seederAnimals();
         await seederUsers();
         await seederDonations();
+        await seederAdoptins();
     })
     .then(() => {
         app.listen(PORT_APP, () => {

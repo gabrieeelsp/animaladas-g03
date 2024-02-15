@@ -17,7 +17,6 @@ const getFiltersList = (filters) => {
     }
 
     if (filters.dateFrom && filters.dateTo) {
-        console.log(filters);
         filtersList.createdAt = {
             [Op.between]: [filters.dateFrom, filters.dateTo],
         };

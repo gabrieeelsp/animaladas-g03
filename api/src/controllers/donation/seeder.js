@@ -1,6 +1,6 @@
 const { Donation } = require('../../db');
 
-const amountArray = [100, 200, 500, 1000, 2000, 3000, 50000, 70000];
+const amountArray = [100, 200, 500, 1000, 2000, 3000, 5000, 7000];
 
 const items = [];
 
