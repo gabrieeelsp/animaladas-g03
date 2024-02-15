@@ -24,7 +24,7 @@ const initialState = {
   estadisticas: {
     donations: [],
     adoptions: [],
-    dateFrom: (new Date()).setFullYear((new Date()).getFullYear() - 5),
+    dateFrom: (new Date()).setFullYear((new Date()).getFullYear() - 3),
     dateTo: new Date(),
     tabSelected: 'donaciones', // [ 'donaciones', 'adopciones']
   }

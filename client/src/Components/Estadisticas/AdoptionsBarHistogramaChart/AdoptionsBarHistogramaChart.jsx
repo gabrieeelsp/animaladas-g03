@@ -5,44 +5,45 @@ import { CategoryScale } from "chart.js";
 import { useSelector } from "react-redux";
 
 Chart.register(CategoryScale);
-function DonationsBarHistogramaChart() {
+function AdoptionsBarHistogramaChart() {
 
 
-  const {donations } = useSelector((state) => state.rootReducer.estadisticas);
+  const {adoptions } = useSelector((state) => state.rootReducer.estadisticas);
 
   useEffect(() => {
 
     
 
-    let respData = donations.map((item) => {
+    let respData = adoptions.map((item) => {
+      const diferenciaEnMs = Math.abs(new Date(item.resolveDate).getTime() - new Date(item.createdAt).getTime());
+      const diasDeDiferencia = Math.ceil(diferenciaEnMs / (1000 * 60 * 60 * 24));
       return {
-        amount: item.amount,
+        resolveDelay: diasDeDiferencia
       }
     });
+    
 
-
-    const valoresMontos = respData.map(d => d.amount);
-    const minMonto = Math.min(...valoresMontos);
-    const maxMonto = Math.max(...valoresMontos);
+    const valoresTiempo = respData.map(d => d.resolveDelay);
+    const minTiempo = Math.min(...valoresTiempo);
+    const maxTiempo = Math.max(...valoresTiempo);
 
     const numRangos = 6; // Cambia esto al número deseado de rangos
-    const paso = (maxMonto - minMonto) / numRangos;
-    
+    const paso = (maxTiempo - minTiempo) / numRangos;
+
     const rangos = [];
     for ( let i = 0; i < numRangos; i += 1 ) {
-      rangos.push([i*paso + minMonto, (i+1) * paso + minMonto])
-    } 
-
+      rangos.push([i*paso + minTiempo, (i+1) * paso + minTiempo])
     
+    } 
     rangos[numRangos-1][1] =rangos[numRangos-1][1] + 1;
-    const frecuencia = rangos.map(([rangoMin, rangoMax]) => respData.filter(d => d.amount >= rangoMin && d.amount < rangoMax).length)
-    const frecuenciaRelativa = frecuencia.map(v => v / donations.length)
 
+    const frecuencia = rangos.map(([rangoMin, rangoMax]) => respData.filter(d => d.resolveDelay >= rangoMin && d.resolveDelay < rangoMax).length)
+    const frecuenciaRelativa = frecuencia.map(v => v / adoptions.length)
     setChartData({
       labels: rangos.map(([rangoMin, rangoMax]) => `${rangoMin.toFixed(0)}-${rangoMax.toFixed(0)}`),
       datasets: [
         {
-          label: "Donaciones ",
+          label: "Adopciones ",
           data: frecuenciaRelativa,
           backgroundColor: 'rgba(54, 162, 235, 0.2)',
           borderColor: 'rgb(54, 162, 235)',
@@ -50,13 +51,13 @@ function DonationsBarHistogramaChart() {
         }
       ]
     })
-  }, [donations]);
+  }, [adoptions]);
 
   const [chartData, setChartData] = useState({
     labels: [].map((data) => data.year), 
     datasets: [
       {
-        label: "Donaciones ",
+        label: "Adopciones ",
         data: [].map((data) => data.amount),
       }
     ]
@@ -71,8 +72,7 @@ function DonationsBarHistogramaChart() {
           plugins: {
             title: {
               display: true,
-              // text: `Donaciones entre ${getDateString(dateFrom)} a ${getDateString(dateTo)}`
-              text: `Histograma de Frecuencias - Monto donado`
+              text: `Histograma de Frecuencias - Tiempo de resolución`
             },
             legend: {
               display: false
@@ -90,4 +90,4 @@ function DonationsBarHistogramaChart() {
     </div>
   );
 }
-export default DonationsBarHistogramaChart;
+export default AdoptionsBarHistogramaChart;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CardResumen from "../CardResumen/CardResumen"
 import AdoptionsBarsChart from "../AdoptionsBarChart/AdoptionsBarsChart";
+import AdoptionsBarHistogramaChart from "../AdoptionsBarHistogramaChart/AdoptionsBarHistogramaChart";
 import { useSelector } from "react-redux";
 
 const AdoptionsBoard = () => {
@@ -42,7 +43,7 @@ const AdoptionsBoard = () => {
                 </div>
                 <div className='col col-md-6'>
                     <div className='bg-white rounded-3'>
-                        
+                        <AdoptionsBarHistogramaChart />
                     </div>
                     
                 </div>
