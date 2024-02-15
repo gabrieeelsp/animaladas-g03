@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import "./reviews.css";
 import default_user from "../../img/perfil_default.png";
 import axios from "axios";
+import SuccesModal from "../SuccessModal/SuccesModal";
 import { useSelector } from "react-redux";
 export default function Reviews(props) {
   const ref = useRef();
@@ -10,15 +11,19 @@ export default function Reviews(props) {
   let disabledpost = true;
   const user_profile = useSelector((state) => state.UserReducer);
   let profile_singin = false;
-  console.log("valor de user_profile", user_profile);
+
+  const [MessageModal, SetMessageModal] = useState("");
+
   const [score_initial, Setscore_initial] = useState(0);
+  const [ShowModalSucces, SetShowModalSucces] = useState(false);
   let errornumber = "";
   let showerrornumber = false;
   const [opinion_data, Setopiniondata] = useState({
     score: "",
     comment: "",
-    userId: 1,
+    userId: user_profile.id ? user_profile.id : "",
   });
+
   const ArrayStarts = [...new Array(5)];
   const handleonchange = (e) => {
     Setopiniondata({
@@ -34,19 +39,31 @@ export default function Reviews(props) {
       score: score_opinion,
     });
   };
+
+  const urlBaseAxios =
+    import.meta.env.VITE_ENV === "DEV"
+      ? import.meta.env.VITE_URL_DEV
+      : import.meta.env.VITE_URL_PROD;
+
   const post_comment = async () => {
-    console.log("la data que se va en axis", opinion_data);
     const resp = await axios.post(
-      "http://localhost:3001/review/createReviews",
+      `${urlBaseAxios}/review/createReviews`,
       opinion_data
     );
-    const { data } = opinion_data;
-    console.log("la data que responde", data);
+    const { data } = resp;
+    if (data) {
+      SetMessageModal(
+        "¡Bien! se ha registrado tu opinion. En breve un administrador la revisara para su aprobación."
+      );
+      SetShowModalSucces(true);
+      remove_content();
+    }
   };
   const remove_content = () => {
     Setopiniondata({
       score: "",
       comment: "",
+      userId: user_profile.id,
     });
     Setscore_initial(0);
     ref.current.value = "";
@@ -64,7 +81,6 @@ export default function Reviews(props) {
   if (user_profile.email !== undefined) {
     profile_singin = true;
   }
-  console.log();
   if (Number(opinion_data.comment)) {
     showerrornumber = true;
     errornumber = "El campo debe contener letras y/o alfanumericos";
@@ -72,6 +88,14 @@ export default function Reviews(props) {
     errornumber = "";
     showerrornumber = false;
   }
+
+  const get_allreviews = async () => {
+    const resp = await axios.get(`${urlBaseAxios}/review/allReviews`);
+    const { data } = resp;
+    console.log("data de todos los reviews", data);
+  };
+
+  get_allreviews();
   return (
     <>
       {profile_singin && (
@@ -135,6 +159,7 @@ export default function Reviews(props) {
                 id="exampleFormControlTextarea1"
                 rows="3"
                 onChange={handleonchange}
+                vale={opinion_data.comment}
               ></textarea>
             </div>
             <div
@@ -319,6 +344,11 @@ export default function Reviews(props) {
             </div>
           </div>
         </section>
+        <SuccesModal
+          MessageModal={MessageModal}
+          ShowModalMessage={ShowModalSucces}
+          SetShowModalMessage={SetShowModalSucces}
+        ></SuccesModal>
       </div>
     </>
   );
