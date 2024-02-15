@@ -67,11 +67,21 @@ export default function AdminAnimals() {
                                     <CardAdmin
                                         id={animal.id}
                                         name={animal.name}
+                                        species={animal.species}
+                                        size={animal.size}
+                                        gender={animal.gender}
+                                        estimatedBirthYear={animal.estimatedBirthYear}
+                                        weight={animal.weight}
+                                        rescued_story={animal.rescued_story}
+                                        adoption_story={animal.adoption_story}
                                         image1={animal.image1}
                                         image2={animal.image2}
                                         image3={animal.image3}
                                         status={animal.status}
                                         enabled={animal.enabled}
+                                        castrated={animal.castrated}
+                                        disability_illness={animal.disability_illness}
+                                        vaccines={animal.vaccines}
                                     />
                                 </div>
                             ))

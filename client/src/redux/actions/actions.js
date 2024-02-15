@@ -262,7 +262,7 @@ export const createFormFailure = (error) => ({
 export const deleteAnimal = (id,enabled) => {
   return async (dispatch) => {
     try {
-      await axios.put(`${urlBaseAxios}/animal/animal/${id}`, { enabled });
+      await axios.put(`${urlBaseAxios}/animal/enable/${id}`, { enabled });
       dispatch({
         type: DELETE_ANIMAL,
         payload: {
