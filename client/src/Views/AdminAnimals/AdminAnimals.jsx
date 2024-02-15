@@ -46,6 +46,29 @@ export default function AdminAnimals() {
         dispatch(loadAnimals(nameValue, '', sizeValue, speciesValue, castratedValue, page, 3, orderByValue, orderDirValue, enabledValue));
     };
   
+    const handleUpdateAnimal = async (id, updatedData) => {
+        try {
+            const response = await fetch(`http://localhost:3001/animal/update/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedData)
+            });
+    
+            if (!response.ok) {
+                throw new Error('Error al actualizar el animal');
+            }
+    
+           
+            dispatch(loadAnimals(nameValue, '', sizeValue, speciesValue, castratedValue, 1, 3, orderByValue, orderDirValue, enabledValue));
+        } catch (error) {
+            console.error('Error:', error);
+           
+        }
+    };
+
+
     return (
         <div className="container">
             <div className="row mt-0">
