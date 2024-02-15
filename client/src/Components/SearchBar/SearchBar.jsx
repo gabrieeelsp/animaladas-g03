@@ -5,15 +5,15 @@ import { loadAnimals, set_searchbar_value } from "../../redux/actions/actions";
 
 export default function Searchbar() {
   
-  const orderByValue = useSelector((state) => state.orderByValue)
-  const orderDirValue = useSelector((state) => state.orderDirValue)
-  const sizeValue = useSelector((state) => state.sizeValue)
-  const speciesValues = useSelector((state) => state.speciesValues)
-  const castratedValue = useSelector((state) => state.castratedValue)
-  const enabledValue = useSelector((state) => state.enabledValue);
+  const orderByValue = useSelector((state) => state.rootReducer.orderByValue)
+  const orderDirValue = useSelector((state) => state.rootReducer.orderDirValue)
+  const sizeValue = useSelector((state) => state.rootReducer.sizeValue)
+  const speciesValues = useSelector((state) => state.rootReducer.speciesValues)
+  const castratedValue = useSelector((state) => state.rootReducer.castratedValue)
+  const enabledValue = useSelector((state) => state.rootReducer.enabledValue);
   const location = useLocation();
-  const nameValue = useSelector((state) => state.searchBarValue)
-  const animals = useSelector((state) => state.allAnimals);
+  const nameValue = useSelector((state) => state.rootReducer.searchBarValue)
+  const animals = useSelector((state) => state.rootReducer.allAnimals);
   const dispatch = useDispatch();
 
   if (location.pathname !== "/adoptar" && location.pathname !== "/admin/users" && location.pathname !== "/admin/animals") {
