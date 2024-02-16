@@ -60,6 +60,7 @@ export default function Reviews(props) {
     );
     const { data } = resp;
     if (data) {
+      dispatch(get_allreviews());
       Setposted(true);
       SetMessageModal(
         "¡Bien! se ha registrado tu opinion. En breve un administrador la revisara para su aprobación."
@@ -67,7 +68,6 @@ export default function Reviews(props) {
       SetShowModalSucces(true);
       remove_content();
     }
-    get_allreviews();
   };
   const remove_content = () => {
     Setopiniondata({
@@ -207,6 +207,42 @@ export default function Reviews(props) {
             <h1>Las personas dicen</h1>
           </div>
           <div className="testimonial-box-container">
+            {allreviews?.map((review) => (
+              <div className="testimonial-box">
+                <div className="box-top">
+                  <div className="profile">
+                    <div className="profile-img">
+                      <img src={`${review.user_img}`} />
+                    </div>
+                    <div className="name-user">
+                      <strong>
+                        {review.user_name} {review.user_lastName}
+                      </strong>
+                      <span>
+                        @{review.user_name}
+                        {review.user_lastName}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="reviews">
+                    {ArrayStarts.map((start, index) => {
+                      return index < review.score ? (
+                        <i
+                          className="bi bi-star-fill"
+                          style={{ cursor: "pointer" }}
+                        ></i>
+                      ) : (
+                        <i className="bi bi-star"></i>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="user-comment">
+                  <p>{review.comment}</p>
+                </div>
+              </div>
+            ))}
+
             <div className="testimonial-box">
               <div className="box-top">
                 <div className="profile">
