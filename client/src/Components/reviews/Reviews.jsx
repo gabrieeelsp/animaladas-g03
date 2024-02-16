@@ -13,6 +13,7 @@ export default function Reviews(props) {
   let deletedisabled = true;
   let disabledpost = true;
   const user_profile = useSelector((state) => state.UserReducer);
+  const [id_sign_in, Setid_sign_in] = useState(user_profile.id);
   const allreviews = useSelector((state) => state.rootReducer.allreviews);
   let profile_singin = false;
 
@@ -67,6 +68,15 @@ export default function Reviews(props) {
       );
       SetShowModalSucces(true);
       remove_content();
+    }
+  };
+  const equals = (item) => {
+    console.log("ingreso a equels item:", item);
+    console.log("valor en equels", user_profile.id);
+    if (item.userId == user_profile.id) {
+      return true;
+    } else {
+      return false;
     }
   };
   const remove_content = () => {
@@ -240,6 +250,13 @@ export default function Reviews(props) {
                 <div className="user-comment">
                   <p>{review.comment}</p>
                 </div>
+
+                {equals(review) && (
+                  <i
+                    className="bi bi-pencil-square"
+                    style={{ float: "right", fontSize: "20px" }}
+                  ></i>
+                )}
               </div>
             ))}
 
