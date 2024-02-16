@@ -4,12 +4,23 @@ const updateReview = require('../controllers/review/updateReview');
 
 const createReviewHandler = async (req, res) => {
     try {
-        const { score, comment, userId } = req.body;
+        const { score, comment, userId, user_name, user_img, user_lastName } =
+            req.body;
         console.log('valor de score en back', score);
         console.log('valor de comment en back', comment);
         console.log('valor de userid en back', userId);
+        console.log('valor de name en back', user_name);
+        console.log('valor de lastname en back', user_lastName);
+        console.log('valor de img en back', user_img);
 
-        const newReview = await createReview(score, comment, userId);
+        const newReview = await createReview(
+            score,
+            comment,
+            userId,
+            user_name,
+            user_lastName,
+            user_img,
+        );
         res.status(201).json(newReview);
     } catch (error) {
         console.error(error);

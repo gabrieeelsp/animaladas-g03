@@ -1,5 +1,29 @@
 import { loadAdopted } from "./actions/actions";
-import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME, SET_SEARCHBAR_VALUE, SET_CASTRATED_VALUE, SET_SPECIES_VALUE, SET_SIZE_VALUE, SET_ENABLED_VALUE, SET_ORDERDIR_VALUE, SET_ORDERBY_VALUE, CREATE_FORM_SUCCESS, CREATE_FORM_FAILURE, DELETE_ANIMAL, LOAD_USERS, LOAD_ESTADISTICAS_DONATIONS, SET_ESTADITICAS_DATE_RANGE, SET_ESTADITICAS_TAB, LOAD_ESTADISTICAS_ADOPTIONS,LOAD_PENDING_ADOPTIONS } from "./actions/types";
+
+import {
+  LOAD_ANIMALS,
+  CLEAR_ALL,
+  ANIMAL_BY_ID,
+  ORDER_BY_AGE,
+  ORDER_BY_NAME,
+  SET_SEARCHBAR_VALUE,
+  SET_CASTRATED_VALUE,
+  SET_SPECIES_VALUE,
+  SET_SIZE_VALUE,
+  SET_ENABLED_VALUE,
+  SET_ORDERDIR_VALUE,
+  SET_ORDERBY_VALUE,
+  CREATE_FORM_SUCCESS,
+  CREATE_FORM_FAILURE,
+  DELETE_ANIMAL,
+  LOAD_USERS,
+  LOAD_ESTADISTICAS_DONATIONS,
+  SET_ESTADITICAS_DATE_RANGE,
+  SET_ESTADITICAS_TAB,
+  LOAD_ESTADISTICAS_ADOPTIONS,
+  LOAD_PENDING_ADOPTIONS,
+  GET_ALLREVIEWS,
+} from "./actions/types";
 
 const initialState = {
   allAnimals: [],
@@ -12,13 +36,13 @@ const initialState = {
     prev_page: null,
     
   },
-  searchBarValue: '',
-  orderByValue: '',
-  orderDirValue: '',
-  sizeValue: 'Todos',
-  speciesValue: 'Todos',
-  castratedValue: 'Todos',
-  enabledValue: 'Si',
+  searchBarValue: "",
+  orderByValue: "",
+  orderDirValue: "",
+  sizeValue: "Todos",
+  speciesValue: "Todos",
+  castratedValue: "Todos",
+  enabledValue: "Si",
   animalById: [],
   allUsers: [],
   pendingAdoptions: [],
@@ -26,10 +50,11 @@ const initialState = {
   estadisticas: {
     donations: [],
     adoptions: [],
-    dateFrom: (new Date()).setFullYear((new Date()).getFullYear() - 3),
+    dateFrom: new Date().setFullYear(new Date().getFullYear() - 3),
     dateTo: new Date(),
-    tabSelected: 'donaciones', // [ 'donaciones', 'adopciones']
-  }
+    tabSelected: "donaciones", // [ 'donaciones', 'adopciones']
+  },
+  allreviews: [],
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -38,50 +63,49 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         searchBarValue: payload,
-      }
+      };
     }
 
     case SET_ORDERBY_VALUE: {
       return {
         ...state,
         orderByValue: payload,
-      }
+      };
     }
 
     case SET_ORDERDIR_VALUE: {
       return {
         ...state,
         orderDirValue: payload,
-      }
+      };
     }
 
     case SET_SIZE_VALUE: {
       return {
         ...state,
         sizeValue: payload,
-      }
+      };
     }
 
     case SET_SPECIES_VALUE: {
       return {
         ...state,
         speciesValue: payload,
-      }
+      };
     }
     case SET_ENABLED_VALUE: {
       return {
         ...state,
         enabledValue: payload,
-      }
+      };
     }
 
     case SET_CASTRATED_VALUE: {
       return {
         ...state,
         castratedValue: payload,
-      }
+      };
     }
-
 
     case LOAD_ANIMALS: {
       return {
@@ -95,8 +119,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
     }
 
-
-
     case ANIMAL_BY_ID: {
       return {
         ...state,
@@ -104,15 +126,15 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
     }
 
-     case CLEAR_ALL: {
+    case CLEAR_ALL: {
       return {
-            ...state,
-            searchBarValue: '',
-            allAnimals: [],
-            animalById: [],
-            allUsers: [],
-          }
-      }
+        ...state,
+        searchBarValue: "",
+        allAnimals: [],
+        animalById: [],
+        allUsers: [],
+      };
+    }
 
     case ORDER_BY_NAME:
       let animalsByName = [...state.allAnimals].sort((a, b) => {
@@ -124,94 +146,101 @@ const rootReducer = (state = initialState, { type, payload }) => {
           return 0;
         }
       });
-      
+
       return {
         ...state,
         allAnimals: animalsByName,
       };
-    
 
-case ORDER_BY_AGE:
-  const animalsByAge = [...state.allAnimals].sort((a, b) => {
-    return payload === "A" ? a.estimatedBirthYear - b.estimatedBirthYear : b.estimatedBirthYear - a.estimatedBirthYear;
-  })
-  return {
-    ...state,
-    allAnimals: animalsByAge,
-  };
+    case ORDER_BY_AGE:
+      const animalsByAge = [...state.allAnimals].sort((a, b) => {
+        return payload === "A"
+          ? a.estimatedBirthYear - b.estimatedBirthYear
+          : b.estimatedBirthYear - a.estimatedBirthYear;
+      });
+      return {
+        ...state,
+        allAnimals: animalsByAge,
+      };
 
-  case CREATE_FORM_SUCCESS: {
-    return state;
-  }
-  
-  case CREATE_FORM_FAILURE: {
-    console.error('Error creating form:', payload);
-    return state;
-  }
-  case DELETE_ANIMAL: {
-   return state;
-  }
-
-  case LOAD_USERS: {
-    return {
-      ...state,
-      allUsers: payload,
-    };
-  }
-
-  case LOAD_ESTADISTICAS_DONATIONS: {
-    return {
-      ...state,
-      estadisticas: {
-        ...state.estadisticas,
-          donations: payload
-      }
+    case CREATE_FORM_SUCCESS: {
+      return state;
     }
-  }
 
-  case LOAD_ESTADISTICAS_ADOPTIONS: {
-    return {
-      ...state,
-      estadisticas: {
-        ...state.estadisticas,
-          adoptions: payload
-      }
+    case CREATE_FORM_FAILURE: {
+      console.error("Error creating form:", payload);
+      return state;
     }
-  }
+    case DELETE_ANIMAL: {
+      return state;
+    }
 
-  case SET_ESTADITICAS_DATE_RANGE: {
-    return {
-      ...state,
-      estadisticas: {
-        ...state.estadisticas,
-        dateFrom: payload[0],
-        dateTo: payload[1],
-      }
+    case LOAD_USERS: {
+      return {
+        ...state,
+        allUsers: payload,
+      };
     }
-  }
-
-  case SET_ESTADITICAS_TAB: {
-    return {
-      ...state,
-      estadisticas: {
-        ...state.estadisticas,
-        tabSelected: payload,
-      }
-    }
-  }
 
   case LOAD_PENDING_ADOPTIONS: {
     return {
       ...state,
-      pendingAdoptions: payload, // payload debe ser un array de adopciones pendientes
+      pendingAdoptions: payload,
     };
   }
 
+    case LOAD_ESTADISTICAS_DONATIONS: {
+      return {
+        ...state,
+        estadisticas: {
+          ...state.estadisticas,
+          donations: payload,
+        },
+      };
+    }
+
+    case LOAD_ESTADISTICAS_ADOPTIONS: {
+      return {
+        ...state,
+        estadisticas: {
+          ...state.estadisticas,
+          adoptions: payload,
+        },
+      };
+    }
+
+    case SET_ESTADITICAS_DATE_RANGE: {
+      return {
+        ...state,
+        estadisticas: {
+          ...state.estadisticas,
+          dateFrom: payload[0],
+          dateTo: payload[1],
+        },
+      };
+    }
+
+    case SET_ESTADITICAS_TAB: {
+      return {
+        ...state,
+        estadisticas: {
+          ...state.estadisticas,
+          tabSelected: payload,
+        },
+      };
+    }
+
+    case GET_ALLREVIEWS: {
+      console.log("ingreso al case get_allreviews");
+      return {
+        ...state,
+        allreviews: payload,
+      };
+    }
 
     default:
       return state;
   }
 };
-
 
 export default rootReducer;
