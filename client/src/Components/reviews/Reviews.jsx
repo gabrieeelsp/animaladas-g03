@@ -3,8 +3,10 @@ import "./reviews.css";
 import default_user from "../../img/perfil_default.png";
 import axios from "axios";
 import SuccesModal from "../SuccessModal/SuccesModal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { get_allreviews } from "../../redux/actions/actions";
 export default function Reviews(props) {
+  const dispatch = useDispatch();
   let basedata_reviews = [];
   const ref = useRef();
   let disabled = true;
@@ -92,17 +94,9 @@ export default function Reviews(props) {
     showerrornumber = false;
   }
 
-  const get_allreviews = async () => {
-    console.log("ingreso a la funcion get all reviews");
-    const resp = await axios.get(`${urlBaseAxios}/review/allReviews`);
-    const { data } = resp;
-    console.log("data :", data);
-    basedata_reviews.concat(data);
-    console.log("basedate", basedata_reviews);
-  };
   useEffect(() => {
-    get_allreviews();
-  }, [posted]);
+    dispatch(get_allreviews());
+  }, [dispatch]);
   return (
     <>
       {profile_singin && (
