@@ -13,10 +13,10 @@ const { PORT_APP } = process.env;
 const { conn } = require('./src/db');
 
 <<<<<<< HEAD
-conn.sync({ force: false })
+conn.sync({ force: true })
     .then(() => {
         seederAnimals();
-        //seederUsers();
+        seederUsers();
 =======
 conn.sync({ force: true })
     .then(async () => {
