@@ -267,7 +267,7 @@ export default function Detail(props) {
                       className="btn btn-primary"
                       data-bs-dismiss="modal"
                     >
-                      Submit
+                      Submit 
                     </button>
                   </div>
                 </form>
