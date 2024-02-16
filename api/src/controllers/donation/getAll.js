@@ -16,6 +16,12 @@ const getFiltersList = (filters) => {
         filtersList.animalId = { [Op.is]: null };
     }
 
+    if (filters.dateFrom && filters.dateTo) {
+        filtersList.createdAt = {
+            [Op.between]: [filters.dateFrom, filters.dateTo],
+        };
+    }
+
     return filtersList;
 };
 

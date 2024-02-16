@@ -16,6 +16,10 @@ import {
   DELETE_ANIMAL,
   SET_ENABLED_VALUE,
   LOAD_USERS,
+  SET_ESTADITICAS_DATE_RANGE,
+  SET_ESTADITICAS_TAB,
+  LOAD_ESTADISTICAS_DONATIONS,
+  LOAD_ESTADISTICAS_ADOPTIONS,
 } from "./types";
 
 import axios from "axios";
@@ -293,5 +297,45 @@ export const loadUsers = () => {
       type: LOAD_USERS,
       payload: response.data,
     });
+  };
+};
+
+export const setEstadisticasDateRange = (value) => {
+
+  return { type: SET_ESTADITICAS_DATE_RANGE, payload: value};
+}
+
+export const setEstadisticasTab = (value) => {
+
+  return { type: SET_ESTADITICAS_TAB, payload: value};
+}
+
+export const loadEstadisticas = (dateFrom, dateTo, tabSelected) => {
+
+  const tabValue = tabSelected === 'donaciones' ? 'donations' : 'adoptions';
+
+  const dateFromD = typeof dateFrom === 'number' ? new Date(dateFrom) : dateFrom;
+  const dateToD = typeof dateTo === 'number' ? new Date(dateTo) : dateTo;
+
+
+  const dateFromValue = dateFromD.getFullYear() + '-' + (1 + dateFromD.getMonth()) + '-' + dateFromD.getDate();
+
+  const dateToValue = dateToD.getFullYear() + '-' + ( 1 + dateToD.getMonth()) + '-' + dateToD.getDate();
+
+  return async (dispatch) => {
+    const response = await axios.get(`${urlBaseAxios}/${tabValue}?dateFrom=${dateFromValue}&dateTo=${dateToValue}`);
+
+    
+    if ( tabSelected === 'donaciones' ) {
+      dispatch({
+        type: LOAD_ESTADISTICAS_DONATIONS,
+        payload: response.data.data,
+      });
+    } else {
+      dispatch({
+        type: LOAD_ESTADISTICAS_ADOPTIONS,
+        payload: response.data.data,
+      });
+    }
   };
 };

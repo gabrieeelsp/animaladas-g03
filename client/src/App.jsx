@@ -14,6 +14,7 @@ import Requisitos from "./Views/Requisitos/Requisitos";
 import Donar from "./Views/Donar/donar";
 import Addanimal from "./Views/Add-animal/Add-animal";
 import Verify_user from "./Views/VerifyUser/Verify_user";
+import Estadisticas from "./Views/Estadisticas/Estadisticas";
 import { useState } from "react";
 import Reviews from "./Components/reviews/Reviews";
 import AdminView from "./Views/AdminView/AdminView";
@@ -120,6 +121,13 @@ function App() {
               MessageModal={MessageModal}
               SetMessageModal={SetMessageModal}
             />
+          }
+        />
+
+        <Route
+          path="/estadisticas"
+          element={
+            <Estadisticas />
           }
         />
         <Route path="/admin" element={<AdminView />} />
