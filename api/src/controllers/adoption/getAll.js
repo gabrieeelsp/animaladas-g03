@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { Adoption } = require('../../db');
 
 const getFiltersList = (filters) => {
@@ -9,6 +10,12 @@ const getFiltersList = (filters) => {
 
     if (filters.animalId) {
         filtersList.animalId = filters.animalId;
+    }
+
+    if (filters.dateFrom && filters.dateTo) {
+        filtersList.createdAt = {
+            [Op.between]: [filters.dateFrom, filters.dateTo],
+        };
     }
 
     return filtersList;
