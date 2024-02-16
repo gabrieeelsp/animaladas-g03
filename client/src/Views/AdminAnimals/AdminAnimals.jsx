@@ -50,13 +50,26 @@ export default function AdminAnimals() {
         <div className="container">
             <div className="row mt-0">
                 <div className="col-md-9" style={{height: "550px"}}>
-                    <div className="dropdown">
+                    <div className="d-flex justify-content-center align-items-center my-2">
+                    <div className="mx-5">
+                        <SearchBar />
+                    </div>
+                    <div className="dropdown mx-5">
                         <p className="fw-bold btn-sm m-1">
                             Habilitado
                         </p>
-                        <select className="btn btn-dark btn-sm dropdown-toggle m-2" style={{ width: "170px" }} value={enabledValue} onChange={handleChangeEnabled}>
+                        <select className="btn btn-dark btn-sm fw-bold text-warning dropdown-toggle m-2" style={{ width: "170px" }} value={enabledValue} onChange={handleChangeEnabled}>
                             {optionsEnabled.map((option) => <option key={option} value={option} >{option}</option>)}
                         </select>
+                    </div>
+                <NavLink to="/add">
+                  <button
+                    className="btn bg-dark text-warning fw-bold p-1 mx-5"
+                    type="button"
+                  >
+                    Agregar mascota
+                  </button>
+                </NavLink>
                     </div>
                     <div className="row">
                         {loading ? (
@@ -95,28 +108,30 @@ export default function AdminAnimals() {
                         />
                     </div>
                 </div>
-                <div className="col-md-2 bg-dark text-warning d-flex flex-column align-items-center justify-content-center" style={{ border: "2px solid black", borderRadius: "10px", padding: "10px", height: "600px", width: "300px" }}>
-                    <div className="my-4">
-                        <SearchBar />
-                    </div>
+                <div className="col-md-2 bg-dark text-warning d-flex flex-column align-items-center justify-content-center mx-3" style={{ border: "2px solid black", borderRadius: "10px", padding: "10px", height: "600px", width: "200px" }}>
                     <NavLink to="/admin">
-                        <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "180px" }}>
+                        <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "160px" }}>
                             ESTADÍSTICAS
                         </button>
                     </NavLink>
                     <NavLink to="/admin/users">
-                        <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "180px" }}>
+                        <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "160px" }}>
                             USUARIOS
                         </button>
                     </NavLink>
                     <NavLink to="/admin/animals">
-                        <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "180px" }}>
+                        <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "160px" }}>
                             ANIMALES
                         </button>
                     </NavLink>
               <NavLink to="/admin/forms">
-              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "180px" }}>
+              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "160px" }}>
                 FORMULARIOS
+              </button>
+              </NavLink>
+              <NavLink to="/admin/reviews">
+              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "160px" }}>
+                REVIEWS
               </button>
               </NavLink>
               <NavLink to="/">

@@ -24,28 +24,24 @@ const AdoptionsBoard = () => {
 
     return (
         <>
-            <div className='row'>
-                
-                <div className='col col-md-3'>
+            <div className='row justify-content-center'> {/* Utiliza estas clases para centrar horizontalmente */}
+                <div className='col col-md-3 d-flex justify-content-center'> {/* Utiliza estas clases para centrar horizontalmente */}
                     <CardResumen title='Cantidad de Adopciones' value={cantidadAdopciones} />
                 </div>
-                <div className='col col-md-3'>
+                <div className='col col-md-3 d-flex justify-content-center'> {/* Utiliza estas clases para centrar horizontalmente */}
                     <CardResumen title='Tiempo medio de Resolución' value={mediaTiempoResolucion} />
                 </div>
-                
             </div>
             <div className='row'>
                 <div className='col col-md-6'>
                     <div className='m-auto bg-white rounded-3'>
                         <AdoptionsBarsChart />
                     </div>
-                    
                 </div>
                 <div className='col col-md-6'>
                     <div className='bg-white rounded-3'>
                         <AdoptionsBarHistogramaChart />
                     </div>
-                    
                 </div>
             </div>
         </>

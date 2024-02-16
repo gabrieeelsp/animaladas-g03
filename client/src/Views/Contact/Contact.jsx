@@ -28,15 +28,18 @@ export default function Contact() {
 
   return (
     <div className="container d-flex justify-content-center my-5">
-      <div className="row bg-dark p-4 align-items-center justify-content-center" style={{ width: "1000px", borderRadius: "30px" }}>
-        <h2 className="text-warning mb-4 fs-4">Formulario de Contacto</h2> 
-        <div className="col">
+      <div className="row bg-dark p-3 align-items-center justify-content-center" style={{ width: "1000px", borderRadius: "30px" }}>
+        <div className="col p-3">
+          <h4 className='text-warning'>Nos encontramos en Cerrillos, Salta</h4>
+          <h5 className='text-warning'>Cómo llegar</h5>
           <Map />
         </div>
-        <div className="col">
+        <div className="col p-3">
           <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label text-warning fs-5">Correo electrónico:</label>
+            <div className="mb-0">
+              <h4 className='text-warning'>O contáctanos</h4>
+              <p></p>
+              <label htmlFor="email" className="form-label text-warning my-2 fs-6">Correo electrónico:</label>
               <input
                 type="email"
                 className="form-control text-center"
@@ -48,7 +51,7 @@ export default function Contact() {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="motivo" className="form-label text-warning fs-5">Motivo de contacto:</label>
+              <label htmlFor="motivo" className="form-label text-warning my-2 fs-6">Motivo de contacto:</label>
               <input
                 type="text"
                 className="form-control text-center"
@@ -60,7 +63,7 @@ export default function Contact() {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="detalle" className="form-label text-warning fs-5">Detalle el motivo aquí:</label>
+              <label htmlFor="detalle" className="form-label text-warning fs-6">Detalle el motivo aquí:</label>
               <textarea
                 className="form-control"
                 id="detalle"
@@ -71,7 +74,7 @@ export default function Contact() {
               ></textarea>
             </div>
             <div className="col-auto">
-              <button type="submit" className="btn btn-warning mb-3 font-weight-bold fs-7">Enviar</button>
+              <button type="submit" className="btn btn-warning mb-3 my-2 fw-bold fs-7">Enviar</button>
             </div>
           </form>
         </div>

@@ -153,7 +153,6 @@ function DonationsBarsChart() {
 
   return (
     <div className="m-2">
-      
       <Bar
         data={chartData}
         options={{

@@ -30,23 +30,22 @@ const DonationsBoard = () => {
     return (
         <>
             <div className='row'>
-                <div className='col col-md-3'>
+                <div className='col col-md-3 text-warning'>
                     <CardResumen title='Total Donado' value={montoTotal} />
                 </div>
-                <div className='col col-md-3'>
+                <div className='col col-md-3 text-warning'>
                     <CardResumen title='Cantidad de Donaciones' value={cantidadDonaciones} />
                 </div>
-                <div className='col col-md-3'>
+                <div className='col col-md-3 text-warning'>
                     <CardResumen title='Valor Promedio de Donaciones' value={montoPromedio} />
                 </div>
-                <div className='col col-md-3'>
+                <div className='col col-md-3 text-warning'>
                     <CardResumen title='Valor Máximo Donado' value={montoMaximo} />
                 </div>
             </div>
             <div className='row'>
                 <div className='col col-md-6'>
                     <div className='m-auto bg-white rounded-3'>
-                        
                         <DonationsBarsChart />
                     </div>
                     

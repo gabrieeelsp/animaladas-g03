@@ -1,16 +1,17 @@
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
-export default function AdminForms () {
+export default function AdminReviews () {
     return(
-            <div className="container">
-      <div className="row">
-        <div className="col-md-9 d-flex align-items-center">
-        <table className="table table-dark">
+<div className="container">
+      <div className="row mt-0">
+        <div className="col-md-9 d-flex justify-content-center align-items-center">
+          <div className="text-center fs-5" style={{ padding: "15px", width: "1000px" }}>
+          <table className="table table-dark">
         <thead>
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Nombre solicitante</th>
-            <th scope="col">Perro solicitado</th>
+            <th scope="col">Nombre usuario</th>
+            <th scope="col">Review</th>
             <th scope="col">Estado formulario</th>
             <th scope="col">Aceptar</th>
             <th scope="col">Rechazar</th>
@@ -20,7 +21,7 @@ export default function AdminForms () {
 <tr>
               <th scope="row">1</th>
               <td className="text-warning">Ejemplo solicitante</td>
-              <td className="text-warning">Ejemplo perro solicitado</td>
+              <td className="text-warning">Ejemplo review</td>
               <td className="text-warning">Pendiente</td>
               <td>
                 <button className="btn btn-success">Aceptar</button>
@@ -31,8 +32,9 @@ export default function AdminForms () {
             </tr>
         </tbody>
       </table>
-            </div>
-            <div className="col-md-2 bg-dark text-warning d-flex flex-column align-items-center justify-content-center mx-3" style={{ border: "2px solid black", borderRadius: "10px", padding: "10px", height: "600px", width: "200px" }}>
+          </div>
+        </div>
+        <div className="col-md-2 bg-dark text-warning d-flex flex-column align-items-center justify-content-center mx-3" style={{ border: "2px solid black", borderRadius: "10px", padding: "10px", height: "600px", width: "200px" }}>
                     <NavLink to="/admin">
                         <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "160px" }}>
                             ESTADÍSTICAS
@@ -66,5 +68,5 @@ export default function AdminForms () {
         </div>
       </div>
     </div>
-  );
+    )
 }

@@ -44,8 +44,6 @@ export default function Searchbar() {
     }
   };
   
-  
-
   const onKeyDown = (event) => {
     if (event.keyCode === 13) {
       onSearch(event);
@@ -62,9 +60,15 @@ export default function Searchbar() {
         onChange={handleChange}
         onKeyDown={onKeyDown}
       />
-      <button className="btn btn-outline-warning" type="submit">
-        Buscar
-      </button>
+      {location.pathname !== "/admin/animals" ? (
+        <button className="btn btn-outline-warning bg-dark" type="submit">
+          Buscar
+        </button>
+      ) : (
+        <button className="btn text-warning bg-dark fw-bold" type="submit">
+          Buscar
+        </button>
+      )}
     </form>
   );
 }

@@ -5,7 +5,10 @@ import axios from "axios";
 import validateform from "./validation";
 import SuccesModal from "../../Components/SuccessModal/SuccesModal";
 import ModalError from "../../Components/ErrorModal/ErrorModal";
+import { useNavigate } from 'react-router-dom';
+
 export default function Addanimal(props) {
+  const navigate = useNavigate();
   const { MessageModal } = props;
   const { SetMessageModal } = props;
   const [ShowModalSuccess, SetShowModalSucess] = useState(false);
@@ -194,6 +197,8 @@ export default function Addanimal(props) {
     Setshowimg2(false);
     Setshowimg3(false);
     Setshowimg4(false);
+
+    navigate('/admin/animals');
   };
   const string1 = "hola";
   console.log(error);
