@@ -5,6 +5,7 @@ import axios from "axios";
 import SuccesModal from "../SuccessModal/SuccesModal";
 import { useDispatch, useSelector } from "react-redux";
 import { get_allreviews } from "../../redux/actions/actions";
+import GeneralModal from "../GeneralModal/generalmodal";
 export default function Reviews(props) {
   const dispatch = useDispatch();
   let basedata_reviews = [];
@@ -21,6 +22,8 @@ export default function Reviews(props) {
   const [posted, Setposted] = useState(false);
   const [score_initial, Setscore_initial] = useState(0);
   const [ShowModalSucces, SetShowModalSucces] = useState(false);
+  const [ShowModalMessage, SetShowModalMessage] = useState(false);
+  const [showGeneralModal, SetshowGeneralModal] = useState(false);
   let errornumber = "";
   let showerrornumber = false;
   const [opinion_data, Setopiniondata] = useState({
@@ -30,6 +33,7 @@ export default function Reviews(props) {
     user_name: user_profile.name ? user_profile.name : "",
     user_lastName: user_profile.lastName ? user_profile.lastName : "",
     user_img: user_profile.imageProfile ? user_profile.imageProfile : "",
+    id: "",
   });
 
   const ArrayStarts = [...new Array(5)];
@@ -54,7 +58,6 @@ export default function Reviews(props) {
       : import.meta.env.VITE_URL_PROD;
 
   const post_comment = async () => {
-    console.log("informacion que se va en post del comment", opinion_data);
     const resp = await axios.post(
       `${urlBaseAxios}/review/createReviews`,
       opinion_data
@@ -70,9 +73,27 @@ export default function Reviews(props) {
       remove_content();
     }
   };
+  const edit_review = (review) => {
+    console.log("esta esditando el siguiente review", review);
+    Setopiniondata({
+      ...opinion_data,
+      score: review.score,
+      comment: review.comment,
+      id: review.id,
+    });
+    SetshowGeneralModal(true);
+  };
+  const update_review = async (review) => {
+    const resp = await axios.put(
+      `${urlBaseAxios}/review/putReviews/${review.id}`,
+      opinion_data
+    );
+    const { data } = resp;
+    if (data.message === "Revisión actualizada correctamente") {
+      dispatch(get_allreviews());
+    }
+  };
   const equals = (item) => {
-    console.log("ingreso a equels item:", item);
-    console.log("valor en equels", user_profile.id);
     if (item.userId == user_profile.id) {
       return true;
     } else {
@@ -84,7 +105,11 @@ export default function Reviews(props) {
       score: "",
       comment: "",
       userId: user_profile.id,
+      user_name: user_profile.name,
+      user_lastName: user_profile.lastName,
+      user_img: user_profile.imageProfile,
     });
+
     Setscore_initial(0);
     ref.current.value = "";
   };
@@ -112,9 +137,7 @@ export default function Reviews(props) {
   useEffect(() => {
     dispatch(get_allreviews());
   }, [dispatch]);
-  console.log("valor de user_profie", user_profile);
-  console.log("valor de la opinion", opinion_data);
-  console.log("valor de las opinies totoales", allreviews);
+  console.log("este es el valor de opini data", opinion_data);
   return (
     <>
       {profile_singin && (
@@ -255,11 +278,11 @@ export default function Reviews(props) {
                   <i
                     className="bi bi-pencil-square"
                     style={{ float: "right", fontSize: "20px" }}
+                    onClick={(e) => edit_review(review)}
                   ></i>
                 )}
               </div>
             ))}
-
             <div className="testimonial-box">
               <div className="box-top">
                 <div className="profile">
@@ -435,6 +458,105 @@ export default function Reviews(props) {
             </div>
           </div>
         </section>
+        <GeneralModal
+          SetShowModalMessage={SetshowGeneralModal}
+          ShowModalMessage={showGeneralModal}
+        >
+          <div
+            className="testimonial-box-container"
+            style={{ marginTop: "50px" }}
+          >
+            <div className="testimonial-box">
+              <div className="box-top">
+                <div className="profile">
+                  <div className="profile-img">
+                    <img src={user_profile.imageProfile} />
+                  </div>
+                  <div className="name-user">
+                    <strong>
+                      {user_profile.name} {user_profile.lastName}
+                    </strong>
+                    <span>
+                      @{user_profile.name}
+                      {user_profile.lastName}
+                    </span>
+                  </div>
+                </div>
+                <div className="reviews">
+                  {ArrayStarts.map((start, index) => {
+                    return index < opinion_data.score ? (
+                      <i
+                        className="bi bi-star-fill"
+                        onClick={(e) => scoring_opinion(index)}
+                        style={{ cursor: "pointer" }}
+                      ></i>
+                    ) : (
+                      <i
+                        className="bi bi-star"
+                        onClick={(e) => scoring_opinion(index)}
+                      ></i>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="form-group">
+                <label
+                  for="exampleFormControlTextarea1"
+                  style={{
+                    fontSize: "1.5rem",
+                    color: "#f9d71c",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Estas editando un comentario
+                </label>
+                {showerrornumber && (
+                  <div
+                    class="input-group mb-1 alert alert-warning"
+                    role="alert"
+                  >
+                    {errornumber}
+                  </div>
+                )}
+                <textarea
+                  name="comment"
+                  ref={ref}
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  onChange={handleonchange}
+                  value={opinion_data.comment}
+                ></textarea>
+              </div>
+              <div
+                style={{
+                  justifyContent: "space-between",
+                  display: "flex",
+                }}
+              >
+                <button
+                  type="button"
+                  className="btn btn-warning"
+                  style={{ width: "100%" }}
+                  onClick={(e) => update_review(opinion_data)}
+                  disabled={disabled}
+                >
+                  Actualizar
+                </button>
+
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  style={{ width: "100%" }}
+                  onClick={remove_content}
+                  disabled={deletedisabled}
+                >
+                  Borrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </GeneralModal>
         <SuccesModal
           MessageModal={MessageModal}
           ShowModalMessage={ShowModalSucces}
