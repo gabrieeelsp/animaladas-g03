@@ -6,13 +6,13 @@ const app = require('./src/app');
 
 const seederAnimals = require('./src/controllers/animal/seeder');
 const seederUsers = require('./src/controllers/user/seeder');
-// const seederDonations = require('./src/controllers/donation/seeder');
-// const seederAdoptins = require('./src/controllers/adoption/seeder');
+const seederDonations = require('./src/controllers/donation/seeder');
+const seederAdoptins = require('./src/controllers/adoption/seeder');
 
 const { PORT_APP } = process.env;
 const { conn } = require('./src/db');
 
-conn.sync({ force: true })
+conn.sync({ force: false })
 
     .then(async () => {
         await seederAnimals();

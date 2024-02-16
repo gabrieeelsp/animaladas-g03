@@ -27,6 +27,7 @@ export default function Reviews(props) {
     comment: "",
     userId: user_profile.id ? user_profile.id : "",
     user_name: user_profile.name ? user_profile.name : "",
+    user_lastName: user_profile.lastName ? user_profile.lastName : "",
     user_img: user_profile.imageProfile ? user_profile.imageProfile : "",
   });
 
@@ -52,6 +53,7 @@ export default function Reviews(props) {
       : import.meta.env.VITE_URL_PROD;
 
   const post_comment = async () => {
+    console.log("informacion que se va en post del comment", opinion_data);
     const resp = await axios.post(
       `${urlBaseAxios}/review/createReviews`,
       opinion_data
@@ -102,6 +104,7 @@ export default function Reviews(props) {
   }, [dispatch]);
   console.log("valor de user_profie", user_profile);
   console.log("valor de la opinion", opinion_data);
+  console.log("valor de las opinies totoales", allreviews);
   return (
     <>
       {profile_singin && (
