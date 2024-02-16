@@ -1,6 +1,6 @@
-export default function ModalUsers(users) {
+export default function ModalUsers(selectedUser) {
 
-  const {id, name, lastName, phone, address, password, imageProfile} = users;
+  const {id, name, lastName, phone, address, password, imageProfile} = selectedUser;
 
   return (
     <div>

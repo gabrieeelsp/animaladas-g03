@@ -16,13 +16,8 @@ const EstadisticasBoard = () => {
     dispatch(loadEstadisticas(dateFrom, dateTo, tabSelected))
   }, [dateFrom, dateTo, tabSelected]);
 
-
-  
-
     return (
-        <>
-            <h1>Estadisticas</h1>
-            <div className='container bg-secondary-subtle p-2'>
+            <div className='container bg-dark p-3' style={{borderRadius: "20px", objectFit: "cover"}}>
                 <div className='row'>
                     <div className='col'>
                         <Filters />
@@ -34,12 +29,7 @@ const EstadisticasBoard = () => {
                 { tabSelected === 'adopciones' && 
                     <AdoptionsBoard />
                 }
-                
-                
             </div>
-            
-            
-        </>
     )
 }
 

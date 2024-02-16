@@ -63,7 +63,8 @@ export default function Nav(props) {
     location.pathname === "/admin/users" ||
     location.pathname === "/admin/animals" ||
     location.pathname === "/register" ||
-    location.pathname === "/admin/forms"
+    location.pathname === "/admin/forms" ||
+    location.pathname === "/admin/reviews"
   ) {
     return null;
   }
@@ -201,14 +202,6 @@ export default function Nav(props) {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/add">
-                  <button
-                    className="btn btn-outline-warning p-1 mx-3"
-                    type="button"
-                  >
-                    Agregar mascota
-                  </button>
-                </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink to="/donar">
@@ -241,14 +234,6 @@ export default function Nav(props) {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/estadisticas">
-                  <button
-                    className="btn btn-outline-warning p-1 mx-3"
-                    type="button"
-                  >
-                    Estadisticas
-                  </button>
-                </NavLink>
               </li>
             </ul>
             <SearchBar />
