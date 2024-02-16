@@ -12,7 +12,14 @@ export function infologin(data) {
   };
 }
 
-export function sign_out(value) {}
+export function sign_out(value) {
+  return async function (dispatch) {
+    return dispatch({
+      type: SIGN_OUT,
+      payload: value,
+    });
+  };
+}
 
 export function update_userprofile(data) {
   return async function (dispatch) {

@@ -9,17 +9,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { infologin } from "../../redux/actions/user_action";
 import { sign_out } from "../../redux/actions/user_action";
 import SuccesModal from "../SuccessModal/SuccesModal";
+import validateform from "../../Views/Register/validation_user";
 import axios from "axios";
 //import { useLocalstore } from "../../scripts/uselocalstore";
 export default function Nav(props) {
   const user_profile = useSelector((state) => state.UserReducer);
-
   const Navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
   const [MessageModal, SetMessageModal] = useState("");
-
-  console.log("estas son las props", SetMessageModal);
   const [ShowModalSucces, SetShowModalSucces] = useState(false);
   let showloginbutton = true;
   let showprofile_img = false;
@@ -35,6 +33,16 @@ export default function Nav(props) {
     imageProfile: "",
     password: "",
   });
+  const [error, Seterror] = useState({
+    name: "",
+    lastName: "",
+    phone: "",
+    address: "",
+    showerror_name: false,
+    showerror_lastName: false,
+    showerror_phone: false,
+    showerror_address: false,
+  });
   useEffect(() => {
     Setformedituser({
       id: user_profile.id,
@@ -47,10 +55,6 @@ export default function Nav(props) {
       password: "",
     });
   }, [user_profile]);
-  console.log(
-    "valor de la informacion del usuario una vez lgoueado",
-    form_edituser
-  );
   const [showprofile, Setshowprofile] = useState(false);
   const [showmodalprofile, Setshowmodalprofile] = useState(false);
   if (
@@ -72,11 +76,24 @@ export default function Nav(props) {
       ...form_edituser,
       [e.target.name]: e.target.value,
     });
+    let validate = validateform(form_edituser);
+    console.log("error del phone");
+    Seterror({
+      ...error,
+      name: validate.name,
+      lastName: validate.lastName,
+      phone: validate.phone,
+      address: validate.address,
+      showerror_name: validate.showerror_name,
+      showerror_lastName: validate.showerror_lastName,
+      showerror_phone: validate.showerror_phone,
+      showerror_address: validate.showerror_address,
+    });
   };
   const closeprofilemenu = (e) => {
     localStorage.removeItem("user_info");
     Setshowprofile(false);
-    dispatch(sign_out({}));
+    dispatch(sign_out(""));
 
     Navigate("/");
   };
@@ -288,7 +305,7 @@ export default function Nav(props) {
                   </NavLink>
                   <a href="#" className="sub-menu-link">
                     <i className="bi bi-escape"></i>
-                    <p onClick={(e) => closeprofilemenu(e)}>Cerrar sesionp</p>
+                    <p onClick={(e) => closeprofilemenu(e)}>Cerrar sesion</p>
                     <span>{">"}</span>
                   </a>
                 </div>
@@ -302,6 +319,11 @@ export default function Nav(props) {
             form_edituser={form_edituser}
             doit={menuprofile}
           >
+            {error.showerror_name ? (
+              <div class="input-group mb-1 alert alert-warning" role="alert">
+                {error.name}
+              </div>
+            ) : null}
             <div className="input-group mt-4">
               <div className="input-group-text bg-warning text-white">
                 <i className="bi bi-person-fill-add"></i>
@@ -315,6 +337,11 @@ export default function Nav(props) {
                 onChange={(e) => handlechange(e)}
               />
             </div>
+            {error.showerror_lastName ? (
+              <div class="input-group mb-1 alert alert-warning" role="alert">
+                {error.lastName}
+              </div>
+            ) : null}
             <div className="input-group mt-1">
               <div className="input-group-text bg-warning text-white">
                 <i className="bi bi-person-fill-add"></i>
@@ -342,6 +369,11 @@ export default function Nav(props) {
                 disabled="disabled"
               />
             </div>
+            {error.showerror_phone ? (
+              <div class="input-group mb-1 alert alert-warning" role="alert">
+                {error.phone}
+              </div>
+            ) : null}
             <div className="input-group mt-1">
               <div className="input-group-text bg-warning text-white">
                 <i className="bi bi-telephone"></i>
@@ -355,6 +387,11 @@ export default function Nav(props) {
                 onChange={(e) => handlechange(e)}
               />
             </div>
+            {error.showerror_address ? (
+              <div class="input-group mb-1 alert alert-warning" role="alert">
+                {error.address}
+              </div>
+            ) : null}
             <div className="input-group mt-1">
               <div className="input-group-text bg-warning text-white">
                 <i className="bi bi-geo-alt-fill"></i>
