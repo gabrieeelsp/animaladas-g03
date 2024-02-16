@@ -9,24 +9,9 @@ import GeneralModal from "../../Components/GeneralModal/generalmodal.jsx";
 import SuccesModal from "../../Components/SuccessModal/SuccesModal.jsx";
 import { useDispatch } from "react-redux";
 import { infologin } from "../../redux/actions/user_action.js";
-export default function Login(props) {
-  const loginWithGoogle = (data) => {
-    data = JSON.parse(data);
 
-    if (data.imageProfile === null) {
-      data.imageProfile =
-        "https://res.cloudinary.com/dwgufqzjd/image/upload/v1707404450/Proyecto_animaladas/default/w2jbmtfjvfjn1alnnpxb.png";
-    }
-    dispatch(infologin(data));
-    console.log("esta es la data que llega del login con google", data);
-    window.localStorage.setItem("user_info", JSON.stringify(data));
-    dispatch(infologin(data));
-  };
-  console.log("valor de las props en login", props);
+export default function Login(props) {
   const dispatch = useDispatch();
-  const urlParams = new URLSearchParams(window.location.search);
-  const serializedUser = urlParams.get("userGoogle");
-  serializedUser !== null ? loginWithGoogle(serializedUser) : "";
   const navigate = useNavigate();
   const { MessageModal, SetMessageModal } = props;
   const [ShowModalMessage, SetShowModalMessage] = useState(false);
@@ -36,23 +21,26 @@ export default function Login(props) {
     email: "",
     password: "",
   });
+
   const handlechange = (e) => {
     Setuserdata({
       ...userdata,
       [e.target.name]: e.target.value,
     });
   };
+
   const urlBaseAxios =
     import.meta.env.VITE_ENV === "DEV"
       ? import.meta.env.VITE_URL_DEV
       : import.meta.env.VITE_URL_PROD;
+
   const login_user = async (e) => {
     const response = await axios.post(`${urlBaseAxios}/user/login`, userdata);
     const { data } = response;
-    if (data.is_verified != true) {
+    if (data.is_verified !== true) {
       SetShowModalMessage(true);
       SetMessageModal(
-        "No puede iniciar sesion sin antes haber verificado su cuenta."
+        "No puede iniciar sesión sin antes haber verificado su cuenta."
       );
     } else {
       window.localStorage.setItem("user_info", JSON.stringify(data));
@@ -64,6 +52,21 @@ export default function Login(props) {
   const signInWithGoogle = () => {
     window.location.href = `${urlBaseAxios}/user/auth/google`;
   };
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const serializedUser = urlParams.get("userGoogle");
+    if (serializedUser) {
+      try {
+        const userData = JSON.parse(serializedUser);
+        window.localStorage.setItem("user_info", JSON.stringify(userData));
+        dispatch(infologin(userData));
+        navigate("/");
+      } catch (error) {
+        console.error("Error al iniciar sesión con Google:", error);
+      }
+    }
+  }, []);
+  
 
   const passwordrecover = (e) => {
     SetMessageModal(
@@ -80,9 +83,7 @@ export default function Login(props) {
       );
       const { data } = response;
       if (data) {
-        SetMessageModal(
-          "Te hemos enviado un correo para cambiar tu contraseña"
-        );
+        SetMessageModal("Te hemos enviado un correo para cambiar tu contraseña");
         SetShowModalSucces(true);
         SetShowGeneralModal(false);
       }
@@ -90,26 +91,16 @@ export default function Login(props) {
       console.log("no ha ingresado el correo para recuperar contraseña");
     }
   };
-  useEffect(() => {
-    if (serializedUser) {
-      navigate("/");
-    }
-  }, []);
-  console.log("estoy en e login");
+
   return (
     <div className="d-flex justify-content-center align-items-center text-warning vh-100">
       <form>
-        <div
-          className="bg-dark p-5 rounded-5 shadow"
-          style={{ width: "25rem" }}
-        >
+        <div className="bg-dark p-5 rounded-5 shadow" style={{ width: "25rem" }}>
           <div className="d-flex justify-content-center">
             <img src={logo} alt="login-icon" style={{ width: "7rem" }} />
           </div>
           <div>
-            <h1 className="text-center fs-1 fw-bold text-warning">
-              Iniciar Sesión
-            </h1>
+            <h1 className="text-center fs-1 fw-bold text-warning">Iniciar Sesión</h1>
           </div>
 
           <div className="input-group mt-4">
@@ -140,38 +131,23 @@ export default function Login(props) {
             <div className="d-flex align-items-center gap-1">
               <input className="form-check-input" type="checkbox" />
               <div className="pt-1 text-warning" style={{ fontSize: "0.8rem" }}>
-                Recuerdame
+                Recuérdame
               </div>
             </div>
             <div className="pt-1" onClick={(e) => passwordrecover(e)}>
-              <a
-                href="#"
-                className="text-decoration-none fw-semibold text-warning"
-                style={{ fontSize: "0.8rem" }}
-              >
+              <a href="#" className="text-decoration-none fw-semibold text-warning" style={{ fontSize: "0.8rem" }}>
                 Olvidé mi contraseña
               </a>
             </div>
           </div>
-          <div
-            onClick={(e) => login_user(e)}
-            className="btn text-dark w-100 mt-4 fw-bold shadow-sm bg-warning"
-          >
+          <div onClick={(e) => login_user(e)} className="btn text-dark w-100 mt-4 fw-bold shadow-sm bg-warning">
             Iniciar sesión
           </div>
           <p></p>
-          <div
-            className="d-flex gap-1 justify-content-center text-warning mt-1"
-            style={{ fontSize: "0.8rem" }}
-          >
+          <div className="d-flex gap-1 justify-content-center text-warning mt-1" style={{ fontSize: "0.8rem" }}>
             <div>¿No tienes una cuenta?</div>
             <NavLink to="/register" style={{ textDecoration: "none" }}>
-              <a
-                href="#"
-                className="text-decoration-none fw-semibold text-warning"
-              >
-                Regístrate
-              </a>
+              <a href="#" className="text-decoration-none fw-semibold text-warning">Regístrate</a>
             </NavLink>
           </div>
           <div className="p-3">
@@ -179,18 +155,9 @@ export default function Login(props) {
               <span className="bg-dark">O también puedes...</span>
             </div>
           </div>
-          <div
-            className="btn d-flex gap-2 justify-content-center border mt-3 shadow-sm"
-            onClick={signInWithGoogle}
-          >
-            <img
-              src={logo_google}
-              alt="google-icon"
-              style={{ height: "1.6rem" }}
-            />
-            <div className="fw-semibold text-secondary text-white">
-              Continuar con Google
-            </div>
+          <div className="btn d-flex gap-2 justify-content-center border mt-3 shadow-sm" onClick={signInWithGoogle}>
+            <img src={logo_google} alt="google-icon" style={{ height: "1.6rem" }} />
+            <div className="fw-semibold text-secondary text-white">Continuar con Google</div>
           </div>
           <NavLink to="/">
             <div className="btn text-dark w-20 mt-4 fw-bold shadow-sm bg-warning">
@@ -228,10 +195,7 @@ export default function Login(props) {
             onChange={(e) => handlechange(e)}
           />
         </div>
-        <div
-          className="btn text-dark w-100 mt-4 fw-bold shadow-sm bg-warning"
-          onClick={send_recoverpassword}
-        >
+        <div className="btn text-dark w-100 mt-4 fw-bold shadow-sm bg-warning" onClick={send_recoverpassword}>
           Enviar
         </div>
       </GeneralModal>
