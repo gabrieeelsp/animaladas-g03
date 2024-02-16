@@ -20,6 +20,7 @@ import {
   SET_ESTADITICAS_TAB,
   LOAD_ESTADISTICAS_DONATIONS,
   LOAD_ESTADISTICAS_ADOPTIONS,
+  LOAD_PENDING_ADOPTIONS,
 } from "./types";
 
 import axios from "axios";
@@ -276,6 +277,32 @@ export const deleteAnimal = (id,enabled) => {
       });
     } catch (error) {
       console.error('Error al borrar animal:', error);
+    }
+  };
+};
+
+
+export const pendingAdoptions = (userId, animalId) => {
+  return async (dispatch) => {
+    try {
+  
+      const response = await axios.get(`${urlBaseAxios}/adoptions/get_pending_adoption`, {
+        params: {
+          userId: userId,
+          animalId: animalId,
+        },
+      });
+
+      const pendingAdoptionsData = response.data.data;
+
+    
+      dispatch({
+        type: LOAD_PENDING_ADOPTIONS,
+        payload: pendingAdoptionsData,
+      });
+    } catch (error) {
+      console.error('Error fetching adoptions:', error);
+      throw error;
     }
   };
 };

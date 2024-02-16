@@ -1,5 +1,5 @@
 import { loadAdopted } from "./actions/actions";
-import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME, SET_SEARCHBAR_VALUE, SET_CASTRATED_VALUE, SET_SPECIES_VALUE, SET_SIZE_VALUE, SET_ENABLED_VALUE, SET_ORDERDIR_VALUE, SET_ORDERBY_VALUE, CREATE_FORM_SUCCESS, CREATE_FORM_FAILURE, DELETE_ANIMAL, LOAD_USERS, LOAD_ESTADISTICAS_DONATIONS, SET_ESTADITICAS_DATE_RANGE, SET_ESTADITICAS_TAB, LOAD_ESTADISTICAS_ADOPTIONS } from "./actions/types";
+import { LOAD_ANIMALS, CLEAR_ALL, ANIMAL_BY_ID, ORDER_BY_AGE, ORDER_BY_NAME, SET_SEARCHBAR_VALUE, SET_CASTRATED_VALUE, SET_SPECIES_VALUE, SET_SIZE_VALUE, SET_ENABLED_VALUE, SET_ORDERDIR_VALUE, SET_ORDERBY_VALUE, CREATE_FORM_SUCCESS, CREATE_FORM_FAILURE, DELETE_ANIMAL, LOAD_USERS, LOAD_ESTADISTICAS_DONATIONS, SET_ESTADITICAS_DATE_RANGE, SET_ESTADITICAS_TAB, LOAD_ESTADISTICAS_ADOPTIONS,LOAD_PENDING_ADOPTIONS } from "./actions/types";
 
 const initialState = {
   allAnimals: [],
@@ -10,6 +10,7 @@ const initialState = {
     total_pages: null,
     next_page: null,
     prev_page: null,
+    
   },
   searchBarValue: '',
   orderByValue: '',
@@ -20,6 +21,7 @@ const initialState = {
   enabledValue: 'Si',
   animalById: [],
   allUsers: [],
+  pendingAdoptions: [],
 
   estadisticas: {
     donations: [],
@@ -196,6 +198,13 @@ case ORDER_BY_AGE:
         tabSelected: payload,
       }
     }
+  }
+
+  case LOAD_PENDING_ADOPTIONS: {
+    return {
+      ...state,
+      pendingAdoptions: payload, // payload debe ser un array de adopciones pendientes
+    };
   }
 
 
