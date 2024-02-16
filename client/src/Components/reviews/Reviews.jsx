@@ -13,6 +13,7 @@ export default function Reviews(props) {
   let deletedisabled = true;
   let disabledpost = true;
   const user_profile = useSelector((state) => state.UserReducer);
+  const allreviews = useSelector((state) => state.rootReducer.allreviews);
   let profile_singin = false;
 
   const [MessageModal, SetMessageModal] = useState("");
@@ -25,6 +26,8 @@ export default function Reviews(props) {
     score: "",
     comment: "",
     userId: user_profile.id ? user_profile.id : "",
+    user_name: user_profile.name ? user_profile.name : "",
+    user_img: user_profile.imageProfile ? user_profile.imageProfile : "",
   });
 
   const ArrayStarts = [...new Array(5)];
@@ -97,6 +100,8 @@ export default function Reviews(props) {
   useEffect(() => {
     dispatch(get_allreviews());
   }, [dispatch]);
+  console.log("valor de user_profie", user_profile);
+  console.log("valor de la opinion", opinion_data);
   return (
     <>
       {profile_singin && (

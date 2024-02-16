@@ -7,6 +7,14 @@ module.exports = (sequelize) => {
             primaryKey: true,
             autoIncrement: true,
         },
+        user_name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        user_img: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         score: {
             type: DataTypes.STRING,
             allowNull: false,
