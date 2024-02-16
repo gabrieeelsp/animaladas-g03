@@ -13,9 +13,12 @@ const { PORT_APP } = process.env;
 const { conn } = require('./src/db');
 
 conn.sync({ force: true })
-    .then(() => {
-        seederAnimals();
-        seederUsers();
+
+    .then(async () => {
+        await seederAnimals();
+        await seederUsers();
+        await seederDonations();
+        await seederAdoptins();
     })
     .then(() => {
         app.listen(PORT_APP, () => {
