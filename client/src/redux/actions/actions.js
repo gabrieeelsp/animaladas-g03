@@ -20,11 +20,16 @@ import {
   SET_ESTADITICAS_TAB,
   LOAD_ESTADISTICAS_DONATIONS,
   LOAD_ESTADISTICAS_ADOPTIONS,
+  LOAD_PENDING_ADOPTIONS,
+  GET_ALLREVIEWS,
 } from "./types";
 
 import axios from "axios";
 
-const urlBaseAxios = import.meta.env.VITE_ENV === 'DEV' ? import.meta.env.VITE_URL_DEV : import.meta.env.VITE_URL_PROD;
+const urlBaseAxios =
+  import.meta.env.VITE_ENV === "DEV"
+    ? import.meta.env.VITE_URL_DEV
+    : import.meta.env.VITE_URL_PROD;
 
 export const set_searchbar_value = (value) => {
   return (dispatch) => {
@@ -98,7 +103,7 @@ export const loadAnimals = (
   animalsPerPage = 4,
   orderBy = null,
   orderDir = "",
-  enabled,
+  enabled
 ) => {
   return async (dispatch) => {
     try {
@@ -150,7 +155,6 @@ export const loadAnimals = (
           orderby: orderBy,
           orderdir: orderDir,
           enabled: enabledValue,
-      
         },
       });
 
@@ -239,10 +243,7 @@ export const orderByAge = (order) => {
 export const createForm = (formData) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(
-        `${urlBaseAxios}/adoptions`,
-        formData
-      );
+      const response = await axios.post(`${urlBaseAxios}/adoptions`, formData);
       const createdForm = response.data;
 
       dispatch(createFormSuccess(createdForm));
@@ -263,7 +264,7 @@ export const createFormFailure = (error) => ({
   error,
 });
 
-export const deleteAnimal = (id,enabled) => {
+export const deleteAnimal = (id, enabled) => {
   return async (dispatch) => {
     try {
       await axios.put(`${urlBaseAxios}/animal/enable/${id}`, { enabled });
@@ -275,7 +276,33 @@ export const deleteAnimal = (id,enabled) => {
         },
       });
     } catch (error) {
-      console.error('Error al borrar animal:', error);
+      console.error("Error al borrar animal:", error);
+    }
+  };
+};
+
+
+export const pendingAdoptions = (userId, animalId) => {
+  return async (dispatch) => {
+    try {
+  
+      const response = await axios.get(`${urlBaseAxios}/adoptions/get_pending_adoption`, {
+        params: {
+          userId: userId,
+          animalId: animalId,
+        },
+      });
+
+      const pendingAdoptionsData = response.data.data;
+
+    
+      dispatch({
+        type: LOAD_PENDING_ADOPTIONS,
+        payload: pendingAdoptionsData,
+      });
+    } catch (error) {
+      console.error('Error fetching adoptions:', error);
+      throw error;
     }
   };
 };
@@ -285,7 +312,7 @@ export const allAdoptions = async () => {
     const response = await axios.get(`${urlBaseAxios}/adoptions`);
     return response.data.data;
   } catch (error) {
-    console.error('Error fetching adoptions:', error);
+    console.error("Error fetching adoptions:", error);
     throw error;
   }
 };
@@ -301,32 +328,40 @@ export const loadUsers = () => {
 };
 
 export const setEstadisticasDateRange = (value) => {
-
-  return { type: SET_ESTADITICAS_DATE_RANGE, payload: value};
-}
+  return { type: SET_ESTADITICAS_DATE_RANGE, payload: value };
+};
 
 export const setEstadisticasTab = (value) => {
-
-  return { type: SET_ESTADITICAS_TAB, payload: value};
-}
+  return { type: SET_ESTADITICAS_TAB, payload: value };
+};
 
 export const loadEstadisticas = (dateFrom, dateTo, tabSelected) => {
+  const tabValue = tabSelected === "donaciones" ? "donations" : "adoptions";
 
-  const tabValue = tabSelected === 'donaciones' ? 'donations' : 'adoptions';
+  const dateFromD =
+    typeof dateFrom === "number" ? new Date(dateFrom) : dateFrom;
+  const dateToD = typeof dateTo === "number" ? new Date(dateTo) : dateTo;
 
-  const dateFromD = typeof dateFrom === 'number' ? new Date(dateFrom) : dateFrom;
-  const dateToD = typeof dateTo === 'number' ? new Date(dateTo) : dateTo;
+  const dateFromValue =
+    dateFromD.getFullYear() +
+    "-" +
+    (1 + dateFromD.getMonth()) +
+    "-" +
+    dateFromD.getDate();
 
-
-  const dateFromValue = dateFromD.getFullYear() + '-' + (1 + dateFromD.getMonth()) + '-' + dateFromD.getDate();
-
-  const dateToValue = dateToD.getFullYear() + '-' + ( 1 + dateToD.getMonth()) + '-' + dateToD.getDate();
+  const dateToValue =
+    dateToD.getFullYear() +
+    "-" +
+    (1 + dateToD.getMonth()) +
+    "-" +
+    dateToD.getDate();
 
   return async (dispatch) => {
-    const response = await axios.get(`${urlBaseAxios}/${tabValue}?dateFrom=${dateFromValue}&dateTo=${dateToValue}`);
+    const response = await axios.get(
+      `${urlBaseAxios}/${tabValue}?dateFrom=${dateFromValue}&dateTo=${dateToValue}`
+    );
 
-    
-    if ( tabSelected === 'donaciones' ) {
+    if (tabSelected === "donaciones") {
       dispatch({
         type: LOAD_ESTADISTICAS_DONATIONS,
         payload: response.data.data,
@@ -337,5 +372,15 @@ export const loadEstadisticas = (dateFrom, dateTo, tabSelected) => {
         payload: response.data.data,
       });
     }
+  };
+};
+
+export const get_allreviews = () => {
+  return async (dispatch) => {
+    const response = await axios.get(`${urlBaseAxios}/review/allReviews`);
+    dispatch({
+      type: GET_ALLREVIEWS,
+      payload: response.data,
+    });
   };
 };
