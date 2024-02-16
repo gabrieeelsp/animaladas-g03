@@ -240,6 +240,16 @@ export default function Nav(props) {
                   </button>
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink to="/estadisticas">
+                  <button
+                    className="btn btn-outline-warning p-1 mx-3"
+                    type="button"
+                  >
+                    Estadisticas
+                  </button>
+                </NavLink>
+              </li>
             </ul>
             <SearchBar />
             {showloginbutton && (

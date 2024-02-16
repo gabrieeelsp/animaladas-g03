@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState  } from "react";
 import axios from "axios";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,10 +11,10 @@ import ModalError from "../../Components/ErrorModal/ErrorModal";
 library.add(faPaw);
 
 const Donar = (props) => {
-  // const { MessageModal } = props;
-  // const { SetMessageModal } = props;
-  // console.log("valor de messagemmodal", MessageModal);
-  // console.log("setmessamodal", SetMessageModal);
+  const { MessageModal } = props;
+  const { SetMessageModal } = props;
+  console.log("valor de messagemmodal", MessageModal);
+  console.log("setmessamodal", SetMessageModal);
   const [preferenceId, setPreferenceId] = useState(null);
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [customAmount, setCustomAmount] = useState("");
@@ -61,15 +61,15 @@ const Donar = (props) => {
       throw error;
     }
   };
-
+ 
   const handleDonarClick = async (amount) => {
-    // if (!window.localStorage.userinfo) {
-    //   SetMessageModal(
-    //     "Para hacer una donacion debe registrarse o iniciar sesión con su cuenta"
-    //   );
-    //   SetShowModalError(true);
-    //   return;
-    // }
+    if (!window.localStorage.user_info) {
+      SetMessageModal(
+        "Para hacer una donacion debe registrarse o iniciar sesión con su cuenta"
+      );
+      SetShowModalError(true);
+      return;
+    }
     const userDetails = {
       id: 1,
       total_amount: amount,
@@ -92,8 +92,14 @@ const Donar = (props) => {
       }
     } catch (error) {
       console.error("Error al crear la preferencia:", error);
-      //SetShowModalError(true);
+      SetShowModalError(true);
     }
+    setTimeout(function () {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "auto",
+      });
+    }, 500);
   };
 
   const handleCustomAmountChange = (event) => {

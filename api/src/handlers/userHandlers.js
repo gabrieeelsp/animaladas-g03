@@ -70,7 +70,6 @@ const loginUserHandler = async (req, res) => {
     const { email, password } = req.body;
 
     const emailToLowerCase = email.toLowerCase();
-    console.log('Ingreso loginHandler');
 
     try {
         const user = await loginUser(emailToLowerCase, password);
