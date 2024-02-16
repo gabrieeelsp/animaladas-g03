@@ -12,12 +12,19 @@ const seederAdoptins = require('./src/controllers/adoption/seeder');
 const { PORT_APP } = process.env;
 const { conn } = require('./src/db');
 
+<<<<<<< HEAD
+conn.sync({ force: true })
+    .then(() => {
+        seederAnimals();
+        seederUsers();
+=======
 conn.sync({ force: true })
     .then(async () => {
         await seederAnimals();
         await seederUsers();
         await seederDonations();
         await seederAdoptins();
+>>>>>>> develop
     })
     .then(() => {
         app.listen(PORT_APP, () => {
