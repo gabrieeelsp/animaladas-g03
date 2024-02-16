@@ -1,6 +1,6 @@
 import { React } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAnimal, loadAnimals } from "../../redux/actions/actions";
+import { clearAll, deleteAnimal, loadAnimals } from "../../redux/actions/actions";
 import ModalAnimals from "../ModalAnimals/ModalAnimals";
 
 export default function CardAdmin(props) {
@@ -10,13 +10,12 @@ export default function CardAdmin(props) {
   const orderDirValue = useSelector((state) => state.rootReducer.orderDirValue);
   const sizeValue = useSelector((state) => state.rootReducer.sizeValue);
   const speciesValue = useSelector((state) => state.rootReducer.speciesValue);
-  const castratedValue = useSelector(
-    (state) => state.rootReducer.castratedValue
-  );
+  const castratedValue = useSelector((state) => state.rootReducer.castratedValue);
 
   const {id, name, status, species, size, gender, estimatedBirthYear, weight, image1, image2, image3, rescued_story, adoption_story, castrated, disability_illness, vaccines, enabled} = props;
 
   const handleDeleteAnimal = () => {
+    dispatch(clearAll());
     dispatch(deleteAnimal(id)).then(() => {
       dispatch(
         loadAnimals(
@@ -71,7 +70,7 @@ export default function CardAdmin(props) {
             <button
               className="btn btn-warning btn-block text-dark fw-bold my-3"
               data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
+              data-bs-target={`#exampleModal${id}`}
               style={{ width: "120px" }}
             >
               Modificar

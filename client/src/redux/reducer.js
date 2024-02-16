@@ -23,6 +23,7 @@ import {
   LOAD_ESTADISTICAS_ADOPTIONS,
   LOAD_PENDING_ADOPTIONS,
   GET_ALLREVIEWS,
+  UPDATE_ANIMAL,
 } from "./actions/types";
 
 const initialState = {
@@ -46,6 +47,7 @@ const initialState = {
   animalById: [],
   allUsers: [],
   pendingAdoptions: [],
+  updatedAnimal: null,
 
   estadisticas: {
     donations: [],
@@ -235,6 +237,13 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         allreviews: payload,
+      };
+    }
+
+    case 'UPDATE_ANIMAL': {
+      return {
+        ...state,
+        updatedAnimal: payload,
       };
     }
 

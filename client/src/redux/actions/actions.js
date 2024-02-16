@@ -22,6 +22,7 @@ import {
   LOAD_ESTADISTICAS_ADOPTIONS,
   LOAD_PENDING_ADOPTIONS,
   GET_ALLREVIEWS,
+  UPDATE_ANIMAL,
 } from "./types";
 
 import axios from "axios";
@@ -382,5 +383,19 @@ export const get_allreviews = () => {
       type: GET_ALLREVIEWS,
       payload: response.data,
     });
+  };
+};
+
+export const updateAnimal = (id, updateValues) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`${urlBaseAxios}/animal/update/${id}`, updateValues);
+      dispatch({
+        type: UPDATE_ANIMAL,
+        payload: updateValues,
+      });
+    } catch (error) {
+      console.error("Error al actualizar los datos del animal:", error);
+    }
   };
 };
