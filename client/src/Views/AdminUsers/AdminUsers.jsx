@@ -20,6 +20,10 @@ export default function AdminUsers() {
     return () => clearTimeout(timeoutId);
   }, []);
   
+  const modalUsers = users.map(({ id, name, lastName, phone, address, password, imageProfile }) => ({
+    [id]: { id, name, lastName, phone, address, password, imageProfile },
+  }));
+
   return (
     <div className="container">
       <div className="row">
@@ -85,7 +89,9 @@ export default function AdminUsers() {
           </NavLink>
         </div>
       </div>
-      <ModalUsers/>
+      <ModalUsers
+      users={modalUsers}
+      />
     </div>
   );
 }

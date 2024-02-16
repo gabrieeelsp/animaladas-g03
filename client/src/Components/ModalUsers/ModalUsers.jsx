@@ -1,4 +1,7 @@
-export default function ModalUsers() {
+export default function ModalUsers(users) {
+
+  const {id, name, lastName, phone, address, password, imageProfile} = users;
+
   return (
     <div>
       <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -12,29 +15,29 @@ export default function ModalUsers() {
               <div className="col-md-6">
                 <div className="mb-3">
                   <label htmlFor="recipient-name" className="col-form-label">Nombre:</label>
-                  <input type="text" className="form-control" id="recipient-name" readOnly />
+                  <input type="text" className="form-control" id={name} placeholder={name} readOnly />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="recipient-name" className="col-form-label">Apellido:</label>
-                  <input type="text" className="form-control" id="recipient-name" readOnly />
+                  <input type="text" className="form-control"  id={lastName} placeholder={lastName} readOnly />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="recipient-name" className="col-form-label">Número de contacto:</label>
-                  <input type="text" className="form-control" id="recipient-name" />
+                  <input type="text" className="form-control" id={phone} placeholder={phone} />
                 </div>
               </div>
               <div className="col-md-6">
                 <div className="mb-3">
                   <label htmlFor="recipient-name" className="col-form-label">Dirección:</label>
-                  <input type="text" className="form-control" id="recipient-name" />
+                  <input type="text" className="form-control" id={address} placeholder={address} />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="recipient-name" className="col-form-label">Contraseña:</label>
-                  <input type="text" className="form-control" id="recipient-name" />
+                  <input type="text" className="form-control" id={password} placeholder={password} />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="recipient-name" className="col-form-label">Foto de perfil:</label>
-                  <input type="file" className="form-control" id="recipient-name" />
+                  <input type="file" className="form-control" id={imageProfile} />
                 </div>
               </div>
             </div>

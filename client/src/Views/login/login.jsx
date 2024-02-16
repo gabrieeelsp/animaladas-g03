@@ -10,12 +10,23 @@ import SuccesModal from "../../Components/SuccessModal/SuccesModal.jsx";
 import { useDispatch } from "react-redux";
 import { infologin } from "../../redux/actions/user_action.js";
 export default function Login(props) {
+  const loginWithGoogle = (data) => {
+    data = JSON.parse(data);
+
+    if (data.imageProfile === null) {
+      data.imageProfile =
+        "https://res.cloudinary.com/dwgufqzjd/image/upload/v1707404450/Proyecto_animaladas/default/w2jbmtfjvfjn1alnnpxb.png";
+    }
+    dispatch(infologin(data));
+    console.log("esta es la data que llega del login con google", data);
+    window.localStorage.setItem("user_info", JSON.stringify(data));
+    dispatch(infologin(data));
+  };
+  console.log("valor de las props en login", props);
   const dispatch = useDispatch();
   const urlParams = new URLSearchParams(window.location.search);
   const serializedUser = urlParams.get("userGoogle");
-  serializedUser !== null
-    ? window.localStorage.setItem("user_info", serializedUser)
-    : "";
+  serializedUser !== null ? loginWithGoogle(serializedUser) : "";
   const navigate = useNavigate();
   const { MessageModal, SetMessageModal } = props;
   const [ShowModalMessage, SetShowModalMessage] = useState(false);
@@ -53,6 +64,7 @@ export default function Login(props) {
   const signInWithGoogle = () => {
     window.location.href = `${urlBaseAxios}/user/auth/google`;
   };
+
   const passwordrecover = (e) => {
     SetMessageModal(
       "Por favor ingresa tu correo. Te enviaremos un enlace para recuperar la contraseña"

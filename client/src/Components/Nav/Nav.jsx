@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import "./Nav.css";
@@ -12,6 +12,8 @@ import SuccesModal from "../SuccessModal/SuccesModal";
 import axios from "axios";
 //import { useLocalstore } from "../../scripts/uselocalstore";
 export default function Nav(props) {
+  const user_profile = useSelector((state) => state.UserReducer);
+
   const Navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -22,23 +24,34 @@ export default function Nav(props) {
   let showloginbutton = true;
   let showprofile_img = false;
   let user_info = {};
-  const user_profile = useSelector((state) => state.UserReducer);
-  console.log("valor de user_profile", user_profile);
 
   const [form_edituser, Setformedituser] = useState({
-    id: user_profile.id,
-    name: user_profile.name,
-    email: user_profile.email,
-    lastName: user_profile.lastName,
-    address: user_profile.address,
-    phone: user_profile.phone,
-    imageProfile: user_profile.imageProfile,
+    id: "",
+    name: "",
+    email: "",
+    lastName: "",
+    address: "",
+    phone: "",
+    imageProfile: "",
     password: "",
   });
-
-  console.log("valor de form_editer", form_edituser);
+  useEffect(() => {
+    Setformedituser({
+      id: user_profile.id,
+      name: user_profile.name,
+      email: user_profile.email,
+      lastName: user_profile.lastName,
+      address: user_profile.address,
+      phone: user_profile.phone,
+      imageProfile: user_profile.imageProfile,
+      password: "",
+    });
+  }, [user_profile]);
+  console.log(
+    "valor de la informacion del usuario una vez lgoueado",
+    form_edituser
+  );
   const [showprofile, Setshowprofile] = useState(false);
-
   const [showmodalprofile, Setshowmodalprofile] = useState(false);
   if (
     location.pathname === "/login" ||
@@ -62,9 +75,10 @@ export default function Nav(props) {
   };
   const closeprofilemenu = (e) => {
     localStorage.removeItem("user_info");
+    Setshowprofile(false);
     dispatch(sign_out({}));
+
     Navigate("/");
-    menuprofile(e);
   };
   const uploadImage = async (e) => {
     const file = e.target.files[0];
@@ -92,7 +106,6 @@ export default function Nav(props) {
     );
     const { data } = response;
     if (data === "Informacion del Usuario actualizada.") {
-      console.log("ingreso al condicional de usuario actualizado");
       SetMessageModal("¡Bien! se actualizo tu informacion.");
       SetShowModalSucces(true);
     }
@@ -103,10 +116,10 @@ export default function Nav(props) {
     showprofile_img = true;
   }
   if (JSON.parse(localStorage.getItem("user_info")) === "") {
-    console.log("entro aqui");
     showloginbutton = true;
     showprofile_img = false;
   }
+  // De forma similar a componentDidMount y componentDidUpdate
 
   return (
     <div>
@@ -285,7 +298,7 @@ export default function Nav(props) {
                   </NavLink>
                   <a href="#" className="sub-menu-link">
                     <i className="bi bi-escape"></i>
-                    <p onClick={(e) => closeprofilemenu(e)}>Cerrar sesion</p>
+                    <p onClick={(e) => closeprofilemenu(e)}>Cerrar sesionp</p>
                     <span>{">"}</span>
                   </a>
                 </div>
