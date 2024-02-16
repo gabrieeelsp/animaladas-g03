@@ -1,4 +1,5 @@
 import { loadAdopted } from "./actions/actions";
+
 import {
   LOAD_ANIMALS,
   CLEAR_ALL,
@@ -20,6 +21,7 @@ import {
   SET_ESTADITICAS_DATE_RANGE,
   SET_ESTADITICAS_TAB,
   LOAD_ESTADISTICAS_ADOPTIONS,
+  LOAD_PENDING_ADOPTIONS,
   GET_ALLREVIEWS,
 } from "./actions/types";
 
@@ -32,6 +34,7 @@ const initialState = {
     total_pages: null,
     next_page: null,
     prev_page: null,
+    
   },
   searchBarValue: "",
   orderByValue: "",
@@ -42,6 +45,7 @@ const initialState = {
   enabledValue: "Si",
   animalById: [],
   allUsers: [],
+  pendingAdoptions: [],
 
   estadisticas: {
     donations: [],
@@ -177,6 +181,13 @@ const rootReducer = (state = initialState, { type, payload }) => {
         allUsers: payload,
       };
     }
+
+  case LOAD_PENDING_ADOPTIONS: {
+    return {
+      ...state,
+      pendingAdoptions: payload,
+    };
+  }
 
     case LOAD_ESTADISTICAS_DONATIONS: {
       return {
