@@ -352,8 +352,10 @@ export const allAdoptions = (
 
       dispatch({
         type: LOAD_ADOPTIONS,
-        payload: data.data,
-        pagination: data.pagination,
+        payload: {
+          adoptions: data.data,
+          pagination: data.pagination,
+        },
       });
 
       dispatch({

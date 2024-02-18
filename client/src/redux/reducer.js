@@ -39,7 +39,13 @@ const initialState = {
     total_pages: null,
     next_page: null,
     prev_page: null,
-    
+  },
+  pagination1: {
+    total_records: 0,
+    current_page: 1,
+    total_pages: null,
+    next_page: null,
+    prev_page: null,
   },
   searchBarValue: "",
   orderByValue: "",
@@ -190,10 +196,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case LOAD_ADOPTIONS: {
       return {
         ...state,
-        allAdoptions: payload,
-        pagination: payload.pagination 
+        allAdoptions: payload.adoptions,
+        pagination1: payload.pagination,
       };
     }
+
 
 
   case LOAD_PENDING_ADOPTIONS: {
