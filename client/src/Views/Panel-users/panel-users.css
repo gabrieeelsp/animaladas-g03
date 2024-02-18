@@ -85,7 +85,7 @@ h2{
 }
 
 .side-menu-panel li{
-    font-size: 14px;
+    font-size: 20px;
     padding:  10px 40px;
     color: #E4A11B;
     display: flex;
@@ -112,11 +112,11 @@ h2{
     width: 80vw;
     height: 10vh;
     background: white;
-    display: flex;
+    display: block;
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-
+    z-index: 1;
 }
 
 .container-panel .header .nav{
@@ -183,7 +183,7 @@ h2{
     position: relative;
     margin-top: 10vh;
     min-height: 98vh;
-
+    background-image: url(https://www.nationalgeographic.com.es/medio/2023/11/24/corgi-y-gato-1_8c9e7bca_231124202120_1280x853.jpg);
 }
 
 .container-panel .content-panel .cards-panel{
@@ -192,6 +192,7 @@ h2{
     align-items:  center;
     justify-content:  space-around; /*space beetween si hay que agregar mas cards*/
     flex-wrap:  wrap;
+ 
     
 }
 
@@ -231,4 +232,55 @@ h2{
     min-height:  50vh;
     margin: 0 25px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    display: flex;
+    flex-direction: column;
+}
+
+.container-panel .content-panel .content-panel-2 .new-students table td:nth-child(1) img{
+    height: 40px;
+    width: 40px;
+}
+
+
+@media screen  and (max-width: 1050px) {
+    .side-menu-panel li{
+        font-size:15px
+    }
+}
+
+@media screen  and (max-width: 940px) {
+    .side-menu-panel li span{
+        display: none;
+    }
+    .side-menu-panel{
+        align-items: center;
+    }
+    .side-menu-panel li i{
+        font-size: 30px;
+    }
+    .side-menu-panel li:hover{
+        background: #f05462;
+        padding: 8px 38px;
+        border: 2px solid white;
+    }
+}
+
+
+@media screen  and (max-width: 530px) {
+    .brand-name h1{
+        font-size: 16px;
+    }
+   .container-panel .content-panel .cards-panel{
+    justify-content: center;
+   }
+   .side-menu-panel li i{
+    font-size: 20px;
+    padding-right: 20px;
+   }
+
+   .container-panel .content-panel .content-panel-2 .recent-payments table th:nth-child(2),
+
+   .container-panel .content-panel .content-panel-2 .recent-payments table td:nth-child(2){
+    display: none;
+   }
 }
