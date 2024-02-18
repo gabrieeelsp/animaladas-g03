@@ -15,17 +15,19 @@ export default function PanelUsers() {
           </div>
           <ul>
             <li>
-              <i className="bi bi-house-door-fill"></i>&nbsp;Inicio
+              <i className="bi bi-house-door-fill"></i>&nbsp;{" "}
+              <span>Inicio</span>
             </li>
             <li>
-              <i class="bi bi-bag-heart-fill"></i>&nbsp;Mis Adopciones
+              <i class="bi bi-bag-heart-fill"></i>&nbsp;
+              <span>Mis Adopciones</span>
             </li>
             <li>
-              <i class="bi bi-wallet-fill"></i>&nbsp; Mis Donaciones
+              <i class="bi bi-wallet-fill"></i>&nbsp;<span>Mis Donaciones</span>
             </li>
             <li onClick={() => navigate(-1)}>
               <i class="bi bi-wallet-fill"></i>
-              &nbsp; Salir del panel
+              &nbsp;<span>Salir del panel</span>
             </li>
           </ul>
         </div>
@@ -80,10 +82,10 @@ export default function PanelUsers() {
                 </div>
                 <table className="table-content-panel">
                   <tr>
-                    <th>Name</th>
-                    <th>school</th>
-                    <th>Amount</th>
-                    <th>Option</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Monto</th>
+                    <th>Opcion</th>
                   </tr>
                   <tr>
                     <td>Jhon Doe</td>
@@ -91,7 +93,7 @@ export default function PanelUsers() {
                     <td>$12.000</td>
                     <td>
                       <a href="#" className="btn-panel">
-                        View
+                        Ver
                       </a>
                     </td>
                   </tr>
@@ -101,7 +103,7 @@ export default function PanelUsers() {
                     <td>$12.000</td>
                     <td>
                       <a href="#" className="btn-panel">
-                        View
+                        Ver
                       </a>
                     </td>
                   </tr>
@@ -111,7 +113,7 @@ export default function PanelUsers() {
                     <td>$12.000</td>
                     <td>
                       <a href="#" className="btn-panel">
-                        View
+                        Ver
                       </a>
                     </td>
                   </tr>
@@ -119,11 +121,63 @@ export default function PanelUsers() {
               </div>
               <div className="new-students">
                 <div className="title-content-panel">
-                  <h2>New-students</h2>
+                  <h2>Adoptados</h2>
                   <a href="#" className="btn-panel">
                     View All
                   </a>
                 </div>
+                <table>
+                  <tr>
+                    <th>foto</th>
+                    <th>Nombre</th>
+                    <th>opcion</th>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src={default_img}></img>
+                    </td>
+                    <td> Luna</td>
+                    <td>
+                      <i className="bi bi-info-circle"></i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src={default_img}></img>
+                    </td>
+                    <td> Dunkan</td>
+                    <td>
+                      <i className="bi bi-info-circle"></i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src={default_img}></img>
+                    </td>
+                    <td> Sasha</td>
+                    <td>
+                      <i className="bi bi-info-circle"></i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src={default_img}></img>
+                    </td>
+                    <td> Pepe</td>
+                    <td>
+                      <i className="bi bi-info-circle"></i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src={default_img}></img>
+                    </td>
+                    <td> Odie</td>
+                    <td>
+                      <i className="bi bi-info-circle"></i>
+                    </td>
+                  </tr>
+                </table>
               </div>
             </div>
           </div>

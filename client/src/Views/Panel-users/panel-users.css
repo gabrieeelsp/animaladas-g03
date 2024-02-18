@@ -259,14 +259,14 @@ h2{
         font-size: 30px;
     }
     .side-menu-panel li:hover{
-        background: #f05462;
+        background: grey;
         padding: 8px 38px;
         border: 2px solid white;
     }
 }
 
 
-@media screen  and (max-width: 530px) {
+@media screen  and (max-width: 536px) {
     .brand-name h1{
         font-size: 16px;
     }
