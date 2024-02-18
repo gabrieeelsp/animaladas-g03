@@ -29,6 +29,9 @@ import {
   REFUSE_ADOPTION_FAILURE,
   REFUSE_ADOPTION_SUCCESS,
   UPDATE_ANIMAL,
+  USER_BY_MAIL,
+  DELETE_USER,
+  UPDATE_USER,
 } from "./actions/types";
 
 const initialState = {
@@ -59,6 +62,8 @@ const initialState = {
   allUsers: [],
   pendingAdoptions: [],
   updatedAnimal: null,
+  userByMail: [],
+  updatedUser: null,
 
   estadisticas: {
     donations: [],
@@ -184,6 +189,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       console.error("Error creating form:", payload);
       return state;
     }
+
     case DELETE_ANIMAL: {
       return state;
     }
@@ -280,12 +286,31 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
       };
-    case 'UPDATE_ANIMAL': {
+    case UPDATE_ANIMAL: {
       return {
         ...state,
         updatedAnimal: payload,
       };
     }
+
+    case USER_BY_MAIL: {
+      return {
+        ...state,
+        userByMail: payload,
+      };
+    }
+
+    case DELETE_USER: {
+      return state;
+    }
+
+    case UPDATE_USER: {
+      return {
+        ...state,
+        updatedUser: payload,
+      };
+    }
+
 
     default:
       return state;

@@ -65,6 +65,7 @@ export default function Nav(props) {
     location.pathname === "/admin/animals" ||
     location.pathname === "/register" ||
     location.pathname === "/admin/forms" ||
+    location.pathname === "/add" ||
     location.pathname === "/admin/reviews" ||
     location.pathname === "/panel"
   ) {

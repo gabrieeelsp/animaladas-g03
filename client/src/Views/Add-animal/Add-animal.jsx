@@ -5,7 +5,7 @@ import axios from "axios";
 import validateform from "./validation";
 import SuccesModal from "../../Components/SuccessModal/SuccesModal";
 import ModalError from "../../Components/ErrorModal/ErrorModal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from 'react-router-dom';
 
 export default function Addanimal(props) {
   const navigate = useNavigate();
@@ -203,26 +203,16 @@ export default function Addanimal(props) {
   const string1 = "hola";
   console.log(error);
   return (
-    <div
-      className="container d-flex justify-content-center align-items-center min-vh-100 mb-2 mt-2"
-      style={{ paddingTop: "45px" }}
-    >
-      <div className="row  rounded-5 p-3 bg-dark shadow box-area border-primary">
-        <div
-          className=" gallery col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
-          style={{ background: "#343a40" }}
-        >
-          {showlogo ? (
-            <div className="featured-image mb-3">
-              <img
-                src={adoptimg}
-                className="img-fluid"
-                style={{ width: "250px" }}
-              ></img>
-            </div>
-          ) : null}
-          <div className="containerlg">
-            <div className="row gy-4 cols-1 ">
+<div className="container d-flex justify-content-center align-items-center" style={{height: "700px", marginTop: "35px", marginBottom: "-90px"}}>
+  <div className="row rounded-5 p-3 bg-dark border-primary">
+    <div className="gallery col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box text-center" style={{ background: "#343a40", width:"600px" }}>
+      {showlogo ? (
+        <div className="featured-image mb-1">
+          <img src={adoptimg} className="img-fluid" style={{ width: "250px" }}></img>
+        </div>
+      ) : null}
+      <div className="containerlg">
+        <div className="row gy-4 cols-1 m-2">
               {showimg1 ? (
                 <div className="col">
                   <img
@@ -292,31 +282,18 @@ export default function Addanimal(props) {
                 </div>
               ) : null}
             </div>
-          </div>
+      </div>
+      <p className="text-warning fs-2" style={{ fontFamily: "'Courier New', Courier, monospace", fontWeight: "600" }}>
+        <i className="bi bi-heart-fill"></i>
+      </p>
+      <small className="text-warning text-wrap text-center" style={{ width: "17rem", fontFamily: "'Courier New', Courier, monospace" }}>
+        "Mi raza favorita es adoptado"
+      </small>
+    </div>
 
-          <p
-            className="text-warning fs-2"
-            style={{
-              fontFamily: "font-family: 'Courier New', Courier, monospace",
-              fontWeight: "600",
-            }}
-          >
-            <i className="bi bi-heart-fill"></i>
-          </p>
-          <small
-            className="text-warning text-wrap text-center"
-            style={{
-              width: "17rem",
-              fontFamily: "Courier New', Courier, monospace",
-            }}
-          >
-            "Mi raza favorita es adoptado"
-          </small>
-        </div>
-
-        <div className="col-md-6 right-box">
-          <div className="row align-items-center">
-            <div className="header-tex text-warning mb4">
+        <div className="col-md-6 mx-3">
+  <div className="row">
+    <div className="header-text text-warning">
               <h2>INGRESO DE MASCOTAS</h2>
               <p>Subir una mascota para adopción</p>
             </div>
@@ -328,6 +305,7 @@ export default function Addanimal(props) {
                 {error.priority_filds}
               </div>
             ) : null}
+            <div className="col-md-6">
             <div className="input-group mb-1">
               {error.showerror_name ? (
                 <div
@@ -340,14 +318,14 @@ export default function Addanimal(props) {
               <input
                 name="name"
                 type="text"
-                className="form-control form form-control-lg bg-light fs-6"
+                className="form-control form form-control-lg bg-light fs-6 mx-1"
                 placeholder="*Nombre"
                 onChange={(e) => handlechange(e)}
               ></input>
             </div>
             <div className="input-group">
               <select
-                className=" form-select  mb-1 col-2"
+                className=" form-select mb-1 col-2 mx-1"
                 aria-label="Default select example"
                 style={{ width: "" }}
                 onChange={(e) => handlechange(e)}
@@ -360,7 +338,7 @@ export default function Addanimal(props) {
             </div>
             <div className="input-group">
               <select
-                className=" form-select  mb-1 col-2"
+                className=" form-select mb-1 col-2 mx-1"
                 aria-label="Default select example"
                 style={{ width: "" }}
                 name="species"
@@ -373,7 +351,7 @@ export default function Addanimal(props) {
             </div>
             <div className="input-group">
               <select
-                className=" form-select  mb-1 col-2"
+                className=" form-select mb-1 col-2 mx-1"
                 aria-label="Default select example"
                 style={{ width: "" }}
                 name="status"
@@ -387,7 +365,7 @@ export default function Addanimal(props) {
             </div>
             <div className="input-group">
               <select
-                className=" form-select  mb-1 col-2"
+                className=" form-select mb-1 col-2 mx-1"
                 aria-label="Default select example"
                 style={{ width: "" }}
                 onChange={(e) => handlechange(e)}
@@ -402,7 +380,7 @@ export default function Addanimal(props) {
             <div className="input-group mb-1">
               {error.showerror_estimatedBirthYear ? (
                 <div
-                  className="input-group mb-1 alert alert-warning"
+                  className="input-group mb-1 alert alert-warning mx-1"
                   role="alert"
                 >
                   {error.estimatedBirthYear}
@@ -410,8 +388,8 @@ export default function Addanimal(props) {
               ) : null}
               <input
                 type="text"
-                className="form-control form form-control-lg bg-light fs-6"
-                placeholder="*Año de nacimiento "
+                className="form-control form form-control-lg bg-light fs-6 mx-1"
+                placeholder="*Año de nacimiento"
                 name="estimatedBirthYear"
                 onChange={(e) => handlechange(e)}
               ></input>
@@ -419,7 +397,7 @@ export default function Addanimal(props) {
             <div className="input-group mb-1">
               {error.showerror_weight ? (
                 <div
-                  className="input-group mb-1 alert alert-warning"
+                  className="input-group mb-1 alert alert-warning mx-1"
                   role="alert"
                 >
                   {error.weight}
@@ -427,18 +405,18 @@ export default function Addanimal(props) {
               ) : null}
               <input
                 type="text"
-                className="form-control form form-control-lg bg-light fs-6"
+                className="form-control form form-control-lg bg-light fs-6 mx-1"
                 placeholder="*Peso"
                 name="weight"
                 onChange={(e) => handlechange(e)}
               ></input>
             </div>
             <div className="form-group">
-              <label className="input-group mb-1 mt-3 text-warning">
+              <label className="input-group mb-1 mt-2 text-warning mx-1">
                 Historia del rescate
               </label>
               <textarea
-                className="form-control"
+                className="form-control mx-1"
                 id="exampleFormControlTextarea1"
                 rows="3"
                 name="rescued_story"
@@ -446,21 +424,23 @@ export default function Addanimal(props) {
               ></textarea>
             </div>
             <div className="form-group">
-              <label className="input-group mb-1 mt-3 text-warning">
+              <label className="input-group mb-1 mt-2 text-warning mx-1">
                 Historia de la adopción
               </label>
               <textarea
-                className="form-control"
+                className="form-control mx-1"
                 id="exampleFormControlTextarea1"
                 rows="3"
                 name="adoption_story"
                 onChange={(e) => handlechange(e)}
               ></textarea>
             </div>
-            <label className="input-group mb-1 mt-3 text-warning">
+            </div>
+            <div className="col-md-6">
+            <label className="input-group mb-1 mt-2 text-warning mx-1">
               Foto del rescate (opcional):
             </label>
-            <div className=" input-group mb-1 mt-3">
+            <div className=" input-group mb-1 mt-2 mx-1">
               <input
                 className="form-control"
                 type="file"
@@ -469,10 +449,10 @@ export default function Addanimal(props) {
                 name="image1"
               ></input>
             </div>
-            <label className="input-group mb-1 mt-3 text-warning">
+            <label className="input-group mb-1 mt-2 text-warning mx-1">
               Foto para adopcion :
             </label>
-            <div className=" input-group mb-1 mt-3">
+            <div className=" input-group mb-1 mt-2 mx-1">
               <input
                 className="form-control"
                 type="file"
@@ -481,10 +461,10 @@ export default function Addanimal(props) {
                 name="image2"
               ></input>
             </div>
-            <label className="input-group mb-1 mt-3 text-warning">
+            <label className="input-group mb-1 mt-2 text-warning mx-1">
               Foto adoptado:
             </label>
-            <div className=" input-group mb-1 mt-3">
+            <div className="input-group mb-1 mt-2 mx-1">
               <input
                 className="form-control"
                 type="file"
@@ -493,10 +473,10 @@ export default function Addanimal(props) {
                 name="image3"
               ></input>
             </div>
-            <label className="input-group mb-1 mt-3 text-warning">
+            <label className="input-group mb-1 mt-2 text-warning mx-1">
               Foto adicional (opcional):
             </label>
-            <div className=" input-group mb-1 mt-3">
+            <div className=" input-group mb-1 mt-2 mx-1">
               <input
                 className="form-control"
                 type="file"
@@ -505,11 +485,12 @@ export default function Addanimal(props) {
                 name="image4"
               ></input>
             </div>
-            <div className="input-group mb-1 d-flex ">
+            <p></p>
+            <div className="input-group mb-1 d-flex">
               <div className="form-check">
                 <input
                   type="checkbox"
-                  className="form-check-input"
+                  className="form-check-input mx-1"
                   id="formCheck"
                   name="vaccines"
                   onChange={(e) => handlechange(e)}
@@ -522,11 +503,11 @@ export default function Addanimal(props) {
                 </label>
               </div>
             </div>
-            <div className="input-group mb-1 d-flex ">
+            <div className="input-group mb-1 d-flex">
               <div className="form-check">
                 <input
                   type="checkbox"
-                  className="form-check-input"
+                  className="form-check-input mx-1"
                   id="formCheck"
                   name="disability_illness"
                   onChange={(e) => handlechange(e)}
@@ -539,27 +520,34 @@ export default function Addanimal(props) {
                 </label>
               </div>
             </div>
-            <div className="input-group mb-1 d-flex ">
+            <div className="input-group mb-1 d-flex">
               <div className="form-check">
                 <input
                   type="checkbox"
-                  className="form-check-input"
+                  className="form-check-input mx-1"
                   id="formCheck"
                   name="castrated"
                   onChange={(e) => handlechange(e)}
                 ></input>
                 <label
                   htmlFor="formCheck"
-                  className="form-check-label text-warning"
+                  className="form-check-label text-warning mx-1"
                 >
                   <small>Castrado</small>
                 </label>
               </div>
             </div>
-            <div className="input-group mb-3">
+            </div>
+            <div className="input-group mb-2 mx-1 d-flex justify-content-center">
+            <NavLink to="/admin/animals">
+              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "50px" }}>
+              <i className="bi-house-door-fill"></i>
+              </button>
+              </NavLink>
               <button
                 onClick={(e) => save_dog(e)}
-                className="btn btn-lg btn-warning w-100 fs-6 text-white fw-bold"
+                className="btn btn-lg btn-warning rounded-3 fs-6 text-black fw-bold m-4"
+                style={{ width: "100px" }}
               >
                 Crear
               </button>

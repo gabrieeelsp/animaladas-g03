@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearAll, updateAnimal, loadAnimals, set_orderby_value, set_orderdir_value } from "../../redux/actions/actions";
 
@@ -14,8 +14,8 @@ export default function ModalAnimals(props) {
     gender,
     estimatedBirthYear,
     weight,
-    image2,
-    image3,
+    image2: { url: image2, file: null },
+    image3: { url: image3, file: null },
     rescued_story,
     adoption_story,
     castrated,
@@ -44,6 +44,17 @@ export default function ModalAnimals(props) {
     }));
   };
 
+  const handleImageChange = (e) => {
+    const { name, files } = e.target;
+    const file = files[0];
+    const url = URL.createObjectURL(file);
+    setUpdatedAnimalData((prevState) => ({
+      ...prevState,
+      [name]: { url: url, file: file },
+    }));
+  };
+  
+
   const handleUpdateAnimal = () => {
     setUpdatedAnimalData(prevState => ({
       ...prevState,
@@ -56,8 +67,6 @@ export default function ModalAnimals(props) {
     });
   };
   
-
-
   return (
       <div>
         <div className="modal fade" id={`exampleModal${id}`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
