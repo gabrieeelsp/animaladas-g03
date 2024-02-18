@@ -6,6 +6,8 @@ import secondimg from "../../img/logo_google.png";
 import thirdimg from "../../img/succes.png";
 export default function PanelUsers() {
   const navigate = useNavigate();
+
+  const getall_donations = async () => {};
   return (
     <>
       <div className="bodypage">
