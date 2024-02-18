@@ -78,6 +78,7 @@ export default function AdminAnimals() {
                             animals && animals.map((animal) => (
                                 <div key={animal.id} className="col-md-4 mb-3">
                                     <CardAdmin
+                                        key={animal.id}
                                         id={animal.id}
                                         name={animal.name}
                                         species={animal.species}

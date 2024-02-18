@@ -8,7 +8,7 @@ const generateToken = (user) => {
         email: user.email,
         password: user.password,
     };
-    console.log('valor del payload', payload);
+
     const options = {
         expiresIn: '24h',
     };

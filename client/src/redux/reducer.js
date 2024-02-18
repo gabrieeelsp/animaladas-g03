@@ -28,6 +28,7 @@ import {
   ACCEPT_ADOPTION_FAILURE,
   REFUSE_ADOPTION_FAILURE,
   REFUSE_ADOPTION_SUCCESS,
+  UPDATE_ANIMAL,
 } from "./actions/types";
 
 const initialState = {
@@ -57,6 +58,7 @@ const initialState = {
   animalById: [],
   allUsers: [],
   pendingAdoptions: [],
+  updatedAnimal: null,
 
   estadisticas: {
     donations: [],
@@ -278,6 +280,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
       };
+    case 'UPDATE_ANIMAL': {
+      return {
+        ...state,
+        updatedAnimal: payload,
+      };
+    }
 
     default:
       return state;
