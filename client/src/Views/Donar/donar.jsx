@@ -1,4 +1,4 @@
-import { useEffect, useState  } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,7 +6,6 @@ import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import "./Donar.css";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import ModalError from "../../Components/ErrorModal/ErrorModal";
-
 
 library.add(faPaw);
 
@@ -20,9 +19,6 @@ const Donar = (props) => {
   const [customAmount, setCustomAmount] = useState("");
   const [showGratitudeMessage, setShowGratitudeMessage] = useState(true);
   const [ShowModalErorr, SetShowModalError] = useState(false);
-
-
-
 
   useEffect(() => {
     initMercadoPago(import.meta.env.VITE_API_KEY_MERCADOPAGO, {
@@ -61,7 +57,7 @@ const Donar = (props) => {
       throw error;
     }
   };
- 
+
   const handleDonarClick = async (amount) => {
     if (!window.localStorage.user_info) {
       SetMessageModal(
@@ -79,7 +75,7 @@ const Donar = (props) => {
       email: "correo@ejemplo.com",
       client_id: "cliente123",
     };
-  
+
     try {
       const id = await createPreference(amount, userDetails);
       console.log("ID de preferencia obtenida:", id);
@@ -120,7 +116,7 @@ const Donar = (props) => {
   };
 
   return (
-    <div className="container donar-container">
+    <div className="container donar-container" style={{ paddingTop: "45px" }}>
       <div className="row mt-3">
         <div className="col-md-6 mb-4 mt-5" style={{ height: "700px" }}>
           <img
@@ -240,7 +236,6 @@ const Donar = (props) => {
                 </p>
               </div>
 
-
               {selectedAmount !== null ? (
                 <p className="text-info mt-3 mb-4">
                   Monto seleccionado: ${selectedAmount}
@@ -250,10 +245,6 @@ const Donar = (props) => {
                   Monto seleccionado: Ninguno
                 </p>
               )}
-
-
-
-
 
               <div className="wallet-container">
                 {preferenceId && (
@@ -277,9 +268,7 @@ const Donar = (props) => {
         </div>
       </div>
 
-    
-
-       {ShowModalErorr && (
+      {ShowModalErorr && (
         <ModalError
           MessageModal={MessageModal}
           ShowModalMessage={ShowModalErorr}

@@ -5,7 +5,7 @@ import axios from "axios";
 import validateform from "./validation";
 import SuccesModal from "../../Components/SuccessModal/SuccesModal";
 import ModalError from "../../Components/ErrorModal/ErrorModal";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function Addanimal(props) {
   const navigate = useNavigate();
@@ -198,12 +198,15 @@ export default function Addanimal(props) {
     Setshowimg3(false);
     Setshowimg4(false);
 
-    navigate('/admin/animals');
+    navigate("/admin/animals");
   };
   const string1 = "hola";
   console.log(error);
   return (
-    <div className="container d-flex justify-content-center align-items-center min-vh-100 mb-2 mt-2">
+    <div
+      className="container d-flex justify-content-center align-items-center min-vh-100 mb-2 mt-2"
+      style={{ paddingTop: "45px" }}
+    >
       <div className="row  rounded-5 p-3 bg-dark shadow box-area border-primary">
         <div
           className=" gallery col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"

@@ -19,6 +19,7 @@ export default function Nav(props) {
   const dispatch = useDispatch();
   const [MessageModal, SetMessageModal] = useState("");
   const [ShowModalSucces, SetShowModalSucces] = useState(false);
+  const [Showuserpanel, Setshowuserpanl] = useState(false);
   let showloginbutton = true;
   let showprofile_img = false;
   let user_info = {};
@@ -64,7 +65,8 @@ export default function Nav(props) {
     location.pathname === "/admin/animals" ||
     location.pathname === "/register" ||
     location.pathname === "/admin/forms" ||
-    location.pathname === "/admin/reviews"
+    location.pathname === "/admin/reviews" ||
+    location.pathname === "/panel"
   ) {
     return null;
   }
@@ -201,8 +203,7 @@ export default function Nav(props) {
                   </button>
                 </NavLink>
               </li>
-              <li className="nav-item">
-              </li>
+              <li className="nav-item"></li>
               <li className="nav-item">
                 <NavLink to="/donar">
                   <button
@@ -233,8 +234,7 @@ export default function Nav(props) {
                   </button>
                 </NavLink>
               </li>
-              <li className="nav-item">
-              </li>
+              <li className="nav-item"></li>
             </ul>
             <SearchBar />
             {showloginbutton && (
