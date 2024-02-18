@@ -198,12 +198,12 @@ export default function Addanimal(props) {
     Setshowimg3(false);
     Setshowimg4(false);
 
-    navigate('/admin/animals');
+    navigate("/admin/animals");
   };
   const string1 = "hola";
   console.log(error);
   return (
-<div className="container d-flex justify-content-center align-items-center" style={{height: "680px", marginTop: "0px", marginBottom: "-80px"}}>
+<div className="container d-flex justify-content-center align-items-center" style={{height: "700px", marginTop: "35px", marginBottom: "-90px"}}>
   <div className="row rounded-5 p-3 bg-dark border-primary">
     <div className="gallery col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box text-center" style={{ background: "#343a40", width:"600px" }}>
       {showlogo ? (

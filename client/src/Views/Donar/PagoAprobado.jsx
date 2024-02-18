@@ -4,7 +4,7 @@ import axios from "axios";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
-import "./PagoAprobado.css"
+import "./PagoAprobado.css";
 
 export default function PagoAprobado() {
   const navigate = useNavigate();
@@ -12,37 +12,40 @@ export default function PagoAprobado() {
   const preferenceId = searchParams.get("preference_id");
   const [totalAmount, setTotalAmount] = useState(null);
 
-
   useEffect(() => {
     const createOrder = async () => {
       try {
         const status = searchParams.get("status");
         if (status === "approved") {
-          const response = await fetch('http://localhost:3001/mercadopago/pago-aprobado', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              preferenceId,
-            }),
-          });
+          const response = await fetch(
+            "http://localhost:3001/mercadopago/pago-aprobado",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                preferenceId,
+              }),
+            }
+          );
 
           const responseData = await response.json();
 
           const { totalAmount, status } = responseData;
-          if (status === 'opened') {
-            console.log('La orden se creó con éxito:', responseData);
+          if (status === "opened") {
+            console.log("La orden se creó con éxito:", responseData);
             setTotalAmount(totalAmount);
           } else {
-            console.log('La orden no se creó con éxito. Estado de la orden:', responseData.status);
+            console.log(
+              "La orden no se creó con éxito. Estado de la orden:",
+              responseData.status
+            );
           }
         }
-
-
       } catch (error) {
-        console.error('Error al crear la orden:', error);
-        console.error('Respuesta completa del error:', error.response);
+        console.error("Error al crear la orden:", error);
+        console.error("Respuesta completa del error:", error.response);
       }
     };
 
@@ -57,12 +60,11 @@ export default function PagoAprobado() {
       const animalId = null;
 
       if (amount) {
-        axios.post("http://localhost:3001/donations", { userId, amount, animalId })
+        axios
+          .post("http://localhost:3001/donations", { userId, amount, animalId })
           .then((donationResponse) => {
             console.log("Donación creada con éxito:", donationResponse.data);
-            navigate('/donar/pago-aprobado');
-
-
+            navigate("/donar/pago-aprobado");
           })
           .catch((donationError) => {
             console.error("Error al crear la donación:", donationError);
@@ -76,14 +78,18 @@ export default function PagoAprobado() {
   }, [totalAmount]);
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5" style={{ paddingTop: "45px" }}>
       <div className="row justify-content-center">
         <div className="col-md-8">
           <div className="card donar-custom-card mt-3 pago-aprobado-card">
             <div className="card-body card-donar-body text-center">
               <div className="text-warning display-4 mb-3">¡Pago Aprobado!</div>
-              <p className="card-text">¡Tu pago ha sido procesado exitosamente!</p>
-              <p className="card-text">Te agradecemos enormemente por tu contribución.</p>
+              <p className="card-text">
+                ¡Tu pago ha sido procesado exitosamente!
+              </p>
+              <p className="card-text">
+                Te agradecemos enormemente por tu contribución.
+              </p>
               <FontAwesomeIcon icon={faPaw} />
             </div>
           </div>

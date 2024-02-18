@@ -22,6 +22,11 @@ import {
   LOAD_ESTADISTICAS_ADOPTIONS,
   LOAD_PENDING_ADOPTIONS,
   GET_ALLREVIEWS,
+  LOAD_ADOPTIONS,
+  ACCEPT_ADOPTION_SUCCESS,
+  ACCEPT_ADOPTION_FAILURE,
+  REFUSE_ADOPTION_FAILURE,
+  REFUSE_ADOPTION_SUCCESS,
   UPDATE_ANIMAL,
   USER_BY_MAIL,
   UPDATE_USER,
@@ -244,8 +249,23 @@ export const orderByAge = (order) => {
 };
 
 export const createForm = (formData) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
+      const { animalById } = getState().rootReducer;
+      const userId = formData.userId;
+      const animalId = formData.animalId;
+
+      // Verificar adopciones pendientes
+      const pendingAdoptions = getState().rootReducer.pendingAdoptions;
+      const isPending = pendingAdoptions.some(
+        (adoption) => adoption.userId === userId && adoption.animalId === animalId
+      );
+
+      if (isPending) {
+        throw new Error("Ya existe una solicitud de adopción pendiente para este usuario y animal.");
+      }
+
+      // Si no hay adopciones pendientes, procede con el envío del formulario
       const response = await axios.post(`${urlBaseAxios}/adoptions`, formData);
       const createdForm = response.data;
 
@@ -287,7 +307,7 @@ export const deleteAnimal = (id, enabled) => {
 export const pendingAdoptions = (userId, animalId) => {
   return async (dispatch) => {
     try {
-  
+
       const response = await axios.get(`${urlBaseAxios}/adoptions/get_pending_adoption`, {
         params: {
           userId: userId,
@@ -297,7 +317,7 @@ export const pendingAdoptions = (userId, animalId) => {
 
       const pendingAdoptionsData = response.data.data;
 
-    
+
       dispatch({
         type: LOAD_PENDING_ADOPTIONS,
         payload: pendingAdoptionsData,
@@ -309,15 +329,48 @@ export const pendingAdoptions = (userId, animalId) => {
   };
 };
 
-export const allAdoptions = async () => {
-  try {
-    const response = await axios.get(`${urlBaseAxios}/adoptions`);
-    return response.data.data;
-  } catch (error) {
-    console.error("Error fetching adoptions:", error);
-    throw error;
-  }
+export const allAdoptions = (
+  userId,
+  animalId,
+  page = 1,
+  animalsPerPage = 5,
+  orderby,
+  orderdir,
+) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${urlBaseAxios}/adoptions`, {
+        params: {
+          userId,
+          animalId,
+          page,
+          limit: animalsPerPage,
+          orderby,
+          orderdir,
+        },
+      });
+
+      const data = response.data;
+
+      dispatch({
+        type: LOAD_ADOPTIONS,
+        payload: {
+          adoptions: data.data,
+          pagination: data.pagination,
+        },
+      });
+
+      dispatch({
+        type: UPDATE_PAGINATION,
+        payload: data.pagination,
+      });
+    } catch (error) {
+      console.error("Error al cargar las adopciones:", error);
+
+    }
+  };
 };
+
 
 export const loadUsers = () => {
   return async (dispatch) => {
@@ -387,6 +440,39 @@ export const get_allreviews = () => {
   };
 };
 
+export const acceptAdoption = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(`${urlBaseAxios}/adoptions/${id}/accept`);
+      dispatch({
+        type: ACCEPT_ADOPTION_SUCCESS,
+        payload: response.data.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ACCEPT_ADOPTION_FAILURE,
+        payload: error,
+      });
+    }
+  };
+};
+
+export const refuseAdoption = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(`${urlBaseAxios}/adoptions/${id}/refuse`);
+      dispatch({
+        type: REFUSE_ADOPTION_SUCCESS,
+        payload: response.data.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: REFUSE_ADOPTION_FAILURE,
+        payload: error,
+      });
+    }
+  };
+};
 export const updateAnimal = (id, updateValues) => {
   return async (dispatch) => {
     try {

@@ -22,7 +22,12 @@ import {
   SET_ESTADITICAS_TAB,
   LOAD_ESTADISTICAS_ADOPTIONS,
   LOAD_PENDING_ADOPTIONS,
+  LOAD_ADOPTIONS,
   GET_ALLREVIEWS,
+  ACCEPT_ADOPTION_SUCCESS,
+  ACCEPT_ADOPTION_FAILURE,
+  REFUSE_ADOPTION_FAILURE,
+  REFUSE_ADOPTION_SUCCESS,
   UPDATE_ANIMAL,
   USER_BY_MAIL,
   DELETE_USER,
@@ -33,6 +38,13 @@ const initialState = {
   allAnimals: [],
   statusAnimals: [],
   pagination: {
+    total_records: 0,
+    current_page: 1,
+    total_pages: null,
+    next_page: null,
+    prev_page: null,
+  },
+  pagination1: {
     total_records: 0,
     current_page: 1,
     total_pages: null,
@@ -189,6 +201,16 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
     }
 
+    case LOAD_ADOPTIONS: {
+      return {
+        ...state,
+        allAdoptions: payload.adoptions,
+        pagination1: payload.pagination,
+      };
+    }
+
+
+
   case LOAD_PENDING_ADOPTIONS: {
     return {
       ...state,
@@ -245,6 +267,25 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
     }
 
+    case ACCEPT_ADOPTION_SUCCESS:
+      return {
+        ...state,
+      };
+
+      case ACCEPT_ADOPTION_FAILURE:
+      return {
+        ...state,
+      };
+
+      case REFUSE_ADOPTION_SUCCESS:
+      return {
+        ...state,
+      };
+
+      case REFUSE_ADOPTION_FAILURE:
+      return {
+        ...state,
+      };
     case UPDATE_ANIMAL: {
       return {
         ...state,

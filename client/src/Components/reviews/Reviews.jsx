@@ -234,7 +234,7 @@ export default function Reviews(props) {
         </div>
       )}
       <div style={{ boxSizing: "border-box", margin: "0px", padding: "0px" }}>
-        <section id="testimonials">
+        <section id="testimonials" style={{ paddingTop: "45px" }}>
           <div className="testimonial-heading">
             <span>Comentarios</span>
             <h1>Las personas dicen</h1>

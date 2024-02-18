@@ -1,25 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearAll, animalById, createForm, pendingAdoptions } from "../../redux/actions/actions";
+import { useState, useEffect } from "react";
+import {
+  clearAll,
+  animalById,
+  createForm,
+  allAdoptions,
+} from "../../redux/actions/actions";
 import ModalError from "../../Components/ErrorModal/ErrorModal";
-import SuccessModal from "../../Components/SuccessModal/SuccesModal";
 
 export default function Detail(props) {
   const { MessageModal, SetMessageModal } = props;
   const { id } = useParams();
   const dispatch = useDispatch();
   const [ShowModalError, SetShowModalError] = useState(false);
-  const [ShowModalSuccess, SetShowModalSuccess] = useState(false);
   const [formData, setFormData] = useState({
     familyMembers: 0,
     allAgree: "si",
     hasOutdoorSpace: "si",
-    assumesResponsibility: "si"
+    assumesResponsibility: "si",
   });
   const animal = useSelector((state) => state.rootReducer.animalById);
-  const userId = window.localStorage.getItem('user_info') ? JSON.parse(window.localStorage.getItem('user_info')).id : null;
-  const pendingAdoptionData = useSelector((state) => state.rootReducer.pendingAdoptionData);
+  const userId = window.localStorage.getItem("user_info")
+    ? JSON.parse(window.localStorage.getItem("user_info")).id
+    : null;
+  const allAdoptions = useSelector((state) => state.rootReducer.allAdoptions);
 
   useEffect(() => {
     const getAnimalDetail = () => {
@@ -29,42 +35,17 @@ export default function Detail(props) {
     getAnimalDetail();
   }, [dispatch, id]);
 
-  const handleFormSubmit = async (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
-
-    try {
-      if (userId && animal.id) {
-        const pendingAdoptionsData = await dispatch(pendingAdoptions(userId, id));
-        if (pendingAdoptionsData && pendingAdoptionsData.length > 0) {
-          const hasPendingAdoption = pendingAdoptionsData.some(adoption =>
-            adoption.userId === userId && adoption.animalId === parseInt(id) && adoption.status === "pendiente"
-          );
-          if (hasPendingAdoption) {
-            SetMessageModal('Ya tienes una solicitud de adopción pendiente para este animal.');
-            SetShowModalError(true);
-            return;
-          }
-        }
-      }
-
-      const adoptionFormData = {
-        userId: userId,
-        animalId: parseInt(id),
-        familyMembers: formData.familyMembers,
-        allAgree: formData.allAgree,
-        hasOutdoorSpace: formData.hasOutdoorSpace,
-        assumesResponsibility: formData.assumesResponsibility,
-      };
-
-      dispatch(createForm(adoptionFormData));
-
-      SetMessageModal('¡El formulario de adopción se envió con éxito!');
-      SetShowModalSuccess(true);
-    } catch (error) {
-      console.error('Error al enviar el formulario de adopción:', error);
-      SetShowModalError(true);
-      SetMessageModal('Error al enviar el formulario de adopción');
-    }
+    const adoptionFormData = {
+      userId: userId,
+      animalId: animal.id,
+      familyMembers: formData.familyMembers,
+      allAgree: formData.allAgree,
+      hasOutdoorSpace: formData.hasOutdoorSpace,
+      assumesResponsibility: formData.assumesResponsibility,
+    };
+    dispatch(createForm(adoptionFormData));
   };
 
   const calculateAge = (estimatedBirthYear) => {
@@ -80,7 +61,10 @@ export default function Detail(props) {
 
   return (
     <div>
-      <div className="container d-flex align-items-center justify-content-center my-5">
+      <div
+        className="container d-flex align-items-center justify-content-center my-5"
+        style={{ paddingTop: "25px" }}
+      >
         <div
           className="row bg-dark p-4 align-items-center justify-content-center"
           style={{ width: "1000px", borderRadius: "50px" }}
@@ -119,6 +103,7 @@ export default function Detail(props) {
                   width: "auto",
                 }}
               >
+                {" "}
                 <h1
                   className="card-title"
                   style={{
@@ -132,16 +117,12 @@ export default function Detail(props) {
                 </h1>
               </div>
               <h4 className="card-text text-left">Sexo: {animal.gender}</h4>
-              <h4 className="card-text text-left">
-                Especie: {animal.species}
-              </h4>
+              <h4 className="card-text text-left">Especie: {animal.species}</h4>
               <h4 className="card-text text-left">
                 Edad (estimada): {calculateAge(animal.estimatedBirthYear)}
               </h4>
               <h4 className="card-text text-left">Tamaño: {animal.size}</h4>
-              <h4 className="card-text text-left">
-                Peso: {animal.weight} kg
-              </h4>
+              <h4 className="card-text text-left">Peso: {animal.weight} kg</h4>
               <h4 className="card-text text-left">
                 Vacunado/a: {animal.vaccines ? "si" : "no"}
               </h4>
@@ -170,7 +151,7 @@ export default function Detail(props) {
             id="staticBackdrop"
             data-bs-backdrop="static"
             data-bs-keyboard="false"
-            tabIndex="-1"
+            tabindex="-1"
             aria-labelledby="staticBackdropLabel"
             aria-hidden="true"
           >
@@ -267,7 +248,7 @@ export default function Detail(props) {
                       className="btn btn-primary"
                       data-bs-dismiss="modal"
                     >
-                      Submit 
+                      Submit
                     </button>
                   </div>
                 </form>
@@ -277,22 +258,12 @@ export default function Detail(props) {
         </div>
       </div>
 
-      {/* Agregar el SuccessModal */}
-      {ShowModalSuccess && (
-        <SuccessModal
-          MessageModal={MessageModal}
-          SetShowModalMessage={SetShowModalSuccess}
-          ShowModalMessage={ShowModalSuccess}
-        />
-      )}
-
-      {/* Agregar el ModalError */}
       {ShowModalError && (
         <ModalError
           MessageModal={MessageModal}
           ShowModalMessage={ShowModalError}
           SetShowModalMessage={SetShowModalError}
-        />
+        ></ModalError>
       )}
     </div>
   );
