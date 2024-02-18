@@ -24,7 +24,7 @@ import PasswordRecover from "./Components/PasswordRecover/PasswordRecover";
 import PagoAprobado from "./Views/Donar/PagoAprobado";
 import AdminForms from "./Views/AdminForms/AdminForms";
 import AdminReviews from "./Views/AdminReviews/AdminReviews";
-
+import PanelUsers from "./Views/Panel-users/Panel-users";
 function App() {
   const [MessageModal, SetMessageModal] = useState("");
 
@@ -36,7 +36,7 @@ function App() {
         <Route path="/adoptar" element={<Adoptar />}></Route>
         <Route path="/adoptados" element={<Adoptado />}></Route>
         <Route path="/rescatados" element={<Rescatado />}></Route>
-
+        <Route path="/panel" element={<PanelUsers />}></Route>
         <Route
           path="/detail/:id"
           element={
@@ -124,12 +124,7 @@ function App() {
           }
         />
 
-        <Route
-          path="/estadisticas"
-          element={
-            <Estadisticas />
-          }
-        />
+        <Route path="/estadisticas" element={<Estadisticas />} />
         <Route path="/admin" element={<AdminView />} />
         <Route path="/admin/users" element={<AdminUsers />} />
         <Route path="/admin/animals" element={<AdminAnimals />} />

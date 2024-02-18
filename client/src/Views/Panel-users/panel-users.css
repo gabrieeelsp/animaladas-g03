@@ -1,0 +1,153 @@
+body{
+    padding-top: 0px;
+}
+.bodypage{
+    position: relative;
+    margin: 0;
+    padding: 0;
+    margin-top: 0;
+    box-sizing: border-box;
+    min-height: 100vh;
+    background: red;
+    
+}
+
+
+
+.bodypage h1{
+    color: #E4A11B;
+}
+
+
+
+.bodypage a{
+    text-decoration: none;
+}
+
+.bodypage li{
+    list-style: none;
+}
+
+.bodypage h1,
+h2{
+    color:#E4A11B
+}
+.btn-panel{
+    background: #f05462;
+    color: white;
+    padding:  5px 10px;
+    text-align: center;
+}
+
+.btn-panel:hover{
+    color:#f05462;
+    background: white;
+    padding:  3px 8px;
+    border:  2px solid;
+}
+.side-menu-panel{
+
+    position: fixed;
+    background:  #212529;
+    width: 20vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-menu-panel .brand-name{
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.side-menu-panel li{
+    font-size: 14px;
+    padding:  10px 40px;
+    color: #E4A11B;
+    display: flex;
+    align-items: center;
+}
+
+.side-menu-panel li:hover{
+    background-color: white;
+    color:#E4A11B
+}
+
+.container-panel{
+    position: absolute;
+    right: 0;
+    width:  80vw;
+    height:  100vh;
+    background: #f1f1f1;
+}
+
+.container-panel .header{
+    position: fixed;
+    top:0;
+    right: 0;
+    width: 80vw;
+    height: 10vh;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+
+}
+
+.container-panel .header .nav{
+    width: 90% ;
+    display: flex;
+    align-items: center;
+}
+
+.container-panel .header .nav .search{
+    flex: 3;
+    display:flex;
+    justify-content: center;
+    
+}
+
+.container-panel .header .nav .search input[type="text"]{
+    border: none;
+    background: #f1f1f1;
+    padding:  8px; /*10px*/
+    width: 50%;
+}
+.container-panel .header button{
+    width: 40px;
+    height: 40px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-panel .header button i{
+    width: 30px;
+    height: 30px;
+}
+.container-panel .header .nav .user{
+    flex: 1;
+    background:  hotpink;
+    
+}
+
+.container-panel header .nav .user .img-case{
+    position: relative;
+    width: 50px;
+    height: 50px;
+
+}
+
+.container-panel header .nav .user .imgcase img{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100% ;
+    height: 100%;
+    cursor: pointer;
+    
+}

@@ -6,7 +6,7 @@ import "./Home.css";
 export default function Home() {
   console.log("pagina home.jsx");
   return (
-    <div>
+    <div style={{ paddingTop: "45px" }}>
       <div
         id="carouselExampleAutoplaying"
         className="carousel slide mb-4"

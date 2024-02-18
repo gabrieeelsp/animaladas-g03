@@ -191,7 +191,7 @@ export default function Adoptar() {
   };
 
   return (
-    <div>
+    <div style={{ paddingTop: "45px" }}>
       {loading ? (
         <Loader />
       ) : (

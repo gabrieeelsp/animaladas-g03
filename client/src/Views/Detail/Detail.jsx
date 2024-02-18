@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearAll, animalById, createForm, pendingAdoptions } from "../../redux/actions/actions";
+import {
+  clearAll,
+  animalById,
+  createForm,
+  pendingAdoptions,
+} from "../../redux/actions/actions";
 import ModalError from "../../Components/ErrorModal/ErrorModal";
 import SuccessModal from "../../Components/SuccessModal/SuccesModal";
 
@@ -15,11 +20,15 @@ export default function Detail(props) {
     familyMembers: 0,
     allAgree: "si",
     hasOutdoorSpace: "si",
-    assumesResponsibility: "si"
+    assumesResponsibility: "si",
   });
   const animal = useSelector((state) => state.rootReducer.animalById);
-  const userId = window.localStorage.getItem('user_info') ? JSON.parse(window.localStorage.getItem('user_info')).id : null;
-  const pendingAdoptionData = useSelector((state) => state.rootReducer.pendingAdoptionData);
+  const userId = window.localStorage.getItem("user_info")
+    ? JSON.parse(window.localStorage.getItem("user_info")).id
+    : null;
+  const pendingAdoptionData = useSelector(
+    (state) => state.rootReducer.pendingAdoptionData
+  );
 
   useEffect(() => {
     const getAnimalDetail = () => {
@@ -34,13 +43,20 @@ export default function Detail(props) {
 
     try {
       if (userId && animal.id) {
-        const pendingAdoptionsData = await dispatch(pendingAdoptions(userId, id));
+        const pendingAdoptionsData = await dispatch(
+          pendingAdoptions(userId, id)
+        );
         if (pendingAdoptionsData && pendingAdoptionsData.length > 0) {
-          const hasPendingAdoption = pendingAdoptionsData.some(adoption =>
-            adoption.userId === userId && adoption.animalId === parseInt(id) && adoption.status === "pendiente"
+          const hasPendingAdoption = pendingAdoptionsData.some(
+            (adoption) =>
+              adoption.userId === userId &&
+              adoption.animalId === parseInt(id) &&
+              adoption.status === "pendiente"
           );
           if (hasPendingAdoption) {
-            SetMessageModal('Ya tienes una solicitud de adopción pendiente para este animal.');
+            SetMessageModal(
+              "Ya tienes una solicitud de adopción pendiente para este animal."
+            );
             SetShowModalError(true);
             return;
           }
@@ -58,12 +74,12 @@ export default function Detail(props) {
 
       dispatch(createForm(adoptionFormData));
 
-      SetMessageModal('¡El formulario de adopción se envió con éxito!');
+      SetMessageModal("¡El formulario de adopción se envió con éxito!");
       SetShowModalSuccess(true);
     } catch (error) {
-      console.error('Error al enviar el formulario de adopción:', error);
+      console.error("Error al enviar el formulario de adopción:", error);
       SetShowModalError(true);
-      SetMessageModal('Error al enviar el formulario de adopción');
+      SetMessageModal("Error al enviar el formulario de adopción");
     }
   };
 
@@ -79,7 +95,7 @@ export default function Detail(props) {
   };
 
   return (
-    <div>
+    <div style={{ paddingTop: "45px" }}>
       <div className="container d-flex align-items-center justify-content-center my-5">
         <div
           className="row bg-dark p-4 align-items-center justify-content-center"
@@ -132,16 +148,12 @@ export default function Detail(props) {
                 </h1>
               </div>
               <h4 className="card-text text-left">Sexo: {animal.gender}</h4>
-              <h4 className="card-text text-left">
-                Especie: {animal.species}
-              </h4>
+              <h4 className="card-text text-left">Especie: {animal.species}</h4>
               <h4 className="card-text text-left">
                 Edad (estimada): {calculateAge(animal.estimatedBirthYear)}
               </h4>
               <h4 className="card-text text-left">Tamaño: {animal.size}</h4>
-              <h4 className="card-text text-left">
-                Peso: {animal.weight} kg
-              </h4>
+              <h4 className="card-text text-left">Peso: {animal.weight} kg</h4>
               <h4 className="card-text text-left">
                 Vacunado/a: {animal.vaccines ? "si" : "no"}
               </h4>
@@ -267,7 +279,7 @@ export default function Detail(props) {
                       className="btn btn-primary"
                       data-bs-dismiss="modal"
                     >
-                      Submit 
+                      Submit
                     </button>
                   </div>
                 </form>
