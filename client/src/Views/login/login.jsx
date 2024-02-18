@@ -44,6 +44,7 @@ export default function Login(props) {
       );
     } else {
       window.localStorage.setItem("user_info", JSON.stringify(data));
+      window.localStorage.setItem("token", data.tokenUser);
       navigate("/");
       dispatch(infologin(data));
     }
@@ -58,7 +59,9 @@ export default function Login(props) {
     if (serializedUser) {
       try {
         const userData = JSON.parse(serializedUser);
+        console.log(userData);
         window.localStorage.setItem("user_info", JSON.stringify(userData));
+        window.localStorage.setItem("token", userData.tokenUser);
         dispatch(infologin(userData));
         navigate("/");
       } catch (error) {

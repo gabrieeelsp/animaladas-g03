@@ -37,7 +37,7 @@ const Donar = (props) => {
       const response = await axios.post(
         `${urlBaseAxios}/mercadopago/crear-preferencia`,
         {
-          title: "Donación",
+          title: "Donación a Animaladas",
           quantity: 1,
           unit_price: amount,
           id: userDetails.id,
@@ -59,6 +59,7 @@ const Donar = (props) => {
   };
 
   const handleDonarClick = async (amount) => {
+    const userInfoString = localStorage.getItem('user_info');
     if (!window.localStorage.user_info) {
       SetMessageModal(
         "Para hacer una donacion debe registrarse o iniciar sesión con su cuenta"
@@ -66,16 +67,14 @@ const Donar = (props) => {
       SetShowModalError(true);
       return;
     }
+    const userInfo = JSON.parse(userInfoString);
     const userDetails = {
-      id: 1,
       total_amount: amount,
-      name: "Nombre",
-      surname: "Apellido",
-      identification: "12345678",
-      email: "correo@ejemplo.com",
-      client_id: "cliente123",
+      name: userInfo.name ,
+      surname: userInfo.lastName,
+      email: userInfo.email,
+      client_id: userInfo.id,
     };
-
     try {
       const id = await createPreference(amount, userDetails);
       console.log("ID de preferencia obtenida:", id);
