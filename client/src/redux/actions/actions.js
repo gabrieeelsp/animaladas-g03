@@ -23,6 +23,8 @@ import {
   LOAD_PENDING_ADOPTIONS,
   GET_ALLREVIEWS,
   UPDATE_ANIMAL,
+  USER_BY_MAIL,
+  UPDATE_USER,
 } from "./types";
 
 import axios from "axios";
@@ -282,7 +284,6 @@ export const deleteAnimal = (id, enabled) => {
   };
 };
 
-
 export const pendingAdoptions = (userId, animalId) => {
   return async (dispatch) => {
     try {
@@ -396,6 +397,52 @@ export const updateAnimal = (id, updateValues) => {
       });
     } catch (error) {
       console.error("Error al actualizar los datos del animal:", error);
+    }
+  };
+};
+
+export const userByMail = (email) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(`${urlBaseAxios}/user/searchUser`, {
+        email: email
+      });
+      dispatch({
+        type: USER_BY_MAIL,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error('Error al buscar usuario por correo electrónico:', error);
+    }
+  };
+};
+
+export const deleteUser = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`${urlBaseAxios}/user/users/${id}`);
+      dispatch({
+        type: DELETE_ANIMAL,
+        payload: {
+          id,
+        },
+      });
+    } catch (error) {
+      console.error("Error al borrar usuario:", error);
+    }
+  };
+};
+
+export const updateUser = (updateValues) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`${urlBaseAxios}/user/changeUserData`, updateValues);
+      dispatch({
+        type: UPDATE_USER,
+        payload: updateValues,
+      });
+    } catch (error) {
+      console.error("Error al actualizar los datos del usuario:", error);
     }
   };
 };

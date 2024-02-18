@@ -24,6 +24,9 @@ import {
   LOAD_PENDING_ADOPTIONS,
   GET_ALLREVIEWS,
   UPDATE_ANIMAL,
+  USER_BY_MAIL,
+  DELETE_USER,
+  UPDATE_USER,
 } from "./actions/types";
 
 const initialState = {
@@ -35,7 +38,6 @@ const initialState = {
     total_pages: null,
     next_page: null,
     prev_page: null,
-    
   },
   searchBarValue: "",
   orderByValue: "",
@@ -48,6 +50,8 @@ const initialState = {
   allUsers: [],
   pendingAdoptions: [],
   updatedAnimal: null,
+  userByMail: [],
+  updatedUser: null,
 
   estadisticas: {
     donations: [],
@@ -173,6 +177,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       console.error("Error creating form:", payload);
       return state;
     }
+
     case DELETE_ANIMAL: {
       return state;
     }
@@ -240,12 +245,31 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
     }
 
-    case 'UPDATE_ANIMAL': {
+    case UPDATE_ANIMAL: {
       return {
         ...state,
         updatedAnimal: payload,
       };
     }
+
+    case USER_BY_MAIL: {
+      return {
+        ...state,
+        userByMail: payload,
+      };
+    }
+
+    case DELETE_USER: {
+      return state;
+    }
+
+    case UPDATE_USER: {
+      return {
+        ...state,
+        updatedUser: payload,
+      };
+    }
+
 
     default:
       return state;

@@ -47,10 +47,10 @@ export default function AdminAnimals() {
     };
   
     return (
-        <div className="container">
-            <div className="row mt-0">
-                <div className="col-md-9" style={{height: "550px"}}>
-                    <div className="d-flex justify-content-center align-items-center my-2">
+            <div className="container">
+                <div className="row mt-0">
+                    <div className="col-md-9" style={{height: "550px"}}>
+                        <div className="d-flex justify-content-center align-items-center my-2">
                     <div className="mx-5">
                         <SearchBar />
                     </div>
