@@ -22,7 +22,12 @@ import {
   SET_ESTADITICAS_TAB,
   LOAD_ESTADISTICAS_ADOPTIONS,
   LOAD_PENDING_ADOPTIONS,
+  LOAD_ADOPTIONS,
   GET_ALLREVIEWS,
+  ACCEPT_ADOPTION_SUCCESS,
+  ACCEPT_ADOPTION_FAILURE,
+  REFUSE_ADOPTION_FAILURE,
+  REFUSE_ADOPTION_SUCCESS,
 } from "./actions/types";
 
 const initialState = {
@@ -182,6 +187,15 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
     }
 
+    case LOAD_ADOPTIONS: {
+      return {
+        ...state,
+        allAdoptions: payload,
+        pagination: payload.pagination 
+      };
+    }
+
+
   case LOAD_PENDING_ADOPTIONS: {
     return {
       ...state,
@@ -237,6 +251,26 @@ const rootReducer = (state = initialState, { type, payload }) => {
         allreviews: payload,
       };
     }
+
+    case ACCEPT_ADOPTION_SUCCESS:
+      return {
+        ...state,
+      };
+
+      case ACCEPT_ADOPTION_FAILURE:
+      return {
+        ...state,
+      };
+
+      case REFUSE_ADOPTION_SUCCESS:
+      return {
+        ...state,
+      };
+
+      case REFUSE_ADOPTION_FAILURE:
+      return {
+        ...state,
+      };
 
     default:
       return state;
