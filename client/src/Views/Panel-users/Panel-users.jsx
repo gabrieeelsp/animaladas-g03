@@ -79,11 +79,12 @@ export default function PanelUsers(props) {
     });
   };
   const handleNextPage = (page) => {
-    dispatch();
+    console.log("valor de page en handle nextpage", page);
+    dispatch(alldonations_user(user_profile.id, 5, page));
   };
 
   const handlePrevPage = (page) => {
-    dispatch();
+    dispatch(alldonations_user(user_profile.id, 5, page));
   };
   const urlBaseAxios =
     import.meta.env.VITE_ENV === "DEV"
@@ -363,7 +364,8 @@ export default function PanelUsers(props) {
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Monto</th>
-                    <th>Opcion</th>
+                    <th>Fecha</th>
+                    <th>Eliminar</th>
                   </tr>
                   {user_donations.map((donation) => {
                     return (
@@ -371,9 +373,10 @@ export default function PanelUsers(props) {
                         <td>{user_profile.name}</td>
                         <td>{user_profile.lastName}</td>
                         <td>{donation.amount}</td>
+                        <td>{donation.createdAt}</td>
                         <td>
                           <a href="#" className="btn-panel">
-                            Ver
+                            <i className="bi bi-dash"></i>
                           </a>
                         </td>
                       </tr>
