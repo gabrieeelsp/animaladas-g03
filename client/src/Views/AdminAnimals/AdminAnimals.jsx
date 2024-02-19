@@ -47,7 +47,7 @@ export default function AdminAnimals() {
     };
   
     return (
-            <div className="container">
+            <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "100vh", marginTop:"0px", marginBottom:"-130px" }}>
                 <div className="row mt-0">
                     <div className="col-md-9" style={{height: "550px"}}>
                         <div className="d-flex justify-content-center align-items-center my-2">
