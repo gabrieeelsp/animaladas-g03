@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./panel-users.css";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import default_img from "../../img/perfil_default.png";
 import secondimg from "../../img/logo_google.png";
 import thirdimg from "../../img/succes.png";
@@ -11,18 +11,22 @@ import { useDispatch, useSelector } from "react-redux";
 import axios, { all } from "axios";
 import SuccesModal from "../../Components/SuccessModal/SuccesModal";
 import { infologin } from "../../redux/actions/user_action";
-import { alldonations_user } from "../../redux/actions/user_action";
+import { alldonations_user } from "../../redux/actions/actions";
+import rootReducer from "../../redux/reducer";
 export default function PanelUsers(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const user_profile = useSelector((state) => state.UserReducer);
+  const user_donations = useSelector(
+    (state) => state.rootReducer.alldonations_user
+  );
   if (user_profile === "") {
     navigate("/");
   }
   useEffect(() => {
-    dispatch(alldonations_user(user_profile.id, 10, 1));
-  });
+    dispatch(alldonations_user(user_profile.id, 5, 1));
+  }, []);
   const showprofile = props.showprofile;
   const Setshowprofile = props.Setshowprofile;
 
@@ -50,6 +54,9 @@ export default function PanelUsers(props) {
     showerror_phone: false,
     showerror_address: false,
   });
+  const donate_button = (e) => {
+    navigate("/donar");
+  };
   const handlechange = (e) => {
     Setformedituser({
       ...form_edituser,
@@ -152,9 +159,14 @@ export default function PanelUsers(props) {
                 </button>
               </div>
               <div className="user">
-                <a href="#" className="btn-panel">
-                  Addnew
+                <a
+                  href="#"
+                  className="btn-panel"
+                  onClick={(e) => donate_button(e)}
+                >
+                  DONAR
                 </a>
+
                 {/*<img src={secondimg}></img>*/}
                 <div className="img-case" style={{ borderRadius: "50%" }}>
                   <img
@@ -332,7 +344,7 @@ export default function PanelUsers(props) {
             <div className="content-panel-2">
               <div className="recent-payments">
                 <div className="title-content-panel">
-                  <h2>Recent payments</h2>
+                  <h2>Historico de sus donaciones</h2>
                   <a href="#" className="btn-panel">
                     View All
                   </a>
@@ -344,36 +356,26 @@ export default function PanelUsers(props) {
                     <th>Monto</th>
                     <th>Opcion</th>
                   </tr>
-                  <tr>
-                    <td>Jhon Doe</td>
-                    <td>S.t James College</td>
-                    <td>$12.000</td>
-                    <td>
-                      <a href="#" className="btn-panel">
-                        Ver
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Jhon Doe</td>
-                    <td>S.t James College</td>
-                    <td>$12.000</td>
-                    <td>
-                      <a href="#" className="btn-panel">
-                        Ver
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Jhon Doe</td>
-                    <td>S.t James College</td>
-                    <td>$12.000</td>
-                    <td>
-                      <a href="#" className="btn-panel">
-                        Ver
-                      </a>
-                    </td>
-                  </tr>
+                  {user_donations.map((donation) => {
+                    return (
+                      <tr>
+                        <td>{user_profile.name}</td>
+                        <td>{user_profile.lastName}</td>
+                        <td>{donation.amount}</td>
+                        <td>
+                          <a href="#" className="btn-panel">
+                            Ver
+                          </a>
+                        </td>
+                      </tr>
+                    );
+                    {
+                      console.log(
+                        "valor de donation en funcion map",
+                        String(donation.amount)
+                      );
+                    }
+                  })}
                 </table>
               </div>
               <div className="new-students">

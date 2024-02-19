@@ -1,6 +1,6 @@
 import React from "react";
 import "./modalprofile.css";
-
+import defaul_img_user from "../../img/perfil_Default.png";
 export default function Modalprofile({
   children,
   modalstate,
@@ -15,7 +15,11 @@ export default function Modalprofile({
           <div className="Containermodal">
             <div className="headermodal">
               <img
-                src={form_edituser.imageProfile}
+                src={
+                  form_edituser.imageProfile === null
+                    ? defaul_img_user
+                    : form_edituser.imageProfile
+                }
                 style={{
                   width: "80px",
                   borderRadius: "50%",

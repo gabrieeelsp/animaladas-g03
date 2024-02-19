@@ -32,10 +32,12 @@ import {
   USER_BY_MAIL,
   DELETE_USER,
   UPDATE_USER,
+  ALLDONATIONS_USER,
 } from "./actions/types";
 
 const initialState = {
   allAnimals: [],
+  alldonations_user: [],
   statusAnimals: [],
   pagination: {
     total_records: 0,
@@ -186,7 +188,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
     }
 
     case CREATE_FORM_FAILURE: {
-      console.error("Error creating form:", payload);
       return state;
     }
 
@@ -209,14 +210,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
     }
 
-
-
-  case LOAD_PENDING_ADOPTIONS: {
-    return {
-      ...state,
-      pendingAdoptions: payload,
-    };
-  }
+    case LOAD_PENDING_ADOPTIONS: {
+      return {
+        ...state,
+        pendingAdoptions: payload,
+      };
+    }
 
     case LOAD_ESTADISTICAS_DONATIONS: {
       return {
@@ -260,7 +259,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
     }
 
     case GET_ALLREVIEWS: {
-      console.log("ingreso al case get_allreviews");
       return {
         ...state,
         allreviews: payload,
@@ -272,17 +270,17 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
       };
 
-      case ACCEPT_ADOPTION_FAILURE:
+    case ACCEPT_ADOPTION_FAILURE:
       return {
         ...state,
       };
 
-      case REFUSE_ADOPTION_SUCCESS:
+    case REFUSE_ADOPTION_SUCCESS:
       return {
         ...state,
       };
 
-      case REFUSE_ADOPTION_FAILURE:
+    case REFUSE_ADOPTION_FAILURE:
       return {
         ...state,
       };
@@ -310,7 +308,16 @@ const rootReducer = (state = initialState, { type, payload }) => {
         updatedUser: payload,
       };
     }
-
+    case ALLDONATIONS_USER: {
+      return {
+        ...state,
+        alldonations_user: payload.data,
+        pagination: {
+          ...state.pagination,
+          ...payload.pagination,
+        },
+      };
+    }
 
     default:
       return state;
