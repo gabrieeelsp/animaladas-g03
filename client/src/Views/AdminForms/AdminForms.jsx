@@ -50,50 +50,50 @@ export default function AdminForms() {
 
 
   return (
-    <div className="container">
-      <div className="row mt-0">
-        <div className="col-md-9" >
-          <div className="d-flex flex-column justify-content-center align-items-center my-2">
-            <table className="table table-dark">
-              <thead>
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Nombre solicitante</th>
-                  <th scope="col">Perro solicitado</th>
-                  <th scope="col">Estado formulario</th>
-                  <th scope="col">Aceptar</th>
-                  <th scope="col">Rechazar</th>
-                </tr>
-              </thead>
-              <tbody>
-                {forms && forms.map(({ id, status, user, animal }) => (
-                  <tr key={id}>
-                    <td>{id}</td>
-                    <td>{user.email}</td>
-                    <td>{animal.name}</td>
-                    <td>{status}</td>
-                    <td>
-                      <button className="btn btn-success" onClick={() => handleAccept(id)}>Aceptar</button>
-                    </td>
-                    <td>
-                      <button className="btn btn-danger" onClick={() => handleRefuse(id)}>Rechazar</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            <div className="m-5" >
-              <Pagination
-                pagination={pagination}
-                onNextPage={handleNextPage}
-                onPrevPage={handlePrevPage}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="col-md-2 bg-dark text-warning d-flex flex-column align-items-center justify-content-center mx-3" style={{ border: "2px solid black", borderRadius: "10px", padding: "10px", height: "600px", width: "200px" }}>
+<div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "100vh", marginTop:"0px", marginBottom:"-130px" }}>
+  <div className="row mt-0">
+    <div className="col-md-9">
+    <div className="d-flex justify-content-center align-items-center" style={{width: "950px"}}>
+        <table className="table table-dark">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nombre solicitante</th>
+              <th scope="col">Perro solicitado</th>
+              <th scope="col">Estado formulario</th>
+              <th scope="col">Aceptar</th>
+              <th scope="col">Rechazar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {forms && forms.map(({ id, status, user, animal }) => (
+              <tr key={id}>
+                <td>{id}</td>
+                <td>{user.email}</td>
+                <td>{animal.name}</td>
+                <td>{status}</td>
+                <td>
+                  <button className="btn btn-success" onClick={() => handleAccept(id)}>Aceptar</button>
+                </td>
+                <td>
+                  <button className="btn btn-danger" onClick={() => handleRefuse(id)}>Rechazar</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="m-5 d-flex justify-content-center align-items-center ">
+        <Pagination
+          pagination={pagination}
+          onNextPage={handleNextPage}
+          onPrevPage={handlePrevPage}
+        />
+      </div>
+      </div>
+    </div>
+    <div className="col-md-3">
+    <div className="col-md-2 bg-dark text-warning d-flex flex-column align-items-center justify-content-center mx-3" style={{ border: "2px solid black", borderRadius: "10px", padding: "10px", height: "600px", width: "200px" }}>
           <NavLink to="/admin">
             <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "160px" }}>
               ESTADÍSTICAS
@@ -125,9 +125,7 @@ export default function AdminForms() {
             </button>
           </NavLink>
         </div>
-
       </div>
-
     </div>
   );
 }

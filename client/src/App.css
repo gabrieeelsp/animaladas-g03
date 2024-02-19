@@ -3,14 +3,8 @@ body{
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding-top: 45px;
+  padding-top: 0px; /* antes:45px , se agrego la propiedad de 45px a cada pagina para no hacerlo en*/
   padding-bottom: 125px;
-}
-
-
-#root {
-  max-width: 100%;
-  text-align: center;
 }
 
 .logo {

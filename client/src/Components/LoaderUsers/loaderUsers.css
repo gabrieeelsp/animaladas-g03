@@ -3,7 +3,7 @@
     height: 350px;
     border-radius: 180px;
     display: flex;
-    margin: 100px auto;
+    margin: auto auto;
     flex-direction: column; 
     align-items: center; 
     justify-content: center; 
@@ -11,7 +11,7 @@
   }
   
   .imgLoading1 {
-    width: 150px;
+    width: 100px;
   }
 
   

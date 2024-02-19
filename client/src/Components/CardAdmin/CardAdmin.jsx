@@ -46,7 +46,7 @@ export default function CardAdmin(props) {
         }}
       >
         <img
-          className="my-2"
+          className="m-2"
           src={
             status === "rescatado" && image1
               ? image1
