@@ -19,6 +19,8 @@ const Donar = (props) => {
   const [customAmount, setCustomAmount] = useState("");
   const [showGratitudeMessage, setShowGratitudeMessage] = useState(true);
   const [ShowModalErorr, SetShowModalError] = useState(false);
+  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     initMercadoPago(import.meta.env.VITE_API_KEY_MERCADOPAGO, {
@@ -59,12 +61,14 @@ const Donar = (props) => {
   };
 
   const handleDonarClick = async (amount) => {
+    setLoading(true);
     const userInfoString = localStorage.getItem('user_info');
     if (!window.localStorage.user_info) {
       SetMessageModal(
         "Para hacer una donacion debe registrarse o iniciar sesión con su cuenta"
       );
       SetShowModalError(true);
+      setLoading(false); // Aquí establecemos loading en false porque hubo un error
       return;
     }
     const userInfo = JSON.parse(userInfoString);
@@ -84,10 +88,12 @@ const Donar = (props) => {
         setSelectedAmount(amount);
         setCustomAmount("");
         setShowGratitudeMessage(false);
+        setLoading(false); 
       }
     } catch (error) {
       console.error("Error al crear la preferencia:", error);
       SetShowModalError(true);
+      setLoading(false); 
     }
     setTimeout(function () {
       window.scrollTo({
@@ -96,6 +102,8 @@ const Donar = (props) => {
       });
     }, 500);
   };
+
+  
 
   const handleCustomAmountChange = (event) => {
     const value = event.target.value;
@@ -229,38 +237,50 @@ const Donar = (props) => {
                   >
                     Seleccionar
                   </button>
-                </div>
-                <p className="text-light small">
-                  El monto mínimo es de $100 ARS.
-                </p>
-              </div>
 
-              {selectedAmount !== null ? (
-                <p className="text-info mt-3 mb-4">
-                  Monto seleccionado: ${selectedAmount}
-                </p>
-              ) : (
-                <p className="text-info mt-3 mb-4">
-                  Monto seleccionado: Ninguno
-                </p>
-              )}
 
-              <div className="wallet-container">
-                {preferenceId && (
-                  <Wallet
-                    initialization={{ preferenceId: preferenceId }}
-                    customization={{ texts: { valueProp: "smart_option" } }}
-                    style={{ width: "70%", height: "400px" }}
-                  />
-                )}
-                {showGratitudeMessage && (
-                  <div className="gratitude-message mt-4">
-                    <p>
-                      ¡Gracias por ayudar a nuestros amigos!{" "}
-                      <FontAwesomeIcon icon={faPaw} />
-                    </p>
-                  </div>
-                )}
+
+                </div>{selectedAmount !== null ? (
+  <p className="selected-amount">
+    Monto seleccionado: ${selectedAmount}
+  </p>
+) : (
+  <p className="selected-amount">
+    Monto seleccionado: Ninguno
+  </p>
+)}
+<p className="text-light small">
+*El monto mínimo es de $100 ARS.
+  </p>
+  </div>
+
+
+
+<div className="wallet-container">
+  {loading ? (
+    <div className="spinner-border text-warning" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </div>
+  ) : (
+    <>
+      {preferenceId && (
+        <Wallet
+          initialization={{ preferenceId: preferenceId }}
+          customization={{ texts: { valueProp: "smart_option" } }}
+          style={{ width: "70%", height: "400px" }}
+        />
+      )}
+      {showGratitudeMessage && (
+        <div className="gratitude-message mt-4">
+          <p>
+            ¡Gracias por ayudar a nuestros amigos!{" "}
+            <FontAwesomeIcon icon={faPaw} />
+          </p>
+        </div>
+      )}
+    </>
+  )}
+
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
-const { User } = require('../../db');
 const bcrypt = require('bcryptjs');
+const { User } = require('../../db');
 const { generateTokenVerifyAccount } = require('../../services/jsonWebToken');
 const { sendMail } = require('../../services/nodemailer');
 
@@ -39,13 +39,70 @@ const createUser = async (
         to: email,
         subject: 'Verify Email',
         html: `
-        <h2>Bienvenido a Animaladas</h2>
+        <div style="width: 100%; background-color: #343a40">
+            <div style="padding: 20px 10px">
+                <!-- image -->
+                <div style="padding: 10px 0px; width: 100%; text-align: center">
+                    <img
+                        src="cid:logoanimaladas"
+                        alt=""
+                        style="width: 100px"
+                    />
+                </div>
+                <hr />
 
-        <p>Para terminar la creacion de tu cuenta y puedas optar por la adopcion de tu
-        nuevo mejor amigo.</br>
-        Necesitamos que le des click al siguiente link para verificar tu correo:
-        http://localhost:3001/user/verifyAccount?token=${token}&userId=${user.id}
+                <!-- tittle -->
+
+                <h2
+                    style="
+                        text-align: center;
+                        color: white;
+                        text-decoration: none;
+                    "
+                >
+                Bienvenido a Animaladas
+                </h2>
+
+                <p
+                    style="
+                        text-align: center;
+                        color: white;
+                        text-decoration: none;
+                    "
+                >
+                Para terminar la creacion de tu cuenta y puedas optar por la adopcion de tu
+                 nuevo mejor amigo dale click al siguiente boton
+                </p>
+
+                <div style="width: 100%; text-align: center">
+                    <button
+                        style="
+                            height: 40px;
+                            width: 150px;
+                            padding: 5px;
+                            background-color: #ffc107;
+                            font-weight: bold;
+                        "
+                    >
+                        <a
+                            style="text-decoration: none; color: black"
+                            href="http://localhost:3001/user/verifyAccount?token=${token}&userId=${user.id}"
+                            >Verifica tu cuenta</a
+                        >
+                    </button>
+                </div>
+
+
+            </div>
+        </div>
         `,
+        attachments: [
+            {
+                filename: 'logoanimaladas.png',
+                path: '../api/src/img/logoanimaladas.png',
+                cid: 'logoanimaladas',
+            },
+        ],
     };
 
     const emailSend = await sendMail(mailOptions);
