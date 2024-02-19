@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import "./Nav.css";
-import perfil_img from "../../img/perfil_default.png";
+import default_perfil_img from "../../img/perfil_default.png";
 import Profilemenu from "../PropdownProfile/Profilemenu";
 import Modalprofile from "./modalprofile";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +14,10 @@ import axios from "axios";
 //import { useLocalstore } from "../../scripts/uselocalstore";
 export default function Nav(props) {
   const user_profile = useSelector((state) => state.UserReducer);
+  if (user_profile.imageProfile === null) {
+  }
   const Navigate = useNavigate();
+
   const location = useLocation();
   const dispatch = useDispatch();
   const [MessageModal, SetMessageModal] = useState("");
@@ -52,11 +55,16 @@ export default function Nav(props) {
       lastName: user_profile.lastName,
       address: user_profile.address,
       phone: user_profile.phone,
-      imageProfile: user_profile.imageProfile,
+      imageProfile:
+        user_profile.imageProfile === null
+          ? default_perfil_img
+          : user_profile.imageProfile,
       password: "",
     });
   }, [user_profile]);
-  const [showprofile, Setshowprofile] = useState(false);
+  //const [showprofile, Setshowprofile] = useState(false);
+  const showprofile = props.showprofile;
+  const Setshowprofile = props.Setshowprofile;
   const [showmodalprofile, Setshowmodalprofile] = useState(false);
   if (
     location.pathname === "/login" ||
@@ -130,6 +138,7 @@ export default function Nav(props) {
     if (data === "Informacion del Usuario actualizada.") {
       SetMessageModal("¡Bien! se actualizo tu informacion.");
       SetShowModalSucces(true);
+      dispatch(infologin(form_edituser));
     }
   };
   if (window.localStorage.user_info) {
@@ -258,7 +267,11 @@ export default function Nav(props) {
             {showprofile_img && (
               <img
                 onClick={(e) => menuprofile(e)}
-                src={user_profile.imageProfile}
+                src={
+                  user_profile.imageProfile === null
+                    ? default_perfil_img
+                    : user_profile.imageProfile
+                }
                 style={{
                   width: "40px",
                   cursor: "pointer",
@@ -271,7 +284,11 @@ export default function Nav(props) {
                 <div className="sub-menu">
                   <div className="user-info">
                     <img
-                      src={user_profile.imageProfile}
+                      src={
+                        user_profile.imageProfile === null
+                          ? default_perfil_img
+                          : user_profile.imageProfile
+                      }
                       style={{ width: "40px", cursor: "pointer" }}
                     ></img>
                     <h2>{user_info && user_info.name ? user_info.name : ""}</h2>
@@ -293,7 +310,7 @@ export default function Nav(props) {
                     <p>Editar Perfil</p>
                     <span>{">"}</span>
                   </a>
-                  <NavLink to="admin">
+                  <NavLink to="panel">
                     <a href="#" className="sub-menu-link">
                       <i className="bi bi-bag-heart"></i>
                       <p>Panel</p>

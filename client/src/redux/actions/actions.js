@@ -30,6 +30,7 @@ import {
   UPDATE_ANIMAL,
   USER_BY_MAIL,
   UPDATE_USER,
+  ALLDONATIONS_USER,
 } from "./types";
 
 import axios from "axios";
@@ -258,11 +259,14 @@ export const createForm = (formData) => {
       // Verificar adopciones pendientes
       const pendingAdoptions = getState().rootReducer.pendingAdoptions;
       const isPending = pendingAdoptions.some(
-        (adoption) => adoption.userId === userId && adoption.animalId === animalId
+        (adoption) =>
+          adoption.userId === userId && adoption.animalId === animalId
       );
 
       if (isPending) {
-        throw new Error("Ya existe una solicitud de adopción pendiente para este usuario y animal.");
+        throw new Error(
+          "Ya existe una solicitud de adopción pendiente para este usuario y animal."
+        );
       }
 
       // Si no hay adopciones pendientes, procede con el envío del formulario
@@ -307,23 +311,24 @@ export const deleteAnimal = (id, enabled) => {
 export const pendingAdoptions = (userId, animalId) => {
   return async (dispatch) => {
     try {
-
-      const response = await axios.get(`${urlBaseAxios}/adoptions/get_pending_adoption`, {
-        params: {
-          userId: userId,
-          animalId: animalId,
-        },
-      });
+      const response = await axios.get(
+        `${urlBaseAxios}/adoptions/get_pending_adoption`,
+        {
+          params: {
+            userId: userId,
+            animalId: animalId,
+          },
+        }
+      );
 
       const pendingAdoptionsData = response.data.data;
-
 
       dispatch({
         type: LOAD_PENDING_ADOPTIONS,
         payload: pendingAdoptionsData,
       });
     } catch (error) {
-      console.error('Error fetching adoptions:', error);
+      console.error("Error fetching adoptions:", error);
       throw error;
     }
   };
@@ -335,7 +340,7 @@ export const allAdoptions = (
   page = 1,
   animalsPerPage = 5,
   orderby,
-  orderdir,
+  orderdir
 ) => {
   return async (dispatch) => {
     try {
@@ -366,11 +371,9 @@ export const allAdoptions = (
       });
     } catch (error) {
       console.error("Error al cargar las adopciones:", error);
-
     }
   };
 };
-
 
 export const loadUsers = () => {
   return async (dispatch) => {
@@ -443,7 +446,9 @@ export const get_allreviews = () => {
 export const acceptAdoption = (id) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(`${urlBaseAxios}/adoptions/${id}/accept`);
+      const response = await axios.post(
+        `${urlBaseAxios}/adoptions/${id}/accept`
+      );
       dispatch({
         type: ACCEPT_ADOPTION_SUCCESS,
         payload: response.data.data,
@@ -460,7 +465,9 @@ export const acceptAdoption = (id) => {
 export const refuseAdoption = (id) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(`${urlBaseAxios}/adoptions/${id}/refuse`);
+      const response = await axios.post(
+        `${urlBaseAxios}/adoptions/${id}/refuse`
+      );
       dispatch({
         type: REFUSE_ADOPTION_SUCCESS,
         payload: response.data.data,
@@ -491,14 +498,14 @@ export const userByMail = (email) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(`${urlBaseAxios}/user/searchUser`, {
-        email: email
+        email: email,
       });
       dispatch({
         type: USER_BY_MAIL,
         payload: response.data,
       });
     } catch (error) {
-      console.error('Error al buscar usuario por correo electrónico:', error);
+      console.error("Error al buscar usuario por correo electrónico:", error);
     }
   };
 };
@@ -532,3 +539,25 @@ export const updateUser = (updateValues) => {
     }
   };
 };
+
+export function alldonations_user(userId, limit, page) {
+  console.log("valor de param userId", userId);
+  console.log("valor de param limit", limit);
+  console.log("valor de param page", page);
+  return async function (dispatch) {
+    const response = await axios.get(`${urlBaseAxios}/donations`, {
+      params: {
+        userId,
+        limit,
+        page,
+      },
+    });
+    const { data } = response;
+    console.log("valor de data alldonations_user action", data);
+
+    return dispatch({
+      type: ALLDONATIONS_USER,
+      payload: data,
+    });
+  };
+}

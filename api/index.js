@@ -18,7 +18,7 @@ conn.sync({ force: true })
         await seederAnimals();
         await seederUsers();
         await seederDonations();
-        // await seederAdoptins();
+        await seederAdoptins();
     })
     .then(() => {
         app.listen(PORT_APP, () => {
