@@ -5,11 +5,12 @@ const {
     getByIdHandler,
     getAllHandler,
 } = require('../handlers/donationHandler');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 const donationRouter = Router();
 
-donationRouter.post('/', createHandler);
+donationRouter.post('/', authMiddleware, createHandler);
 donationRouter.get('/:id', getByIdHandler);
-donationRouter.get('/', getAllHandler);
+donationRouter.get('/', authMiddleware, getAllHandler);
 
 module.exports = donationRouter;
