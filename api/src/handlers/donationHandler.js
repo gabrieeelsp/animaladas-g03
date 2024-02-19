@@ -12,6 +12,7 @@ const {
 const getAllHandler = async (req, res) => {
     try {
         const filters = req.query;
+        console.log('valor de filters', filters);
         const limit = parseInt(filters.limit, 10) || null;
         const page = parseInt(filters.page, 10) || 1;
 

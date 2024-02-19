@@ -27,16 +27,24 @@ import AdminReviews from "./Views/AdminReviews/AdminReviews";
 import PanelUsers from "./Views/Panel-users/Panel-users";
 function App() {
   const [MessageModal, SetMessageModal] = useState("");
-
+  const [showprofile, Setshowprofile] = useState(false);
   return (
     <div className="App">
-      <Nav />
+      <Nav showprofile={showprofile} Setshowprofile={Setshowprofile} />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/adoptar" element={<Adoptar />}></Route>
         <Route path="/adoptados" element={<Adoptado />}></Route>
         <Route path="/rescatados" element={<Rescatado />}></Route>
-        <Route path="/panel" element={<PanelUsers />}></Route>
+        <Route
+          path="/panel"
+          element={
+            <PanelUsers
+              showprofile={showprofile}
+              Setshowprofile={Setshowprofile}
+            />
+          }
+        ></Route>
         <Route
           path="/detail/:id"
           element={

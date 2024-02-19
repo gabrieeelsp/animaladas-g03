@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./reviews.css";
-import default_user from "../../img/perfil_default.png";
+import default_img_user from "../../img/perfil_default.png";
 import axios from "axios";
 import SuccesModal from "../SuccessModal/SuccesModal";
 import { useDispatch, useSelector } from "react-redux";
@@ -149,7 +149,13 @@ export default function Reviews(props) {
             <div className="box-top">
               <div className="profile">
                 <div className="profile-img">
-                  <img src={user_profile.imageProfile} />
+                  <img
+                    src={
+                      user_profile.imageProfile === null
+                        ? default_img_user
+                        : user_profile.imageProfile
+                    }
+                  />
                 </div>
                 <div className="name-user">
                   <strong>
@@ -245,7 +251,14 @@ export default function Reviews(props) {
                 <div className="box-top">
                   <div className="profile">
                     <div className="profile-img">
-                      <img src={`${review.user_img}`} />
+                      <img
+                        src={
+                          `${review.user_img}` === null
+                            ? default_img_user
+                            : `${review.user_img}`
+                        }
+                      />
+                      {console.log("valor de revie user img", review.user_img)}
                     </div>
                     <div className="name-user">
                       <strong>
