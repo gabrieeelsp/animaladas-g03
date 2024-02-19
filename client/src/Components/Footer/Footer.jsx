@@ -21,7 +21,7 @@ export default function Footer() {
   return (
     <footer
       className="container-fluid bg-dark align-items-center justify-content-center p-1 mt-2 fixed-bottom"
-      style={{ height: "100px" }}
+      style={{ height: "100px", zIndex: "1" }}
     >
       <div className="row">
         <div className="col-md-4" style={{ marginTop: "20px" }}>
