@@ -1,6 +1,6 @@
 import React from "react";
 import "./modalprofile.css";
-import defaul_img_user from "../../img/perfil_Default.png";
+import defaul_img_user from "../../img/perfil_default.png";
 export default function Modalprofile({
   children,
   modalstate,
