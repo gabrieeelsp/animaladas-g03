@@ -56,7 +56,9 @@ export default function Nav(props) {
       password: "",
     });
   }, [user_profile]);
-  const [showprofile, Setshowprofile] = useState(false);
+  //const [showprofile, Setshowprofile] = useState(false);
+  const showprofile = props.showprofile;
+  const Setshowprofile = props.Setshowprofile;
   const [showmodalprofile, Setshowmodalprofile] = useState(false);
   if (
     location.pathname === "/login" ||
@@ -292,7 +294,7 @@ export default function Nav(props) {
                     <p>Editar Perfil</p>
                     <span>{">"}</span>
                   </a>
-                  <NavLink to="admin">
+                  <NavLink to="panel">
                     <a href="#" className="sub-menu-link">
                       <i className="bi bi-bag-heart"></i>
                       <p>Panel</p>

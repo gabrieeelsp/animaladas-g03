@@ -16,6 +16,7 @@ Este endpoint devuelve una lista de adopciones.
 
 -   `page` : Número de página.
 -   `limit` : Número de elementos por página.
+-   `status`: Filtra por el estado de la adopcion (pendiente,aceptada,rechazada)
 
 ### Ordenamiento
 

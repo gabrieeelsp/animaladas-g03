@@ -59,6 +59,8 @@ const getPrevPage = (page) => {
 };
 
 module.exports = async (filters, limit, page = 1) => {
+    console.log('informacion de filters', filters);
+    console.log('informacion de limit', limit);
     let cantidad = null;
     let filas = null;
     if (!limit) {

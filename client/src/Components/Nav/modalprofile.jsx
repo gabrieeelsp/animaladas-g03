@@ -17,9 +17,9 @@ export default function Modalprofile({
               <img
                 src={form_edituser.imageProfile}
                 style={{
-                  width: "120px",
+                  width: "80px",
                   borderRadius: "50%",
-                  height: "120px",
+                  height: "80px",
                 }}
               ></img>
             </div>
