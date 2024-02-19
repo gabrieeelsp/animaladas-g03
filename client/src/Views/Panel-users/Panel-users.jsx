@@ -7,15 +7,22 @@ import thirdimg from "../../img/succes.png";
 import logo from "../../img/logo-huella.png";
 import Modalprofile from "../../Components/Nav/modalprofile";
 import validateform from "../Register/validation_user";
-import { useSelector } from "react-redux";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import axios, { all } from "axios";
 import SuccesModal from "../../Components/SuccessModal/SuccesModal";
+import { infologin } from "../../redux/actions/user_action";
+import { alldonations_user } from "../../redux/actions/user_action";
 export default function PanelUsers(props) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const user_profile = useSelector((state) => state.UserReducer);
   if (user_profile === "") {
     navigate("/");
   }
+  useEffect(() => {
+    dispatch(alldonations_user(user_profile.id, 10, 1));
+  });
   const showprofile = props.showprofile;
   const Setshowprofile = props.Setshowprofile;
 
@@ -75,6 +82,7 @@ export default function PanelUsers(props) {
     if (data === "Informacion del Usuario actualizada.") {
       SetMessageModal("¡Bien! se actualizo tu informacion.");
       SetShowModalSucces(true);
+      dispatch(infologin(form_edituser));
     }
   };
   const uploadImage = async (e) => {
@@ -104,7 +112,7 @@ export default function PanelUsers(props) {
       password: "",
     });
   }, [user_profile]);
-  console.log("valor de errro", error);
+
   return (
     <>
       <div className="bodypage">
