@@ -98,6 +98,7 @@ export default function Nav(props) {
   };
   const closeprofilemenu = (e) => {
     localStorage.removeItem("user_info");
+    localStorage.removeItem("token");
     Setshowprofile(false);
     dispatch(sign_out(""));
 
