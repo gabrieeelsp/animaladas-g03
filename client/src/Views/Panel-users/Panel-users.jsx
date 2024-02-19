@@ -11,13 +11,13 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import SuccesModal from "../../Components/SuccessModal/SuccesModal";
 export default function PanelUsers(props) {
+  const navigate = useNavigate();
   const user_profile = useSelector((state) => state.UserReducer);
   if (user_profile === "") {
     navigate("/");
   }
   const showprofile = props.showprofile;
   const Setshowprofile = props.Setshowprofile;
-  const navigate = useNavigate();
 
   const getall_donations = async () => {};
   const [MessageModal, SetMessageModal] = useState(false);
