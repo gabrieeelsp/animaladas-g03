@@ -12,7 +12,15 @@ function DonationsLineChart(props) {
 
   useEffect(() => {
     const urlBaseAxios = import.meta.env.VITE_ENV === 'DEV' ? import.meta.env.VITE_URL_DEV : import.meta.env.VITE_URL_PROD;
-    axios.get(`${urlBaseAxios}/donations?dateFrom=${dateFom}&dateTo=${dateTo}`)
+    const token = localStorage.getItem('token');
+  
+          const config = {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + token
+            }
+          };
+    axios.get(`${urlBaseAxios}/donations?dateFrom=${dateFom}&dateTo=${dateTo}`, {config})
       .then((resp) => {
 
         let respData = resp.data.data.map((item) => {
