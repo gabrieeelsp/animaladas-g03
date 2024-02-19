@@ -13,6 +13,7 @@ import SuccesModal from "../../Components/SuccessModal/SuccesModal";
 import { infologin } from "../../redux/actions/user_action";
 import { alldonations_user } from "../../redux/actions/actions";
 import rootReducer from "../../redux/reducer";
+import Paginacion from "../../Components/Pagination/Pagination";
 export default function PanelUsers(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export default function PanelUsers(props) {
   const user_donations = useSelector(
     (state) => state.rootReducer.alldonations_user
   );
+  const pagination = useSelector((state) => state.rootReducer.pagination);
   if (user_profile === "") {
     navigate("/");
   }
@@ -75,6 +77,13 @@ export default function PanelUsers(props) {
       showerror_phone: validate.showerror_phone,
       showerror_address: validate.showerror_address,
     });
+  };
+  const handleNextPage = (page) => {
+    dispatch();
+  };
+
+  const handlePrevPage = (page) => {
+    dispatch();
   };
   const urlBaseAxios =
     import.meta.env.VITE_ENV === "DEV"
@@ -377,7 +386,13 @@ export default function PanelUsers(props) {
                     }
                   })}
                 </table>
+                <Paginacion
+                  pagination={pagination}
+                  onNextPage={handleNextPage}
+                  onPrevPage={handlePrevPage}
+                ></Paginacion>
               </div>
+
               <div className="new-students">
                 <div className="title-content-panel">
                   <h2>Adoptados</h2>
