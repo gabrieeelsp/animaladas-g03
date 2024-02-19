@@ -4,8 +4,8 @@ import Map from "../../Components/Map/Map.jsx";
 export default function Contact() {
   const [formData, setFormData] = useState({
     email: "",
-    motivo: "",
-    detalle: "",
+    subject: "",
+    message: "",
   });
 
   const handleInputChange = (e) => {
@@ -20,13 +20,13 @@ export default function Contact() {
     e.preventDefault();
     if (
       formData.email.trim() === "" ||
-      formData.motivo.trim() === "" ||
-      formData.detalle.trim() === ""
+      formData.subject.trim() === "" ||
+      formData.message.trim() === ""
     ) {
       alert("Por favor, complete todos los campos.");
       return;
     }
-
+    //http://localhost:3001/contact/sendMail
     console.log("Formulario enviado:", formData);
   };
 
@@ -67,7 +67,7 @@ export default function Contact() {
             </div>
             <div className="mb-3">
               <label
-                htmlFor="motivo"
+                htmlFor="subject"
                 className="form-label text-warning my-2 fs-6"
               >
                 Motivo de contacto:
@@ -75,23 +75,23 @@ export default function Contact() {
               <input
                 type="text"
                 className="form-control text-center"
-                id="motivo"
-                name="motivo"
-                value={formData.motivo}
+                id="subject"
+                name="subject"
+                value={formData.subject}
                 onChange={handleInputChange}
                 placeholder="Motivo de contacto"
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="detalle" className="form-label text-warning fs-6">
+              <label htmlFor="message" className="form-label text-warning fs-6">
                 Detalle el motivo aquí:
               </label>
               <textarea
                 className="form-control"
-                id="detalle"
-                name="detalle"
+                id="message"
+                name="message"
                 rows="6"
-                value={formData.detalle}
+                value={formData.message}
                 onChange={handleInputChange}
               ></textarea>
             </div>

@@ -36,9 +36,9 @@ export default function AdminUsers() {
 
   return (
     <>
-      <div className="container">
+      <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "100%", marginTop: "80px" }}>
         <div className="row">
-          <div className="col-md-9 d-flex align-items-center">
+          <div className="col-md-9 d-flex justify-content-center align-items-center" style={{width: "850px"}}>
             {loading ? (
               <LoaderUsers />
             ) : (

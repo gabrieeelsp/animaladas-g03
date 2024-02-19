@@ -11,7 +11,10 @@ export default function Footer() {
     location.pathname === "/detail/:id" ||
     location.pathname === "/admin/forms" ||
     location.pathname === "/add" ||
-    location.pathname === "/admin/reviews"
+    location.pathname === "/admin/reviews" ||
+    location.pathname === "/admin/animals" ||
+    location.pathname === "/admin/users"
+    
   ) {
     return null;
   }
@@ -22,6 +25,7 @@ export default function Footer() {
       style={{ height: "100px", zIndex: "1" }}
     >
       <div className="row">
+        <div className="col-md-4" style={{ marginTop: "20px" }}>
         <div className="col-md-4" style={{ marginTop: "20px" }}>
           <a href="#" className="btn btn-outline-warning mx-2">
             <i className="fab fa-facebook"></i> Facebook
@@ -34,6 +38,10 @@ export default function Footer() {
           </a>
         </div>
 
+        <div
+          className="col-md-4 align-items-center justify-content-center mt-2"
+          style={{ display: "flex", marginTop: "20px" }}
+        >
         <div
           className="col-md-4 align-items-center justify-content-center mt-2"
           style={{ display: "flex", marginTop: "20px" }}

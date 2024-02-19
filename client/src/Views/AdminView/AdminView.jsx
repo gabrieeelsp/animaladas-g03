@@ -4,7 +4,7 @@ import EstadisticasBoard from "../../Components/Estadisticas/EstadisticasBoard/E
 
 export default function AdminView() {
   return (
-    <div className="container">
+    <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "100vh", marginTop:"0px", marginBottom:"-130px" }}>
       <div className="row mt-0">
         <div className="col-md-9 d-flex justify-content-center align-items-center">
           <div className="text-center fs-5" style={{ padding: "15px", width: "1000px" }}>
