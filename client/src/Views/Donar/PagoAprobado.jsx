@@ -55,8 +55,10 @@ export default function PagoAprobado() {
 
   useEffect(() => {
     const createDonation = () => {
+      const userInfoString = localStorage.getItem('user_info');
+      const userInfo = userInfoString ? JSON.parse(userInfoString) : '';
+      const userId = userInfo ? userInfo.id : 1;
       const amount = totalAmount;
-      const userId = 1;
       const animalId = null;
 
       if (amount) {
