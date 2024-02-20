@@ -12,6 +12,6 @@ const donationRouter = Router();
 
 donationRouter.post('/', authMiddleware, createHandler);
 donationRouter.get('/:id', authMiddleware, getByIdHandler);
-donationRouter.get('/', authMiddleware, adminMiddleware, getAllHandler);
+donationRouter.get('/', getAllHandler, authMiddleware);
 
 module.exports = donationRouter;
