@@ -32,6 +32,8 @@ import {
   UPDATE_USER,
   ALLDONATIONS_USER,
   ALLADOPTIONS_USER,
+  TOTAL_AMOUNT_DONATION_USER,
+  TOTAL_ADOPTION_USER,
 } from "./types";
 
 import axios from "axios";
@@ -605,3 +607,22 @@ export function alladoptions_user(userId, limit, page, orderDir, orderBy) {
     */
   };
 }
+
+export const total_amount_donation_user = (id) => {
+  return async (dispatch) => {
+    const response = await axios.get(`${urlBaseAxios}/donations/total/${id}`);
+    dispatch({
+      type: TOTAL_AMOUNT_DONATION_USER,
+      payload: response.data,
+    });
+  };
+};
+export const total_adoption_user = (id) => {
+  return async (dispatch) => {
+    const response = await axios.get(`${urlBaseAxios}/adoptions/total/${id}`);
+    dispatch({
+      type: TOTAL_ADOPTION_USER,
+      payload: response.data,
+    });
+  };
+};

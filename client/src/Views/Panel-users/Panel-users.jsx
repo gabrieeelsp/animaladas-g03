@@ -14,15 +14,27 @@ import { infologin } from "../../redux/actions/user_action";
 import { alldonations_user } from "../../redux/actions/actions";
 import rootReducer from "../../redux/reducer";
 import Paginacion from "../../Components/Pagination/Pagination";
+import { total_amount_donation_user } from "../../redux/actions/actions";
+import { total_adoption_user } from "../../redux/actions/actions";
 import FiltersModal from "./modalfiltros";
 
 export default function PanelUsers(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const urlBaseAxios =
+    import.meta.env.VITE_ENV === "DEV"
+      ? import.meta.env.VITE_URL_DEV
+      : import.meta.env.VITE_URL_PROD;
   const user_profile = useSelector((state) => state.UserReducer);
   const all_donations_copy_user = useSelector(
     (state) => state.rootReducer.alldonation_user_copy
+  );
+  const total_adoptions_user = useSelector(
+    (state) => state.rootReducer.total_adoption_user
+  );
+  const total_amount_user = useSelector(
+    (state) => state.rootReducer.total_amount_donation_user
   );
   const user_donations = useSelector(
     (state) => state.rootReducer.alldonations_user
@@ -40,7 +52,7 @@ export default function PanelUsers(props) {
   const [ShowModalSucces, SetShowModalSucces] = useState(false);
   const [showmodalprofile, Setshowmodalprofile] = useState(false);
   const [ShowModalMessage, SetShowModalMessage] = useState(false);
-  const [total_amount_user, Set_total_amount_user] = useState(0);
+
   const [form_edituser, Setformedituser] = useState({
     id: "",
     name: "",
@@ -51,6 +63,7 @@ export default function PanelUsers(props) {
     imageProfile: "",
     password: "",
   });
+
   const [error, Seterror] = useState({
     name: "",
     lastName: "",
@@ -91,10 +104,7 @@ export default function PanelUsers(props) {
   const handlePrevPage = (page) => {
     dispatch(alldonations_user(user_profile.id, 5, page));
   };
-  const urlBaseAxios =
-    import.meta.env.VITE_ENV === "DEV"
-      ? import.meta.env.VITE_URL_DEV
-      : import.meta.env.VITE_URL_PROD;
+
   const updateprofile = async (e) => {
     const response = await axios.put(
       `${urlBaseAxios}/user/changeUserData`,
@@ -126,15 +136,7 @@ export default function PanelUsers(props) {
     console.log("clikiendo asc");
     dispatch(alldonations_user(user_profile.id, 5, 1, value, "created"));
   };
-  const total_donations_amount = (data) => {
-    let suma = 0;
-    for (var i = 0; i < data.length; i++) {
-      console.log(data[i]);
-      let numero = data[i].amount;
-      suma += numero;
-    }
-    Set_total_amount_user(suma);
-  };
+
   useEffect(() => {
     Setformedituser({
       id: user_profile.id,
@@ -149,8 +151,8 @@ export default function PanelUsers(props) {
   }, [user_profile]);
   useEffect(() => {
     dispatch(alldonations_user(user_profile.id, 5, 1));
-    total_donations_amount(all_donations_copy_user);
-    console.log("valor de copy", all_donations_copy_user);
+    dispatch(total_amount_donation_user(user_profile.id));
+    dispatch(total_adoption_user(user_profile.id));
   }, []);
   console.log("total donado por el usuario", total_amount_user);
   return (
@@ -369,7 +371,7 @@ export default function PanelUsers(props) {
               </div>
               <div className="card-panel">
                 <div className="box-panel">
-                  <h1>2194</h1>
+                  <h1>{total_adoptions_user.totalAdoptions}</h1>
                   <h3 className="titles-panel-h3">Adopciones</h3>
                 </div>
                 <div className="icon-case">
