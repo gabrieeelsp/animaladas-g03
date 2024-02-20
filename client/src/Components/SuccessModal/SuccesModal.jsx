@@ -12,7 +12,7 @@ export default function SuccesModal({
   return (
     <>
       {ShowModalMessage ? (
-        <div className="overlay">
+        <div className="overlay" style={{ zIndex: "2" }}>
           <div className="Containermodal">
             <div className="headermodal">
               <img src={sucess_img} style={{ width: "100px" }}></img>

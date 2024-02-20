@@ -1,4 +1,4 @@
-import { USER_INFO } from "./actions/user_type";
+import { UPDATE_PROFILE, USER_INFO } from "./actions/user_type";
 import { loadState, saveState } from "../scripts/Localstore";
 import { SIGN_OUT } from "./actions/user_type";
 const initialState = loadState();
@@ -20,6 +20,7 @@ const UserReducer = (state = initialState, { type, payload }) => {
     case SIGN_OUT: {
       return loadState();
     }
+
     default:
       return state;
   }

@@ -13,13 +13,70 @@ const mailRecoveryPassword = async (email) => {
         to: email,
         subject: 'Revover Password',
         html: `
-        <h2>Recuperacion de contraseña</h2>
+        <div style="width: 100%; background-color: #343a40">
+            <div style="padding: 20px 10px">
+                <!-- image -->
+                <div style="padding: 10px 0px; width: 100%; text-align: center">
+                    <img
+                        src="cid:logoanimaladas"
+                        alt=""
+                        style="width: 100px"
+                    />
+                </div>
+                <hr />
 
-        <p>Para recuperar tu cuenta y restaurar tu contraseña dale click,</br>
-        al siguiente link:
-    
-        http://localhost:3001/user/verifyToken?token=${token}&userId=${user.id}
+                <!-- tittle -->
+
+                <h2
+                    style="
+                        text-align: center;
+                        color: white;
+                        text-decoration: none;
+                    "
+                >
+                Recuperacion de contraseña
+                </h2>
+
+                <p
+                    style="
+                        text-align: center;
+                        color: white;
+                        text-decoration: none;
+                    "
+                >
+                Para recuperar tu cuenta y restaurar tu contraseña dale click
+                al siguiente boton
+                </p>
+
+                <div style="width: 100%; text-align: center">
+                    <button
+                        style="
+                            height: 45px;
+                            width: 180px;
+                            padding: 5px;
+                            background-color: #ffc107;
+                            font-weight: bold;
+                        "
+                    >
+                        <a
+                            style="text-decoration: none; color: black"
+                            href="http://localhost:3001/user/verifyToken?token=${token}&userId=${user.id}"
+                            >Recuperar contraseña</a
+                        >
+                    </button>
+                </div>
+
+
+            </div>
+        </div>
         `,
+        attachments: [
+            {
+                filename: 'logoanimaladas.png',
+                path: '../api/src/img/logoanimaladas.png',
+                cid: 'logoanimaladas',
+            },
+        ],
     };
 
     const mailSend = await sendMail(mailOptions);

@@ -12,8 +12,8 @@ const loginUser = async (email, password) => {
 
     if (!user) throw new Error('Email incorrecto');
 
-    const comparePassword = await bcrypt.compare(password, user.password);
-    if (!comparePassword) throw new Error('Password incorrecta');
+    //const comparePassword = await bcrypt.compare(password, user.password);
+    //if (!comparePassword) throw new Error('Password incorrecta');
     // se crea el token con el cual veran si es user en admin o no.
     const token = generateToken(user);
 

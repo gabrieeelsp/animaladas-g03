@@ -1,7 +1,13 @@
 import { USER_INFO } from "./user_type";
 import { SIGN_OUT } from "./user_type";
 import { UPDATE_PROFILE } from "./user_type";
-import axios from "axios";
+
+import axios, { all } from "axios";
+
+const urlBaseAxios =
+  import.meta.env.VITE_ENV === "DEV"
+    ? import.meta.env.VITE_URL_DEV
+    : import.meta.env.VITE_URL_PROD;
 
 export function infologin(data) {
   return async function (dispatch) {
