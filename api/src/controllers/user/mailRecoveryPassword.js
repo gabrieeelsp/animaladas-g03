@@ -60,7 +60,7 @@ const mailRecoveryPassword = async (email) => {
                     >
                         <a
                             style="text-decoration: none; color: black"
-                            href="${process.env.URL_FRONT}/user/verifyToken?token=${token}&userId=${user.id}"
+                            href="${process.env.URL_BACK}/user/verifyToken?token=${token}&userId=${user.id}"
                             >Recuperar contraseña</a
                         >
                     </button>
