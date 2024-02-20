@@ -31,6 +31,7 @@ import {
   USER_BY_MAIL,
   UPDATE_USER,
   ALLDONATIONS_USER,
+  ALLADOPTIONS_USER,
 } from "./types";
 
 import axios from "axios";
@@ -544,8 +545,43 @@ export function alldonations_user(userId, limit, page) {
   console.log("valor de param userId", userId);
   console.log("valor de param limit", limit);
   console.log("valor de param page", page);
+  const token = localStorage.getItem("token");
+  console.log("token recibido", token);
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  };
   return async function (dispatch) {
-    const response = await axios.get(`${urlBaseAxios}/donations`, {
+    const response = await axios.get(
+      `${urlBaseAxios}/donations`,
+      {
+        params: {
+          userId,
+          limit,
+          page,
+        },
+      },
+      config
+    );
+    const { data } = response;
+    console.log(
+      "valor de data alldonations_user action",
+      data.data[0].createdAt.split("T")[0]
+    );
+
+    return dispatch({
+      type: ALLDONATIONS_USER,
+      payload: data,
+    });
+  };
+}
+
+export function alladoptions_user(userId, limit, page) {
+  return async function (dispatch) {
+    const response = await axios.get(`${urlBaseAxios}/adoptions`, {
       params: {
         userId,
         limit,
@@ -553,11 +589,12 @@ export function alldonations_user(userId, limit, page) {
       },
     });
     const { data } = response;
-    console.log("valor de data alldonations_user action", data);
-
+    console.log("informacion del data de all adopton", data);
+    /*
     return dispatch({
-      type: ALLDONATIONS_USER,
+      type: ALLADOPTIONS_USER,
       payload: data,
     });
+    */
   };
 }
