@@ -33,6 +33,7 @@ export default function PanelUsers(props) {
   const total_adoptions_user = useSelector(
     (state) => state.rootReducer.total_adoption_user
   );
+
   const total_amount_user = useSelector(
     (state) => state.rootReducer.total_amount_donation_user
   );
@@ -83,7 +84,6 @@ export default function PanelUsers(props) {
       [e.target.name]: e.target.value,
     });
     let validate = validateform(form_edituser);
-    console.log("error del phone");
     Seterror({
       ...error,
       name: validate.name,
@@ -97,7 +97,6 @@ export default function PanelUsers(props) {
     });
   };
   const handleNextPage = (page) => {
-    console.log("valor de page en handle nextpage", page);
     dispatch(alldonations_user(user_profile.id, 5, page));
   };
 
@@ -133,7 +132,6 @@ export default function PanelUsers(props) {
     });
   };
   const orderby = (value) => {
-    console.log("clikiendo asc");
     dispatch(alldonations_user(user_profile.id, 5, 1, value, "created"));
   };
 
@@ -153,8 +151,8 @@ export default function PanelUsers(props) {
     dispatch(alldonations_user(user_profile.id, 5, 1));
     dispatch(total_amount_donation_user(user_profile.id));
     dispatch(total_adoption_user(user_profile.id));
-  }, []);
-  console.log("total donado por el usuario", total_amount_user);
+  }, [user_profile]);
+  console.log("valor de adoptedaniaml", total_adoptions_user.adoptedAnimals);
   return (
     <>
       <div className="bodypage">
@@ -441,13 +439,6 @@ export default function PanelUsers(props) {
                         <td>{donation.createdAt.split("T")[1]}</td>
                       </tr>
                     );
-                    {
-                      data.data[0].createdAt.split("T")[0];
-                      console.log(
-                        "valor de donation en funcion map",
-                        donation.createdAt.split("T")
-                      );
-                    }
                   })}
                 </table>
                 <Paginacion
@@ -494,51 +485,20 @@ export default function PanelUsers(props) {
                     <th>Nombre</th>
                     <th>opcion</th>
                   </tr>
-                  <tr>
-                    <td>
-                      <img src={default_img}></img>
-                    </td>
-                    <td> Luna</td>
-                    <td>
-                      <i className="bi bi-info-circle"></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src={default_img}></img>
-                    </td>
-                    <td> Dunkan</td>
-                    <td>
-                      <i className="bi bi-info-circle"></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src={default_img}></img>
-                    </td>
-                    <td> Sasha</td>
-                    <td>
-                      <i className="bi bi-info-circle"></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src={default_img}></img>
-                    </td>
-                    <td> Pepe</td>
-                    <td>
-                      <i className="bi bi-info-circle"></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src={default_img}></img>
-                    </td>
-                    <td> Odie</td>
-                    <td>
-                      <i className="bi bi-info-circle"></i>
-                    </td>
-                  </tr>
+
+                  {total_adoptions_user.adoptedAnimals.map((dog) => {
+                    return (
+                      <tr>
+                        <td>
+                          <img src={dog.image1}></img>
+                        </td>
+                        <td> {dog.name}</td>
+                        <td>
+                          <i className="bi bi-info-circle"></i>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </table>
               </div>
             </div>
