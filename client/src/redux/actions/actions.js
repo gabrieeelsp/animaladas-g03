@@ -280,6 +280,7 @@ export const createForm = (formData) => {
     } catch (error) {
       console.error("Error creating activity:", error.message);
       dispatch(createFormFailure("Error creating Form"));
+      throw new Error(error.message)
     }
   };
 };
