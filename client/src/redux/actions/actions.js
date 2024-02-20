@@ -567,7 +567,10 @@ export function alldonations_user(userId, limit, page) {
       config
     );
     const { data } = response;
-    console.log("valor de data alldonations_user action", data);
+    console.log(
+      "valor de data alldonations_user action",
+      data.data[0].createdAt.split("T")[0]
+    );
 
     return dispatch({
       type: ALLDONATIONS_USER,
