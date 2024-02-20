@@ -9,7 +9,7 @@ passport.use(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: 'http://localhost:3001/user/auth/google/',
+            callbackURL: `${process.env.URL_FRONT}/user/auth/google/`,
         },
         async (accessToken, refreshToken, profile, cb) => {
             const googleMail = profile.emails[0].value;

@@ -44,9 +44,15 @@ const getVerifyAccountHandler = async (req, res) => {
     try {
         // change status verify account
         const verifyAccount = await verifyUser(token, userId);
-        res.redirect(302, `http://localhost:5173/verifyUser/${verifyAccount}`);
+        res.redirect(
+            302,
+            `${process.env.URL_FRONT}/verifyUser/${verifyAccount}`,
+        );
     } catch (error) {
-        res.redirect(302, `http://localhost:5173/verifyUser/${error.message}`);
+        res.redirect(
+            302,
+            `${process.env.URL_FRONT}/verifyUser/${error.message}`,
+        );
     }
 };
 
@@ -56,12 +62,12 @@ const getVerifyToken = async (req, res) => {
     try {
         const verify = await verifyToken(token);
         const { userId } = verify;
-        res.redirect(302, `http://localhost:5173/changePassword/${userId}`);
+        res.redirect(302, `${process.env.URL_FRONT}/changePassword/${userId}`);
     } catch (error) {
         // error.message = jwt expired
         res.redirect(
             302,
-            `http://localhost:5173/changePassword/${error.message}`,
+            `${process.env.URL_FRONT}/changePassword/${error.message}`,
         );
     }
 };
