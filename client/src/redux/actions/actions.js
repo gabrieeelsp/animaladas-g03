@@ -618,6 +618,7 @@ export const total_amount_donation_user = (id) => {
   };
 };
 export const total_adoption_user = (id) => {
+  console.log("ingreso al reducr", id);
   return async (dispatch) => {
     const response = await axios.get(`${urlBaseAxios}/adoptions/total/${id}`);
     dispatch({

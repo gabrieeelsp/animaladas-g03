@@ -42,8 +42,8 @@ const initialState = {
   alldonations_user: [],
   alldonation_user_copy: [],
   details_adoption_user: [],
-  total_amount_donation_user: null,
-  total_adoption_user: null,
+  total_amount_donation_user: 0,
+  total_adoption_user: {},
   statusAnimals: [],
   pagination: {
     total_records: 0,
