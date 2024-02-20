@@ -57,13 +57,22 @@ export default function PagoAprobado() {
     const createDonation = () => {
       const userInfoString = localStorage.getItem('user_info');
       const userInfo = userInfoString ? JSON.parse(userInfoString) : '';
-      const userId = userInfo ? userInfo.id : 1;
+      const userId = userInfo.id;
       const amount = totalAmount;
       const animalId = null;
 
       if (amount) {
+        const token = localStorage.getItem('token');
+        if (token) {
+
+          const config = {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + token
+            }
+          };
         axios
-          .post("http://localhost:3001/donations", { userId, amount, animalId })
+          .post("http://localhost:3001/donations", { userId, amount, animalId }, config)
           .then((donationResponse) => {
             console.log("Donación creada con éxito:", donationResponse.data);
             navigate("/donar/pago-aprobado");
@@ -72,6 +81,9 @@ export default function PagoAprobado() {
             console.error("Error al crear la donación:", donationError);
             console.error("Detalles del error:", donationError.response.data);
           });
+        } else {
+          console.error("Token no encontrado en el Local Storage");
+        }
       }
     };
 
