@@ -91,9 +91,18 @@ export default function PanelUsers(props) {
       ? import.meta.env.VITE_URL_DEV
       : import.meta.env.VITE_URL_PROD;
   const updateprofile = async (e) => {
+    const token = localStorage.getItem('token');
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token
+        }
+      };
     const response = await axios.put(
       `${urlBaseAxios}/user/changeUserData`,
-      form_edituser
+      form_edituser,
+      config
     );
     const { data } = response;
     if (data === "Informacion del Usuario actualizada.") {

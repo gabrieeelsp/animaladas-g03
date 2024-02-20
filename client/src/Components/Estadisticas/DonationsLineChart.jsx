@@ -20,7 +20,7 @@ function DonationsLineChart(props) {
               Authorization: 'Bearer ' + token
             }
           };
-    axios.get(`${urlBaseAxios}/donations?dateFrom=${dateFom}&dateTo=${dateTo}`, {config})
+    axios.get(`${urlBaseAxios}/donations?dateFrom=${dateFom}&dateTo=${dateTo}`, config)
       .then((resp) => {
 
         let respData = resp.data.data.map((item) => {

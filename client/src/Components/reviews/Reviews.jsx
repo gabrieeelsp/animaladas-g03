@@ -58,9 +58,18 @@ export default function Reviews(props) {
       : import.meta.env.VITE_URL_PROD;
 
   const post_comment = async () => {
+    const token = localStorage.getItem('token');
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token
+        }
+      };
     const resp = await axios.post(
       `${urlBaseAxios}/review/createReviews`,
-      opinion_data
+      opinion_data,
+      config
     );
     const { data } = resp;
     if (data) {
@@ -84,9 +93,18 @@ export default function Reviews(props) {
     SetshowGeneralModal(true);
   };
   const update_review = async (review) => {
+    const token = localStorage.getItem('token');
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token
+        }
+      };
     const resp = await axios.put(
       `${urlBaseAxios}/review/putReviews/${review.id}`,
-      opinion_data
+      opinion_data,
+      config
     );
     const { data } = resp;
     if (data.message === "Revisión actualizada correctamente") {

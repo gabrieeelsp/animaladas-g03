@@ -13,6 +13,8 @@ const {
     addFavoriteHandler,
     removeFavoriteHandler,
 } = require('../handlers/userHandlers');
+const authMiddleware = require('../middlewares/authMiddleware');
+const adminMiddleware = require('../middlewares/adminMiddleware');
 
 const userRouter = Router();
 
@@ -22,12 +24,25 @@ userRouter.post('/recoverPassword', postRevoverPassword);
 userRouter.get('/verifyToken', getVerifyToken);
 userRouter.put('/changePassword', putChangePassword);
 userRouter.post('/login', loginUserHandler);
-userRouter.post('/searchUser', searchUser);
-userRouter.get('/searchAllUsers', searchAllUsers);
-userRouter.put('/users/:id', putEnabledsUsers);
-userRouter.put('/changeUserData', putChageUserData);
-userRouter.post('/:id_user/addFavorite/:id_animal', addFavoriteHandler);
-userRouter.delete('/:id_user/removeFavorite/:id_animal', removeFavoriteHandler);
+userRouter.post('/searchUser', authMiddleware, adminMiddleware, searchUser);
+userRouter.get(
+    '/searchAllUsers',
+    authMiddleware,
+    adminMiddleware,
+    searchAllUsers,
+);
+userRouter.put('/users/:id', authMiddleware, adminMiddleware, putEnabledsUsers);
+userRouter.put('/changeUserData', authMiddleware, putChageUserData);
+userRouter.post(
+    '/:id_user/addFavorite/:id_animal',
+    authMiddleware,
+    addFavoriteHandler,
+);
+userRouter.delete(
+    '/:id_user/removeFavorite/:id_animal',
+    authMiddleware,
+    removeFavoriteHandler,
+);
 userRouter.get('/google', (req, res) => {
     const { user } = req;
     const serializedUser = JSON.stringify(user);
