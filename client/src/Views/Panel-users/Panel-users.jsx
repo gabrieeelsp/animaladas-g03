@@ -14,11 +14,16 @@ import { infologin } from "../../redux/actions/user_action";
 import { alldonations_user } from "../../redux/actions/actions";
 import rootReducer from "../../redux/reducer";
 import Paginacion from "../../Components/Pagination/Pagination";
+import FiltersModal from "./modalfiltros";
+
 export default function PanelUsers(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const user_profile = useSelector((state) => state.UserReducer);
+  const all_donations_copy_user = useSelector(
+    (state) => state.rootReducer.alldonation_user_copy
+  );
   const user_donations = useSelector(
     (state) => state.rootReducer.alldonations_user
   );
@@ -26,9 +31,7 @@ export default function PanelUsers(props) {
   if (user_profile === "") {
     navigate("/");
   }
-  useEffect(() => {
-    dispatch(alldonations_user(user_profile.id, 5, 1));
-  }, []);
+
   const showprofile = props.showprofile;
   const Setshowprofile = props.Setshowprofile;
 
@@ -36,6 +39,8 @@ export default function PanelUsers(props) {
   const [MessageModal, SetMessageModal] = useState(false);
   const [ShowModalSucces, SetShowModalSucces] = useState(false);
   const [showmodalprofile, Setshowmodalprofile] = useState(false);
+  const [ShowModalMessage, SetShowModalMessage] = useState(false);
+  const [total_amount_user, Set_total_amount_user] = useState(0);
   const [form_edituser, Setformedituser] = useState({
     id: "",
     name: "",
@@ -117,6 +122,19 @@ export default function PanelUsers(props) {
       [e.target.name]: response.data.secure_url,
     });
   };
+  const orderby = (value) => {
+    console.log("clikiendo asc");
+    dispatch(alldonations_user(user_profile.id, 5, 1, value, "created"));
+  };
+  const total_donations_amount = (data) => {
+    let suma = 0;
+    for (var i = 0; i < data.length; i++) {
+      console.log(data[i]);
+      let numero = data[i].amount;
+      suma += numero;
+    }
+    Set_total_amount_user(suma);
+  };
   useEffect(() => {
     Setformedituser({
       id: user_profile.id,
@@ -129,7 +147,12 @@ export default function PanelUsers(props) {
       password: "",
     });
   }, [user_profile]);
-
+  useEffect(() => {
+    dispatch(alldonations_user(user_profile.id, 5, 1));
+    total_donations_amount(all_donations_copy_user);
+    console.log("valor de copy", all_donations_copy_user);
+  }, []);
+  console.log("total donado por el usuario", total_amount_user);
   return (
     <>
       <div className="bodypage">
@@ -334,11 +357,14 @@ export default function PanelUsers(props) {
             <div className="cards-panel">
               <div className="card-panel">
                 <div className="box-panel">
-                  <h1>2194</h1>
+                  <h1>${total_amount_user}</h1>
                   <h3 className="titles-panel-h3">Donaciones</h3>
                 </div>
                 <div className="icon-case">
-                  <i class="bi bi-heart-fill"></i>
+                  <i
+                    class="bi bi-box2-heart"
+                    style={{ fontSize: "50px", color: "#E4A11B" }}
+                  ></i>
                 </div>
               </div>
               <div className="card-panel">
@@ -347,17 +373,53 @@ export default function PanelUsers(props) {
                   <h3 className="titles-panel-h3">Adopciones</h3>
                 </div>
                 <div className="icon-case">
-                  <i class="bi bi-heart-fill"></i>
+                  <i
+                    class="bi bi-house-heart"
+                    style={{ fontSize: "50px", color: "#E4A11B" }}
+                  ></i>
                 </div>
               </div>
             </div>
             <div className="content-panel-2">
               <div className="recent-payments">
                 <div className="title-content-panel">
-                  <h2>Historico de sus donaciones</h2>
-                  <a href="#" className="btn-panel">
-                    Filtrar
-                  </a>
+                  <h2>Mis donaciones</h2>
+                </div>
+                <div
+                  style={{
+                    paddingRight: "5px",
+                    paddingLeft: "5px",
+                  }}
+                >
+                  <div
+                    style={{
+                      paddingTop: "10px",
+                      paddingBottom: "10px",
+                      display: "flex",
+                      justifyContent: "space-evenly",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div
+                      style={{ float: "right" }}
+                      onClick={(e) => {
+                        orderby("desc");
+                      }}
+                    >
+                      <a href="#" className="btn-panel">
+                        Recientes
+                      </a>
+                    </div>
+                    <div
+                      onClick={(e) => {
+                        orderby("asc");
+                      }}
+                    >
+                      <a href="#" className="btn-panel">
+                        Antiguos
+                      </a>
+                    </div>
+                  </div>
                 </div>
                 <table className="table-content-panel">
                   <tr>
@@ -396,9 +458,33 @@ export default function PanelUsers(props) {
               <div className="new-students">
                 <div className="title-content-panel">
                   <h2>Adoptados</h2>
-                  <a href="#" className="btn-panel">
-                    View All
-                  </a>
+                </div>
+                <div
+                  style={{
+                    paddingRight: "5px",
+                    paddingLeft: "5px",
+                  }}
+                >
+                  <div
+                    style={{
+                      paddingTop: "10px",
+                      paddingBottom: "10px",
+                      display: "flex",
+                      justifyContent: "space-evenly",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div style={{ float: "right" }}>
+                      <a href="#" className="btn-panel">
+                        Recientes
+                      </a>
+                    </div>
+                    <div>
+                      <a href="#" className="btn-panel">
+                        Antiguos
+                      </a>
+                    </div>
+                  </div>
                 </div>
                 <table>
                   <tr>
@@ -456,6 +542,10 @@ export default function PanelUsers(props) {
             </div>
           </div>
         </div>
+        <FiltersModal
+          SetShowModalMessage={SetShowModalMessage}
+          ShowModalMessage={ShowModalMessage}
+        ></FiltersModal>
       </div>
     </>
   );

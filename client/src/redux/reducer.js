@@ -38,6 +38,7 @@ import {
 const initialState = {
   allAnimals: [],
   alldonations_user: [],
+  alldonation_user_copy: [],
   statusAnimals: [],
   pagination: {
     total_records: 0,
@@ -312,6 +313,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         alldonations_user: payload.data,
+        alldonation_user_copy: payload.data,
         pagination: {
           ...state.pagination,
           ...payload.pagination,

@@ -541,7 +541,7 @@ export const updateUser = (updateValues) => {
   };
 };
 
-export function alldonations_user(userId, limit, page) {
+export function alldonations_user(userId, limit, page, orderDir, orderBy) {
   console.log("valor de param userId", userId);
   console.log("valor de param limit", limit);
   console.log("valor de param page", page);
@@ -562,6 +562,8 @@ export function alldonations_user(userId, limit, page) {
           userId,
           limit,
           page,
+          orderDir,
+          orderBy,
         },
       },
       config
@@ -579,13 +581,18 @@ export function alldonations_user(userId, limit, page) {
   };
 }
 
-export function alladoptions_user(userId, limit, page) {
+export function alladoptions_user(userId, limit, page, orderDir, orderBy) {
+  console.log("ingreso al reducer alldoption con filtros");
   return async function (dispatch) {
+    console.log("valor de orderdir", orderDir);
+    console.log("valor de orde orderBy", orderby);
     const response = await axios.get(`${urlBaseAxios}/adoptions`, {
       params: {
         userId,
         limit,
         page,
+        orderDir,
+        orderBy,
       },
     });
     const { data } = response;
