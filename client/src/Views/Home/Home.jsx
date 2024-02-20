@@ -1,10 +1,58 @@
-import React from "react";
+import React, { useEffect } from "react"; // Agrega esta línea
+import { useSelector, useDispatch } from 'react-redux'; // Agrega esta línea
 import { Link } from "react-router-dom";
 import { isTokenExpired } from "../../scripts/istokenexpired";
 import "./Home.css";
+import {  get_allreviews } from "../../redux/actions/actions";
+
 
 export default function Home() {
   console.log("pagina home.jsx");
+  const allReviews = useSelector((state) => state.rootReducer.allreviews);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(get_allreviews());
+  }, [dispatch]);
+
+  const renderReviews = () => {
+    return allReviews.slice(0, 3).map((review, index) => (
+      <div className="custom-card-link col-md-4 mb-4" key={index}>
+        <div className="card bg-dark text-light shadow-card testimonial-box">
+          <div className="card-body">
+            <div className="profile">
+              <div className="profile-img">
+                <img
+                  src={review.user_img}
+                  alt="User"
+                  style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+                />
+              </div>
+              <div className="name-user">
+                <strong className="text-warning">{review.user_name} {review.user_lastName}</strong>
+                <span className="text-warning">@{review.user_name}{review.user_lastName}</span>
+              </div>
+            </div>
+            <div className="reviews">
+              {[...Array(review.score)].map((_, index) => (
+                <i className="bi bi-star-fill text-warning" key={index}></i>
+              ))}
+              {[...Array(5 - review.score)].map((_, index) => (
+                <i className="bi bi-star text-warning" key={index}></i>
+              ))}
+            </div>
+            <div className="user-comment text-white" style={{ maxHeight: "80px", overflowY: "auto" }}>
+              <p>{review.comment}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    ));
+  };
+  
+  
+  
+
   return (
     <div style={{ paddingTop: "45px" }}>
       <div
@@ -188,6 +236,13 @@ export default function Home() {
               </div>
             </Link>
           </div>
+      
+          <div className="container mt-5">
+  <h2 className="text-warning mb-4">Últimas Reseñas</h2>
+  <div className="row">
+    {renderReviews()}
+  </div>
+</div>
         </div>
       </div>
     </div>
