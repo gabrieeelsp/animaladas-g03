@@ -365,7 +365,7 @@ export default function PanelUsers(props) {
                 <div className="title-content-panel">
                   <h2>Historico de sus donaciones</h2>
                   <a href="#" className="btn-panel">
-                    View All
+                    Filtrar
                   </a>
                 </div>
                 <table className="table-content-panel">
@@ -374,7 +374,7 @@ export default function PanelUsers(props) {
                     <th>Apellido</th>
                     <th>Monto</th>
                     <th>Fecha</th>
-                    <th>Eliminar</th>
+                    <th>Hora</th>
                   </tr>
                   {user_donations.map((donation) => {
                     return (
@@ -382,18 +382,15 @@ export default function PanelUsers(props) {
                         <td>{user_profile.name}</td>
                         <td>{user_profile.lastName}</td>
                         <td>{donation.amount}</td>
-                        <td>{donation.createdAt}</td>
-                        <td>
-                          <a href="#" className="btn-panel">
-                            <i className="bi bi-dash"></i>
-                          </a>
-                        </td>
+                        <td>{donation.createdAt.split("T")[0]}</td>
+                        <td>{donation.createdAt.split("T")[1]}</td>
                       </tr>
                     );
                     {
+                      data.data[0].createdAt.split("T")[0];
                       console.log(
                         "valor de donation en funcion map",
-                        String(donation.amount)
+                        donation.createdAt.split("T")
                       );
                     }
                   })}
