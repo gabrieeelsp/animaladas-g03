@@ -10,6 +10,7 @@ const verifyToken = require('../controllers/user/verifyToken');
 const verifyUser = require('../controllers/user/verifyUser');
 const addFavoriteController = require('../controllers/user/addFavorite');
 const removeFavoriteController = require('../controllers/user/removeFavorite');
+const getPagAllUsers = require('../controllers/user/getPagAllUsers');
 /*
 const {
     default: Profilemenu,
@@ -190,6 +191,22 @@ const removeFavoriteHandler = async (req, res) => {
     }
 };
 
+const getPagAllUserHandler = async (req, res) => {
+    try {
+        const filters = req.query;
+        const limit = parseInt(filters.limit, 10) || null;
+        const page = parseInt(filters.page, 10) || 1;
+
+        const users = await getPagAllUsers(filters, limit, page);
+        res.status(200).json(users);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: 'Error interno del servidor al recuperar las reviews',
+        });
+    }
+};
+
 module.exports = {
     postUserHandler,
     loginUserHandler,
@@ -203,4 +220,5 @@ module.exports = {
     putChageUserData,
     addFavoriteHandler,
     removeFavoriteHandler,
+    getPagAllUserHandler,
 };
