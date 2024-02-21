@@ -9,10 +9,10 @@ import {
   allAdoptions,
 } from "../../redux/actions/actions";
 import ModalError from "../../Components/ErrorModal/ErrorModal";
-import SuccessModal from  "../../Components/SuccessModal/SuccesModal"
+import SuccessModal from "../../Components/SuccessModal/SuccesModal";
 
 export default function Detail(props) {
-  const [ShowModalSuccess, SetShowModalSuccess] = useState(false)
+  const [ShowModalSuccess, SetShowModalSuccess] = useState(false);
 
   const { MessageModal, SetMessageModal } = props;
   const { id } = useParams();
@@ -51,14 +51,14 @@ export default function Detail(props) {
     dispatch(createForm(adoptionFormData))
       // agregar modal de agradecimiento
       .then(() => {
-        SetShowModalSuccess(true)
-        SetMessageModal('Gracias por iniciar el tramite de adopción.')
+        SetShowModalSuccess(true);
+        SetMessageModal("Gracias por iniciar el tramite de adopción.");
       })
       // agregar modal de avisoq eu ya existe una slicitud pendiente
       .catch(() => {
-        SetShowModalError(true)
-        SetMessageModal('Ya tienes una solicitud pendiente para este animal.')
-      })
+        SetShowModalError(true);
+        SetMessageModal("Ya tienes una solicitud pendiente para este animal.");
+      });
   };
 
   const calculateAge = (estimatedBirthYear) => {
@@ -80,7 +80,7 @@ export default function Detail(props) {
       >
         <div
           className="row bg-dark p-4 align-items-center justify-content-center"
-          style={{ width: "1000px", borderRadius: "50px" }}
+          style={{ width: "80%", height: "5%", borderRadius: "50px" }}
         >
           <div className="col">
             <img
@@ -149,10 +149,12 @@ export default function Detail(props) {
                 Historia de rescate: {animal.rescued_story}
               </h4>
             </div>
-            <button className="btn btn-warning btn-block text-dark"
+            <button
+              className="btn btn-warning btn-block text-dark"
               onClick={handleFormSubmit}
-            >Adoptar</button>
-            
+            >
+              Adoptar
+            </button>
           </div>
 
           <div
