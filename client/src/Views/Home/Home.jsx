@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { isTokenExpired } from "../../scripts/istokenexpired";
 import "./Home.css";
 import {  get_allreviews } from "../../redux/actions/actions";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaw } from '@fortawesome/free-solid-svg-icons';
 
 export default function Home() {
   console.log("pagina home.jsx");
@@ -157,7 +159,7 @@ export default function Home() {
                 textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" 
               }}
             >
-              ¿Quiénes somos?
+              <FontAwesomeIcon icon={faPaw} style={{ color: "#FFC107", fontSize: "2.5rem" }} /> ¿Quiénes somos? <FontAwesomeIcon icon={faPaw} style={{ color: "#FFC107", fontSize: "2.5rem" }} />
             </h2>
             <p className="text-light" style={{ marginTop: "8px", fontSize: "1.2rem" }}>
               Somos Animaladas, una organización de personas en Salta Capital,
