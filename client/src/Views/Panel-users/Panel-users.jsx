@@ -584,7 +584,7 @@ export default function PanelUsers(props) {
                     <tr>
                       <th>foto</th>
                       <th>Nombre</th>
-                      <th>opcion</th>
+                      <th>Ver</th>
                     </tr>
 
                     {adoptedAnimals.map((dog) => {
@@ -663,4 +663,4 @@ export default function PanelUsers(props) {
     </>
   );
 }
-//*
+//** */
