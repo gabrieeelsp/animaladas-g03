@@ -1,15 +1,18 @@
 const { templateSendMail } = require('../../services/nodemailer');
-const getUserById = require('../user/getUserById');
+const findOneById = require('./findOneById');
 
 const mailAdoption = async (id, messageMail) => {
-    const user = await getUserById(id);
+    const data = await findOneById(id);
+
+    const userEmail = data.user.dataValues.email;
+    const userName = data.user.dataValues.name;
 
     const mail = {
         from: process.env.GOOGLE_EMAIL,
-        to: user.email,
+        to: userEmail,
         subject: 'Informe de adopcion',
         title: 'Informe de adopcion',
-        message: `Hola ${user.name}, ${messageMail}`,
+        message: `Hola ${userName}, ${messageMail}`,
     };
 
     const emailSend = await templateSendMail(mail);
