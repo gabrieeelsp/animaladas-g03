@@ -1,14 +1,10 @@
-const { Review } = require('../../db');
+const { User } = require('../../db');
 
 const getFiltersList = (filters) => {
     const filtersList = {};
 
     if (filters.userId) {
         filtersList.userId = filters.userId;
-    }
-
-    if (filters.isReviewed) {
-        filtersList.isReviewed = filters.isReviewed;
     }
 
     return filtersList;
@@ -47,18 +43,18 @@ const getPrevPage = (page) => {
     return page - 1;
 };
 
-const getAllReview = async (filters, limit, page = 1) => {
+const getPagAllUsers = async (filters, limit, page = 1) => {
     let cantidad = null;
     let filas = null;
     if (!limit) {
-        const { count, rows } = await Review.findAndCountAll({
+        const { count, rows } = await User.findAndCountAll({
             where: getFiltersList(filters),
             order: getOrderList(filters),
         });
         cantidad = count;
         filas = rows;
     } else {
-        const { count, rows } = await Review.findAndCountAll({
+        const { count, rows } = await User.findAndCountAll({
             where: getFiltersList(filters),
             order: getOrderList(filters),
             offset: getOffset(limit, page),
@@ -80,4 +76,4 @@ const getAllReview = async (filters, limit, page = 1) => {
     };
 };
 
-module.exports = getAllReview;
+module.exports = getPagAllUsers;

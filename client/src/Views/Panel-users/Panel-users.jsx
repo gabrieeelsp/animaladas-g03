@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./panel-users.css";
-import { Navigate, useAsyncError, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useAsyncError, useNavigate } from "react-router-dom";
 import default_img from "../../img/perfil_default.png";
 import secondimg from "../../img/logo_google.png";
 import thirdimg from "../../img/succes.png";
@@ -17,7 +17,9 @@ import Paginacion from "../../Components/Pagination/Pagination";
 import { total_amount_donation_user } from "../../redux/actions/actions";
 import { total_adoption_user } from "../../redux/actions/actions";
 import FiltersModal from "./modalfiltros";
-
+import EstadisticasBoard from "../../Components/Estadisticas/EstadisticasBoard/EstadisticasBoard";
+import Detail from "../Detail/Detail";
+import GeneralModal from "../../Components/GeneralModal/generalmodal";
 export default function PanelUsers(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,16 +33,27 @@ export default function PanelUsers(props) {
   const all_donations_copy_user = useSelector(
     (state) => state.rootReducer.alldonation_user_copy
   );
-  const total_adoptions_user = useSelector(
-    (state) => state.rootReducer.total_adoption_user
+  const copy_total_adoptions_user = useSelector(
+    (state) => state.rootReducer.total_adoption_user_copy
   );
-  console.log("prueba vale:", total_adoptions_user.adoptedAnimals);
-  let array_adopted_user = [];
-  if (!total_adoptions_user.adoptedAnimals) {
-    array_adopted_user = [];
-  } else {
-    array_adopted_user = total_adoptions_user.adoptedAnimals;
+
+  let total_adoptions_user = 0;
+
+  if (copy_total_adoptions_user.pagination) {
+    total_adoptions_user = copy_total_adoptions_user.pagination.total_records;
   }
+  let adoptedAnimals = useSelector(
+    (state) => state.rootReducer.total_adoption_user.data
+  );
+  console.log("prueba vale:", adoptedAnimals);
+  let array_adopted_user = [];
+
+  if (!adoptedAnimals) {
+    adoptedAnimals = [];
+  } else {
+    adoptedAnimals = adoptedAnimals;
+  }
+
   const total_amount_user = useSelector(
     (state) => state.rootReducer.total_amount_donation_user
   );
@@ -49,6 +62,20 @@ export default function PanelUsers(props) {
   );
 
   const pagination = useSelector((state) => state.rootReducer.pagination);
+  let pagination2 = useSelector(
+    (state) => state.rootReducer.total_adoption_user.pagination
+  );
+  if (!pagination2) {
+    pagination2 = {
+      total_records: 0,
+      current_page: 1,
+      total_pages: null,
+      next_page: null,
+      prev_page: null,
+    };
+  } else {
+    pagination2 = pagination2;
+  }
   if (user_profile === "") {
     navigate("/");
   }
@@ -64,6 +91,17 @@ export default function PanelUsers(props) {
   const [MenuDonations, SetMenudonatios] = useState(true);
   const [MenuAdoptions, SetMenuAdoptions] = useState(true);
   const [Showcards, SetShowcards] = useState(true);
+  const [detail_pet, Setdetail_pet] = useState({
+    name: "",
+    gender: "",
+    species: "",
+    size: "",
+    vaccines: "",
+    weight: "",
+    estimatedBirthYear: "",
+    castrated: "",
+    image1: "",
+  });
   const [form_edituser, Setformedituser] = useState({
     id: "",
     name: "",
@@ -109,20 +147,25 @@ export default function PanelUsers(props) {
   const handleNextPage = (page) => {
     dispatch(alldonations_user(user_profile.id, 5, page));
   };
-
+  const handleNextPage2 = (page) => {
+    dispatch(total_adoption_user(user_profile.id, 5, page));
+  };
   const handlePrevPage = (page) => {
     dispatch(alldonations_user(user_profile.id, 5, page));
   };
+  const handlePrevPage2 = (page) => {
+    dispatch(total_adoption_user(user_profile.id, 5, page));
+  };
 
   const updateprofile = async (e) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
-        }
-      };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
     const response = await axios.put(
       `${urlBaseAxios}/user/changeUserData`,
       form_edituser,
@@ -153,7 +196,21 @@ export default function PanelUsers(props) {
   const orderby = (value) => {
     dispatch(alldonations_user(user_profile.id, 5, 1, value, "created"));
   };
-
+  const view_detail_pet = (data) => {
+    Setdetail_pet({
+      ...detail_pet,
+      name: data.name,
+      gender: data.gender,
+      species: data.species,
+      size: data.size,
+      vaccines: data.vaccines ? "Si" : "No",
+      weight: data.weight,
+      estimatedBirthYear: data.estimatedBirthYear,
+      castrated: data.castrated ? "Si" : "No",
+      image1: data.image1,
+    });
+    SetShowModalMessage(true);
+  };
   useEffect(() => {
     Setformedituser({
       id: user_profile.id,
@@ -166,12 +223,11 @@ export default function PanelUsers(props) {
       password: "",
     });
   }, [user_profile]);
-  console.log("valor de este", total_adoptions_user.adoptedAnimals);
 
   useEffect(() => {
     dispatch(alldonations_user(user_profile.id, 5, 1));
     dispatch(total_amount_donation_user(user_profile.id));
-    dispatch(total_adoption_user(user_profile.id));
+    dispatch(total_adoption_user(user_profile.id, 5, 1));
   }, [user_profile]);
   const click_menu_option = (option) => {
     if (option === "home") {
@@ -191,6 +247,7 @@ export default function PanelUsers(props) {
       SetShowcards(false);
     }
   };
+  console.log("valores de detail pet", detail_pet);
   return (
     <>
       <div className="bodypage">
@@ -408,7 +465,7 @@ export default function PanelUsers(props) {
                 </div>
                 <div className="card-panel">
                   <div className="box-panel">
-                    <h1>{total_adoptions_user.totalAdoptions}</h1>
+                    <h1>{total_adoptions_user}</h1>
                     <h3 className="titles-panel-h3">Adopciones</h3>
                   </div>
                   <div className="icon-case">
@@ -420,6 +477,7 @@ export default function PanelUsers(props) {
                 </div>
               </div>
             )}
+
             <div className="content-panel-2">
               {MenuDonations && (
                 <div className="recent-payments">
@@ -526,33 +584,83 @@ export default function PanelUsers(props) {
                     <tr>
                       <th>foto</th>
                       <th>Nombre</th>
-                      <th>opcion</th>
+                      <th>Ver</th>
                     </tr>
 
-                    {array_adopted_user.map((dog) => {
+                    {adoptedAnimals.map((dog) => {
+                      console.log("valor del i", dog);
                       return (
                         <tr>
                           <td>
-                            <img src={dog.image1}></img>
+                            <img src={dog.animal.image1}></img>
                           </td>
-                          <td> {dog.name}</td>
+                          <td> {dog.animal.name}</td>
                           <td>
-                            <i className="bi bi-info-circle"></i>
+                            <div onClick={(e) => view_detail_pet(dog.animal)}>
+                              <i className="bi bi-eye-fill"></i>
+                            </div>
                           </td>
                         </tr>
                       );
                     })}
                   </table>
+                  <Paginacion
+                    pagination={pagination2}
+                    onNextPage={handleNextPage2}
+                    onPrevPage={handlePrevPage2}
+                  ></Paginacion>
                 </div>
               )}
             </div>
           </div>
         </div>
-        <FiltersModal
+        <GeneralModal
           SetShowModalMessage={SetShowModalMessage}
           ShowModalMessage={ShowModalMessage}
-        ></FiltersModal>
+        >
+          <img
+            src={detail_pet.image1}
+            style={{
+              width: "50%",
+              height: "50%",
+
+              float: "left",
+            }}
+          ></img>
+
+          <ul style={{ color: "#E4A11B", overflow: "hidden" }}>
+            <li>
+              Nombre: <span style={{ color: "white" }}>{detail_pet.name}</span>
+            </li>
+            <li>
+              Genero:{" "}
+              <span style={{ color: "white" }}>{detail_pet.gender}</span>
+            </li>
+            <li>
+              Especie:{" "}
+              <span style={{ color: "white" }}>{detail_pet.species}</span>
+            </li>
+            <li>
+              Vacunas:{" "}
+              <span style={{ color: "white" }}>{detail_pet.vaccines}</span>
+            </li>
+            <li>
+              Peso: <span style={{ color: "white" }}>{detail_pet.weight}</span>
+            </li>
+            <li>
+              Año de nacimiento:{" "}
+              <span style={{ color: "white" }}>
+                {detail_pet.estimatedBirthYear}
+              </span>
+            </li>
+            <li>
+              Castrado:{" "}
+              <span style={{ color: "white" }}>{detail_pet.castrated}</span>
+            </li>
+          </ul>
+        </GeneralModal>
       </div>
     </>
   );
 }
+//** */

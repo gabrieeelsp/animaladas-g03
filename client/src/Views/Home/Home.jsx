@@ -1,10 +1,11 @@
-import React, { useEffect } from "react"; // Agrega esta línea
-import { useSelector, useDispatch } from 'react-redux'; // Agrega esta línea
+import React, { useEffect } from "react"; 
+import { useSelector, useDispatch } from 'react-redux'; 
 import { Link } from "react-router-dom";
 import { isTokenExpired } from "../../scripts/istokenexpired";
 import "./Home.css";
 import {  get_allreviews } from "../../redux/actions/actions";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaw } from '@fortawesome/free-solid-svg-icons';
 
 export default function Home() {
   console.log("pagina home.jsx");
@@ -16,12 +17,12 @@ export default function Home() {
   }, [dispatch]);
 
   const renderReviews = () => {
-    return allReviews.slice(0, 3).map((review, index) => (
-      <div className="custom-card-link col-md-4 mb-4" key={index}>
-        <div className="card bg-dark text-light shadow-card testimonial-box">
+    return allReviews.slice(0, 4).map((review, index) => (
+      <div className="col-md-6 mb-4" key={index}>
+        <div className="card bg-dark text-light shadow testimonial-box">
           <div className="card-body">
-            <div className="profile">
-              <div className="profile-img">
+            <div className="profile d-flex align-items-center mb-3">
+              <div className="profile-img me-3">
                 <img
                   src={review.user_img}
                   alt="User"
@@ -30,10 +31,10 @@ export default function Home() {
               </div>
               <div className="name-user">
                 <strong className="text-warning">{review.user_name} {review.user_lastName}</strong>
-                <span className="text-warning">@{review.user_name}{review.user_lastName}</span>
+                <span className="text-light">@{review.user_name}{review.user_lastName}</span>
               </div>
             </div>
-            <div className="reviews">
+            <div className="reviews mb-3">
               {[...Array(review.score)].map((_, index) => (
                 <i className="bi bi-star-fill text-warning" key={index}></i>
               ))}
@@ -41,17 +42,14 @@ export default function Home() {
                 <i className="bi bi-star text-warning" key={index}></i>
               ))}
             </div>
-            <div className="user-comment text-white" style={{ maxHeight: "80px", overflowY: "auto" }}>
-              <p>{review.comment}</p>
+            <div className="user-comment text-white">
+              <p style={{ maxHeight: "40px", overflow: "hidden", textOverflow: "ellipsis", color: "white" }}>{review.comment}</p>
             </div>
           </div>
         </div>
       </div>
     ));
   };
-  
-  
-  
 
   return (
     <div style={{ paddingTop: "45px" }}>
@@ -60,33 +58,22 @@ export default function Home() {
         className="carousel slide mb-4"
         data-bs-ride="carousel"
         data-bs-interval="3000"
-        style={{ width: "1100px", margin: "auto", marginTop: "50px" }}
+        style={{ width: "100%", height: "250px", margin: "auto", marginTop: "40px", marginBottom: "10px", maxWidth: "1100px" }}
       >
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img
-              src="https://images.unsplash.com/photo-1508109657675-38fe91fb2ada?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="https://images.unsplash.com/photo-1515952782260-36998d667f89?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               className="d-block w-100 rounded"
               alt="..."
               style={{
                 borderRadius: "100px",
-                height: "390px",
+                height: "220px",
                 objectFit: "cover",
               }}
             />
           </div>
-          <div className="carousel-item">
-            <img
-              src="https://images.unsplash.com/photo-1622273509376-2d42c282dced?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              className="d-block w-100 rounded"
-              alt="..."
-              style={{
-                borderRadius: "100px",
-                height: "390px",
-                objectFit: "cover",
-              }}
-            />
-          </div>
+        
           <div className="carousel-item">
             <img
               src="https://images.unsplash.com/photo-1542765826-d17aa264390d?q=80&w=1474&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -94,19 +81,34 @@ export default function Home() {
               alt="..."
               style={{
                 borderRadius: "100px",
-                height: "390px",
+                height: "220px",
                 objectFit: "cover",
               }}
             />
           </div>
+
           <div className="carousel-item">
             <img
-              src="https://images.unsplash.com/photo-1510878356388-93a357c7a57c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="https://images.unsplash.com/photo-1509195605820-8eb07b921387?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               className="d-block w-100 rounded"
               alt="..."
               style={{
                 borderRadius: "100px",
-                height: "390px",
+                height: "220px",
+                objectFit: "cover",
+              }}
+            />
+          </div>
+
+          
+          <div className="carousel-item">
+            <img
+              src="https://images.unsplash.com/photo-1625107012478-2fb7eceb7577?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              className="d-block w-100 rounded"
+              alt="..."
+              style={{
+                borderRadius: "100px",
+                height: "220px",
                 objectFit: "cover",
               }}
             />
@@ -150,12 +152,16 @@ export default function Home() {
         <div className="card bg-dark text-light about-us-card">
           <div className="card-body">
             <h2
-              className="text-warning"
-              style={{ fontSize: "1.5rem", color: "#FFC107" }}
+              className="text-warning text-center mb-4"
+              style={{
+                fontSize: "2.5rem", 
+                color: "#FFC107",
+                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" 
+              }}
             >
-              ¿Quiénes somos?
+              <FontAwesomeIcon icon={faPaw} style={{ color: "#FFC107", fontSize: "2.5rem" }} /> ¿Quiénes somos? <FontAwesomeIcon icon={faPaw} style={{ color: "#FFC107", fontSize: "2.5rem" }} />
             </h2>
-            <p className="text-light" style={{ marginTop: "8px" }}>
+            <p className="text-light" style={{ marginTop: "8px", fontSize: "1.2rem" }}>
               Somos Animaladas, una organización de personas en Salta Capital,
               Argentina, dedicada al rescate de perros y gatos en situación de
               abandono, maltrato y otras circunstancias. Nuestra misión es
@@ -191,7 +197,7 @@ export default function Home() {
                   alt="..."
                 />
                 <div className="card-body">
-                  <h5 className="cardcustom-title">Rescatados</h5>
+                  <h5 className="cardcustom-title text-center">Rescatados</h5>
                   <p className="cardcustom-text">
                     ¡Ayúdanos a brindar atención urgente a nuestros animalitos!
                   </p>
@@ -209,7 +215,7 @@ export default function Home() {
                   alt="..."
                 />
                 <div className="card-body">
-                  <h5 className="cardcustom-title">Adoptar</h5>
+                  <h5 className="cardcustom-title text-center">Adoptar</h5>
                   <p className="cardcustom-text">
                     Encuentra a tu próximo mejor amigo disponible para adopción.
                   </p>
@@ -227,7 +233,7 @@ export default function Home() {
                   alt="..."
                 />
                 <div className="card-body">
-                  <h5 className="cardcustom-title">Adoptados</h5>
+                  <h5 className="cardcustom-title text-center">Adoptados</h5>
                   <p className="cardcustom-text">
                     Descubre historias felices de animales que encontraron un
                     hogar.
@@ -236,15 +242,17 @@ export default function Home() {
               </div>
             </Link>
           </div>
-      
-          <div className="container mt-5">
-  <h2 className="text-warning mb-4">Últimas Reseñas</h2>
+        </div>
+      </div>
+
+      <div className="container mt-4 latest-reviews-section">
+  <h2 className="cardcustom-title text-warning mb-4 text-start"
+   style={{ marginLeft: "20px" }}>Experiencias con Animaladas:</h2>
   <div className="row">
     {renderReviews()}
   </div>
 </div>
-        </div>
-      </div>
+
     </div>
   );
 }

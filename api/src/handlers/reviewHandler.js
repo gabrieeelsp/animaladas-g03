@@ -2,6 +2,8 @@ const createReview = require('../controllers/review/createReview');
 const getAllReviews = require('../controllers/review/getAllReview');
 const updateReview = require('../controllers/review/updateReview');
 const resolve = require('../controllers/review/resolve');
+const getUserById = require('../controllers/user/getUserById');
+const mailReview = require('../controllers/review/mailReview');
 
 const createReviewHandler = async (req, res) => {
     try {
@@ -56,7 +58,11 @@ const updateReviewHandler = async (req, res) => {
 // Controlador para recuperar todas las revisiones
 const getAllReviewsHandler = async (req, res) => {
     try {
-        const reviews = await getAllReviews();
+        const filters = req.query;
+        const limit = parseInt(filters.limit, 10) || null;
+        const page = parseInt(filters.page, 10) || 1;
+
+        const reviews = await getAllReviews(filters, limit, page);
         res.status(200).json(reviews);
     } catch (error) {
         console.error(error);
@@ -71,6 +77,10 @@ const acceptHandler = async (req, res) => {
 
     try {
         const item = await resolve(id, 'aprobado');
+        const user = await getUserById(item.userId);
+
+        const message = `Hola ${user.name}, tu review fue aprovada`;
+        await mailReview(message, user.email);
         return res.status(200).json(item);
     } catch (error) {
         return res.status(404).json({ error: error.message });
@@ -82,6 +92,10 @@ const refuseHandler = async (req, res) => {
 
     try {
         const item = await resolve(id, 'rechazado');
+        const user = await getUserById(item.userId);
+
+        const message = `Hola ${user.name}, tu review fue rechazada`;
+        await mailReview(message, user.email);
         return res.status(200).json(item);
     } catch (error) {
         return res.status(404).json({ error: error.message });

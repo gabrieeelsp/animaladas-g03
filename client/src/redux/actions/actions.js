@@ -277,22 +277,26 @@ export const createForm = (formData) => {
       }
 
       // Si no hay adopciones pendientes, procede con el envío del formulario
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
-        }
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
       };
-      const response = await axios.post(`${urlBaseAxios}/adoptions`, formData, config);
+      const response = await axios.post(
+        `${urlBaseAxios}/adoptions`,
+        formData,
+        config
+      );
       const createdForm = response.data;
 
       dispatch(createFormSuccess(createdForm));
     } catch (error) {
       console.error("Error creating activity:", error.message);
       dispatch(createFormFailure("Error creating Form"));
-      throw new Error(error.message)
+      throw new Error(error.message);
     }
   };
 };
@@ -310,15 +314,19 @@ export const createFormFailure = (error) => ({
 export const deleteAnimal = (id, enabled) => {
   return async (dispatch) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const config = {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
-        }
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
       };
 
-      await axios.put(`${urlBaseAxios}/animal/enable/${id}`, { enabled }, config);
+      await axios.put(
+        `${urlBaseAxios}/animal/enable/${id}`,
+        { enabled },
+        config
+      );
       dispatch({
         type: DELETE_ANIMAL,
         payload: {
@@ -335,23 +343,24 @@ export const deleteAnimal = (id, enabled) => {
 export const pendingAdoptions = (userId, animalId) => {
   return async (dispatch) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
-        }
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
       };
 
       const response = await axios.get(
-        `${urlBaseAxios}/adoptions/get_pending_adoption?userId=${userId}&animalId=${animalId}`, config
+        `${urlBaseAxios}/adoptions/get_pending_adoption?userId=${userId}&animalId=${animalId}`,
+        config
         // {
         //   params: {
         //     userId: userId,
         //     animalId: animalId,
         //   },
-        // }, 
+        // },
       );
 
       const pendingAdoptionsData = response.data.data;
@@ -377,17 +386,18 @@ export const allAdoptions = (
 ) => {
   return async (dispatch) => {
     try {
-      const token = localStorage.getItem('token');
-    console.log(token);   
-  
-          const config = {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + token
-            }
-          };
-      const response = await axios.get(`${urlBaseAxios}/adoptions?userId=${userId}&animalId=${animalId}&page=${page}&limit=${animalsPerPage}&orderby=${orderby}&orderdir=${orderdir}`, config
-      
+      const token = localStorage.getItem("token");
+      console.log(token);
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      };
+      const response = await axios.get(
+        `${urlBaseAxios}/adoptions?userId=${userId}&animalId=${animalId}&page=${page}&limit=${animalsPerPage}&orderby=${orderby}&orderdir=${orderdir}`,
+        config
       );
 
       const data = response.data;
@@ -412,15 +422,18 @@ export const allAdoptions = (
 
 export const loadUsers = () => {
   return async (dispatch) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
-        }
-      };
-    const response = await axios.get(`${urlBaseAxios}/user/searchAllUsers`, config);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    const response = await axios.get(
+      `${urlBaseAxios}/user/searchAllUsers`,
+      config
+    );
     dispatch({
       type: LOAD_USERS,
       payload: response.data,
@@ -458,17 +471,18 @@ export const loadEstadisticas = (dateFrom, dateTo, tabSelected) => {
     dateToD.getDate();
 
   return async (dispatch) => {
-    const token = localStorage.getItem('token');
-    console.log(token);   
-  
-          const config = {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + token
-            }
-          };
+    const token = localStorage.getItem("token");
+    console.log(token);
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
     const response = await axios.get(
-      `${urlBaseAxios}/${tabValue}?dateFrom=${dateFromValue}&dateTo=${dateToValue}`, config
+      `${urlBaseAxios}/${tabValue}?dateFrom=${dateFromValue}&dateTo=${dateToValue}`,
+      config
     );
 
     if (tabSelected === "donaciones") {
@@ -552,16 +566,18 @@ export const refuseReview = (id) => {
 export const acceptAdoption = (id) => {
   return async (dispatch) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
-        }
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
       };
       const response = await axios.post(
-        `${urlBaseAxios}/adoptions/${id}/accept`, {}, config
+        `${urlBaseAxios}/adoptions/${id}/accept`,
+        {},
+        config
       );
       dispatch({
         type: ACCEPT_ADOPTION_SUCCESS,
@@ -579,16 +595,18 @@ export const acceptAdoption = (id) => {
 export const refuseAdoption = (id) => {
   return async (dispatch) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
-        }
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
       };
       const response = await axios.post(
-        `${urlBaseAxios}/adoptions/${id}/refuse`, {}, config
+        `${urlBaseAxios}/adoptions/${id}/refuse`,
+        {},
+        config
       );
       dispatch({
         type: REFUSE_ADOPTION_SUCCESS,
@@ -606,15 +624,19 @@ export const refuseAdoption = (id) => {
 export const updateAnimal = (id, updateValues) => {
   return async (dispatch) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
-        }
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
       };
-      await axios.put(`${urlBaseAxios}/animal/update/${id}`, updateValues, config);
+      await axios.put(
+        `${urlBaseAxios}/animal/update/${id}`,
+        updateValues,
+        config
+      );
       dispatch({
         type: UPDATE_ANIMAL,
         payload: updateValues,
@@ -628,17 +650,21 @@ export const updateAnimal = (id, updateValues) => {
 export const userByMail = (email) => {
   return async (dispatch) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
-        }
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
       };
-      const response = await axios.post(`${urlBaseAxios}/user/searchUser`, {
-        email: email,
-      }, config);
+      const response = await axios.post(
+        `${urlBaseAxios}/user/searchUser`,
+        {
+          email: email,
+        },
+        config
+      );
       dispatch({
         type: USER_BY_MAIL,
         payload: response.data,
@@ -652,13 +678,13 @@ export const userByMail = (email) => {
 export const deleteUser = (id) => {
   return async (dispatch) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
-        }
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
       };
       await axios.put(`${urlBaseAxios}/user/users/${id}`, config);
       dispatch({
@@ -676,15 +702,19 @@ export const deleteUser = (id) => {
 export const updateUser = (updateValues) => {
   return async (dispatch) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
-        }
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
       };
-      await axios.put(`${urlBaseAxios}/user/changeUserData`, updateValues, config);
+      await axios.put(
+        `${urlBaseAxios}/user/changeUserData`,
+        updateValues,
+        config
+      );
       dispatch({
         type: UPDATE_USER,
         payload: updateValues,
@@ -709,7 +739,10 @@ export function alldonations_user(userId, limit, page, orderDir, orderBy) {
   };
 
   return async function (dispatch) {
-    const response = await axios.get(`${urlBaseAxios}/donations?userId=${userId}&limit=${limit}&page=${page}&orderBy=${orderBy}&orderDir=${orderDir}`, config);
+    const response = await axios.get(
+      `${urlBaseAxios}/donations?userId=${userId}&limit=${limit}&page=${page}&orderBy=${orderBy}&orderDir=${orderDir}`,
+      config
+    );
     const { data } = response;
     console.log(
       "valor de data alldonations_user action",
@@ -728,23 +761,18 @@ export function alladoptions_user(userId, limit, page, orderDir, orderBy) {
   return async function (dispatch) {
     console.log("valor de orderdir", orderDir);
     console.log("valor de orde orderBy", orderby);
-    const response = await axios.get(`${urlBaseAxios}/adoptions`, {
-      params: {
-        userId,
-        limit,
-        page,
-        orderDir,
-        orderBy,
-      },
-    });
+    const response = await axios.get(
+      `${urlBaseAxios}/adoptions?userId=${userId}&limit=${limit}&page=${page}&orderBy=${orderBy}&orderDir=${orderDir}`,
+      config
+    );
+
     const { data } = response;
     console.log("informacion del data de all adopton", data);
-    /*
+
     return dispatch({
       type: ALLADOPTIONS_USER,
       payload: data,
     });
-    */
   };
 }
 
@@ -757,10 +785,13 @@ export const total_amount_donation_user = (id) => {
     });
   };
 };
-export const total_adoption_user = (id) => {
+export const total_adoption_user = (id, limit, page) => {
   console.log("ingreso al reducr", id);
   return async (dispatch) => {
-    const response = await axios.get(`${urlBaseAxios}/adoptions/total/${id}`);
+    const response = await axios.get(
+      `${urlBaseAxios}/adoptions/total/${id}?limit=${limit}&page=${page}`
+    );
+    //http://localhost:3001/adoptions/total/2?limit=10&page=1
     dispatch({
       type: TOTAL_ADOPTION_USER,
       payload: response.data,
