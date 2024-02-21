@@ -56,7 +56,11 @@ const updateReviewHandler = async (req, res) => {
 // Controlador para recuperar todas las revisiones
 const getAllReviewsHandler = async (req, res) => {
     try {
-        const reviews = await getAllReviews();
+        const filters = req.query;
+        const limit = parseInt(filters.limit, 10) || null;
+        const page = parseInt(filters.page, 10) || 1;
+
+        const reviews = await getAllReviews(filters, limit, page);
         res.status(200).json(reviews);
     } catch (error) {
         console.error(error);
