@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const { User } = require('../../db');
 const { generateTokenVerifyAccount } = require('../../services/jsonWebToken');
-const { sendMail } = require('../../services/nodemailer');
+const { templateSendMailWithButton } = require('../../services/nodemailer');
 
 const createUser = async (
     name,
@@ -34,78 +34,20 @@ const createUser = async (
 
     const token = generateTokenVerifyAccount(user);
 
-    const mailOptions = {
+    const mail = {
         from: process.env.GOOGLE_EMAIL,
         to: email,
         subject: 'Verify Email',
-        html: `
-        <div style="width: 100%; background-color: #343a40">
-            <div style="padding: 20px 10px">
-                <!-- image -->
-                <div style="padding: 10px 0px; width: 100%; text-align: center">
-                    <img
-                        src="cid:logoanimaladas"
-                        alt=""
-                        style="width: 100px"
-                    />
-                </div>
-                <hr />
-
-                <!-- tittle -->
-
-                <h2
-                    style="
-                        text-align: center;
-                        color: white;
-                        text-decoration: none;
-                    "
-                >
-                Bienvenido a Animaladas
-                </h2>
-
-                <p
-                    style="
-                        text-align: center;
-                        color: white;
-                        text-decoration: none;
-                    "
-                >
-                Para terminar la creacion de tu cuenta y puedas optar por la adopcion de tu
-                 nuevo mejor amigo dale click al siguiente boton
-                </p>
-
-                <div style="width: 100%; text-align: center">
-                    <button
-                        style="
-                            height: 40px;
-                            width: 150px;
-                            padding: 5px;
-                            background-color: #ffc107;
-                            font-weight: bold;
-                        "
-                    >
-                        <a
-                            style="text-decoration: none; color: black"
-                            href="${process.env.URL_BACK}/user/verifyAccount?token=${token}&userId=${user.id}"
-                            >Verifica tu cuenta</a
-                        >
-                    </button>
-                </div>
-
-
-            </div>
-        </div>
-        `,
-        attachments: [
-            {
-                filename: 'logoanimaladas.png',
-                path: '../api/src/img/logoanimaladas.png',
-                cid: 'logoanimaladas',
-            },
-        ],
+        title: 'Bienvenido a Animaladas',
+        message:
+            'Para terminar la creacion de tu cuenta y puedas optar por la adopcion de tu nuevo mejor amigo dale click al siguiente boton',
+        button: {
+            textButton: 'Verifica tu cuenta',
+            linkButton: `${process.env.URL_BACK}/user/verifyAccount?token=${token}&userId=${user.id}`,
+        },
     };
 
-    const emailSend = await sendMail(mailOptions);
+    const emailSend = await templateSendMailWithButton(mail);
 
     if (!emailSend.messageId) {
         return 'Ocurrio un error al intentar enviar el mail';

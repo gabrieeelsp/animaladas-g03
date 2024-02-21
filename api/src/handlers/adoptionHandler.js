@@ -5,6 +5,8 @@ const findPendingAdoption = require('../controllers/adoption/findPendingAdoption
 const getAll = require('../controllers/adoption/getAll');
 const resolve = require('../controllers/adoption/resolve');
 const getTotalUserIdAdoption = require('../controllers/adoption/getAllUserId');
+const findOneById = require('../controllers/adoption/findOneById');
+const mailAdoption = require('../controllers/adoption/mailAdoption');
 
 const {
     validateUserId,
@@ -105,6 +107,13 @@ const accept = async (req, res) => {
 
     try {
         const item = await resolve(id, 'aceptada');
+        const data = await findOneById(id);
+        const userEmail = data.user.dataValues.email;
+        const userName = data.user.dataValues.name;
+        const animalName = data.animal.dataValues.name;
+
+        const message = `Hola ${userName}, Felicitaciones tu solicitud de adopcion por tu nuevo amigo: ${animalName} a sido aprovada, la fundacion se pondra en contacto con ud via telefonica para indicarle el paso a seguir, muchas gracias`;
+        await mailAdoption(message, userEmail);
         return res.status(200).json(item);
     } catch (error) {
         res.status(404).json({ error: error.message });
@@ -124,6 +133,13 @@ const refuse = async (req, res) => {
 
     try {
         const item = await resolve(id, 'rechazada');
+        const data = await findOneById(id);
+        const userEmail = data.user.dataValues.email;
+        const userName = data.user.dataValues.name;
+        const animalName = data.animal.dataValues.name;
+        
+        const message = `Hola ${userName}, Lamentablemente tu solicitud de adopcion por tu nuevo amigo: ${animalName} a sido rechazada, te invitamos a que sigas en la busqueda de tu mejor amigo en Animaladas, te esperamos..`;
+        await mailAdoption(message, userEmail);   
         return res.status(200).json(item);
     } catch (error) {
         res.status(404).json({ error: error.message });
