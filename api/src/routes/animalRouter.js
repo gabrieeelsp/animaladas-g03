@@ -19,16 +19,6 @@ animalRouter.post(
     createHandler,
 );
 animalRouter.get('/animals:id', getByIdHandler);
-animalRouter.put(
-    '/update/:id',
-    authMiddleware,
-    adminMiddleware,
-    updateAnimalHandler,
-);
-animalRouter.put(
-    '/enable/:id',
-    authMiddleware,
-    adminMiddleware,
-    putEnabledsAnimals,
-);
+animalRouter.put('/update/:id', updateAnimalHandler);
+animalRouter.put('/enable/:id', putEnabledsAnimals);
 module.exports = animalRouter;

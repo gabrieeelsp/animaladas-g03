@@ -338,13 +338,13 @@ export const pendingAdoptions = (userId, animalId) => {
       };
 
       const response = await axios.get(
-        `${urlBaseAxios}/adoptions/get_pending_adoption`,
-        {
-          params: {
-            userId: userId,
-            animalId: animalId,
-          },
-        }, config
+        `${urlBaseAxios}/adoptions/get_pending_adoption?userId=${userId}&animalId=${animalId}`, config
+        // {
+        //   params: {
+        //     userId: userId,
+        //     animalId: animalId,
+        //   },
+        // }, 
       );
 
       const pendingAdoptionsData = response.data.data;
@@ -370,16 +370,18 @@ export const allAdoptions = (
 ) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${urlBaseAxios}/adoptions`, {
-        params: {
-          userId,
-          animalId,
-          page,
-          limit: animalsPerPage,
-          orderby,
-          orderdir,
-        },
-      });
+      const token = localStorage.getItem('token');
+    console.log(token);   
+  
+          const config = {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + token
+            }
+          };
+      const response = await axios.get(`${urlBaseAxios}/adoptions?userId=${userId}&animalId=${animalId}&page=${page}&limit=${animalsPerPage}&orderby=${orderby}&orderdir=${orderdir}`, config
+      
+      );
 
       const data = response.data;
 
@@ -449,8 +451,17 @@ export const loadEstadisticas = (dateFrom, dateTo, tabSelected) => {
     dateToD.getDate();
 
   return async (dispatch) => {
+    const token = localStorage.getItem('token');
+    console.log(token);   
+  
+          const config = {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + token
+            }
+          };
     const response = await axios.get(
-      `${urlBaseAxios}/${tabValue}?dateFrom=${dateFromValue}&dateTo=${dateToValue}`
+      `${urlBaseAxios}/${tabValue}?dateFrom=${dateFromValue}&dateTo=${dateToValue}`, config
     );
 
     if (tabSelected === "donaciones") {
@@ -489,7 +500,7 @@ export const acceptAdoption = (id) => {
         }
       };
       const response = await axios.post(
-        `${urlBaseAxios}/adoptions/${id}/accept`, config
+        `${urlBaseAxios}/adoptions/${id}/accept`, {}, config
       );
       dispatch({
         type: ACCEPT_ADOPTION_SUCCESS,
@@ -516,7 +527,7 @@ export const refuseAdoption = (id) => {
         }
       };
       const response = await axios.post(
-        `${urlBaseAxios}/adoptions/${id}/refuse`, config
+        `${urlBaseAxios}/adoptions/${id}/refuse`, {}, config
       );
       dispatch({
         type: REFUSE_ADOPTION_SUCCESS,
@@ -627,7 +638,6 @@ export function alldonations_user(userId, limit, page) {
   console.log("valor de param limit", limit);
   console.log("valor de param page", page);
   const token = localStorage.getItem("token");
-  console.log("token recibido", token);
 
   const config = {
     headers: {
@@ -635,22 +645,16 @@ export function alldonations_user(userId, limit, page) {
       Authorization: "Bearer " + token,
     },
   };
-  return async function (dispatch) {
-    const token = localStorage.getItem('token');
 
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
-        }
-      };
-    const response = await axios.get(`${urlBaseAxios}/donations`, {
-      params: {
-        userId,
-        limit,
-        page,
-      },
-    }, config);
+  return async function (dispatch) {
+  
+    const response = await axios.get(`${urlBaseAxios}/donations?userId=${userId}&limit=${limit}&page=${page}`,   
+      // params: {
+      //   userId,
+      //   limit,
+      //   page,
+      // },
+     config);
     const { data } = response;
     console.log(
       "valor de data alldonations_user action",

@@ -24,7 +24,7 @@ userRouter.post('/recoverPassword', postRevoverPassword);
 userRouter.get('/verifyToken', getVerifyToken);
 userRouter.put('/changePassword', putChangePassword);
 userRouter.post('/login', loginUserHandler);
-userRouter.post('/searchUser', authMiddleware, adminMiddleware, searchUser);
+userRouter.post('/searchUser', authMiddleware, searchUser);
 userRouter.get(
     '/searchAllUsers',
     authMiddleware,

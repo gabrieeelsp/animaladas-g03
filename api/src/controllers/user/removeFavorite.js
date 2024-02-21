@@ -11,6 +11,7 @@ const removeFavoriteController = async (id_user, id_animal) => {
         }
 
         await currentUser.removeAnimal(animal);
+        return currentUser;
     } catch (error) {
         throw new Error(error.message);
     }

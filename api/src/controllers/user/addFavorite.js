@@ -4,7 +4,6 @@ const { User, Animal } = require('../../db');
 const addFavoriteController = async (id_user, id_animal) => {
     try {
         const currentUser = await User.findByPk(id_user);
-        console.log(currentUser);
         const animal = await Animal.findByPk(id_animal);
 
         if (!currentUser || !animal) {

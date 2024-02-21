@@ -3,16 +3,15 @@ import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { CategoryScale } from "chart.js";
 import axios from "axios";
-
 Chart.register(CategoryScale);
 function DonationsLineChart(props) {
-
   const { dateFom, dateTo} = props;
-
-
+  
+  
   useEffect(() => {
     const urlBaseAxios = import.meta.env.VITE_ENV === 'DEV' ? import.meta.env.VITE_URL_DEV : import.meta.env.VITE_URL_PROD;
     const token = localStorage.getItem('token');
+    console.log(token);   
   
           const config = {
             headers: {
@@ -20,6 +19,7 @@ function DonationsLineChart(props) {
               Authorization: 'Bearer ' + token
             }
           };
+          console.log(config);
     axios.get(`${urlBaseAxios}/donations?dateFrom=${dateFom}&dateTo=${dateTo}`, config)
       .then((resp) => {
 
