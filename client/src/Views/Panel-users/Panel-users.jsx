@@ -27,19 +27,27 @@ export default function PanelUsers(props) {
       ? import.meta.env.VITE_URL_DEV
       : import.meta.env.VITE_URL_PROD;
   const user_profile = useSelector((state) => state.UserReducer);
+
   const all_donations_copy_user = useSelector(
     (state) => state.rootReducer.alldonation_user_copy
   );
   const total_adoptions_user = useSelector(
     (state) => state.rootReducer.total_adoption_user
   );
-
+  console.log("prueba vale:", total_adoptions_user.adoptedAnimals);
+  let array_adopted_user = [];
+  if (!total_adoptions_user.adoptedAnimals) {
+    array_adopted_user = [];
+  } else {
+    array_adopted_user = total_adoptions_user.adoptedAnimals;
+  }
   const total_amount_user = useSelector(
     (state) => state.rootReducer.total_amount_donation_user
   );
   const user_donations = useSelector(
     (state) => state.rootReducer.alldonations_user
   );
+
   const pagination = useSelector((state) => state.rootReducer.pagination);
   if (user_profile === "") {
     navigate("/");
@@ -147,12 +155,14 @@ export default function PanelUsers(props) {
       password: "",
     });
   }, [user_profile]);
+  console.log("valor de este", total_adoptions_user.adoptedAnimals);
+
   useEffect(() => {
     dispatch(alldonations_user(user_profile.id, 5, 1));
     dispatch(total_amount_donation_user(user_profile.id));
     dispatch(total_adoption_user(user_profile.id));
   }, [user_profile]);
-  console.log("valor de adoptedaniaml", total_adoptions_user.adoptedAnimals);
+
   return (
     <>
       <div className="bodypage">
@@ -486,7 +496,7 @@ export default function PanelUsers(props) {
                     <th>opcion</th>
                   </tr>
 
-                  {total_adoptions_user.adoptedAnimals.map((dog) => {
+                  {array_adopted_user.map((dog) => {
                     return (
                       <tr>
                         <td>
