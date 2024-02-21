@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./panel-users.css";
-import { Navigate, useAsyncError, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useAsyncError, useNavigate } from "react-router-dom";
 import default_img from "../../img/perfil_default.png";
 import secondimg from "../../img/logo_google.png";
 import thirdimg from "../../img/succes.png";
@@ -19,6 +19,7 @@ import { total_adoption_user } from "../../redux/actions/actions";
 import FiltersModal from "./modalfiltros";
 import EstadisticasBoard from "../../Components/Estadisticas/EstadisticasBoard/EstadisticasBoard";
 import Detail from "../Detail/Detail";
+import GeneralModal from "../../Components/GeneralModal/generalmodal";
 export default function PanelUsers(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -184,7 +185,10 @@ export default function PanelUsers(props) {
   const orderby = (value) => {
     dispatch(alldonations_user(user_profile.id, 5, 1, value, "created"));
   };
-
+  const view_detail_pet = (e) => {
+    console.log("clickendo el view");
+    SetShowModalMessage(true);
+  };
   useEffect(() => {
     Setformedituser({
       id: user_profile.id,
@@ -568,7 +572,9 @@ export default function PanelUsers(props) {
                           </td>
                           <td> {dog.animal.name}</td>
                           <td>
-                            <i className="bi bi-eye-fill"></i>
+                            <div onClick={(e) => view_detail_pet(e)}>
+                              <i className="bi bi-eye-fill"></i>
+                            </div>
                           </td>
                         </tr>
                       );
@@ -584,11 +590,12 @@ export default function PanelUsers(props) {
             </div>
           </div>
         </div>
-        <FiltersModal
+        <GeneralModal
           SetShowModalMessage={SetShowModalMessage}
           ShowModalMessage={ShowModalMessage}
-        ></FiltersModal>
+        ></GeneralModal>
       </div>
+      <Outlet></Outlet>
     </>
   );
 }
