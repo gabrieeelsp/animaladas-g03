@@ -132,11 +132,15 @@ const refuse = async (req, res) => {
 
 const getTotalByUserId = async (req, res) => {
     const { id } = req.params;
+    const { limit, page } = req.query;
+
     try {
-        const total = await getTotalUserIdAdoption(id);
-        return res.status(200).json(total);
+        const result = await getTotalUserIdAdoption(id, limit, page);
+        return res.status(200).json(result);
     } catch (error) {
-        res.status(404).json({ error: error.message });
+        return res
+            .status(500)
+            .json({ error: 'Error al obtener las adopciones del usuario' });
     }
 };
 

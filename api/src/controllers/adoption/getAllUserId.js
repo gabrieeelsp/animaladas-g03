@@ -1,20 +1,41 @@
 const { Op } = require('sequelize');
 const { Adoption, Animal } = require('../../db');
 
-module.exports = async (id) => {
-    try {
-        // Obtener la cantidad total de adopciones
-        const totalAdoptions = await Adoption.count({
-            where: {
-                userId: id,
-            },
-        });
+const getFiltersList = (userId) => {
+    return {
+        userId: userId,
+    };
+};
 
-        // Obtener la información detallada de cada animal adoptado por el usuario
-        const adoptedAnimals = await Adoption.findAll({
-            where: {
-                userId: id,
-            },
+const getOrderList = () => {
+    return [];
+};
+
+const getOffset = (limit, page) => {
+    return limit * (page - 1);
+};
+
+const getTotalPages = (limit, totalRecords) => {
+    return Math.ceil(totalRecords / limit);
+};
+
+const getNextPage = (limit, page, totalRecords) => {
+    if (page === getTotalPages(limit, totalRecords)) return null;
+    return page + 1;
+};
+
+const getPrevPage = (page) => {
+    if (page === 1) return null;
+    return page - 1;
+};
+
+module.exports = async (userId, limit, page = 1) => {
+    try {
+        let cantidad = null;
+        let filas = null;
+
+        const { count, rows } = await Adoption.findAndCountAll({
+            where: getFiltersList(userId),
             include: [
                 {
                     model: Animal,
@@ -39,12 +60,23 @@ module.exports = async (id) => {
                     ],
                 },
             ],
+            order: getOrderList(),
+            offset: getOffset(limit, page),
+            limit,
         });
 
-        // Objeto con cantidad total de adopciones y array de detail animales adoptados
+        cantidad = count;
+        filas = rows;
+
         return {
-            totalAdoptions: totalAdoptions,
-            adoptedAnimals: adoptedAnimals.map((adoption) => adoption.animal),
+            data: filas,
+            pagination: {
+                total_records: cantidad,
+                current_page: limit ? page : null,
+                total_pages: limit ? getTotalPages(limit, cantidad) : null,
+                next_page: limit ? getNextPage(limit, page, cantidad) : null,
+                prev_page: limit ? getPrevPage(page) : null,
+            },
         };
     } catch (error) {
         throw new Error('Error al obtener el total de adopciones del usuario');
