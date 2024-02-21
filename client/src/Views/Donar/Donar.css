@@ -79,6 +79,26 @@
 }
 
 .wallet-container {
-  width: 60%; 
-  height: 100px; 
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100%; 
 }
+
+.spinner-border {
+  font-size: 3rem; 
+  color: #ffc107; 
+  border-width: 0.25rem; 
+  animation-duration: 1s; 
+  animation-timing-function: ease-in-out; 
+}
+
+.selected-amount {
+  color: #ffc107 ; 
+  font-weight: bold; 
+  margin-top: 10px; 
+  border: 1px solid #f3f4f6 ;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+

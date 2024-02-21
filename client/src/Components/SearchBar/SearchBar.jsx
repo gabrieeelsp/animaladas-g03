@@ -1,23 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loadAnimals, set_searchbar_value } from "../../redux/actions/actions";
-import { useSelector } from "react-redux";
 
 export default function Searchbar() {
   
-  const orderByValue = useSelector((state) => state.orderByValue)
-  const orderDirValue = useSelector((state) => state.orderDirValue)
-  const sizeValue = useSelector((state) => state.sizeValue)
-  const speciesValues = useSelector((state) => state.speciesValues)
-  const castratedValue = useSelector((state) => state.castratedValue)
-  
-  
+  const orderByValue = useSelector((state) => state.rootReducer.orderByValue)
+  const orderDirValue = useSelector((state) => state.rootReducer.orderDirValue)
+  const sizeValue = useSelector((state) => state.rootReducer.sizeValue)
+  const speciesValues = useSelector((state) => state.rootReducer.speciesValues)
+  const castratedValue = useSelector((state) => state.rootReducer.castratedValue)
+  const enabledValue = useSelector((state) => state.rootReducer.enabledValue);
   const location = useLocation();
-  const nameValue = useSelector((state) => state.searchBarValue)
+  const nameValue = useSelector((state) => state.rootReducer.searchBarValue)
+  const animals = useSelector((state) => state.rootReducer.allAnimals);
   const dispatch = useDispatch();
 
-  if (location.pathname !== "/adoptar") {
+  if (location.pathname !== "/adoptar" && location.pathname !== "/admin/users" && location.pathname !== "/admin/animals") {
     return null;
   }
 
@@ -27,10 +26,24 @@ export default function Searchbar() {
 
   const onSearch = (event) => {
     event.preventDefault(); 
-    dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValues, castratedValue, 1, 4, orderByValue, orderDirValue));
-    dispatch(set_searchbar_value(''));
+    if(location.pathname === "/adoptar"){
+      dispatch(loadAnimals(nameValue, 'adoptable', sizeValue, speciesValues, castratedValue, 1, 4, orderByValue, orderDirValue, enabledValue))
+        .then(() => {
+          if (animals.length === 0) {
+            alert("No se encontraron animales.");
+          }
+        })
+        .then(() => dispatch(set_searchbar_value('')));
+    } else {
+      dispatch(loadAnimals(nameValue, '', sizeValue, speciesValues, castratedValue, 1, 3, orderByValue, orderDirValue, enabledValue))
+        .then(() => {
+          if (animals.length === 0) {
+            alert("No se encontraron animales.");
+          }
+        });
+    }
   };
-
+  
   const onKeyDown = (event) => {
     if (event.keyCode === 13) {
       onSearch(event);
@@ -47,9 +60,15 @@ export default function Searchbar() {
         onChange={handleChange}
         onKeyDown={onKeyDown}
       />
-      <button className="btn btn-outline-warning" type="submit">
-        Buscar
-      </button>
+      {location.pathname !== "/admin/animals" ? (
+        <button className="btn btn-outline-warning bg-dark" type="submit">
+          Buscar
+        </button>
+      ) : (
+        <button className="btn text-warning bg-dark fw-bold" type="submit">
+          Buscar
+        </button>
+      )}
     </form>
   );
 }

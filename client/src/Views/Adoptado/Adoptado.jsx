@@ -2,37 +2,41 @@ import React from "react";
 import CardA from "../../Components/CardA/CardA";
 import Paginacion from "../../Components/Pagination/Pagination";
 import Loader from "../../Components/Loader/Loader";
-import { loadAnimals, loadAdopted, clearAll } from "../../redux/actions/actions";
+import {
+  loadAnimals,
+  loadAdopted,
+  clearAll,
+} from "../../redux/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
 export default function Rescatado() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const animals = useSelector((state) => state.allAnimals);
-  const pagination = useSelector((state) => state.pagination);
+  const animals = useSelector((state) => state.rootReducer.allAnimals);
+  const pagination = useSelector((state) => state.rootReducer.pagination);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      dispatch(loadAdopted('adoptado'));
+      dispatch(loadAdopted("adoptado"));
       setLoading(false);
     }, 1000);
 
     return () => clearTimeout(timeoutId);
   }, []);
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
 
   const handleNextPage = (page) => {
-    dispatch(loadAnimals(name, 'adoptado', 'Todos', 'Todos', 'Todos', page));
+    dispatch(loadAnimals(name, "adoptado", "Todos", "Todos", "Todos", page));
   };
 
   const handlePrevPage = (page) => {
-    dispatch(loadAnimals(name, 'adoptado', 'Todos', 'Todos', 'Todos', page));
+    dispatch(loadAnimals(name, "adoptado", "Todos", "Todos", "Todos", page));
   };
 
   return (
-    <div>
+    <div style={{ paddingTop: "45px" }}>
       {loading ? (
         <Loader />
       ) : (
@@ -43,10 +47,10 @@ export default function Rescatado() {
                 return (
                   <div key={animal.id} className="col mb-4">
                     <CardA
-                    id={animal.id}
-                    name={animal.name}
-                    image3={animal.image3}
-                    adoption_story={animal.adoption_story}
+                      id={animal.id}
+                      name={animal.name}
+                      image3={animal.image3}
+                      adoption_story={animal.adoption_story}
                     />
                   </div>
                 );

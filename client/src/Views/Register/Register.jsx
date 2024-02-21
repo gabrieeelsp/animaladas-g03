@@ -7,14 +7,15 @@ import validateform from "./validation_user";
 import { useRef } from "react";
 import emailjs from "@emailjs/browser";
 import SuccesModal from "../../Components/SuccessModal/SuccesModal";
-import ModalError from "../../Components/ErrorModal/ErrorModal";
+import ModalError from "../../img/perfil_default.png";
+
 export default function Register(props) {
+  const form = useRef();
   const Navigate = useNavigate();
   const { MessageModal } = props;
   const { SetMessageModal } = props;
   const [ShowModalSuccess, SetShowModalSucess] = useState(false);
   const [ShowModalErorr, SetShowModalError] = useState(false);
-  const form = useRef();
   const [error, Seterror] = useState({
     name: "",
     lastName: "",
@@ -22,6 +23,7 @@ export default function Register(props) {
     phone: "",
     address: "",
     priority_fields: "",
+    missing_fields: true,
     showerror_name: false,
     showerror_email: false,
     showerror_lastName: false,
@@ -37,13 +39,11 @@ export default function Register(props) {
     password: "",
     phone: "",
     address: "",
-    imageProfile: "",
+    imageProfile:
+      "https://res.cloudinary.com/dwgufqzjd/image/upload/v1707404450/Proyecto_animaladas/default/w2jbmtfjvfjn1alnnpxb.png",
   });
-  const [email_data, Setemail_data] = useState({
-    user_name: "",
-    user_email: "",
-    user_id: "",
-  });
+
+  const button_disabled = true;
   const uploadImage = async (e) => {
     const file = e.target.files[0];
     const data = new FormData();
@@ -80,6 +80,7 @@ export default function Register(props) {
       email: validate.email,
       phone: validate.phone,
       address: validate.address,
+      missing_fields: validate.missing_fields,
       showerror_email: validate.showerror_email,
       showerror_name: validate.showerror_name,
       showerror_lastName: validate.showerror_lastName,
@@ -100,39 +101,25 @@ export default function Register(props) {
       SetShowModalError(true);
     } else {
       event.preventDefault();
+
+
+      const urlBaseAxios =
+        import.meta.env.VITE_ENV === "DEV"
+          ? import.meta.env.VITE_URL_DEV
+          : import.meta.env.VITE_URL_PROD;
       const resp = await axios.post(
-        "http://localhost:3001/user/createUser",
+        `${urlBaseAxios}/user/createUser`,
         userdata
       );
+
       const { data } = resp;
       if (data) {
         SetMessageModal(
           "Bien! se ha registrado el usuario. Te hemos enviado un correo para verificar tu cuenta"
         );
         SetShowModalSucess(true);
-        Navigate("/");
+        // Navigate("/");
       }
-      Setemail_data({
-        ...email_data,
-        user_name: data.name,
-        user_email: data.email,
-        user_id: data.id,
-      });
-      emailjs
-        .sendForm(
-          "service_lfwvijk",
-          "template_bg3fyqz",
-          form.current,
-          "iOYw55Pr2RskRgQZ8"
-        )
-        .then(
-          (result) => {
-            console.log("resultado exitoso", result.text);
-          },
-          (error) => {
-            console.log(error.text);
-          }
-        );
 
       Setuserdata({
         name: "",
@@ -166,44 +153,46 @@ export default function Register(props) {
               {error.priority_fields}
             </div>
           ) : null}
-          <form ref={form}>
-            {error.showerror_email ? (
-              <div class="input-group mb-1 alert alert-warning" role="alert">
-                {error.email}
-              </div>
-            ) : null}
-            <div className="input-group mt-1">
-              <div className="input-group-text bg-warning text-white">
-                <i className="bi bi-envelope-at"></i>
-              </div>
 
-              <input
-                className="form-control bg-light"
-                type="email"
-                placeholder="Correo Electrónico*"
-                name="user_email"
-                onChange={(e) => handlechange(e)}
-              />
+          {error.showerror_email ? (
+            <div class="input-group mb-1 alert alert-warning" role="alert">
+              {error.email}
             </div>
-            {error.showerror_name ? (
-              <div class="input-group mb-1 alert alert-warning" role="alert">
-                {error.name}dd
-              </div>
-            ) : null}
-            <div className="input-group mt-4">
-              <div className="input-group-text bg-warning text-white">
-                <i className="bi bi-person-fill-add"></i>
-              </div>
+          ) : null}
+          <div className="input-group mt-1">
+            <div className="input-group-text bg-warning text-white">
+              <i className="bi bi-envelope-at"></i>
+            </div>
 
-              <input
-                className="form-control bg-light"
-                type="text"
-                placeholder="Nombre*"
-                name="user_name"
-                onChange={(e) => handlechange(e)}
-              />
+            <input
+              className="form-control bg-light"
+              type="email"
+              placeholder="Correo Electrónico*"
+              name="user_email"
+              onChange={handlechange}
+              value={userdata.email}
+            />
+          </div>
+          {error.showerror_name ? (
+            <div class="input-group mb-1 alert alert-warning" role="alert">
+              {error.name}dd
             </div>
-          </form>
+          ) : null}
+          <div className="input-group mt-4">
+            <div className="input-group-text bg-warning text-white">
+              <i className="bi bi-person-fill-add"></i>
+            </div>
+
+            <input
+              className="form-control bg-light"
+              type="text"
+              placeholder="Nombre*"
+              name="user_name"
+              onChange={handlechange}
+              value={userdata.name}
+            />
+          </div>
+
           {error.showerror_lastName ? (
             <div class="input-group mb-1 alert alert-warning" role="alert">
               {error.lastName}
@@ -219,7 +208,8 @@ export default function Register(props) {
               type="text"
               placeholder="Apellido*"
               name="lastName"
-              onChange={(e) => handlechange(e)}
+              onChange={handlechange}
+              value={userdata.lastName}
             />
           </div>
           {error.showerror_phone ? (
@@ -237,7 +227,8 @@ export default function Register(props) {
               type="text"
               placeholder="Número de contacto*"
               name="phone"
-              onChange={(e) => handlechange(e)}
+              onChange={handlechange}
+              value={userdata.phone}
             />
           </div>
           {error.showerror_address ? (
@@ -255,7 +246,8 @@ export default function Register(props) {
               type="text"
               placeholder="Dirección*"
               name="address"
-              onChange={(e) => handlechange(e)}
+              onChange={handlechange}
+              value={userdata.address}
             />
           </div>
           <div className="input-group mt-1">
@@ -267,7 +259,8 @@ export default function Register(props) {
               type="password"
               placeholder="Contraseña*"
               name="password"
-              onChange={(e) => handlechange(e)}
+              onChange={handlechange}
+              value={userdata.password}
             />
           </div>
           <label className="input-group mb-1 mt-3 text-warning">
@@ -280,11 +273,24 @@ export default function Register(props) {
               id="formFile"
               onChange={uploadImage}
               name="imageProfile"
+              value={userdata.img}
             ></input>
           </div>
+          <img
+            id="img_profile"
+            src={userdata.imageProfile}
+            alt="avatar"
+            style={{
+              borderRadius: "50%",
+              border: "3px solid #E4A11B",
+              width: "200px",
+              height: "200px",
+            }}
+          />
           <button
             className="btn text-white w-100 mt-4 fw-bold shadow-sm bg-warning"
             onSubmit={(e) => register_user(e)}
+            disabled={error.missing_fields}
           >
             Crear cuenta
           </button>
@@ -340,4 +346,3 @@ export default function Register(props) {
     </div>
   );
 }
-//http://localhost:3001/user/verify?userId=${userId}

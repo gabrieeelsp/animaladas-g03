@@ -1,8 +1,10 @@
 /* eslint-disable consistent-return */
 const create = require('../controllers/adoption/create');
 const getOneById = require('../controllers/adoption/findOneById');
+const findPendingAdoption = require('../controllers/adoption/findPendingAdoption');
 const getAll = require('../controllers/adoption/getAll');
 const resolve = require('../controllers/adoption/resolve');
+const getTotalUserIdAdoption = require('../controllers/adoption/getAllUserId');
 
 const {
     validateUserId,
@@ -75,6 +77,21 @@ const getByIdHandler = async (req, res) => {
     }
 };
 
+const getPendingAdoptionHandler = async (req, res) => {
+    const { userId, animalId } = req.query;
+
+    try {
+        const item = await findPendingAdoption(userId, animalId);
+        if (!item)
+            return res
+                .status(404)
+                .json({ error: 'No se encontro una instancia con el id' });
+        return res.status(200).json(item);
+    } catch (error) {
+        return res.status(404).json({ error: error.message });
+    }
+};
+
 const accept = async (req, res) => {
     const { id } = req.params;
 
@@ -113,10 +130,22 @@ const refuse = async (req, res) => {
     }
 };
 
+const getTotalByUserId = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const total = await getTotalUserIdAdoption(id);
+        return res.status(200).json(total);
+    } catch (error) {
+        res.status(404).json({ error: error.message });
+    }
+};
+
 module.exports = {
     getAllHandler,
     createHandler,
     getByIdHandler,
     accept,
     refuse,
+    getPendingAdoptionHandler,
+    getTotalByUserId,
 };

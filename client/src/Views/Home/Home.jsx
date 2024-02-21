@@ -1,10 +1,60 @@
-import React from "react";
+import React, { useEffect } from "react"; // Agrega esta línea
+import { useSelector, useDispatch } from 'react-redux'; // Agrega esta línea
 import { Link } from "react-router-dom";
+import { isTokenExpired } from "../../scripts/istokenexpired";
 import "./Home.css";
+import {  get_allreviews } from "../../redux/actions/actions";
+
 
 export default function Home() {
+  console.log("pagina home.jsx");
+  const allReviews = useSelector((state) => state.rootReducer.allreviews);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(get_allreviews());
+  }, [dispatch]);
+
+  const renderReviews = () => {
+    return allReviews.slice(0, 3).map((review, index) => (
+      <div className="custom-card-link col-md-4 mb-4" key={index}>
+        <div className="card bg-dark text-light shadow-card testimonial-box">
+          <div className="card-body">
+            <div className="profile">
+              <div className="profile-img">
+                <img
+                  src={review.user_img}
+                  alt="User"
+                  style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+                />
+              </div>
+              <div className="name-user">
+                <strong className="text-warning">{review.user_name} {review.user_lastName}</strong>
+                <span className="text-warning">@{review.user_name}{review.user_lastName}</span>
+              </div>
+            </div>
+            <div className="reviews">
+              {[...Array(review.score)].map((_, index) => (
+                <i className="bi bi-star-fill text-warning" key={index}></i>
+              ))}
+              {[...Array(5 - review.score)].map((_, index) => (
+                <i className="bi bi-star text-warning" key={index}></i>
+              ))}
+            </div>
+            <div className="user-comment text-white" style={{ maxHeight: "80px", overflowY: "auto" }}>
+              <p>{review.comment}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    ));
+  };
+  
+  
+  
+
   return (
-    <div>
+    <div style={{ paddingTop: "45px" }}>
       <div
         id="carouselExampleAutoplaying"
         className="carousel slide mb-4"
@@ -18,7 +68,11 @@ export default function Home() {
               src="https://images.unsplash.com/photo-1508109657675-38fe91fb2ada?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               className="d-block w-100 rounded"
               alt="..."
-              style={{ borderRadius: "100px", height: "390px", objectFit: "cover" }}
+              style={{
+                borderRadius: "100px",
+                height: "390px",
+                objectFit: "cover",
+              }}
             />
           </div>
           <div className="carousel-item">
@@ -26,7 +80,11 @@ export default function Home() {
               src="https://images.unsplash.com/photo-1622273509376-2d42c282dced?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               className="d-block w-100 rounded"
               alt="..."
-              style={{ borderRadius: "100px", height: "390px", objectFit: "cover" }}
+              style={{
+                borderRadius: "100px",
+                height: "390px",
+                objectFit: "cover",
+              }}
             />
           </div>
           <div className="carousel-item">
@@ -34,7 +92,11 @@ export default function Home() {
               src="https://images.unsplash.com/photo-1542765826-d17aa264390d?q=80&w=1474&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               className="d-block w-100 rounded"
               alt="..."
-              style={{ borderRadius: "100px", height: "390px", objectFit: "cover" }}
+              style={{
+                borderRadius: "100px",
+                height: "390px",
+                objectFit: "cover",
+              }}
             />
           </div>
           <div className="carousel-item">
@@ -42,18 +104,22 @@ export default function Home() {
               src="https://images.unsplash.com/photo-1510878356388-93a357c7a57c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               className="d-block w-100 rounded"
               alt="..."
-              style={{ borderRadius: "100px", height: "390px", objectFit: "cover" }}
+              style={{
+                borderRadius: "100px",
+                height: "390px",
+                objectFit: "cover",
+              }}
             />
           </div>
-
-      
         </div>
         <button
           className="carousel-control-prev"
           type="button"
           data-bs-target="#carouselExampleAutoplaying"
           data-bs-slide="prev"
-          style={{ filter: "drop-shadow(2px 2px 2px rgba(255, 255, 255, 0.8))" }}
+          style={{
+            filter: "drop-shadow(2px 2px 2px rgba(255, 255, 255, 0.8))",
+          }}
         >
           <span
             className="carousel-control-prev-icon"
@@ -67,7 +133,9 @@ export default function Home() {
           type="button"
           data-bs-target="#carouselExampleAutoplaying"
           data-bs-slide="next"
-          style={{ filter: "drop-shadow(-2px 2px 2px rgba(255, 255, 255, 0.8))" }}
+          style={{
+            filter: "drop-shadow(-2px 2px 2px rgba(255, 255, 255, 0.8))",
+          }}
         >
           <span
             className="carousel-control-next-icon"
@@ -78,40 +146,39 @@ export default function Home() {
         </button>
       </div>
 
-
       <div className="container mt-6">
-      <div className="card bg-dark text-light about-us-card">
-        <div className="card-body">
-          <h2 className="text-warning" style={{ fontSize: "1.5rem", color: "#FFC107" }}>
-            ¿Quiénes somos?
-          </h2>
-          <p className="text-light" style={{ marginTop: "8px" }}>
-            Somos Animaladas, una organización de personas en Salta Capital, Argentina,
-            dedicada al rescate de perros y gatos en situación de abandono, maltrato y
-            otras circunstancias. Nuestra misión es proporcionar amor,
-            atención y un hogar seguro para aquellos que más lo necesitan.
-          </p>
-          <div className="hover-text">
-            <p>
-              <br />
-              Apoya nuestra causa y haz una donación en línea para ayudarnos a seguir rescatando y
-              cuidando a los animales necesitados.
-              <br />
-              <br />
-              <Link to="/donar">
-                <button className="btn btn-warning btn-custom-yellow my-custom-button">
-                  ¡QUIERO APORTAR!
-                </button>
-              </Link>
+        <div className="card bg-dark text-light about-us-card">
+          <div className="card-body">
+            <h2
+              className="text-warning"
+              style={{ fontSize: "1.5rem", color: "#FFC107" }}
+            >
+              ¿Quiénes somos?
+            </h2>
+            <p className="text-light" style={{ marginTop: "8px" }}>
+              Somos Animaladas, una organización de personas en Salta Capital,
+              Argentina, dedicada al rescate de perros y gatos en situación de
+              abandono, maltrato y otras circunstancias. Nuestra misión es
+              proporcionar amor, atención y un hogar seguro para aquellos que
+              más lo necesitan.
             </p>
+            <div className="hover-text">
+              <p>
+                <br />
+                Apoya nuestra causa y haz una donación en línea para ayudarnos a
+                seguir rescatando y cuidando a los animales necesitados.
+                <br />
+                <br />
+                <Link to="/donar">
+                  <button className="btn btn-warning btn-custom-yellow my-custom-button">
+                    ¡QUIERO APORTAR!
+                  </button>
+                </Link>
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-
-
-
 
       <div className="container mt-5">
         <div className="row">
@@ -125,7 +192,9 @@ export default function Home() {
                 />
                 <div className="card-body">
                   <h5 className="cardcustom-title">Rescatados</h5>
-                  <p className="cardcustom-text">¡Ayúdanos a brindar atención urgente a nuestros animalitos!</p>
+                  <p className="cardcustom-text">
+                    ¡Ayúdanos a brindar atención urgente a nuestros animalitos!
+                  </p>
                 </div>
               </div>
             </Link>
@@ -141,7 +210,9 @@ export default function Home() {
                 />
                 <div className="card-body">
                   <h5 className="cardcustom-title">Adoptar</h5>
-                  <p className="cardcustom-text">Encuentra a tu próximo mejor amigo disponible para adopción.</p>
+                  <p className="cardcustom-text">
+                    Encuentra a tu próximo mejor amigo disponible para adopción.
+                  </p>
                 </div>
               </div>
             </Link>
@@ -157,11 +228,21 @@ export default function Home() {
                 />
                 <div className="card-body">
                   <h5 className="cardcustom-title">Adoptados</h5>
-                  <p className="cardcustom-text">Descubre historias felices de animales que encontraron un hogar.</p>
+                  <p className="cardcustom-text">
+                    Descubre historias felices de animales que encontraron un
+                    hogar.
+                  </p>
                 </div>
               </div>
             </Link>
           </div>
+      
+          <div className="container mt-5">
+  <h2 className="text-warning mb-4">Últimas Reseñas</h2>
+  <div className="row">
+    {renderReviews()}
+  </div>
+</div>
         </div>
       </div>
     </div>

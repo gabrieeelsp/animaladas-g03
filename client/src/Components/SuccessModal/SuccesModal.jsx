@@ -6,18 +6,20 @@ export default function SuccesModal({
   MessageModal,
   SetShowModalMessage,
   ShowModalMessage,
+  navigateto,
 }) {
+  console.log("ingreso al succes model", MessageModal);
   return (
     <>
       {ShowModalMessage ? (
-        <div className="overlay">
+        <div className="overlay" style={{ zIndex: "2" }}>
           <div className="Containermodal">
             <div className="headermodal">
               <img src={sucess_img} style={{ width: "100px" }}></img>
             </div>
             <button
               className="buttonclose"
-              onClick={(e) => SetShowModalMessage(false)}
+              onClick={(e) => SetShowModalMessage(navigateto)}
             >
               <i class="bi bi-x-lg"></i>
             </button>

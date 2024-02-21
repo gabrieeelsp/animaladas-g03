@@ -1,3 +1,4 @@
+const passport = require('passport');
 const { Router } = require('express');
 const userRouter = require('./userRouter');
 const animalRouter = require('./animalRouter');
@@ -5,7 +6,8 @@ const initRouter = require('./initRouter');
 const donationRouter = require('./donationRouter');
 const adoptionRouter = require('./adoptionRouter');
 const mercadopagoRouter = require('./mercadopagoRouter');
-const passport = require('passport');
+const reviews = require('./reviewRouter');
+const contactRouter = require('./contactRouter');
 require('../services/google');
 
 const router = Router();
@@ -19,6 +21,8 @@ router.use('/init', initRouter);
 router.use('/donations', donationRouter);
 router.use('/adoptions', adoptionRouter);
 router.use('/mercadopago', mercadopagoRouter);
+router.use('/review', reviews);
+router.use('/contact', contactRouter);
 
 router.use(
     '/user/auth',
