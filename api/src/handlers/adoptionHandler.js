@@ -132,7 +132,9 @@ const refuse = async (req, res) => {
 
 const getTotalByUserId = async (req, res) => {
     const { id } = req.params;
-    const { limit, page } = req.query;
+    const filters = req.query;
+    const limit = parseInt(filters.limit, 10) || null;
+    const page = parseInt(filters.page, 10) || 1;
 
     try {
         const result = await getTotalUserIdAdoption(id, limit, page);
