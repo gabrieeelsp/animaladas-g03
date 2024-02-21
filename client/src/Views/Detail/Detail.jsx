@@ -2,12 +2,7 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import {
-  clearAll,
-  animalById,
-  createForm,
-  allAdoptions,
-} from "../../redux/actions/actions";
+import { clearAll, animalById, createForm, allAdoptions, } from "../../redux/actions/actions";
 import ModalError from "../../Components/ErrorModal/ErrorModal";
 import SuccessModal from "../../Components/SuccessModal/SuccesModal";
 
@@ -148,13 +143,16 @@ export default function Detail(props) {
               <h4 className="card-text text-left">
                 Historia de rescate: {animal.rescued_story}
               </h4>
+              <button
+                className="btn btn-warning btn-block text-dark"
+                onClick={handleFormSubmit}
+                disabled={!userId}
+              > Adoptar</button>
+              {!userId && (
+                <h6 className="text-warning mt-3 text-center">Debe estar logueado para poder adoptar</h6>
+              )}
             </div>
-            <button
-              className="btn btn-warning btn-block text-dark"
-              onClick={handleFormSubmit}
-            >
-              Adoptar
-            </button>
+
           </div>
 
           <div
