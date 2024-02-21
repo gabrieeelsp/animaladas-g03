@@ -6,6 +6,7 @@ const getAll = require('../controllers/adoption/getAll');
 const resolve = require('../controllers/adoption/resolve');
 const getTotalUserIdAdoption = require('../controllers/adoption/getAllUserId');
 const findOneById = require('../controllers/adoption/findOneById');
+const mailAdoption = require('../controllers/adoption/mailAdoption');
 
 const {
     validateUserId,
@@ -13,7 +14,6 @@ const {
     validateAdoption,
     validateAdoptionPending,
 } = require('../utils/validations');
-const mailAdoption = require('../controllers/adoption/mailAdoption');
 
 const getAllHandler = async (req, res) => {
     try {
