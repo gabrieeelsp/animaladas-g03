@@ -41,6 +41,7 @@ const items = [
         name: 'Lionel',
         lastName: 'Messi',
         email: 'lm@mail.com',
+        isAdmin: true,
         password: 'password',
         phone: '12345',
         address: 'calle falsa 123',
