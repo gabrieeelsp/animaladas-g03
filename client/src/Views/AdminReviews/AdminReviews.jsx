@@ -5,22 +5,24 @@ import { useEffect } from "react";
 import Pagination from "../../Components/Pagination/Pagination"
 
 export default function AdminReviews () {
-  const reviews = useSelector((state) => state.rootReducer.allreviews);
-  const pagination = useSelector((state) => state.rootReducer.pagination1);
+  const reviews = useSelector((state) => state.rootReducer.reviews);
+  const pagination = useSelector((state) => state.rootReducer.pagination2);
+  console.log("reviews:", reviews)
   console.log("pagination:", pagination)
   const dispatch = useDispatch();
 
-
+  
+  // localhost:3001/review/allReviews?userId=2&limit=2&page=1&isReviewed=pendiente
   useEffect(() => {
     dispatch(clearAll());
-    dispatch(get_allreviews());
+    dispatch(get_allreviews("",5,1, ""));
   }, []);
 
 
   const handleAccept = async (id) => {
     try {
       await dispatch(acceptReview(id));
-      dispatch(get_allreviews());
+      dispatch(get_allreviews("",5,1, ""));
       console.log("Adopción aceptada:", id);
     } catch (error) {
       console.error("Error al aceptar la adopción:", error);
@@ -30,7 +32,7 @@ export default function AdminReviews () {
   const handleRefuse = async (id) => {
     try {
       await dispatch(refuseReview(id));
-      dispatch(get_allreviews());
+      dispatch(get_allreviews("",5,1, ""));
       console.log("Adopción rechazada:", id);
     } catch (error) {
       console.error("Error al rechazar la adopción:", error);
@@ -39,11 +41,11 @@ export default function AdminReviews () {
 
 
   const handleNextPage = (page) => {
-    dispatch(allAdoptions("", "", page, 5, "", ""));
+    dispatch(get_allreviews("",5,page, ""));
   };
 
   const handlePrevPage = (page) => {
-    dispatch(allAdoptions("", "", page, 5, "", ""));
+    dispatch(get_allreviews("",5,page, ""));
   };
 
 
@@ -80,6 +82,11 @@ export default function AdminReviews () {
              ))}
         </tbody>
       </table>
+      <Pagination
+          pagination={pagination}
+          onNextPage={handleNextPage}
+          onPrevPage={handlePrevPage}
+        />
           </div>
         </div>
         <div className="col-md-2 bg-dark text-warning d-flex flex-column align-items-center justify-content-center mx-3" style={{ border: "2px solid black", borderRadius: "10px", padding: "10px", height: "600px", width: "200px" }}>

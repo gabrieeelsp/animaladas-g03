@@ -279,7 +279,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case GET_ALLREVIEWS: {
       return {
         ...state,
-        allreviews: payload,
+        reviews: payload.reviews,
+        pagination2: payload.pagination,
       };
     }
 

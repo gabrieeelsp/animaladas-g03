@@ -499,15 +499,47 @@ export const loadEstadisticas = (dateFrom, dateTo, tabSelected) => {
   };
 };
 
-export const get_allreviews = () => {
+export const get_allreviews = (
+  userId,
+  reviewsPerPage = 5,
+  page = 1,
+  isReviewed,
+  // orderby,
+  // orderdir
+) => {
   return async (dispatch) => {
-    const response = await axios.get(`${urlBaseAxios}/review/allReviews`);
-    dispatch({
-      type: GET_ALLREVIEWS,
-      payload: response.data,
-    });
+    try {
+      const token = localStorage.getItem("token");
+      console.log(token);
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      };
+      // localhost:3001/review/allReviews?userId=2&limit=2&page=1&isReviewed=pendiente
+      const response = await axios.get(`${urlBaseAxios}/review/allReviews?userId=${userId}&limit=${reviewsPerPage}&page=${page}&isReviewed=${isReviewed}`, config);
+
+      const data = response.data;
+
+      dispatch({
+        type: GET_ALLREVIEWS,
+        payload: {
+          reviews: data.data,
+          pagination: data.pagination,
+        },
+      });
+      dispatch({
+        type: UPDATE_PAGINATION,
+        payload: data.pagination,
+      });
+    } catch (error) {
+      console.error("Error al cargar las reviews:", error);
+    }
   };
 };
+
 
 export const acceptReview = (id) => {
   return async (dispatch) => {
