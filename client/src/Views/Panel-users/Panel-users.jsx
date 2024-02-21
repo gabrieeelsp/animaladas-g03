@@ -18,7 +18,7 @@ import { total_amount_donation_user } from "../../redux/actions/actions";
 import { total_adoption_user } from "../../redux/actions/actions";
 import FiltersModal from "./modalfiltros";
 import EstadisticasBoard from "../../Components/Estadisticas/EstadisticasBoard/EstadisticasBoard";
-
+import Detail from "../Detail/Detail";
 export default function PanelUsers(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,7 +32,15 @@ export default function PanelUsers(props) {
   const all_donations_copy_user = useSelector(
     (state) => state.rootReducer.alldonation_user_copy
   );
+  const copy_total_adoptions_user = useSelector(
+    (state) => state.rootReducer.total_adoption_user_copy
+  );
+
   let total_adoptions_user = 0;
+
+  if (copy_total_adoptions_user.pagination) {
+    total_adoptions_user = copy_total_adoptions_user.pagination.total_records;
+  }
   let adoptedAnimals = useSelector(
     (state) => state.rootReducer.total_adoption_user.data
   );
@@ -43,7 +51,6 @@ export default function PanelUsers(props) {
     adoptedAnimals = [];
   } else {
     adoptedAnimals = adoptedAnimals;
-    total_adoptions_user = adoptedAnimals.length;
   }
 
   const total_amount_user = useSelector(
@@ -54,6 +61,20 @@ export default function PanelUsers(props) {
   );
 
   const pagination = useSelector((state) => state.rootReducer.pagination);
+  let pagination2 = useSelector(
+    (state) => state.rootReducer.total_adoption_user.pagination
+  );
+  if (!pagination2) {
+    pagination2 = {
+      total_records: 0,
+      current_page: 1,
+      total_pages: null,
+      next_page: null,
+      prev_page: null,
+    };
+  } else {
+    pagination2 = pagination2;
+  }
   if (user_profile === "") {
     navigate("/");
   }
@@ -114,9 +135,14 @@ export default function PanelUsers(props) {
   const handleNextPage = (page) => {
     dispatch(alldonations_user(user_profile.id, 5, page));
   };
-
+  const handleNextPage2 = (page) => {
+    dispatch(total_adoption_user(user_profile.id, 5, page));
+  };
   const handlePrevPage = (page) => {
     dispatch(alldonations_user(user_profile.id, 5, page));
+  };
+  const handlePrevPage2 = (page) => {
+    dispatch(total_adoption_user(user_profile.id, 5, page));
   };
 
   const updateprofile = async (e) => {
@@ -175,7 +201,7 @@ export default function PanelUsers(props) {
   useEffect(() => {
     dispatch(alldonations_user(user_profile.id, 5, 1));
     dispatch(total_amount_donation_user(user_profile.id));
-    dispatch(total_adoption_user(user_profile.id));
+    dispatch(total_adoption_user(user_profile.id, 5, 1));
   }, [user_profile]);
   const click_menu_option = (option) => {
     if (option === "home") {
@@ -542,12 +568,17 @@ export default function PanelUsers(props) {
                           </td>
                           <td> {dog.animal.name}</td>
                           <td>
-                            <i className="bi bi-info-circle"></i>
+                            <i className="bi bi-eye-fill"></i>
                           </td>
                         </tr>
                       );
                     })}
                   </table>
+                  <Paginacion
+                    pagination={pagination2}
+                    onNextPage={handleNextPage2}
+                    onPrevPage={handlePrevPage2}
+                  ></Paginacion>
                 </div>
               )}
             </div>
