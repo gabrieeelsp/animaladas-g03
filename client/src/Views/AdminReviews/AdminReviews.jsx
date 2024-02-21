@@ -1,6 +1,52 @@
 import {NavLink} from "react-router-dom";
+import { get_allreviews, acceptReview, refuseReview, clearAll} from "../../redux/actions/actions"
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import Pagination from "../../Components/Pagination/Pagination"
 
 export default function AdminReviews () {
+  const reviews = useSelector((state) => state.rootReducer.allreviews);
+  const pagination = useSelector((state) => state.rootReducer.pagination1);
+  console.log("pagination:", pagination)
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(clearAll());
+    dispatch(get_allreviews());
+  }, []);
+
+
+  const handleAccept = async (id) => {
+    try {
+      await dispatch(acceptReview(id));
+      dispatch(get_allreviews());
+      console.log("Adopción aceptada:", id);
+    } catch (error) {
+      console.error("Error al aceptar la adopción:", error);
+    }
+  };
+
+  const handleRefuse = async (id) => {
+    try {
+      await dispatch(refuseReview(id));
+      dispatch(get_allreviews());
+      console.log("Adopción rechazada:", id);
+    } catch (error) {
+      console.error("Error al rechazar la adopción:", error);
+    }
+  };
+
+
+  const handleNextPage = (page) => {
+    dispatch(allAdoptions("", "", page, 5, "", ""));
+  };
+
+  const handlePrevPage = (page) => {
+    dispatch(allAdoptions("", "", page, 5, "", ""));
+  };
+
+
     return(
 <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "100vh", marginTop:"0px", marginBottom:"-130px" }}>
       <div className="row mt-0">
@@ -18,18 +64,20 @@ export default function AdminReviews () {
           </tr>
         </thead>
         <tbody>
+        {reviews && reviews.map(({ id,user_name, comment,isReviewed}) => (
 <tr>
               <th scope="row">1</th>
-              <td className="text-warning">Ejemplo solicitante</td>
-              <td className="text-warning">Ejemplo review</td>
-              <td className="text-warning">Pendiente</td>
+              <td className="text-warning">{user_name}</td>
+              <td className="text-warning">{comment}</td>
+              <td className="text-warning">{isReviewed}</td>
               <td>
-                <button className="btn btn-success">Aceptar</button>
+                <button className="btn btn-success"onClick={() => handleAccept(id)}>Aceptar</button>
               </td>
               <td>
-                <button className="btn btn-danger">Rechazar</button>
+                <button className="btn btn-danger"onClick={() => handleRefuse(id)}>Rechazar</button>
               </td>
             </tr>
+             ))}
         </tbody>
       </table>
           </div>

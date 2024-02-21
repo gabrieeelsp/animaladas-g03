@@ -28,6 +28,10 @@ import {
   ACCEPT_ADOPTION_FAILURE,
   REFUSE_ADOPTION_FAILURE,
   REFUSE_ADOPTION_SUCCESS,
+  ACCEPT_REVIEW_SUCCESS,
+  ACCEPT_REVIEW_FAILURE,
+  REFUSE_REVIEW_FAILURE,
+  REFUSE_REVIEW_SUCCESS,
   UPDATE_ANIMAL,
   USER_BY_MAIL,
   DELETE_USER,
@@ -53,6 +57,13 @@ const initialState = {
     prev_page: null,
   },
   pagination1: {
+    total_records: 0,
+    current_page: 1,
+    total_pages: null,
+    next_page: null,
+    prev_page: null,
+  },
+  pagination2: {
     total_records: 0,
     current_page: 1,
     total_pages: null,
@@ -290,6 +301,29 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
       };
+
+
+
+      case ACCEPT_REVIEW_SUCCESS:
+        return {
+          ...state,
+        };
+  
+      case ACCEPT_REVIEW_FAILURE:
+        return {
+          ...state,
+        };
+  
+      case REFUSE_REVIEW_SUCCESS:
+        return {
+          ...state,
+        };
+  
+      case REFUSE_REVIEW_FAILURE:
+        return {
+          ...state,
+        };
+
     case UPDATE_ANIMAL: {
       return {
         ...state,
