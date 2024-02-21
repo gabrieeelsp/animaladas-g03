@@ -46,12 +46,15 @@ a{
 }
 
 .testimonial-box{
-    width: 500px;
+    width: 400px;
+    height: 200px;
     box-shadow: 2px 2px 30px rgba((0,0,0,0.1), green, blue, alpha);
     background-color: #ffff;
     padding: 20px;
     margin: 15px;
-    cursor: pointer
+    cursor: pointer;
+    overflow:hidden;
+    overflow-y: scroll;
 
 }
 .profile-img{
