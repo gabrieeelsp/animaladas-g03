@@ -17,6 +17,7 @@ import Paginacion from "../../Components/Pagination/Pagination";
 import { total_amount_donation_user } from "../../redux/actions/actions";
 import { total_adoption_user } from "../../redux/actions/actions";
 import FiltersModal from "./modalfiltros";
+import EstadisticasBoard from "../../Components/Estadisticas/EstadisticasBoard/EstadisticasBoard";
 
 export default function PanelUsers(props) {
   const navigate = useNavigate();
