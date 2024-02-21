@@ -12,13 +12,18 @@ export default function PagoAprobado() {
   const preferenceId = searchParams.get("preference_id");
   const [totalAmount, setTotalAmount] = useState(null);
 
+  const urlBaseAxios =
+    import.meta.env.VITE_ENV === "DEV"
+      ? import.meta.env.VITE_URL_DEV
+      : import.meta.env.VITE_URL_PROD;
+
   useEffect(() => {
     const createOrder = async () => {
       try {
         const status = searchParams.get("status");
         if (status === "approved") {
           const response = await fetch(
-            "http://localhost:3001/mercadopago/pago-aprobado",
+            `${urlBaseAxios}/mercadopago/pago-aprobado`,
             {
               method: "POST",
               headers: {
@@ -72,7 +77,7 @@ export default function PagoAprobado() {
             }
           };
         axios
-          .post("http://localhost:3001/donations", { userId, amount, animalId }, config)
+          .post(`${urlBaseAxios}/donations`, { userId, amount, animalId }, config)
           .then((donationResponse) => {
             console.log("Donación creada con éxito:", donationResponse.data);
             navigate("/donar/pago-aprobado");

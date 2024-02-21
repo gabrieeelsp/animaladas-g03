@@ -101,8 +101,14 @@ export default function Register(props) {
       SetShowModalError(true);
     } else {
       event.preventDefault();
+
+
+      const urlBaseAxios =
+        import.meta.env.VITE_ENV === "DEV"
+          ? import.meta.env.VITE_URL_DEV
+          : import.meta.env.VITE_URL_PROD;
       const resp = await axios.post(
-        "http://localhost:3001/user/createUser",
+        `${urlBaseAxios}/user/createUser`,
         userdata
       );
 
@@ -340,4 +346,3 @@ export default function Register(props) {
     </div>
   );
 }
-//http://localhost:3001/user/verify?userId=${userId}
