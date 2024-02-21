@@ -709,12 +709,11 @@ export function alladoptions_user(userId, limit, page, orderDir, orderBy) {
 
     const { data } = response;
     console.log("informacion del data de all adopton", data);
-    /*
+
     return dispatch({
       type: ALLADOPTIONS_USER,
       payload: data,
     });
-    */
   };
 }
 

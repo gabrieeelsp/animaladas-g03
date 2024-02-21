@@ -32,16 +32,20 @@ export default function PanelUsers(props) {
   const all_donations_copy_user = useSelector(
     (state) => state.rootReducer.alldonation_user_copy
   );
-  const total_adoptions_user = useSelector(
-    (state) => state.rootReducer.total_adoption_user
+  let total_adoptions_user = 0;
+  let adoptedAnimals = useSelector(
+    (state) => state.rootReducer.total_adoption_user.data
   );
-  console.log("prueba vale:", total_adoptions_user.adoptedAnimals);
+  console.log("prueba vale:", adoptedAnimals);
   let array_adopted_user = [];
-  if (!total_adoptions_user.adoptedAnimals) {
-    array_adopted_user = [];
+
+  if (!adoptedAnimals) {
+    adoptedAnimals = [];
   } else {
-    array_adopted_user = total_adoptions_user.adoptedAnimals;
+    adoptedAnimals = adoptedAnimals;
+    total_adoptions_user = adoptedAnimals.length;
   }
+
   const total_amount_user = useSelector(
     (state) => state.rootReducer.total_amount_donation_user
   );
@@ -167,7 +171,6 @@ export default function PanelUsers(props) {
       password: "",
     });
   }, [user_profile]);
-  console.log("valor de este", total_adoptions_user.adoptedAnimals);
 
   useEffect(() => {
     dispatch(alldonations_user(user_profile.id, 5, 1));
@@ -409,7 +412,7 @@ export default function PanelUsers(props) {
                 </div>
                 <div className="card-panel">
                   <div className="box-panel">
-                    <h1>{total_adoptions_user.totalAdoptions}</h1>
+                    <h1>{total_adoptions_user}</h1>
                     <h3 className="titles-panel-h3">Adopciones</h3>
                   </div>
                   <div className="icon-case">
@@ -530,13 +533,14 @@ export default function PanelUsers(props) {
                       <th>opcion</th>
                     </tr>
 
-                    {array_adopted_user.map((dog) => {
+                    {adoptedAnimals.map((dog) => {
+                      console.log("valor del i", dog);
                       return (
                         <tr>
                           <td>
-                            <img src={dog.image1}></img>
+                            <img src={dog.animal.image1}></img>
                           </td>
-                          <td> {dog.name}</td>
+                          <td> {dog.animal.name}</td>
                           <td>
                             <i className="bi bi-info-circle"></i>
                           </td>
