@@ -70,3 +70,6 @@ agrega un id_animal y un id_user a la tabla intermedia User_Animals para asociar
 
 -delete http://localhost:3001/user/2/removeFavorite/1374
 elimina el registro de id_user y id_animal de la tabla intermedia User_Animals
+
+-get http://localhost:3001/user/pagAllUsers
+se trae a los usuarios paginados

@@ -264,7 +264,7 @@ export default function Reviews(props) {
             <h1>Las personas dicen</h1>
           </div>
           <div className="testimonial-box-container">
-            {allreviews?.map((review) => (
+            {allreviews.data && allreviews.data?.map((review) => (
               <div className="testimonial-box">
                 <div className="box-top">
                   <div className="profile">

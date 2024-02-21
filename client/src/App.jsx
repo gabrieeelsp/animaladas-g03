@@ -44,7 +44,10 @@ function App() {
               Setshowprofile={Setshowprofile}
             />
           }
-        ></Route>
+        >
+          <Route path=":id" element={<Detail />}></Route>
+        </Route>
+
         <Route
           path="/detail/:id"
           element={

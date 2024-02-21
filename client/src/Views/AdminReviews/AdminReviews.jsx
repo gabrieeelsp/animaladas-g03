@@ -1,6 +1,54 @@
 import {NavLink} from "react-router-dom";
+import { get_allreviews, acceptReview, refuseReview, clearAll} from "../../redux/actions/actions"
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import Pagination from "../../Components/Pagination/Pagination"
 
 export default function AdminReviews () {
+  const reviews = useSelector((state) => state.rootReducer.reviews);
+  const pagination = useSelector((state) => state.rootReducer.pagination2);
+  console.log("reviews:", reviews)
+  console.log("pagination:", pagination)
+  const dispatch = useDispatch();
+
+  
+  // localhost:3001/review/allReviews?userId=2&limit=2&page=1&isReviewed=pendiente
+  useEffect(() => {
+    dispatch(clearAll());
+    dispatch(get_allreviews("",5,1, ""));
+  }, []);
+
+
+  const handleAccept = async (id) => {
+    try {
+      await dispatch(acceptReview(id));
+      dispatch(get_allreviews("",5,1, ""));
+      console.log("Adopción aceptada:", id);
+    } catch (error) {
+      console.error("Error al aceptar la adopción:", error);
+    }
+  };
+
+  const handleRefuse = async (id) => {
+    try {
+      await dispatch(refuseReview(id));
+      dispatch(get_allreviews("",5,1, ""));
+      console.log("Adopción rechazada:", id);
+    } catch (error) {
+      console.error("Error al rechazar la adopción:", error);
+    }
+  };
+
+
+  const handleNextPage = (page) => {
+    dispatch(get_allreviews("",5,page, ""));
+  };
+
+  const handlePrevPage = (page) => {
+    dispatch(get_allreviews("",5,page, ""));
+  };
+
+
     return(
 <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "100vh", marginTop:"0px", marginBottom:"-130px" }}>
       <div className="row mt-0">
@@ -18,20 +66,27 @@ export default function AdminReviews () {
           </tr>
         </thead>
         <tbody>
+        {reviews && reviews.map(({ id,user_name, comment,isReviewed}) => (
 <tr>
               <th scope="row">1</th>
-              <td className="text-warning">Ejemplo solicitante</td>
-              <td className="text-warning">Ejemplo review</td>
-              <td className="text-warning">Pendiente</td>
+              <td className="text-warning">{user_name}</td>
+              <td className="text-warning">{comment}</td>
+              <td className="text-warning">{isReviewed}</td>
               <td>
-                <button className="btn btn-success">Aceptar</button>
+                <button className="btn btn-success"onClick={() => handleAccept(id)}>Aceptar</button>
               </td>
               <td>
-                <button className="btn btn-danger">Rechazar</button>
+                <button className="btn btn-danger"onClick={() => handleRefuse(id)}>Rechazar</button>
               </td>
             </tr>
+             ))}
         </tbody>
       </table>
+      <Pagination
+          pagination={pagination}
+          onNextPage={handleNextPage}
+          onPrevPage={handlePrevPage}
+        />
           </div>
         </div>
         <div className="col-md-2 bg-dark text-warning d-flex flex-column align-items-center justify-content-center mx-3" style={{ border: "2px solid black", borderRadius: "10px", padding: "10px", height: "600px", width: "200px" }}>

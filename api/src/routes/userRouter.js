@@ -12,6 +12,7 @@ const {
     putChageUserData,
     addFavoriteHandler,
     removeFavoriteHandler,
+    getPagAllUserHandler,
 } = require('../handlers/userHandlers');
 const authMiddleware = require('../middlewares/authMiddleware');
 const adminMiddleware = require('../middlewares/adminMiddleware');
@@ -43,6 +44,7 @@ userRouter.delete(
     authMiddleware,
     removeFavoriteHandler,
 );
+userRouter.get('/pagAllUsers', getPagAllUserHandler);
 userRouter.get('/google', (req, res) => {
     const { user } = req;
     const serializedUser = JSON.stringify(user);
