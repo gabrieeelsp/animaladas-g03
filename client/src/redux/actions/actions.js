@@ -726,11 +726,11 @@ export const total_amount_donation_user = (id) => {
     });
   };
 };
-export const total_adoption_user = (id, limit, page) => {
+export const total_adoption_user = (id, limit, page, orderDir, orderBy) => {
   console.log("ingreso al reducr", id);
   return async (dispatch) => {
     const response = await axios.get(
-      `${urlBaseAxios}/adoptions/total/${id}?limit=${limit}&page=${page}`
+      `${urlBaseAxios}/adoptions/total/${id}?limit=${limit}&page=${page}&orderBy=${orderBy}&orderDir=${orderDir}`
     );
     //http://localhost:3001/adoptions/total/2?limit=10&page=1
     dispatch({

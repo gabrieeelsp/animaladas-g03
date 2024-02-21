@@ -196,6 +196,9 @@ export default function PanelUsers(props) {
   const orderby = (value) => {
     dispatch(alldonations_user(user_profile.id, 5, 1, value, "created"));
   };
+  const orderby_adoptions = (value) => {
+    dispatch(total_adoption_user(user_profile.id, 5, 1, value, "created"));
+  };
   const view_detail_pet = (data) => {
     Setdetail_pet({
       ...detail_pet,
@@ -568,13 +571,20 @@ export default function PanelUsers(props) {
                         alignItems: "center",
                       }}
                     >
-                      <div style={{ float: "right" }}>
+                      <div
+                        style={{ float: "right" }}
+                        onClick={(e) => orderby_adoptions("desc")}
+                      >
                         <a href="#" className="btn-panel">
                           Recientes
                         </a>
                       </div>
                       <div>
-                        <a href="#" className="btn-panel">
+                        <a
+                          href="#"
+                          className="btn-panel"
+                          onClick={(e) => orderby_adoptions("asc")}
+                        >
                           Antiguos
                         </a>
                       </div>
