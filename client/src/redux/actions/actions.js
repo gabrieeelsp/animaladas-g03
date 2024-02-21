@@ -27,6 +27,10 @@ import {
   ACCEPT_ADOPTION_FAILURE,
   REFUSE_ADOPTION_FAILURE,
   REFUSE_ADOPTION_SUCCESS,
+  ACCEPT_REVIEW_SUCCESS,
+  ACCEPT_REVIEW_FAILURE,
+  REFUSE_REVIEW_FAILURE,
+  REFUSE_REVIEW_SUCCESS,
   UPDATE_ANIMAL,
   USER_BY_MAIL,
   UPDATE_USER,
@@ -495,13 +499,99 @@ export const loadEstadisticas = (dateFrom, dateTo, tabSelected) => {
   };
 };
 
-export const get_allreviews = () => {
+export const get_allreviews = (
+  userId,
+  reviewsPerPage = 5,
+  page = 1,
+  isReviewed,
+  // orderby,
+  // orderdir
+) => {
   return async (dispatch) => {
-    const response = await axios.get(`${urlBaseAxios}/review/allReviews`);
-    dispatch({
-      type: GET_ALLREVIEWS,
-      payload: response.data,
-    });
+    try {
+      const token = localStorage.getItem("token");
+      console.log(token);
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      };
+      // localhost:3001/review/allReviews?userId=2&limit=2&page=1&isReviewed=pendiente
+      const response = await axios.get(`${urlBaseAxios}/review/allReviews?userId=${userId}&limit=${reviewsPerPage}&page=${page}&isReviewed=${isReviewed}`, config);
+
+      const data = response.data;
+
+      dispatch({
+        type: GET_ALLREVIEWS,
+        payload: {
+          reviews: data.data,
+          pagination: data.pagination,
+        },
+      });
+      dispatch({
+        type: UPDATE_PAGINATION,
+        payload: data.pagination,
+      });
+    } catch (error) {
+      console.error("Error al cargar las reviews:", error);
+    }
+  };
+};
+
+
+export const acceptReview = (id) => {
+  return async (dispatch) => {
+    try {
+      const token = localStorage.getItem('token');
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token
+        }
+      };
+      const response = await axios.post(
+        `${urlBaseAxios}/review/${id}/accept`, {}, config
+      );
+      dispatch({
+        type: ACCEPT_REVIEW_SUCCESS,
+        payload: response.data.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ACCEPT_REVIEW_FAILURE,
+        payload: error,
+      });
+    }
+  };
+};
+
+export const refuseReview = (id) => {
+  return async (dispatch) => {
+    try {
+      const token = localStorage.getItem('token');
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token
+        }
+      };
+      const response = await axios.post(
+        `${urlBaseAxios}/review/${id}/refuse`, {}, config
+      );
+      dispatch({
+        type: REFUSE_REVIEW_SUCCESS,
+        payload: response.data.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: REFUSE_REVIEW_FAILURE,
+        payload: error,
+      });
+    }
   };
 };
 
@@ -562,6 +652,7 @@ export const refuseAdoption = (id) => {
     }
   };
 };
+
 export const updateAnimal = (id, updateValues) => {
   return async (dispatch) => {
     try {

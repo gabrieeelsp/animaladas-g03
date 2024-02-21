@@ -1,55 +1,65 @@
-import React, { useEffect } from "react"; 
-import { useSelector, useDispatch } from 'react-redux'; 
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 import { isTokenExpired } from "../../scripts/istokenexpired";
 import "./Home.css";
-import {  get_allreviews } from "../../redux/actions/actions";
+import { get_allreviews } from "../../redux/actions/actions";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
 
+
 export default function Home() {
   console.log("pagina home.jsx");
-  const allReviews = useSelector((state) => state.rootReducer.allreviews);
+  const reviews = useSelector((state) => state.rootReducer.reviews);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(get_allreviews());
+    dispatch(get_allreviews("", 4, 1, "aprobado"));
   }, [dispatch]);
 
+
+
   const renderReviews = () => {
-    return allReviews.data && allReviews.data.slice(0, 4).map((review, index) => (
-      <div className="col-md-6 mb-4" key={index}>
-        <div className="card bg-dark text-light shadow testimonial-box">
-          <div className="card-body">
-            <div className="profile d-flex align-items-center mb-3">
-              <div className="profile-img me-3">
-                <img
-                  src={review.user_img}
-                  alt="User"
-                  style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-                />
+    return (
+      <div className="row">
+        {reviews && reviews.map(({ id, user_name, user_lastName, comment, isReviewed, user_img, score }, index) => (
+          <div className="col-md-6 mb-4" key={index}>
+            <div className="card bg-dark text-light shadow testimonial-box">
+              <div className="card-body">
+                <div className="profile d-flex align-items-center mb-3">
+                  <div className="profile-img me-3">
+                    <img
+                      src={user_img}
+                      alt="User"
+                      style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+                    />
+                  </div>
+                  <div className="name-user">
+                    <strong className="text-warning">{user_name} {user_lastName}</strong>
+                    <span className="text-light">@{user_name}{user_lastName}</span>
+                  </div>
+                </div>
+                <div className="reviews mb-3">
+                  {[...Array(parseInt(score))].map((_, i) => (
+                    <i className="bi bi-star-fill text-warning" key={i}></i>
+                  ))}
+
+                  {[...Array(parseInt(5-score))].map((_, i) => (
+                    <i className="bi bi-star text-warning" key={i}></i>
+                  ))}
+
+                </div>
+                <div className="user-comment text-white">
+                  <p style={{ maxHeight: "40px", overflow: "hidden", textOverflow: "ellipsis", color: "white" }}>{comment}</p>
+                </div>
               </div>
-              <div className="name-user">
-                <strong className="text-warning">{review.user_name} {review.user_lastName}</strong>
-                <span className="text-light">@{review.user_name}{review.user_lastName}</span>
-              </div>
-            </div>
-            <div className="reviews mb-3">
-              {[...Array(review.score)].map((_, index) => (
-                <i className="bi bi-star-fill text-warning" key={index}></i>
-              ))}
-              {[...Array(5 - review.score)].map((_, index) => (
-                <i className="bi bi-star text-warning" key={index}></i>
-              ))}
-            </div>
-            <div className="user-comment text-white">
-              <p style={{ maxHeight: "40px", overflow: "hidden", textOverflow: "ellipsis", color: "white" }}>{review.comment}</p>
             </div>
           </div>
-        </div>
+        ))}
       </div>
-    ));
+    );
   };
+
 
   return (
     <div style={{ paddingTop: "45px" }}>
@@ -73,7 +83,7 @@ export default function Home() {
               }}
             />
           </div>
-        
+
           <div className="carousel-item">
             <img
               src="https://images.unsplash.com/photo-1542765826-d17aa264390d?q=80&w=1474&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -100,7 +110,7 @@ export default function Home() {
             />
           </div>
 
-          
+
           <div className="carousel-item">
             <img
               src="https://images.unsplash.com/photo-1625107012478-2fb7eceb7577?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -154,9 +164,9 @@ export default function Home() {
             <h2
               className="text-warning text-center mb-4"
               style={{
-                fontSize: "2.5rem", 
+                fontSize: "2.5rem",
                 color: "#FFC107",
-                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" 
+                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)"
               }}
             >
               <FontAwesomeIcon icon={faPaw} style={{ color: "#FFC107", fontSize: "2.5rem" }} /> ¿Quiénes somos? <FontAwesomeIcon icon={faPaw} style={{ color: "#FFC107", fontSize: "2.5rem" }} />
@@ -246,12 +256,14 @@ export default function Home() {
       </div>
 
       <div className="container mt-4 latest-reviews-section">
-  <h2 className="cardcustom-title text-warning mb-4 text-start"
-   style={{ marginLeft: "20px" }}>Experiencias con Animaladas:</h2>
-  <div className="row">
-    {renderReviews()}
-  </div>
-</div>
+        <h2 className="cardcustom-title text-warning mb-4 text-start"
+          style={{ marginLeft: "20px" }}>Experiencias con Animaladas:</h2>
+        <div className="row">
+          {renderReviews()}
+         
+         
+        </div>
+      </div>
 
     </div>
   );
