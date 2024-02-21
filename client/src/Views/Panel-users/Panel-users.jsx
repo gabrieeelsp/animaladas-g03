@@ -14,11 +14,29 @@ import { infologin } from "../../redux/actions/user_action";
 import { alldonations_user } from "../../redux/actions/actions";
 import rootReducer from "../../redux/reducer";
 import Paginacion from "../../Components/Pagination/Pagination";
+import { total_amount_donation_user } from "../../redux/actions/actions";
+import { total_adoption_user } from "../../redux/actions/actions";
+import FiltersModal from "./modalfiltros";
+
 export default function PanelUsers(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const urlBaseAxios =
+    import.meta.env.VITE_ENV === "DEV"
+      ? import.meta.env.VITE_URL_DEV
+      : import.meta.env.VITE_URL_PROD;
   const user_profile = useSelector((state) => state.UserReducer);
+  const all_donations_copy_user = useSelector(
+    (state) => state.rootReducer.alldonation_user_copy
+  );
+  const total_adoptions_user = useSelector(
+    (state) => state.rootReducer.total_adoption_user
+  );
+
+  const total_amount_user = useSelector(
+    (state) => state.rootReducer.total_amount_donation_user
+  );
   const user_donations = useSelector(
     (state) => state.rootReducer.alldonations_user
   );
@@ -26,9 +44,7 @@ export default function PanelUsers(props) {
   if (user_profile === "") {
     navigate("/");
   }
-  useEffect(() => {
-    dispatch(alldonations_user(user_profile.id, 5, 1));
-  }, []);
+
   const showprofile = props.showprofile;
   const Setshowprofile = props.Setshowprofile;
 
@@ -36,6 +52,8 @@ export default function PanelUsers(props) {
   const [MessageModal, SetMessageModal] = useState(false);
   const [ShowModalSucces, SetShowModalSucces] = useState(false);
   const [showmodalprofile, Setshowmodalprofile] = useState(false);
+  const [ShowModalMessage, SetShowModalMessage] = useState(false);
+
   const [form_edituser, Setformedituser] = useState({
     id: "",
     name: "",
@@ -46,6 +64,7 @@ export default function PanelUsers(props) {
     imageProfile: "",
     password: "",
   });
+
   const [error, Seterror] = useState({
     name: "",
     lastName: "",
@@ -65,7 +84,6 @@ export default function PanelUsers(props) {
       [e.target.name]: e.target.value,
     });
     let validate = validateform(form_edituser);
-    console.log("error del phone");
     Seterror({
       ...error,
       name: validate.name,
@@ -79,17 +97,13 @@ export default function PanelUsers(props) {
     });
   };
   const handleNextPage = (page) => {
-    console.log("valor de page en handle nextpage", page);
     dispatch(alldonations_user(user_profile.id, 5, page));
   };
 
   const handlePrevPage = (page) => {
     dispatch(alldonations_user(user_profile.id, 5, page));
   };
-  const urlBaseAxios =
-    import.meta.env.VITE_ENV === "DEV"
-      ? import.meta.env.VITE_URL_DEV
-      : import.meta.env.VITE_URL_PROD;
+
   const updateprofile = async (e) => {
     const token = localStorage.getItem('token');
 
@@ -126,6 +140,10 @@ export default function PanelUsers(props) {
       [e.target.name]: response.data.secure_url,
     });
   };
+  const orderby = (value) => {
+    dispatch(alldonations_user(user_profile.id, 5, 1, value, "created"));
+  };
+
   useEffect(() => {
     Setformedituser({
       id: user_profile.id,
@@ -138,7 +156,12 @@ export default function PanelUsers(props) {
       password: "",
     });
   }, [user_profile]);
-
+  useEffect(() => {
+    dispatch(alldonations_user(user_profile.id, 5, 1));
+    dispatch(total_amount_donation_user(user_profile.id));
+    dispatch(total_adoption_user(user_profile.id));
+  }, [user_profile]);
+  console.log("valor de adoptedaniaml", total_adoptions_user.adoptedAnimals);
   return (
     <>
       <div className="bodypage">
@@ -343,30 +366,69 @@ export default function PanelUsers(props) {
             <div className="cards-panel">
               <div className="card-panel">
                 <div className="box-panel">
-                  <h1>2194</h1>
+                  <h1>${total_amount_user}</h1>
                   <h3 className="titles-panel-h3">Donaciones</h3>
                 </div>
                 <div className="icon-case">
-                  <i class="bi bi-heart-fill"></i>
+                  <i
+                    class="bi bi-box2-heart"
+                    style={{ fontSize: "50px", color: "#E4A11B" }}
+                  ></i>
                 </div>
               </div>
               <div className="card-panel">
                 <div className="box-panel">
-                  <h1>2194</h1>
+                  <h1>{total_adoptions_user.totalAdoptions}</h1>
                   <h3 className="titles-panel-h3">Adopciones</h3>
                 </div>
                 <div className="icon-case">
-                  <i class="bi bi-heart-fill"></i>
+                  <i
+                    class="bi bi-house-heart"
+                    style={{ fontSize: "50px", color: "#E4A11B" }}
+                  ></i>
                 </div>
               </div>
             </div>
             <div className="content-panel-2">
               <div className="recent-payments">
                 <div className="title-content-panel">
-                  <h2>Historico de sus donaciones</h2>
-                  <a href="#" className="btn-panel">
-                    Filtrar
-                  </a>
+                  <h2>Mis donaciones</h2>
+                </div>
+                <div
+                  style={{
+                    paddingRight: "5px",
+                    paddingLeft: "5px",
+                  }}
+                >
+                  <div
+                    style={{
+                      paddingTop: "10px",
+                      paddingBottom: "10px",
+                      display: "flex",
+                      justifyContent: "space-evenly",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div
+                      style={{ float: "right" }}
+                      onClick={(e) => {
+                        orderby("desc");
+                      }}
+                    >
+                      <a href="#" className="btn-panel">
+                        Recientes
+                      </a>
+                    </div>
+                    <div
+                      onClick={(e) => {
+                        orderby("asc");
+                      }}
+                    >
+                      <a href="#" className="btn-panel">
+                        Antiguos
+                      </a>
+                    </div>
+                  </div>
                 </div>
                 <table className="table-content-panel">
                   <tr>
@@ -386,13 +448,6 @@ export default function PanelUsers(props) {
                         <td>{donation.createdAt.split("T")[1]}</td>
                       </tr>
                     );
-                    {
-                      data.data[0].createdAt.split("T")[0];
-                      console.log(
-                        "valor de donation en funcion map",
-                        donation.createdAt.split("T")
-                      );
-                    }
                   })}
                 </table>
                 <Paginacion
@@ -405,9 +460,33 @@ export default function PanelUsers(props) {
               <div className="new-students">
                 <div className="title-content-panel">
                   <h2>Adoptados</h2>
-                  <a href="#" className="btn-panel">
-                    View All
-                  </a>
+                </div>
+                <div
+                  style={{
+                    paddingRight: "5px",
+                    paddingLeft: "5px",
+                  }}
+                >
+                  <div
+                    style={{
+                      paddingTop: "10px",
+                      paddingBottom: "10px",
+                      display: "flex",
+                      justifyContent: "space-evenly",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div style={{ float: "right" }}>
+                      <a href="#" className="btn-panel">
+                        Recientes
+                      </a>
+                    </div>
+                    <div>
+                      <a href="#" className="btn-panel">
+                        Antiguos
+                      </a>
+                    </div>
+                  </div>
                 </div>
                 <table>
                   <tr>
@@ -415,56 +494,29 @@ export default function PanelUsers(props) {
                     <th>Nombre</th>
                     <th>opcion</th>
                   </tr>
-                  <tr>
-                    <td>
-                      <img src={default_img}></img>
-                    </td>
-                    <td> Luna</td>
-                    <td>
-                      <i className="bi bi-info-circle"></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src={default_img}></img>
-                    </td>
-                    <td> Dunkan</td>
-                    <td>
-                      <i className="bi bi-info-circle"></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src={default_img}></img>
-                    </td>
-                    <td> Sasha</td>
-                    <td>
-                      <i className="bi bi-info-circle"></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src={default_img}></img>
-                    </td>
-                    <td> Pepe</td>
-                    <td>
-                      <i className="bi bi-info-circle"></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src={default_img}></img>
-                    </td>
-                    <td> Odie</td>
-                    <td>
-                      <i className="bi bi-info-circle"></i>
-                    </td>
-                  </tr>
+
+                  {total_adoptions_user.adoptedAnimals.map((dog) => {
+                    return (
+                      <tr>
+                        <td>
+                          <img src={dog.image1}></img>
+                        </td>
+                        <td> {dog.name}</td>
+                        <td>
+                          <i className="bi bi-info-circle"></i>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </table>
               </div>
             </div>
           </div>
         </div>
+        <FiltersModal
+          SetShowModalMessage={SetShowModalMessage}
+          ShowModalMessage={ShowModalMessage}
+        ></FiltersModal>
       </div>
     </>
   );

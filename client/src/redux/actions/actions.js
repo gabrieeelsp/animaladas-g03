@@ -32,6 +32,8 @@ import {
   UPDATE_USER,
   ALLDONATIONS_USER,
   ALLADOPTIONS_USER,
+  TOTAL_AMOUNT_DONATION_USER,
+  TOTAL_ADOPTION_USER,
 } from "./types";
 
 import axios from "axios";
@@ -286,6 +288,7 @@ export const createForm = (formData) => {
     } catch (error) {
       console.error("Error creating activity:", error.message);
       dispatch(createFormFailure("Error creating Form"));
+      throw new Error(error.message)
     }
   };
 };
@@ -633,7 +636,7 @@ export const updateUser = (updateValues) => {
   };
 };
 
-export function alldonations_user(userId, limit, page) {
+export function alldonations_user(userId, limit, page, orderDir, orderBy) {
   console.log("valor de param userId", userId);
   console.log("valor de param limit", limit);
   console.log("valor de param page", page);
@@ -647,14 +650,7 @@ export function alldonations_user(userId, limit, page) {
   };
 
   return async function (dispatch) {
-  
-    const response = await axios.get(`${urlBaseAxios}/donations?userId=${userId}&limit=${limit}&page=${page}`,   
-      // params: {
-      //   userId,
-      //   limit,
-      //   page,
-      // },
-     config);
+    const response = await axios.get(`${urlBaseAxios}/donations?userId=${userId}&limit=${limit}&page=${page}&orderBy=${orderBy}&orderDir=${orderDir}`, config);
     const { data } = response;
     console.log(
       "valor de data alldonations_user action",
@@ -668,13 +664,18 @@ export function alldonations_user(userId, limit, page) {
   };
 }
 
-export function alladoptions_user(userId, limit, page) {
+export function alladoptions_user(userId, limit, page, orderDir, orderBy) {
+  console.log("ingreso al reducer alldoption con filtros");
   return async function (dispatch) {
+    console.log("valor de orderdir", orderDir);
+    console.log("valor de orde orderBy", orderby);
     const response = await axios.get(`${urlBaseAxios}/adoptions`, {
       params: {
         userId,
         limit,
         page,
+        orderDir,
+        orderBy,
       },
     });
     const { data } = response;
@@ -687,3 +688,23 @@ export function alladoptions_user(userId, limit, page) {
     */
   };
 }
+
+export const total_amount_donation_user = (id) => {
+  return async (dispatch) => {
+    const response = await axios.get(`${urlBaseAxios}/donations/total/${id}`);
+    dispatch({
+      type: TOTAL_AMOUNT_DONATION_USER,
+      payload: response.data,
+    });
+  };
+};
+export const total_adoption_user = (id) => {
+  console.log("ingreso al reducr", id);
+  return async (dispatch) => {
+    const response = await axios.get(`${urlBaseAxios}/adoptions/total/${id}`);
+    dispatch({
+      type: TOTAL_ADOPTION_USER,
+      payload: response.data,
+    });
+  };
+};

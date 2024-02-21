@@ -86,7 +86,7 @@ const createUser = async (
                     >
                         <a
                             style="text-decoration: none; color: black"
-                            href="http://localhost:3001/user/verifyAccount?token=${token}&userId=${user.id}"
+                            href="${process.env.URL_BACK}/user/verifyAccount?token=${token}&userId=${user.id}"
                             >Verifica tu cuenta</a
                         >
                     </button>
