@@ -12,6 +12,7 @@ const {
     validateAdoption,
     validateAdoptionPending,
 } = require('../utils/validations');
+const mailAdoption = require('../controllers/adoption/mailAdoption');
 
 const getAllHandler = async (req, res) => {
     try {
@@ -105,6 +106,9 @@ const accept = async (req, res) => {
 
     try {
         const item = await resolve(id, 'aceptada');
+        const messageMail =
+            'Felicitaciones su solicitud de adopcion a sido aprovada, la fundacion se pondra en contacto con ud via telefonica para indicarle el paso a seguir, muchas gracias';
+        await mailAdoption(id, messageMail);
         return res.status(200).json(item);
     } catch (error) {
         res.status(404).json({ error: error.message });
@@ -124,6 +128,9 @@ const refuse = async (req, res) => {
 
     try {
         const item = await resolve(id, 'rechazada');
+        const messageMail =
+            'Lamentablemente tu solicitud de adopcion a sido rechazada, te invitamos a que sigas en la busqueda de tu mejor amigo en Animaladas, te esperamos..';
+        await mailAdoption(id, messageMail);
         return res.status(200).json(item);
     } catch (error) {
         res.status(404).json({ error: error.message });
