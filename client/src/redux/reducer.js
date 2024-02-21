@@ -44,6 +44,7 @@ const initialState = {
   details_adoption_user: [],
   total_amount_donation_user: 0,
   total_adoption_user: [],
+  total_adoption_user_copy: [],
   statusAnimals: [],
   pagination: {
     total_records: 0,
@@ -335,6 +336,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         total_adoption_user: payload,
+        total_adoption_user_copy: payload,
       };
     }
     default:

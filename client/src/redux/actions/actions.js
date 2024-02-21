@@ -726,10 +726,13 @@ export const total_amount_donation_user = (id) => {
     });
   };
 };
-export const total_adoption_user = (id) => {
+export const total_adoption_user = (id, limit, page) => {
   console.log("ingreso al reducr", id);
   return async (dispatch) => {
-    const response = await axios.get(`${urlBaseAxios}/adoptions/total/${id}`);
+    const response = await axios.get(
+      `${urlBaseAxios}/adoptions/total/${id}?limit=${limit}&page=${page}`
+    );
+    //http://localhost:3001/adoptions/total/2?limit=10&page=1
     dispatch({
       type: TOTAL_ADOPTION_USER,
       payload: response.data,
