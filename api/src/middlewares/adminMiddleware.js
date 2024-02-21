@@ -1,6 +1,7 @@
 // eslint-disable-next-line consistent-return
 const adminMiddleware = (req, res, next) => {
     const { user } = req;
+    console.log(user);
 
     if (!user.isAdmin) {
         return res
