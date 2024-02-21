@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./panel-users.css";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useAsyncError, useNavigate } from "react-router-dom";
 import default_img from "../../img/perfil_default.png";
 import secondimg from "../../img/logo_google.png";
 import thirdimg from "../../img/succes.png";
@@ -61,7 +61,9 @@ export default function PanelUsers(props) {
   const [ShowModalSucces, SetShowModalSucces] = useState(false);
   const [showmodalprofile, Setshowmodalprofile] = useState(false);
   const [ShowModalMessage, SetShowModalMessage] = useState(false);
-
+  const [MenuDonations, SetMenudonatios] = useState(true);
+  const [MenuAdoptions, SetMenuAdoptions] = useState(true);
+  const [Showcards, SetShowcards] = useState(true);
   const [form_edituser, Setformedituser] = useState({
     id: "",
     name: "",
@@ -162,7 +164,24 @@ export default function PanelUsers(props) {
     dispatch(total_amount_donation_user(user_profile.id));
     dispatch(total_adoption_user(user_profile.id));
   }, [user_profile]);
-
+  const click_menu_option = (option) => {
+    if (option === "home") {
+      SetMenuAdoptions(true);
+      SetMenudonatios(true);
+      SetShowcards(true);
+    }
+    if (option === "donations") {
+      SetMenudonatios(true);
+      SetMenuAdoptions(false);
+      SetShowcards(false);
+      dispatch(alldonations_user(user_profile.id, 5, 1));
+    }
+    if (option === "adoptions") {
+      SetMenuAdoptions(true);
+      SetMenudonatios(false);
+      SetShowcards(false);
+    }
+  };
   return (
     <>
       <div className="bodypage">
@@ -171,7 +190,7 @@ export default function PanelUsers(props) {
             <img src={logo}></img>
           </div>
           <ul>
-            <li>
+            <li onClick={(e) => click_menu_option("home")}>
               <i className="bi bi-house-door-fill"></i>&nbsp;{" "}
               <span>Inicio</span>
             </li>
@@ -179,11 +198,11 @@ export default function PanelUsers(props) {
               <i className="bi bi-house-door-fill"></i>&nbsp;{" "}
               <span>Editar Perfil</span>
             </li>
-            <li>
+            <li onClick={(e) => click_menu_option("adoptions")}>
               <i class="bi bi-bag-heart-fill"></i>&nbsp;
               <span>Mis Adopciones</span>
             </li>
-            <li>
+            <li onClick={(e) => click_menu_option("donations")}>
               <i class="bi bi-wallet-fill"></i>&nbsp;<span>Mis Donaciones</span>
             </li>
             <li onClick={() => navigate(-1)}>
@@ -364,153 +383,159 @@ export default function PanelUsers(props) {
             </Modalprofile>
           </div>
           <div className="content-panel">
-            <div className="cards-panel">
-              <div className="card-panel">
-                <div className="box-panel">
-                  <h1>${total_amount_user}</h1>
-                  <h3 className="titles-panel-h3">Donaciones</h3>
+            {Showcards && (
+              <div className="cards-panel">
+                <div className="card-panel">
+                  <div className="box-panel">
+                    <h1>${total_amount_user}</h1>
+                    <h3 className="titles-panel-h3">Donaciones</h3>
+                  </div>
+                  <div className="icon-case">
+                    <i
+                      class="bi bi-box2-heart"
+                      style={{ fontSize: "50px", color: "#E4A11B" }}
+                    ></i>
+                  </div>
                 </div>
-                <div className="icon-case">
-                  <i
-                    class="bi bi-box2-heart"
-                    style={{ fontSize: "50px", color: "#E4A11B" }}
-                  ></i>
+                <div className="card-panel">
+                  <div className="box-panel">
+                    <h1>{total_adoptions_user.totalAdoptions}</h1>
+                    <h3 className="titles-panel-h3">Adopciones</h3>
+                  </div>
+                  <div className="icon-case">
+                    <i
+                      class="bi bi-house-heart"
+                      style={{ fontSize: "50px", color: "#E4A11B" }}
+                    ></i>
+                  </div>
                 </div>
               </div>
-              <div className="card-panel">
-                <div className="box-panel">
-                  <h1>{total_adoptions_user.totalAdoptions}</h1>
-                  <h3 className="titles-panel-h3">Adopciones</h3>
-                </div>
-                <div className="icon-case">
-                  <i
-                    class="bi bi-house-heart"
-                    style={{ fontSize: "50px", color: "#E4A11B" }}
-                  ></i>
-                </div>
-              </div>
-            </div>
+            )}
             <div className="content-panel-2">
-              <div className="recent-payments">
-                <div className="title-content-panel">
-                  <h2>Mis donaciones</h2>
-                </div>
-                <div
-                  style={{
-                    paddingRight: "5px",
-                    paddingLeft: "5px",
-                  }}
-                >
+              {MenuDonations && (
+                <div className="recent-payments">
+                  <div className="title-content-panel">
+                    <h2>Mis donaciones</h2>
+                  </div>
                   <div
                     style={{
-                      paddingTop: "10px",
-                      paddingBottom: "10px",
-                      display: "flex",
-                      justifyContent: "space-evenly",
-                      alignItems: "center",
+                      paddingRight: "5px",
+                      paddingLeft: "5px",
                     }}
                   >
                     <div
-                      style={{ float: "right" }}
-                      onClick={(e) => {
-                        orderby("desc");
+                      style={{
+                        paddingTop: "10px",
+                        paddingBottom: "10px",
+                        display: "flex",
+                        justifyContent: "space-evenly",
+                        alignItems: "center",
                       }}
                     >
-                      <a href="#" className="btn-panel">
-                        Recientes
-                      </a>
-                    </div>
-                    <div
-                      onClick={(e) => {
-                        orderby("asc");
-                      }}
-                    >
-                      <a href="#" className="btn-panel">
-                        Antiguos
-                      </a>
+                      <div
+                        style={{ float: "right" }}
+                        onClick={(e) => {
+                          orderby("desc");
+                        }}
+                      >
+                        <a href="#" className="btn-panel">
+                          Recientes
+                        </a>
+                      </div>
+                      <div
+                        onClick={(e) => {
+                          orderby("asc");
+                        }}
+                      >
+                        <a href="#" className="btn-panel">
+                          Antiguos
+                        </a>
+                      </div>
                     </div>
                   </div>
+                  <table className="table-content-panel">
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Apellido</th>
+                      <th>Monto</th>
+                      <th>Fecha</th>
+                      <th>Hora</th>
+                    </tr>
+                    {user_donations.map((donation) => {
+                      return (
+                        <tr>
+                          <td>{user_profile.name}</td>
+                          <td>{user_profile.lastName}</td>
+                          <td>{donation.amount}</td>
+                          <td>{donation.createdAt.split("T")[0]}</td>
+                          <td>{donation.createdAt.split("T")[1]}</td>
+                        </tr>
+                      );
+                    })}
+                  </table>
+                  <Paginacion
+                    pagination={pagination}
+                    onNextPage={handleNextPage}
+                    onPrevPage={handlePrevPage}
+                  ></Paginacion>
                 </div>
-                <table className="table-content-panel">
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Monto</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                  </tr>
-                  {user_donations.map((donation) => {
-                    return (
-                      <tr>
-                        <td>{user_profile.name}</td>
-                        <td>{user_profile.lastName}</td>
-                        <td>{donation.amount}</td>
-                        <td>{donation.createdAt.split("T")[0]}</td>
-                        <td>{donation.createdAt.split("T")[1]}</td>
-                      </tr>
-                    );
-                  })}
-                </table>
-                <Paginacion
-                  pagination={pagination}
-                  onNextPage={handleNextPage}
-                  onPrevPage={handlePrevPage}
-                ></Paginacion>
-              </div>
+              )}
 
-              <div className="new-students">
-                <div className="title-content-panel">
-                  <h2>Adoptados</h2>
-                </div>
-                <div
-                  style={{
-                    paddingRight: "5px",
-                    paddingLeft: "5px",
-                  }}
-                >
+              {MenuAdoptions && (
+                <div className="new-students">
+                  <div className="title-content-panel">
+                    <h2>Adoptados</h2>
+                  </div>
                   <div
                     style={{
-                      paddingTop: "10px",
-                      paddingBottom: "10px",
-                      display: "flex",
-                      justifyContent: "space-evenly",
-                      alignItems: "center",
+                      paddingRight: "5px",
+                      paddingLeft: "5px",
                     }}
                   >
-                    <div style={{ float: "right" }}>
-                      <a href="#" className="btn-panel">
-                        Recientes
-                      </a>
-                    </div>
-                    <div>
-                      <a href="#" className="btn-panel">
-                        Antiguos
-                      </a>
+                    <div
+                      style={{
+                        paddingTop: "10px",
+                        paddingBottom: "10px",
+                        display: "flex",
+                        justifyContent: "space-evenly",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div style={{ float: "right" }}>
+                        <a href="#" className="btn-panel">
+                          Recientes
+                        </a>
+                      </div>
+                      <div>
+                        <a href="#" className="btn-panel">
+                          Antiguos
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <table>
-                  <tr>
-                    <th>foto</th>
-                    <th>Nombre</th>
-                    <th>opcion</th>
-                  </tr>
+                  <table>
+                    <tr>
+                      <th>foto</th>
+                      <th>Nombre</th>
+                      <th>opcion</th>
+                    </tr>
 
-                  {array_adopted_user.map((dog) => {
-                    return (
-                      <tr>
-                        <td>
-                          <img src={dog.image1}></img>
-                        </td>
-                        <td> {dog.name}</td>
-                        <td>
-                          <i className="bi bi-info-circle"></i>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </table>
-              </div>
+                    {array_adopted_user.map((dog) => {
+                      return (
+                        <tr>
+                          <td>
+                            <img src={dog.image1}></img>
+                          </td>
+                          <td> {dog.name}</td>
+                          <td>
+                            <i className="bi bi-info-circle"></i>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </table>
+                </div>
+              )}
             </div>
           </div>
         </div>
