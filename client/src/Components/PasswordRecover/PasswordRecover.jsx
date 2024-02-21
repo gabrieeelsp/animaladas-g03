@@ -29,10 +29,16 @@ export default function PasswordRecover(props) {
     SetShowModalSucess(false);
     navigate("/login");
   };
+
+  const urlBaseAxios =
+    import.meta.env.VITE_ENV === "DEV"
+      ? import.meta.env.VITE_URL_DEV
+      : import.meta.env.VITE_URL_PROD;
+
   const save_newpassword = async (e) => {
     if (userdata.password === userdata.passwordcopy) {
       const response = await axios.put(
-        "http://localhost:3001/user/changePassword",
+        `${urlBaseAxios}/user/changePassword`,
         userdata
       );
 
