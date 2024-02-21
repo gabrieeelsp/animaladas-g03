@@ -1,6 +1,7 @@
 const createReview = require('../controllers/review/createReview');
 const getAllReviews = require('../controllers/review/getAllReview');
 const updateReview = require('../controllers/review/updateReview');
+const resolve = require('../controllers/review/resolve');
 
 const createReviewHandler = async (req, res) => {
     try {
@@ -65,8 +66,32 @@ const getAllReviewsHandler = async (req, res) => {
     }
 };
 
+const acceptHandler = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const item = await resolve(id, 'aprobado');
+        return res.status(200).json(item);
+    } catch (error) {
+        return res.status(404).json({ error: error.message });
+    }
+};
+
+const refuseHandler = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const item = await resolve(id, 'rechazado');
+        return res.status(200).json(item);
+    } catch (error) {
+        return res.status(404).json({ error: error.message });
+    }
+};
+
 module.exports = {
     createReviewHandler,
     updateReviewHandler,
     getAllReviewsHandler,
+    acceptHandler,
+    refuseHandler,
 };

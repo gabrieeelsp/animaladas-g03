@@ -2,6 +2,7 @@
 const create = require('../controllers/donation/create');
 const getOneById = require('../controllers/donation/findOneById');
 const getAll = require('../controllers/donation/getAll');
+const getTotalUserIdDonation = require('../controllers/donation/getAllUserId');
 
 const {
     validateUserId,
@@ -58,8 +59,19 @@ const getByIdHandler = async (req, res) => {
     }
 };
 
+const getTotalByUserId = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const total = await getTotalUserIdDonation(id);
+        return res.status(200).json(total);
+    } catch (error) {
+        res.status(404).json({ error: error.message });
+    }
+};
+
 module.exports = {
     getAllHandler,
     createHandler,
     getByIdHandler,
+    getTotalByUserId,
 };

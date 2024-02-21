@@ -4,6 +4,7 @@ const getOneById = require('../controllers/adoption/findOneById');
 const findPendingAdoption = require('../controllers/adoption/findPendingAdoption');
 const getAll = require('../controllers/adoption/getAll');
 const resolve = require('../controllers/adoption/resolve');
+const getTotalUserIdAdoption = require('../controllers/adoption/getAllUserId');
 
 const {
     validateUserId,
@@ -129,6 +130,22 @@ const refuse = async (req, res) => {
     }
 };
 
+const getTotalByUserId = async (req, res) => {
+    const { id } = req.params;
+    const filters = req.query;
+    const limit = parseInt(filters.limit, 10) || null;
+    const page = parseInt(filters.page, 10) || 1;
+
+    try {
+        const result = await getTotalUserIdAdoption(id, limit, page);
+        return res.status(200).json(result);
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ error: 'Error al obtener las adopciones del usuario' });
+    }
+};
+
 module.exports = {
     getAllHandler,
     createHandler,
@@ -136,4 +153,5 @@ module.exports = {
     accept,
     refuse,
     getPendingAdoptionHandler,
+    getTotalByUserId,
 };

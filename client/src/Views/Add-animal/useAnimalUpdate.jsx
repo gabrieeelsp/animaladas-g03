@@ -4,12 +4,19 @@ import { useState } from 'react';
 const useAnimalUpdate = () => {
   const [error, setError] = useState(null);
 
+  const urlBaseAxios =
+        import.meta.env.VITE_ENV === "DEV"
+          ? import.meta.env.VITE_URL_DEV
+          : import.meta.env.VITE_URL_PROD;
+
   const handleUpdateAnimal = async (id, updatedData) => {
     try {
-      const response = await fetch(`http://localhost:3001/animal/update/${id}`, {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${urlBaseAxios}/animal/update/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token
         },
         body: JSON.stringify(updatedData)
       });

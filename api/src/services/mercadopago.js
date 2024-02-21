@@ -74,9 +74,9 @@ const crearPreferencia = async (req, res) => {
                     client_id: req.body.client_id,
                 },
                 back_urls: {
-                    success: 'http://localhost:5173/donar/pago-aprobado',
-                    failure: 'http://localhost:5173/donar',
-                    pending: 'http://localhost:5173/',
+                    success: `${process.env.URL_FRONT}/donar/pago-aprobado`,
+                    failure: `${process.env.URL_FRONT}/donar`,
+                    pending: `${process.env.URL_FRONT}/`,
                 },
                 auto_return: 'all',
                 external_reference: 'default',

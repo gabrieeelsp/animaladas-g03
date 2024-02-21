@@ -9,8 +9,11 @@ import {
   allAdoptions,
 } from "../../redux/actions/actions";
 import ModalError from "../../Components/ErrorModal/ErrorModal";
+import SuccessModal from  "../../Components/SuccessModal/SuccesModal"
 
 export default function Detail(props) {
+  const [ShowModalSuccess, SetShowModalSuccess] = useState(false)
+
   const { MessageModal, SetMessageModal } = props;
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -40,12 +43,22 @@ export default function Detail(props) {
     const adoptionFormData = {
       userId: userId,
       animalId: animal.id,
-      familyMembers: formData.familyMembers,
-      allAgree: formData.allAgree,
-      hasOutdoorSpace: formData.hasOutdoorSpace,
-      assumesResponsibility: formData.assumesResponsibility,
+      familyMembers: 0,
+      allAgree: false,
+      hasOutdoorSpace: false,
+      assumesResponsibility: false,
     };
-    dispatch(createForm(adoptionFormData));
+    dispatch(createForm(adoptionFormData))
+      // agregar modal de agradecimiento
+      .then(() => {
+        SetShowModalSuccess(true)
+        SetMessageModal('Gracias por iniciar el tramite de adopción.')
+      })
+      // agregar modal de avisoq eu ya existe una slicitud pendiente
+      .catch(() => {
+        SetShowModalError(true)
+        SetMessageModal('Ya tienes una solicitud pendiente para este animal.')
+      })
   };
 
   const calculateAge = (estimatedBirthYear) => {
@@ -136,14 +149,10 @@ export default function Detail(props) {
                 Historia de rescate: {animal.rescued_story}
               </h4>
             </div>
-            <Link
-              to="#"
-              className="btn btn-warning btn-block text-dark"
-              data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop"
-            >
-              Adoptar
-            </Link>
+            <button className="btn btn-warning btn-block text-dark"
+              onClick={handleFormSubmit}
+            >Adoptar</button>
+            
           </div>
 
           <div
@@ -264,6 +273,13 @@ export default function Detail(props) {
           ShowModalMessage={ShowModalError}
           SetShowModalMessage={SetShowModalError}
         ></ModalError>
+      )}
+      {ShowModalSuccess && (
+        <SuccessModal
+          MessageModal={MessageModal}
+          ShowModalMessage={ShowModalSuccess}
+          SetShowModalMessage={SetShowModalSuccess}
+        ></SuccessModal>
       )}
     </div>
   );

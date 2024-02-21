@@ -26,7 +26,6 @@ export default function Contact() {
       alert("Por favor, complete todos los campos.");
       return;
     }
-    //http://localhost:3001/contact/sendMail
     console.log("Formulario enviado:", formData);
   };
 

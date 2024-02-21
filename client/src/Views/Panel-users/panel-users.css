@@ -37,7 +37,7 @@ h2{
     color:#E4A11B
 }
 .btn-panel{
-    background: #f05462;
+    background: #E4A11B;
     color: white;
     padding:  5px 10px;
     text-align: center;
@@ -61,12 +61,17 @@ h2{
 }
 
 .table-content-panel{
+    padding-top: 500px;
     padding: 10px;
+
+
 }
 
 .table-content-panel th, td{
     text-align: left;
     padding: 8px;
+
+    
 }
 .side-menu-panel{
 
@@ -119,6 +124,7 @@ h2{
     justify-content: center;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     z-index: 2;
+    
 }
 
 .container-panel .header .nav{
@@ -192,6 +198,7 @@ h2{
 }
 
 .container-panel .content-panel .cards-panel{
+
     padding:  20px 15px;
     display: flex;
     align-items:  center;
@@ -219,6 +226,7 @@ h2{
     justify-content: space-around;
     align-items: flex-start;
     flex-wrap: wrap;
+  
 }
 
 .container-panel .content-panel .content-panel-2 .recent-payments{
@@ -229,6 +237,8 @@ h2{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
+    margin-top: 50px;
 }
 
 .container-panel .content-panel .content-panel-2 .new-students{
@@ -239,6 +249,7 @@ h2{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     display: flex;
     flex-direction: column;
+    margin-top: 50px;
 }
 
 .container-panel .content-panel .content-panel-2 .new-students table td:nth-child(1) img{

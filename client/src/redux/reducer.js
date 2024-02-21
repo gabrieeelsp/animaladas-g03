@@ -33,11 +33,17 @@ import {
   DELETE_USER,
   UPDATE_USER,
   ALLDONATIONS_USER,
+  TOTAL_AMOUNT_DONATION_USER,
+  TOTAL_ADOPTION_USER,
 } from "./actions/types";
 
 const initialState = {
   allAnimals: [],
   alldonations_user: [],
+  alldonation_user_copy: [],
+  details_adoption_user: [],
+  total_amount_donation_user: 0,
+  total_adoption_user: [],
   statusAnimals: [],
   pagination: {
     total_records: 0,
@@ -312,13 +318,25 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         alldonations_user: payload.data,
+        alldonation_user_copy: payload.data,
         pagination: {
           ...state.pagination,
           ...payload.pagination,
         },
       };
     }
-
+    case TOTAL_AMOUNT_DONATION_USER: {
+      return {
+        ...state,
+        total_amount_donation_user: payload,
+      };
+    }
+    case TOTAL_ADOPTION_USER: {
+      return {
+        ...state,
+        total_adoption_user: payload,
+      };
+    }
     default:
       return state;
   }
