@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./panel-users.css";
-import { Navigate, useAsyncError, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useAsyncError, useNavigate } from "react-router-dom";
 import default_img from "../../img/perfil_default.png";
 import secondimg from "../../img/logo_google.png";
 import thirdimg from "../../img/succes.png";
@@ -19,6 +19,7 @@ import { total_adoption_user } from "../../redux/actions/actions";
 import FiltersModal from "./modalfiltros";
 import EstadisticasBoard from "../../Components/Estadisticas/EstadisticasBoard/EstadisticasBoard";
 import Detail from "../Detail/Detail";
+import GeneralModal from "../../Components/GeneralModal/generalmodal";
 export default function PanelUsers(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -90,6 +91,17 @@ export default function PanelUsers(props) {
   const [MenuDonations, SetMenudonatios] = useState(true);
   const [MenuAdoptions, SetMenuAdoptions] = useState(true);
   const [Showcards, SetShowcards] = useState(true);
+  const [detail_pet, Setdetail_pet] = useState({
+    name: "",
+    gender: "",
+    species: "",
+    size: "",
+    vaccines: "",
+    weight: "",
+    estimatedBirthYear: "",
+    castrated: "",
+    image1: "",
+  });
   const [form_edituser, Setformedituser] = useState({
     id: "",
     name: "",
@@ -184,7 +196,21 @@ export default function PanelUsers(props) {
   const orderby = (value) => {
     dispatch(alldonations_user(user_profile.id, 5, 1, value, "created"));
   };
-
+  const view_detail_pet = (data) => {
+    Setdetail_pet({
+      ...detail_pet,
+      name: data.name,
+      gender: data.gender,
+      species: data.species,
+      size: data.size,
+      vaccines: data.vaccines ? "Si" : "No",
+      weight: data.weight,
+      estimatedBirthYear: data.estimatedBirthYear,
+      castrated: data.castrated ? "Si" : "No",
+      image1: data.image1,
+    });
+    SetShowModalMessage(true);
+  };
   useEffect(() => {
     Setformedituser({
       id: user_profile.id,
@@ -221,6 +247,7 @@ export default function PanelUsers(props) {
       SetShowcards(false);
     }
   };
+  console.log("valores de detail pet", detail_pet);
   return (
     <>
       <div className="bodypage">
@@ -450,6 +477,7 @@ export default function PanelUsers(props) {
                 </div>
               </div>
             )}
+
             <div className="content-panel-2">
               {MenuDonations && (
                 <div className="recent-payments">
@@ -556,7 +584,7 @@ export default function PanelUsers(props) {
                     <tr>
                       <th>foto</th>
                       <th>Nombre</th>
-                      <th>opcion</th>
+                      <th>Ver</th>
                     </tr>
 
                     {adoptedAnimals.map((dog) => {
@@ -568,7 +596,9 @@ export default function PanelUsers(props) {
                           </td>
                           <td> {dog.animal.name}</td>
                           <td>
-                            <i className="bi bi-eye-fill"></i>
+                            <div onClick={(e) => view_detail_pet(dog.animal)}>
+                              <i className="bi bi-eye-fill"></i>
+                            </div>
                           </td>
                         </tr>
                       );
@@ -584,12 +614,53 @@ export default function PanelUsers(props) {
             </div>
           </div>
         </div>
-        <FiltersModal
+        <GeneralModal
           SetShowModalMessage={SetShowModalMessage}
           ShowModalMessage={ShowModalMessage}
-        ></FiltersModal>
+        >
+          <img
+            src={detail_pet.image1}
+            style={{
+              width: "50%",
+              height: "50%",
+
+              float: "left",
+            }}
+          ></img>
+
+          <ul style={{ color: "#E4A11B", overflow: "hidden" }}>
+            <li>
+              Nombre: <span style={{ color: "white" }}>{detail_pet.name}</span>
+            </li>
+            <li>
+              Genero:{" "}
+              <span style={{ color: "white" }}>{detail_pet.gender}</span>
+            </li>
+            <li>
+              Especie:{" "}
+              <span style={{ color: "white" }}>{detail_pet.species}</span>
+            </li>
+            <li>
+              Vacunas:{" "}
+              <span style={{ color: "white" }}>{detail_pet.vaccines}</span>
+            </li>
+            <li>
+              Peso: <span style={{ color: "white" }}>{detail_pet.weight}</span>
+            </li>
+            <li>
+              Año de nacimiento:{" "}
+              <span style={{ color: "white" }}>
+                {detail_pet.estimatedBirthYear}
+              </span>
+            </li>
+            <li>
+              Castrado:{" "}
+              <span style={{ color: "white" }}>{detail_pet.castrated}</span>
+            </li>
+          </ul>
+        </GeneralModal>
       </div>
     </>
   );
 }
-//*
+//** */

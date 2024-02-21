@@ -10,7 +10,7 @@ export default function FiltersModal({
     <>
       {ShowModalMessage ? (
         <div className="overlay">
-          <div className="Containermodal">
+          <div className="Containermodal" style={{ width: "900px" }}>
             <div className="headermodal"></div>
             <button
               className="buttonclose"
