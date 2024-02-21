@@ -17,7 +17,7 @@ export default function Home() {
   }, [dispatch]);
 
   const renderReviews = () => {
-    return allReviews.slice(0, 4).map((review, index) => (
+    return allReviews.data && allReviews.data.slice(0, 4).map((review, index) => (
       <div className="col-md-6 mb-4" key={index}>
         <div className="card bg-dark text-light shadow testimonial-box">
           <div className="card-body">
