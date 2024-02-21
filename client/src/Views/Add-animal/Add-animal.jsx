@@ -166,7 +166,11 @@ export default function Addanimal(props) {
           Authorization: 'Bearer ' + token
         }
       };
-      const { data } = await axios.post("http://localhost:3001/animal/createAnimals", dogdata, config);
+      const urlBaseAxios =
+        import.meta.env.VITE_ENV === "DEV"
+          ? import.meta.env.VITE_URL_DEV
+          : import.meta.env.VITE_URL_PROD;
+      const { data } = await axios.post(`${urlBaseAxios}/animal/createAnimals`, dogdata, config);
       if (data) {
         SetMessageModal("!Bien! Se ha cargado con exito.");
         SetShowModalSucess(true);

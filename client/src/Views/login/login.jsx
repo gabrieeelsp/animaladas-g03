@@ -81,7 +81,7 @@ export default function Login(props) {
   const send_recoverpassword = async (e) => {
     if (userdata.email !== "") {
       const response = await axios.post(
-        "http://localhost:3001/user/recoverPassword",
+        `${urlBaseAxios}/user/recoverPassword`,
         userdata
       );
       const { data } = response;
