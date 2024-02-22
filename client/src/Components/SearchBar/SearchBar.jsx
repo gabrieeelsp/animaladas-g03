@@ -51,7 +51,7 @@ export default function Searchbar() {
   };
 
   return (
-    <form className="d-flex" role="search" onSubmit={onSearch}>
+    <form className="d-flex me-5" role="search" onSubmit={onSearch}>
       <input
         className="form-control me-2"
         type="search"
