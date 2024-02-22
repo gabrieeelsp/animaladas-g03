@@ -8,7 +8,7 @@ export default function SuccesModal({
   ShowModalMessage,
   navigateto,
 }) {
-  console.log("ingreso al succes model", MessageModal);
+  //console.log("ingreso al succes model", MessageModal);
   return (
     <>
       {ShowModalMessage ? (
