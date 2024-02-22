@@ -6,7 +6,7 @@ import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import "./Donar.css";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import ModalError from "../../Components/ErrorModal/ErrorModal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 library.add(faPaw);
 
@@ -18,7 +18,7 @@ const Donar = (props) => {
   const [ShowModalErorr, SetShowModalError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [MessageModal, SetMessageModal] = useState("");
-  const [user_profile] = useSelector((state) => state.UserReducer);
+  const user_profile = useSelector((state) => state.UserReducer);
 
   useEffect(() => {
     initMercadoPago(import.meta.env.VITE_API_KEY_MERCADOPAGO, {
