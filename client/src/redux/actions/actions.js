@@ -794,13 +794,12 @@ export function alldonations_user(userId, limit, page, orderDir, orderBy) {
   };
 }
 
-export function alladoptions_user(userId, limit, page, orderDir, orderBy) {
-  console.log("ingreso al reducer alldoption con filtros");
+export function alladoptions_user(userId, limit, page, status) {
+  console.log("ingreso al reducer alldoption con filtros", userId);
   return async function (dispatch) {
   
     const response = await axios.get(
-      `${urlBaseAxios}/adoptions?userId=${userId}&limit=${limit}&page=${page}&orderBy=${orderBy}&orderDir=${orderDir}`,
-      config
+      `${urlBaseAxios}/adoptions?userId=${userId}&limit=${limit}&page=${page}&status=${status}`
     );
 
     const { data } = response;
