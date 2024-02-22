@@ -42,5 +42,39 @@ module.exports = (sequelize) => {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
         },
+        hasKids: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
+        familyHasAllergies: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
+
+        hasJob: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
+        hasOtherAnimals: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
+        homeVisit: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
+        comment: {
+            type: DataTypes.TEXT,
+            default: '',
+        },
+
+        howManyHours: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            validate: {
+                min: 0,
+                max: 24,
+            },
+        },
     });
 };
