@@ -12,8 +12,6 @@ library.add(faPaw);
 const Donar = (props) => {
   const { MessageModal } = props;
   const { SetMessageModal } = props;
-  console.log("valor de messagemmodal", MessageModal);
-  console.log("setmessamodal", SetMessageModal);
   const [preferenceId, setPreferenceId] = useState(null);
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [customAmount, setCustomAmount] = useState("");
@@ -63,7 +61,7 @@ const Donar = (props) => {
   const handleDonarClick = async (amount) => {
     setLoading(true);
     const userInfoString = localStorage.getItem('user_info');
-    if (!window.localStorage.user_info) {
+    if (!userInfoString || userInfoString == '""') {
       SetMessageModal(
         "Para hacer una donacion debe registrarse o iniciar sesión con su cuenta"
       );

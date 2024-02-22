@@ -724,7 +724,7 @@ export const deleteUser = (id) => {
           Authorization: "Bearer " + token,
         },
       };
-      await axios.put(`${urlBaseAxios}/user/users/${id}`, config);
+      await axios.put(`${urlBaseAxios}/user/users/${id}`, {}, config);
       dispatch({
         type: DELETE_ANIMAL,
         payload: {
