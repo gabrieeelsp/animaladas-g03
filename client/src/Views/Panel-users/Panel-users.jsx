@@ -11,11 +11,12 @@ import { useDispatch, useSelector } from "react-redux";
 import axios, { all } from "axios";
 import SuccesModal from "../../Components/SuccessModal/SuccesModal";
 import { infologin } from "../../redux/actions/user_action";
-import { alldonations_user } from "../../redux/actions/actions";
 import rootReducer from "../../redux/reducer";
 import Paginacion from "../../Components/Pagination/Pagination";
 import { total_amount_donation_user } from "../../redux/actions/actions";
 import { total_adoption_user } from "../../redux/actions/actions";
+import { alldonations_user } from "../../redux/actions/actions";
+import { alladoptions_user } from "../../redux/actions/actions";
 import FiltersModal from "./modalfiltros";
 import EstadisticasBoard from "../../Components/Estadisticas/EstadisticasBoard/EstadisticasBoard";
 import Detail from "../Detail/Detail";
@@ -36,15 +37,15 @@ export default function PanelUsers(props) {
   const copy_total_adoptions_user = useSelector(
     (state) => state.rootReducer.total_adoption_user_copy
   );
-
+  let adoptedAnimals = useSelector(
+    (state) => state.rootReducer.total_adoption_user.data
+  );
   let total_adoptions_user = 0;
 
   if (copy_total_adoptions_user.pagination) {
     total_adoptions_user = copy_total_adoptions_user.pagination.total_records;
   }
-  let adoptedAnimals = useSelector(
-    (state) => state.rootReducer.total_adoption_user.data
-  );
+
   console.log("prueba vale:", adoptedAnimals);
   let array_adopted_user = [];
 
@@ -148,13 +149,13 @@ export default function PanelUsers(props) {
     dispatch(alldonations_user(user_profile.id, 5, page));
   };
   const handleNextPage2 = (page) => {
-    dispatch(total_adoption_user(user_profile.id, 5, page));
+    dispatch(alladoptions_user(user_profile.id, 5, page, "aceptada"));
   };
   const handlePrevPage = (page) => {
     dispatch(alldonations_user(user_profile.id, 5, page));
   };
   const handlePrevPage2 = (page) => {
-    dispatch(total_adoption_user(user_profile.id, 5, page));
+    dispatch(alladoptions_user(user_profile.id, 5, page, "aceptada"));
   };
 
   const updateprofile = async (e) => {
@@ -230,7 +231,8 @@ export default function PanelUsers(props) {
   useEffect(() => {
     dispatch(alldonations_user(user_profile.id, 5, 1));
     dispatch(total_amount_donation_user(user_profile.id));
-    dispatch(total_adoption_user(user_profile.id, 5, 1));
+    //dispatch(total_adoption_user(user_profile.id, 5, 1));
+    dispatch(alladoptions_user(user_profile.id, 5, 1, "aceptada"));
   }, [user_profile]);
   const click_menu_option = (option) => {
     if (option === "home") {
