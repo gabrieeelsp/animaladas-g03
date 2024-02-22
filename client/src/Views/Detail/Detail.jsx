@@ -13,12 +13,7 @@ export default function Detail(props) {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [ShowModalError, SetShowModalError] = useState(false);
-  const [formData, setFormData] = useState({
-    familyMembers: 0,
-    allAgree: "si",
-    hasOutdoorSpace: "si",
-    assumesResponsibility: "si",
-  });
+ 
   const animal = useSelector((state) => state.rootReducer.animalById);
   const userId = window.localStorage.getItem("user_info")
     ? JSON.parse(window.localStorage.getItem("user_info")).id
@@ -155,115 +150,7 @@ export default function Detail(props) {
 
           </div>
 
-          <div
-            className="modal fade"
-            id="staticBackdrop"
-            data-bs-backdrop="static"
-            data-bs-keyboard="false"
-            tabindex="-1"
-            aria-labelledby="staticBackdropLabel"
-            aria-hidden="true"
-          >
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h1 className="modal-title fs-5" id="staticBackdropLabel">
-                    Adoption Form
-                  </h1>
-                  <button
-                    type="button"
-                    className="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <form onSubmit={handleFormSubmit}>
-                  <div className="modal-body">
-                    <label htmlFor="familyMembers">
-                      Cuantos integrantes por familia:
-                    </label>
-                    <input
-                      type="number"
-                      id="familyMembers"
-                      name="familyMembers"
-                      value={formData.familyMembers}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          familyMembers: parseInt(e.target.value, 10),
-                        })
-                      }
-                    />
-
-                    <label htmlFor="allAgree">Todos están de acuerdo:</label>
-                    <select
-                      id="allAgree"
-                      name="allAgree"
-                      value={formData.allAgree}
-                      onChange={(e) =>
-                        setFormData({ ...formData, allAgree: e.target.value })
-                      }
-                    >
-                      <option value="si">Si</option>
-                      <option value="no">No</option>
-                    </select>
-
-                    <label htmlFor="hasOutdoorSpace">
-                      Tienes patio/balcón/terraza:
-                    </label>
-                    <select
-                      id="hasOutdoorSpace"
-                      name="hasOutdoorSpace"
-                      value={formData.hasOutdoorSpace}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          hasOutdoorSpace: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="si">Si</option>
-                      <option value="no">No</option>
-                    </select>
-
-                    <label htmlFor="assumesResponsibility">
-                      Está dispuesto a asumir la responsabilidad:
-                    </label>
-                    <select
-                      id="assumesResponsibility"
-                      name="assumesResponsibility"
-                      value={formData.assumesResponsibility}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          assumesResponsibility: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="si">Si</option>
-                      <option value="no">No</option>
-                    </select>
-                  </div>
-                  <div className="modal-footer">
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                    <button
-                      type="submit"
-                      className="btn btn-primary"
-                      data-bs-dismiss="modal"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
+         
         </div>
       </div>
 
