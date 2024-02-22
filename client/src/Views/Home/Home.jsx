@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { isTokenExpired } from "../../scripts/istokenexpired";
 import "./Home.css";
 import { get_allreviews } from "../../redux/actions/actions";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaw } from '@fortawesome/free-solid-svg-icons';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaw } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
   console.log("pagina home.jsx");
@@ -14,52 +13,87 @@ export default function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(get_allreviews("", 4, 1, "aprobado"));
+    dispatch(get_allreviews("", 4, 1, "pendiente"));
   }, [dispatch]);
 
-
+  console.log("valor de las reviews", reviews);
 
   const renderReviews = () => {
     return (
       <div className="row">
-        {reviews && reviews.map(({ id, user_name, user_lastName, comment, isReviewed, user_img, score }, index) => (
-          <div className="col-md-6 mb-4" key={index}>
-            <div className="card bg-dark text-light shadow testimonial-box">
-              <div className="card-body">
-                <div className="profile d-flex align-items-center mb-3">
-                  <div className="profile-img me-3">
-                    <img
-                      src={user_img}
-                      alt="User"
-                      style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-                    />
-                  </div>
-                  <div className="name-user">
-                    <strong className="text-warning">{user_name} {user_lastName}</strong>
-                    <span className="text-light">@{user_name}{user_lastName}</span>
-                  </div>
-                </div>
-                <div className="reviews mb-3">
-                  {[...Array(parseInt(score))].map((_, i) => (
-                    <i className="bi bi-star-fill text-warning" key={i}></i>
-                  ))}
+        {reviews &&
+          reviews
+            .slice(-4)
+            .reverse()
+            .map(
+              (
+                {
+                  id,
+                  user_name,
+                  user_lastName,
+                  comment,
+                  isReviewed,
+                  user_img,
+                  score,
+                },
+                index
+              ) => (
+                <div className="col-md-4 mb-4" key={index}>
+                  <div className="card bg-white text-light shadow testimonial-box">
+                    <div className="card-body">
+                      <div className="profile d-flex align-items-center mb-3">
+                        <div className="profile-img me-3">
+                          <img
+                            src={user_img}
+                            alt="User"
+                            style={{
+                              width: "50px",
+                              height: "50px",
+                              borderRadius: "50%",
+                            }}
+                          />
+                        </div>
+                        <div className="name-user">
+                          <strong>
+                            {user_name} {user_lastName}
+                          </strong>
+                          <span>
+                            @{user_name}
+                            {user_lastName}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="reviews mb-3">
+                        {[...Array(parseInt(score))].map((_, i) => (
+                          <i
+                            className="bi bi-star-fill text-warning"
+                            key={i}
+                          ></i>
+                        ))}
 
-                  {[...Array(parseInt(5-score))].map((_, i) => (
-                    <i className="bi bi-star text-warning" key={i}></i>
-                  ))}
-
+                        {[...Array(parseInt(5 - score))].map((_, i) => (
+                          <i className="bi bi-star text-warning" key={i}></i>
+                        ))}
+                      </div>
+                      <div className="user-comment">
+                        <p
+                          style={{
+                            maxHeight: "40px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {comment}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="user-comment text-white">
-                  <p style={{ maxHeight: "40px", overflow: "hidden", textOverflow: "ellipsis", color: "white" }}>{comment}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+              )
+            )}
       </div>
     );
   };
-
 
   return (
     <div style={{ paddingTop: "45px" }}>
@@ -68,7 +102,14 @@ export default function Home() {
         className="carousel slide mb-4"
         data-bs-ride="carousel"
         data-bs-interval="3000"
-        style={{ width: "100%", height: "250px", margin: "auto", marginTop: "40px", marginBottom: "10px", maxWidth: "1100px" }}
+        style={{
+          width: "100%",
+          height: "250px",
+          margin: "auto",
+          marginTop: "40px",
+          marginBottom: "10px",
+          maxWidth: "1100px",
+        }}
       >
         <div className="carousel-inner">
           <div className="carousel-item active">
@@ -109,7 +150,6 @@ export default function Home() {
               }}
             />
           </div>
-
 
           <div className="carousel-item">
             <img
@@ -166,12 +206,23 @@ export default function Home() {
               style={{
                 fontSize: "2.5rem",
                 color: "#FFC107",
-                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)"
+                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
               }}
             >
-              <FontAwesomeIcon icon={faPaw} style={{ color: "#FFC107", fontSize: "2.5rem" }} /> ¿Quiénes somos? <FontAwesomeIcon icon={faPaw} style={{ color: "#FFC107", fontSize: "2.5rem" }} />
+              <FontAwesomeIcon
+                icon={faPaw}
+                style={{ color: "#FFC107", fontSize: "2.5rem" }}
+              />{" "}
+              ¿Quiénes somos?{" "}
+              <FontAwesomeIcon
+                icon={faPaw}
+                style={{ color: "#FFC107", fontSize: "2.5rem" }}
+              />
             </h2>
-            <p className="text-light" style={{ marginTop: "8px", fontSize: "1.2rem" }}>
+            <p
+              className="text-light"
+              style={{ marginTop: "8px", fontSize: "1.2rem" }}
+            >
               Somos Animaladas, una organización de personas en Salta Capital,
               Argentina, dedicada al rescate de perros y gatos en situación de
               abandono, maltrato y otras circunstancias. Nuestra misión es
@@ -256,15 +307,14 @@ export default function Home() {
       </div>
 
       <div className="container mt-4 latest-reviews-section">
-        <h2 className="cardcustom-title text-warning mb-4 text-start"
-          style={{ marginLeft: "20px" }}>Experiencias con Animaladas:</h2>
-        <div className="row">
-          {renderReviews()}
-         
-         
-        </div>
+        <h2
+          className="cardcustom-title text-warning mb-4 text-start"
+          style={{ marginLeft: "20px" }}
+        >
+          Experiencias con Animaladas:
+        </h2>
+        <div className="row">{renderReviews()}</div>
       </div>
-
     </div>
   );
 }

@@ -503,7 +503,7 @@ export const get_allreviews = (
   userId,
   reviewsPerPage = 5,
   page = 1,
-  isReviewed,
+  isReviewed
   // orderby,
   // orderdir
 ) => {
@@ -519,7 +519,10 @@ export const get_allreviews = (
         },
       };
       // localhost:3001/review/allReviews?userId=2&limit=2&page=1&isReviewed=pendiente
-      const response = await axios.get(`${urlBaseAxios}/review/allReviews?userId=${userId}&limit=${reviewsPerPage}&page=${page}&isReviewed=${isReviewed}`, config);
+      const response = await axios.get(
+        `${urlBaseAxios}/review/allReviews?userId=${userId}&limit=${reviewsPerPage}&page=${page}&isReviewed=${isReviewed}`,
+        config
+      );
 
       const data = response.data;
 
@@ -540,20 +543,21 @@ export const get_allreviews = (
   };
 };
 
-
 export const acceptReview = (id) => {
   return async (dispatch) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
-        }
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
       };
       const response = await axios.post(
-        `${urlBaseAxios}/review/${id}/accept`, {}, config
+        `${urlBaseAxios}/review/${id}/accept`,
+        {},
+        config
       );
       dispatch({
         type: ACCEPT_REVIEW_SUCCESS,
@@ -571,16 +575,18 @@ export const acceptReview = (id) => {
 export const refuseReview = (id) => {
   return async (dispatch) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
-        }
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
       };
       const response = await axios.post(
-        `${urlBaseAxios}/review/${id}/refuse`, {}, config
+        `${urlBaseAxios}/review/${id}/refuse`,
+        {},
+        config
       );
       dispatch({
         type: REFUSE_REVIEW_SUCCESS,
