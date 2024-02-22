@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 import { isTokenExpired } from "../../scripts/istokenexpired";
@@ -6,17 +6,28 @@ import "./Home.css";
 import { get_allreviews } from "../../redux/actions/actions";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
+import Pagination from "../../Components/Pagination/Pagination";
 
 
 export default function Home() {
   console.log("pagina home.jsx");
   const reviews = useSelector((state) => state.rootReducer.reviews);
+  const pagination = useSelector((state) => state.rootReducer.pagination2);
   const dispatch = useDispatch();
+  const [noRender, setNoRender] = useState(false)
 
   useEffect(() => {
     dispatch(get_allreviews("", 4, 1, "aprobado"));
   }, [dispatch]);
 
+  
+  const handleNextPage = (page) => {
+    dispatch(get_allreviews("", "", page, 4, "", ""));
+  };
+
+  const handlePrevPage = (page) => {
+    dispatch(get_allreviews("", "", page, 4, "", ""));
+  };
 
 
   const renderReviews = () => {
@@ -254,7 +265,13 @@ export default function Home() {
           </div>
         </div>
       </div>
-
+      {noRender && (
+      <Pagination
+              pagination={pagination}
+              onNextPage={handleNextPage}
+              onPrevPage={handlePrevPage}
+            />
+            )}
       <div className="container mt-4 latest-reviews-section">
         <h2 className="cardcustom-title text-warning mb-4 text-start"
           style={{ marginLeft: "20px" }}>Experiencias con Animaladas:</h2>
