@@ -10,10 +10,24 @@ import SuccesModal from "../../Components/SuccessModal/SuccesModal.jsx";
 import { useDispatch } from "react-redux";
 import { infologin } from "../../redux/actions/user_action.js";
 
+import { validarEmail, validarPassword } from '../../utils/validations'
+
 export default function Login(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { MessageModal, SetMessageModal } = props;
+
+
+
+  const [messageLoginResponse, setMessageLoginResponse] = useState('mensaje trasparente');
+  const [errors, setErrors] = useState({
+      email: '',
+      password: '',
+  })
+  
+  
+  
+
   const [ShowModalMessage, SetShowModalMessage] = useState(false);
   const [ShowModalSucces, SetShowModalSucces] = useState(false);
   const [showGeneralModal, SetShowGeneralModal] = useState(false);
@@ -23,10 +37,17 @@ export default function Login(props) {
   });
 
   const handlechange = (e) => {
+    setMessageLoginResponse('mensaje trasparente')
+
     Setuserdata({
       ...userdata,
       [e.target.name]: e.target.value,
     });
+
+    setErrors({...errors, [e.target.name]: ''});
+
+    // if ( e.target.name === 'password' ) setErrors({...errors, password: ''});
+    
   };
 
   const urlBaseAxios =
@@ -35,19 +56,36 @@ export default function Login(props) {
       : import.meta.env.VITE_URL_PROD;
 
   const login_user = async (e) => {
-    const response = await axios.post(`${urlBaseAxios}/user/login`, userdata);
-    const { data } = response;
-    if (data.is_verified !== true) {
-      SetShowModalMessage(true);
-      SetMessageModal(
-        "No puede iniciar sesión sin antes haber verificado su cuenta."
-      );
+    setMessageLoginResponse('mensaje trasparente')
+
+    setErrors({...errors, email: validarEmail(userdata.email), password: validarPassword(userdata.password)});
+
+    if ( validarEmail(userdata.email) === '' && validarPassword(userdata.password) === '' ) {
+      const response = await axios.post(`${urlBaseAxios}/user/login`, userdata)
+        .catch((error) => {
+          setMessageLoginResponse(error.response.data)
+        })
+      const { data } = response;
+      if (data.is_verified !== true) {
+        // SetShowModalMessage(true);
+        SetMessageModal(
+          "No puede iniciar sesión sin antes haber verificado su cuenta."
+        );
+        setMessageLoginResponse('Se requier validar email.')
+      } else {
+        window.localStorage.setItem("user_info", JSON.stringify(data));
+        window.localStorage.setItem("token", data.tokenUser);
+        dispatch(infologin(data));
+        setTimeout(() => {
+          navigate("/");
+        }, 1000)
+
+        
+      }
     } else {
-      window.localStorage.setItem("user_info", JSON.stringify(data));
-      window.localStorage.setItem("token", data.tokenUser);
-      navigate("/");
-      dispatch(infologin(data));
+      setMessageLoginResponse('mensaje trasparente')
     }
+    
   };
 
   const signInWithGoogle = () => {
@@ -59,7 +97,6 @@ export default function Login(props) {
     if (serializedUser) {
       try {
         const userData = JSON.parse(serializedUser);
-        console.log(userData);
         window.localStorage.setItem("user_info", JSON.stringify(userData));
         window.localStorage.setItem("token", userData.tokenUser);
         dispatch(infologin(userData));
@@ -118,6 +155,9 @@ export default function Login(props) {
               onChange={(e) => handlechange(e)}
             />
           </div>
+          <p className="mb-3"
+            style={{opacity: errors.email === '' ? 0 : 1, fontSize: "0.8rem" }}
+          >{ errors.email === '' ? 'No error' : errors.email}</p>
           <div className="input-group mt-1">
             <div className="input-group-text bg-warning text-white">
               <i className="bi bi-lock"></i>
@@ -130,6 +170,9 @@ export default function Login(props) {
               onChange={(e) => handlechange(e)}
             />
           </div>
+          <p className="mb-2"
+            style={{opacity: errors.password === '' ? 0 : 1, fontSize: "0.8rem" }}
+          >{ errors.password === '' ? 'No error' : errors.password}</p>
           <div className="d-flex justify-content-around mt-1">
             <div className="d-flex align-items-center gap-1">
               <input className="form-check-input" type="checkbox" />
@@ -146,11 +189,12 @@ export default function Login(props) {
           <div onClick={(e) => login_user(e)} className="btn text-dark w-100 mt-4 fw-bold shadow-sm bg-warning">
             Iniciar sesión
           </div>
-          <p></p>
+          <p className="mt-1 text-center text-danger"
+            style={{opacity: messageLoginResponse === 'mensaje trasparente' ? 0 : 1, fontSize: "0.9rem" }}>{messageLoginResponse}</p>
           <div className="d-flex gap-1 justify-content-center text-warning mt-1" style={{ fontSize: "0.8rem" }}>
             <div>¿No tienes una cuenta?</div>
-            <NavLink to="/register" style={{ textDecoration: "none" }}>
-              <a href="#" className="text-decoration-none fw-semibold text-warning">Regístrate</a>
+            <NavLink to="/register" style={{ textDecoration: "none" }} className="text-decoration-none fw-semibold text-warning">
+              Regístrate
             </NavLink>
           </div>
           <div className="p-3">

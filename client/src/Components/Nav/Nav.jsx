@@ -135,16 +135,16 @@ export default function Nav(props) {
       ? import.meta.env.VITE_URL_DEV
       : import.meta.env.VITE_URL_PROD;
   const updateprofile = async (e) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     const config = {
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      }
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
     };
     const response = await axios.put(
       `${urlBaseAxios}/user/changeUserData`,
-      form_edituser, 
+      form_edituser,
       config
     );
     const { data } = response;
@@ -174,7 +174,7 @@ export default function Nav(props) {
               <i className="bi-house-door-fill"></i>
             </span>
           </NavLink>
-          <button
+          <div
             className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
@@ -184,7 +184,7 @@ export default function Nav(props) {
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
-          </button>
+          </div>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">

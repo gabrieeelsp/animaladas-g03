@@ -39,6 +39,7 @@ import {
   ALLDONATIONS_USER,
   TOTAL_AMOUNT_DONATION_USER,
   TOTAL_ADOPTION_USER,
+  ALLADOPTIONS_USER,
 } from "./actions/types";
 
 const initialState = {
@@ -304,27 +305,25 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
       };
 
+    case ACCEPT_REVIEW_SUCCESS:
+      return {
+        ...state,
+      };
 
+    case ACCEPT_REVIEW_FAILURE:
+      return {
+        ...state,
+      };
 
-      case ACCEPT_REVIEW_SUCCESS:
-        return {
-          ...state,
-        };
-  
-      case ACCEPT_REVIEW_FAILURE:
-        return {
-          ...state,
-        };
-  
-      case REFUSE_REVIEW_SUCCESS:
-        return {
-          ...state,
-        };
-  
-      case REFUSE_REVIEW_FAILURE:
-        return {
-          ...state,
-        };
+    case REFUSE_REVIEW_SUCCESS:
+      return {
+        ...state,
+      };
+
+    case REFUSE_REVIEW_FAILURE:
+      return {
+        ...state,
+      };
 
     case UPDATE_ANIMAL: {
       return {
@@ -367,7 +366,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
         total_amount_donation_user: payload,
       };
     }
-    case TOTAL_ADOPTION_USER: {
+
+    case ALLADOPTIONS_USER: {
       return {
         ...state,
         total_adoption_user: payload,
