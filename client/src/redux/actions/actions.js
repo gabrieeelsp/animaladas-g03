@@ -724,7 +724,7 @@ export const deleteUser = (id) => {
           Authorization: "Bearer " + token,
         },
       };
-      await axios.put(`${urlBaseAxios}/user/users/${id}`, config);
+      await axios.put(`${urlBaseAxios}/user/users/${id}`, {}, config);
       dispatch({
         type: DELETE_ANIMAL,
         payload: {
@@ -797,8 +797,7 @@ export function alldonations_user(userId, limit, page, orderDir, orderBy) {
 export function alladoptions_user(userId, limit, page, orderDir, orderBy) {
   console.log("ingreso al reducer alldoption con filtros");
   return async function (dispatch) {
-    console.log("valor de orderdir", orderDir);
-    console.log("valor de orde orderBy", orderby);
+  
     const response = await axios.get(
       `${urlBaseAxios}/adoptions?userId=${userId}&limit=${limit}&page=${page}&orderBy=${orderBy}&orderDir=${orderDir}`,
       config

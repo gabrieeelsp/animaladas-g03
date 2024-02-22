@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { Adoption, Animal } = require('../../db');
 
 module.exports = async (adoptionId, result) => {
@@ -15,6 +16,16 @@ module.exports = async (adoptionId, result) => {
         const animal = await Animal.findByPk(item.animalId);
         animal.status = 'adoptado';
         animal.save();
+        await Adoption.update(
+            { status: 'rechazada' },
+            {
+                where: {
+                    animalId: item.animalId,
+                    id: { [Op.ne]: item.id },
+                    status: 'pendiente',
+                },
+            },
+        );
     }
 
     item.save();
