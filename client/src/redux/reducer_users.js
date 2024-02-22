@@ -15,6 +15,7 @@ const UserReducer = (state = initialState, { type, payload }) => {
         phone: payload.phone,
         imageProfile: payload.imageProfile,
         address: payload.address,
+        isAdmin: payload.isAdmin,
       };
     }
     case SIGN_OUT: {

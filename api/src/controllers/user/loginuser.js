@@ -10,7 +10,11 @@ const loginUser = async (email, password) => {
         where: { email },
     });
 
-    if (!user) throw new Error('Email incorrecto');
+    if (!user) throw new Error('Email o Password incorrecto');
+
+    if (!bcrypt.compareSync(password, user.password)) {
+        throw new Error('Email o Password incorrecto.');
+    }
 
     //const comparePassword = await bcrypt.compare(password, user.password);
     //if (!comparePassword) throw new Error('Password incorrecta');
