@@ -6,6 +6,7 @@ const getAll = require('../controllers/adoption/getAll');
 const resolve = require('../controllers/adoption/resolve');
 const getTotalUserIdAdoption = require('../controllers/adoption/getAllUserId');
 const findOneById = require('../controllers/adoption/findOneById');
+const update = require('../controllers/adoption/update');
 const mailAdoption = require('../controllers/adoption/mailAdoption');
 
 const {
@@ -137,9 +138,9 @@ const refuse = async (req, res) => {
         const userEmail = data.user.dataValues.email;
         const userName = data.user.dataValues.name;
         const animalName = data.animal.dataValues.name;
-        
+
         const message = `Hola ${userName}, Lamentablemente tu solicitud de adopcion por tu nuevo amigo: ${animalName} a sido rechazada, te invitamos a que sigas en la busqueda de tu mejor amigo en Animaladas, te esperamos..`;
-        await mailAdoption(message, userEmail);   
+        await mailAdoption(message, userEmail);
         return res.status(200).json(item);
     } catch (error) {
         res.status(404).json({ error: error.message });
@@ -162,6 +163,19 @@ const getTotalByUserId = async (req, res) => {
     }
 };
 
+const updateHandler = async (req, res) => {
+    const { id } = req.params;
+    const updateValues = req.body;
+
+    try {
+        const updatedAdoption = await update(id, updateValues);
+
+        res.status(200).json(updatedAdoption);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 module.exports = {
     getAllHandler,
     createHandler,
@@ -170,4 +184,5 @@ module.exports = {
     refuse,
     getPendingAdoptionHandler,
     getTotalByUserId,
+    updateHandler,
 };
