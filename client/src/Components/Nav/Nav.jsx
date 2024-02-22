@@ -6,19 +6,18 @@ import default_perfil_img from "../../img/perfil_default.png";
 import Profilemenu from "../PropdownProfile/Profilemenu";
 import Modalprofile from "./modalprofile";
 import { useDispatch, useSelector } from "react-redux";
-import { infologin } from "../../redux/actions/user_action";
-import { sign_out } from "../../redux/actions/user_action";
+import { infologin,sign_out} from "../../redux/actions/user_action";
 import SuccesModal from "../SuccessModal/SuccesModal";
 import validateform from "../../Views/Register/validation_user";
 import axios from "axios";
 import tuerca from "../../img/tuerca.png"
-//import { useLocalstore } from "../../scripts/uselocalstore";
+
+
 export default function Nav(props) {
   const user_profile = useSelector((state) => state.UserReducer);
   if (user_profile.imageProfile === null) {
   }
   const Navigate = useNavigate();
-
   const location = useLocation();
   const dispatch = useDispatch();
   const [MessageModal, SetMessageModal] = useState("");
@@ -28,9 +27,7 @@ export default function Nav(props) {
   let showprofile_img = false;
   let user_info = {};
 
-  const user_information = JSON.parse(localStorage.getItem("user_info"));
-  const { isAdmin } = user_information || {}
-  console.log("Información del usuario:", user_information);
+
 
   const [form_edituser, Setformedituser] = useState({
     id: "",
@@ -261,7 +258,7 @@ export default function Nav(props) {
               <li className="nav-item"></li>
             </ul>
             <SearchBar />
-            {isAdmin && (
+            {user_profile.isAdmin && (
             <NavLink to="/admin"> <img src={tuerca} class="img-fluid me-4" width="30" height="30" alt="" /></NavLink>
             )}
             {showloginbutton && (
