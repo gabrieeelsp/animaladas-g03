@@ -9,7 +9,6 @@ import logo from "../../img/logoanimaladas.png";
 
 
 export default function Home() {
-  console.log("pagina home.jsx");
   const reviews = useSelector((state) => state.rootReducer.reviews);
   const pagination = useSelector((state) => state.rootReducer.pagination2);
   const dispatch = useDispatch();

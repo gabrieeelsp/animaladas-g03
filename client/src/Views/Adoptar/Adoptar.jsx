@@ -22,7 +22,6 @@ export default function Adoptar() {
   const [loading, setLoading] = useState(true);
   const animals = useSelector((state) => state.rootReducer.allAnimals);
   const pagination = useSelector((state) => state.rootReducer.pagination);
-  console.log("valor de pagination", pagination);
   const orderByValue = useSelector((state) => state.rootReducer.orderByValue);
   const orderDirValue = useSelector((state) => state.rootReducer.orderDirValue);
   const sizeValue = useSelector((state) => state.rootReducer.sizeValue);

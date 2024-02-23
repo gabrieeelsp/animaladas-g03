@@ -420,7 +420,12 @@ export const allAdoptions = (
   };
 };
 
-export const loadUsers = () => {
+export const loadUsers = (
+  page = 1,
+  animalsPerPage = 4,
+  orderBy = null,
+  orderDir = ""
+) => {
   return async (dispatch) => {
     const token = localStorage.getItem("token");
 
@@ -431,12 +436,24 @@ export const loadUsers = () => {
       },
     };
     const response = await axios.get(
-      `${urlBaseAxios}/user/searchAllUsers`,
-      config
+      `${urlBaseAxios}/user/pagAllUsers`, {
+        params: {
+          page,
+          limit: animalsPerPage,
+          orderby: orderBy,
+          orderdir: orderDir
+        },
+      config}
     );
+
+    const data = response.data;
+
     dispatch({
       type: LOAD_USERS,
-      payload: response.data,
+      payload: {
+        users: data.data,
+        pagination: data.pagination,
+      },
     });
   };
 };
@@ -797,7 +814,6 @@ export function alldonations_user(userId, limit, page, orderDir, orderBy) {
 export function alladoptions_user(userId, limit, page, status) {
   console.log("ingreso al reducer alldoption con filtros", userId);
   return async function (dispatch) {
-  
     const response = await axios.get(
       `${urlBaseAxios}/adoptions?userId=${userId}&limit=${limit}&page=${page}&status=${status}`
     );
