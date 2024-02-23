@@ -20,6 +20,7 @@ export default function Adoptar() {
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const [noResults, setNoResults] = useState(false);
   const animals = useSelector((state) => state.rootReducer.allAnimals);
   const pagination = useSelector((state) => state.rootReducer.pagination);
   const orderByValue = useSelector((state) => state.rootReducer.orderByValue);
@@ -110,6 +111,14 @@ export default function Adoptar() {
 
     return () => clearTimeout(timeoutId);
   }, []);
+
+  useEffect(() => {
+    if (!loading && animals.length === 0) {
+      setNoResults(true);
+    } else {
+      setNoResults(false);
+    }
+  }, [loading, animals]);
 
   const handleNextPage = (page) => {
     dispatch(
@@ -233,6 +242,11 @@ export default function Adoptar() {
                       );
                     })}
                 </div>
+                {noResults && (
+            <div className="container text-center text-warning fw-bold bg-dark py-3 mt-5" style={{ maxWidth: "600px" }}>
+              No se encontraron resultados que coincidan con los filtros seleccionados.
+            </div>
+          )}
               </div>
             </div>
             <div
@@ -322,6 +336,7 @@ export default function Adoptar() {
               </button>
             </div>
           </div>
+        
         </div>
       )}{" "}
       {!loading && (
