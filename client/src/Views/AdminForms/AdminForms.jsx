@@ -56,7 +56,7 @@ export default function AdminForms() {
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Nombre solicitante</th>
-                  <th scope="col">Perro solicitado</th>
+                  <th scope="col">Animal solicitado</th>
                   <th scope="col">Estado formulario</th>
                   <th scope="col">Aceptar</th>
                   <th scope="col">Rechazar</th>

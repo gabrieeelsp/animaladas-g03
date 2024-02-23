@@ -534,7 +534,7 @@ export default function PanelUsers(props) {
                       </div>
                       <div onClick={(e) => orderby_adoptions("rechazada")}>
                         <a href="#" className="btn-panel">
-                          Rechadas
+                          Rechazadas
                         </a>
                       </div>
                     </div>
