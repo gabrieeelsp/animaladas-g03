@@ -1,18 +1,20 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userByMail, set_searchbar_value } from "../../redux/actions/actions";
+import { set_searchbar_value, loadUsers } from "../../redux/actions/actions";
 
 export default function SearchUser() {
     const nameValue = useSelector((state) => state.rootReducer.searchBarValue);
+    const orderByValue = useSelector((state) => state.rootReducer.orderByValue);
+    const orderDirValue = useSelector((state) => state.rootReducer.orderDirValue);
     const dispatch = useDispatch();
 
   const handleChange = (event) => {
     dispatch(set_searchbar_value(event.target.value));
   };
-  
+    
   const onSearch = (event) => {
     event.preventDefault(); 
-    dispatch(userByMail(nameValue));
+    dispatch(loadUsers(nameValue, 1, 4, orderByValue, orderDirValue));
     dispatch(set_searchbar_value(''));
   };
   

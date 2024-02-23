@@ -39,7 +39,7 @@ const Paginacion = ({ onNextPage, onPrevPage, pagination }) => {
       </button>
       <input 
       className="bg-dark text-warning mx-2 w-10 text-center" 
-      style={{ width: `28px`, borderRadius: '10px' }}
+      style={{ width: `50px`, borderRadius: '10px' }}
       onChange={onChange} 
       onKeyDown={(e) => onKeyDown(e)} value={input} />
       <span className='fw-bold' style={{ color: "#FFC107", WebkitTextStroke: '1px black' }}>de {Math.ceil(total_pages)}</span>

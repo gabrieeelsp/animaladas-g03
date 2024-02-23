@@ -1,11 +1,17 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { loadUsers, clearAll, deleteUser, set_orderby_value, set_orderdir_value } from "../../redux/actions/actions";
+import {
+  loadUsers,
+  clearAll,
+  deleteUser,
+  set_orderby_value,
+  set_orderdir_value,
+} from "../../redux/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
 import LoaderUsers from "../../Components/LoaderUsers/LoaderUsers";
 import ModalUsers from "../../Components/ModalUsers/ModalUsers";
 import SearchUser from "../../Components/SearchUser/SearchUser";
-import Pagination from "../../Components/Pagination/Pagination"
+import Pagination from "../../Components/Pagination/Pagination";
 
 export default function AdminUsers() {
   const dispatch = useDispatch();
@@ -22,45 +28,46 @@ export default function AdminUsers() {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       dispatch(clearAll());
-      dispatch(loadUsers(1, 4, orderByValue, orderDirValue));
+      dispatch(loadUsers("", 1, 4, orderByValue, orderDirValue));
       setLoading(false);
     }, 2000);
-  
+
     return () => clearTimeout(timeoutId);
   }, []);
-  
 
   const handleDeleteUser = (id) => {
     dispatch(clearAll());
     dispatch(deleteUser(id)).then(() => {
-    dispatch(loadUsers(1, 4, "id", "asc"));
+      dispatch(loadUsers("", 1, 4, "id", "asc"));
     });
   };
 
-  const handleModifyUser = (user) => {
-    setSelectedUser(user);
+  const handleModifyUser = (form) => {
+    setSelectedUser(form);
   };
 
   const handleNextPage = (page) => {
-    dispatch(loadUsers(page, 4, orderByValue, orderDirValue));
+    dispatch(loadUsers("", page, 4, orderByValue, orderDirValue));
   };
 
   const handlePrevPage = (page) => {
-    dispatch(loadUsers(page, 4, orderByValue, orderDirValue));
+    dispatch(loadUsers("", page, 4, orderByValue, orderDirValue));
   };
 
   return (
     <>
       <div className="container" style={{ marginTop: "80px" }}>
-        <div className="row justify-content-center align-items-center" >
+        <div className="row justify-content-center align-items-center">
           <div className="col-md-9">
             {!loading ? (
-            <div className="my-2 d-flex justify-content-center">
-              <div className="m-5" style={{width:"500px"}}>
-                <SearchUser />
+              <div className="my-2 d-flex justify-content-center">
+                <div className="m-5" style={{ width: "500px" }}>
+                  <SearchUser />
+                </div>
               </div>
-            </div>
-            ): ""}
+            ) : (
+              ""
+            )}
             {loading ? (
               <LoaderUsers />
             ) : (
@@ -78,8 +85,8 @@ export default function AdminUsers() {
                   </tr>
                 </thead>
                 <tbody>
-                  {users && users
-                    .map(
+                  {users &&
+                    users.map(
                       ({
                         id,
                         name,
@@ -99,31 +106,37 @@ export default function AdminUsers() {
                           <td className="text-warning">{email}</td>
                           <td className="text-warning">{phone}</td>
                           <td className="text-warning">{address}</td>
-                          <td className="text-warning">{enabled ? "Habilitado" : "Deshabilitado"}</td>
+                          <td className="text-warning">
+                            {enabled ? "Habilitado" : "Deshabilitado"}
+                          </td>
                           <td>
                             <button
                               className="btn btn-warning fw-bold"
                               data-bs-toggle="modal"
                               data-bs-target={`#ModalU${id}`}
-                              onClick={() => handleModifyUser({
-                                id,
-                                name,
-                                lastName,
-                                email,
-                                phone,
-                                address,
-                                password,
-                                imageProfile,
-                                enabled,
-                              })}
+                              onClick={() =>
+                                handleModifyUser({
+                                  id,
+                                  name,
+                                  lastName,
+                                  email,
+                                  phone,
+                                  address,
+                                  password,
+                                  imageProfile,
+                                  enabled,
+                                })
+                              }
                             >
                               Modificar
                             </button>
                           </td>
                           <td>
                             <button
-                              className={`btn btn-block fw-bold my-2 ${
-                                enabled ? "btn-danger text-white" : "btn-success text-white"
+                              className={`btn btn-block fw-bold ${
+                                enabled
+                                  ? "btn-danger text-white"
+                                  : "btn-success text-white"
                               }`}
                               onClick={() => handleDeleteUser(id)}
                             >
@@ -136,49 +149,72 @@ export default function AdminUsers() {
                 </tbody>
               </table>
             )}
-              <div className="m-5 d-flex justify-content-center align-items-center" style={{position:"static"}}>
-            <Pagination
-              pagination={pagination}
-              onNextPage={handleNextPage}
-              onPrevPage={handlePrevPage}
-            />
+            <div
+              className="m-5 d-flex justify-content-center align-items-center"
+              style={{ position: "static" }}
+            >
+              <Pagination
+                pagination={pagination}
+                onNextPage={handleNextPage}
+                onPrevPage={handlePrevPage}
+              />
+            </div>
           </div>
-          </div>
-          <div className="col-md-2 bg-dark text-warning d-flex flex-column align-items-center justify-content-center mx-3"
+          <div
+            className="col-md-2 bg-dark text-warning d-flex flex-column align-items-center justify-content-center mx-3"
             style={{
               border: "2px solid black",
               borderRadius: "10px",
               padding: "10px",
               height: "600px",
               width: "200px",
-            }}>
+            }}
+          >
             <NavLink to="/admin">
-              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "160px" }}>
+              <button
+                className="btn btn-warning btn-block fs-5 fw-bold my-4"
+                style={{ width: "160px" }}
+              >
                 ESTADÍSTICAS
               </button>
             </NavLink>
             <NavLink to="/admin/users">
-              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "160px" }}>
+              <button
+                className="btn btn-warning btn-block fs-5 fw-bold my-4"
+                style={{ width: "160px" }}
+              >
                 USUARIOS
               </button>
             </NavLink>
             <NavLink to="/admin/animals">
-              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "160px" }}>
+              <button
+                className="btn btn-warning btn-block fs-5 fw-bold my-4"
+                style={{ width: "160px" }}
+              >
                 ANIMALES
               </button>
             </NavLink>
             <NavLink to="/admin/forms">
-              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "160px" }}>
+              <button
+                className="btn btn-warning btn-block fs-5 fw-bold my-4"
+                style={{ width: "160px" }}
+              >
                 FORMULARIOS
               </button>
             </NavLink>
             <NavLink to="/admin/reviews">
-              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "160px" }}>
+              <button
+                className="btn btn-warning btn-block fs-5 fw-bold my-4"
+                style={{ width: "160px" }}
+              >
                 REVIEWS
               </button>
             </NavLink>
             <NavLink to="/">
-              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "50px" }}>
+              <button
+                className="btn btn-warning btn-block fs-5 fw-bold my-4"
+                style={{ width: "50px" }}
+              >
                 <i className="bi bi-house-door-fill"></i>
               </button>
             </NavLink>

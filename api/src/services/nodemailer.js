@@ -69,13 +69,13 @@ const templateSendMail = async (mail) => {
             </div>
         </div>
         `,
-        attachments: [
-            {
-                filename: 'logoanimaladas.png',
-                path: '../api/src/img/logoanimaladas.png',
-                cid: 'logoanimaladas',
-            },
-        ],
+        // attachments: [
+        //     {
+        //         filename: 'logoanimaladas.png',
+        //         path: '../api/src/img/logoanimaladas.png',
+        //         cid: 'logoanimaladas',
+        //     },
+        // ],
     };
 
     try {
@@ -150,13 +150,13 @@ const templateSendMailWithButton = async (mail) => {
             </div>
         </div>
         `,
-        attachments: [
-            {
-                filename: 'logoanimaladas.png',
-                path: '../api/src/img/logoanimaladas.png',
-                cid: 'logoanimaladas',
-            },
-        ],
+        // attachments: [
+        //     {
+        //         filename: 'logoanimaladas.png',
+        //         path: '../api/src/img/logoanimaladas.png',
+        //         cid: 'logoanimaladas',
+        //     },
+        // ],
     };
 
     try {
