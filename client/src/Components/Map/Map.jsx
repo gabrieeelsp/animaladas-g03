@@ -33,7 +33,7 @@ const Map = () => {
   };
 
   return (
-    <div id="map" style={{ width: '100%', height: '400px', borderRadius: "20px" }}></div>
+    <div id="map" style={{ width: '100%', height: '400px', borderRadius: "20px", zIndex: 0 }}></div>
   );
 };
 
