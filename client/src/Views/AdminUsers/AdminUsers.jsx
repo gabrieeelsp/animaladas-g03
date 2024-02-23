@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { loadUsers, clearAll, deleteUser } from "../../redux/actions/actions";
+import { loadUsers, clearAll, deleteUser, set_orderby_value, set_orderdir_value } from "../../redux/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
 import LoaderUsers from "../../Components/LoaderUsers/LoaderUsers";
 import ModalUsers from "../../Components/ModalUsers/ModalUsers";
+import SearchUser from "../../Components/SearchUser/SearchUser";
+import Pagination from "../../Components/Pagination/Pagination"
 
 export default function AdminUsers() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const users = useSelector((state) => state.rootReducer.allUsers);
+  const user = useSelector((state) => state.rootReducer.allUsers);
+  const pagination = useSelector((state) => state.rootReducer.pagination3);
+  const orderByValue = useSelector((state) => state.rootReducer.orderByValue);
+  const orderDirValue = useSelector((state) => state.rootReducer.orderDirValue);
+
+  const users = user.users;
+
   const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       dispatch(clearAll());
-      dispatch(loadUsers());
+      dispatch(loadUsers(1, 4, orderByValue, orderDirValue));
       setLoading(false);
     }, 2000);
   
@@ -26,7 +33,7 @@ export default function AdminUsers() {
   const handleDeleteUser = (id) => {
     dispatch(clearAll());
     dispatch(deleteUser(id)).then(() => {
-      dispatch(loadUsers());
+    dispatch(loadUsers(1, 4, "id", "asc"));
     });
   };
 
@@ -34,11 +41,26 @@ export default function AdminUsers() {
     setSelectedUser(user);
   };
 
+  const handleNextPage = (page) => {
+    dispatch(loadUsers(page, 4, orderByValue, orderDirValue));
+  };
+
+  const handlePrevPage = (page) => {
+    dispatch(loadUsers(page, 4, orderByValue, orderDirValue));
+  };
+
   return (
     <>
-      <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "100%", marginTop: "80px" }}>
-        <div className="row">
-          <div className="col-md-9 d-flex justify-content-center align-items-center" style={{width: "850px"}}>
+      <div className="container" style={{ marginTop: "80px" }}>
+        <div className="row justify-content-center align-items-center" >
+          <div className="col-md-9">
+            {!loading ? (
+            <div className="my-2 d-flex justify-content-center">
+              <div className="m-5" style={{width:"500px"}}>
+                <SearchUser />
+              </div>
+            </div>
+            ): ""}
             {loading ? (
               <LoaderUsers />
             ) : (
@@ -56,8 +78,7 @@ export default function AdminUsers() {
                   </tr>
                 </thead>
                 <tbody>
-                  {users
-                    .sort((a, b) => a.id - b.id)
+                  {users && users
                     .map(
                       ({
                         id,
@@ -115,62 +136,49 @@ export default function AdminUsers() {
                 </tbody>
               </table>
             )}
+              <div className="m-5 d-flex justify-content-center align-items-center" style={{position:"static"}}>
+            <Pagination
+              pagination={pagination}
+              onNextPage={handleNextPage}
+              onPrevPage={handlePrevPage}
+            />
           </div>
-          <div
-            className="col-md-2 bg-dark text-warning d-flex flex-column align-items-center justify-content-center mx-3"
+          </div>
+          <div className="col-md-2 bg-dark text-warning d-flex flex-column align-items-center justify-content-center mx-3"
             style={{
               border: "2px solid black",
               borderRadius: "10px",
               padding: "10px",
               height: "600px",
               width: "200px",
-            }}
-          >
+            }}>
             <NavLink to="/admin">
-              <button
-                className="btn btn-warning btn-block fs-5 fw-bold my-4"
-                style={{ width: "160px" }}
-              >
+              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "160px" }}>
                 ESTADÍSTICAS
               </button>
             </NavLink>
             <NavLink to="/admin/users">
-              <button
-                className="btn btn-warning btn-block fs-5 fw-bold my-4"
-                style={{ width: "160px" }}
-              >
+              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "160px" }}>
                 USUARIOS
               </button>
             </NavLink>
             <NavLink to="/admin/animals">
-              <button
-                className="btn btn-warning btn-block fs-5 fw-bold my-4"
-                style={{ width: "160px" }}
-              >
+              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "160px" }}>
                 ANIMALES
               </button>
             </NavLink>
             <NavLink to="/admin/forms">
-              <button
-                className="btn btn-warning btn-block fs-5 fw-bold my-4"
-                style={{ width: "160px" }}
-              >
+              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "160px" }}>
                 FORMULARIOS
               </button>
             </NavLink>
             <NavLink to="/admin/reviews">
-              <button
-                className="btn btn-warning btn-block fs-5 fw-bold my-4"
-                style={{ width: "160px" }}
-              >
+              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "160px" }}>
                 REVIEWS
               </button>
             </NavLink>
             <NavLink to="/">
-              <button
-                className="btn btn-warning btn-block fs-5 fw-bold my-4"
-                style={{ width: "50px" }}
-              >
+              <button className="btn btn-warning btn-block fs-5 fw-bold my-4" style={{ width: "50px" }}>
                 <i className="bi bi-house-door-fill"></i>
               </button>
             </NavLink>

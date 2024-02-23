@@ -259,7 +259,7 @@ export default function Nav(props) {
             </ul>
             <SearchBar />
             {user_profile.isAdmin && (
-            <NavLink to="/admin"> <img src={tuerca} class="img-fluid me-4" width="30" height="30" alt="" /></NavLink>
+            <NavLink to="/admin"> <img src={tuerca} className="img-fluid me-4" width="30" height="30" alt="" /></NavLink>
             )}
             {showloginbutton && (
               <NavLink to="/login">
@@ -347,7 +347,7 @@ export default function Nav(props) {
             doit={menuprofile}
           >
             {error.showerror_name ? (
-              <div class="input-group mb-1 alert alert-warning" role="alert">
+              <div className="input-group mb-1 alert alert-warning" role="alert">
                 {error.name}
               </div>
             ) : null}
@@ -365,7 +365,7 @@ export default function Nav(props) {
               />
             </div>
             {error.showerror_lastName ? (
-              <div class="input-group mb-1 alert alert-warning" role="alert">
+              <div className="input-group mb-1 alert alert-warning" role="alert">
                 {error.lastName}
               </div>
             ) : null}
@@ -397,7 +397,7 @@ export default function Nav(props) {
               />
             </div>
             {error.showerror_phone ? (
-              <div class="input-group mb-1 alert alert-warning" role="alert">
+              <div className="input-group mb-1 alert alert-warning" role="alert">
                 {error.phone}
               </div>
             ) : null}
@@ -415,7 +415,7 @@ export default function Nav(props) {
               />
             </div>
             {error.showerror_address ? (
-              <div class="input-group mb-1 alert alert-warning" role="alert">
+              <div className="input-group mb-1 alert alert-warning" role="alert">
                 {error.address}
               </div>
             ) : null}
@@ -446,9 +446,9 @@ export default function Nav(props) {
                 onChange={(e) => handlechange(e)}
               />
             </div>
-            <div class=" input-group mb-1 mt-3">
+            <div className=" input-group mb-1 mt-3">
               <input
-                class="form-control text-center"
+                className="form-control text-center"
                 type="file"
                 id="formFile"
                 onChange={uploadImage}

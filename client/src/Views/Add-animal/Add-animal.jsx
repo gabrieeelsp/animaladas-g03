@@ -148,7 +148,7 @@ export default function Addanimal(props) {
       dogdata.estimatedBirthYear === "" ||
       dogdata.size === ""
     ) {
-      /*console.log("ingresandooo");
+      /*
       error.priority_filds =
         "Debe completar todo los campos obligatorios ff(*)";
       error.showerror_priority_filds = true;*/
@@ -157,7 +157,6 @@ export default function Addanimal(props) {
     } else {
       error.priority_filds = "";
       error.showerror_priority_filds = false;
-      console.log("ingreso para cargar a la base de datos");
       const token = localStorage.getItem('token');
 
       const config = {
@@ -210,7 +209,6 @@ export default function Addanimal(props) {
     navigate("/admin/animals");
   };
   const string1 = "hola";
-  console.log(error);
   return (
     <div className="container d-flex justify-content-center align-items-center" style={{ height: "700px", marginTop: "35px", marginBottom: "-90px" }}>
       <div className="row rounded-5 p-3 bg-dark border-primary">

@@ -16,10 +16,12 @@ export default function Register(props) {
   const { SetMessageModal } = props;
   const [ShowModalSuccess, SetShowModalSucess] = useState(false);
   const [ShowModalErorr, SetShowModalError] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(true);
   const [error, Seterror] = useState({
     name: "",
     lastName: "",
     email: "",
+    password: "",
     phone: "",
     address: "",
     priority_fields: "",
@@ -29,6 +31,7 @@ export default function Register(props) {
     showerror_lastName: false,
     showerror_phone: false,
     showerror_address: false,
+    showerror_password: false,
     showerror_priority_fields: false,
   });
   const [Url_Imagen, setUrl_Imagen] = useState("");
@@ -60,34 +63,29 @@ export default function Register(props) {
     });
   };
   const handlechange = (event) => {
-    let value = event.target.value;
-    let valuename = event.target.name;
-    if (event.target.name === "user_name") {
-      valuename = "name";
-    }
-    if (event.target.name === "user_email") {
-      valuename = "email";
-    }
+    const {name, value} = event.target;
+
     Setuserdata({
       ...userdata,
-      [valuename]: value,
+      [name]: value,
     });
-    let validate = validateform(userdata);
+    const validate = validateform({...userdata,  [name]: value});
     Seterror({
       ...error,
-      name: validate.name,
-      lastName: validate.lastName,
-      email: validate.email,
-      phone: validate.phone,
-      address: validate.address,
-      missing_fields: validate.missing_fields,
-      showerror_email: validate.showerror_email,
-      showerror_name: validate.showerror_name,
-      showerror_lastName: validate.showerror_lastName,
-      showerror_phone: validate.showerror_phone,
-      showerror_address: validate.showerror_address,
+      [name]: validate[name],
     });
+    if (
+      error.name === "" &&
+      error.email === "" &&
+      error.phone === "" &&
+      error.lastName === "" &&
+      error.address === "" &&
+      error.password === ""
+    ){
+      setIsFormValid(false);
+    }
   };
+  
   const register_user = async (event) => {
     if (
       userdata.name === "" ||
@@ -102,7 +100,7 @@ export default function Register(props) {
     } else {
       event.preventDefault();
 
-
+      
       const urlBaseAxios =
         import.meta.env.VITE_ENV === "DEV"
           ? import.meta.env.VITE_URL_DEV
@@ -111,25 +109,16 @@ export default function Register(props) {
         `${urlBaseAxios}/user/createUser`,
         userdata
       );
-
       const { data } = resp;
       if (data) {
         SetMessageModal(
           "Bien! se ha registrado el usuario. Te hemos enviado un correo para verificar tu cuenta"
         );
         SetShowModalSucess(true);
-        // Navigate("/");
+        setTimeout(()=>{
+          Navigate("/")
+        }, 4000);
       }
-
-      Setuserdata({
-        name: "",
-        lastName: "",
-        email: "",
-        password: "",
-        phone: "",
-        address: "",
-        imageProfile: "",
-      });
     }
   };
 
@@ -154,7 +143,7 @@ export default function Register(props) {
             </div>
           ) : null}
 
-          {error.showerror_email ? (
+          {error.email ? (
             <div class="input-group mb-1 alert alert-warning" role="alert">
               {error.email}
             </div>
@@ -168,12 +157,12 @@ export default function Register(props) {
               className="form-control bg-light"
               type="email"
               placeholder="Correo Electrónico*"
-              name="user_email"
+              name="email"
               onChange={handlechange}
-              value={userdata.email}
+              value={userdata.value}
             />
           </div>
-          {error.showerror_name ? (
+          {error.name ? (
             <div class="input-group mb-1 alert alert-warning" role="alert">
               {error.name}dd
             </div>
@@ -187,13 +176,13 @@ export default function Register(props) {
               className="form-control bg-light"
               type="text"
               placeholder="Nombre*"
-              name="user_name"
+              name="name"
               onChange={handlechange}
-              value={userdata.name}
+              value={userdata.value}
             />
           </div>
 
-          {error.showerror_lastName ? (
+          {error.lastName ? (
             <div class="input-group mb-1 alert alert-warning" role="alert">
               {error.lastName}
             </div>
@@ -209,10 +198,10 @@ export default function Register(props) {
               placeholder="Apellido*"
               name="lastName"
               onChange={handlechange}
-              value={userdata.lastName}
+              value={userdata.value}
             />
           </div>
-          {error.showerror_phone ? (
+          {error.phone ? (
             <div class="input-group mb-1 alert alert-warning" role="alert">
               {error.phone}
             </div>
@@ -228,10 +217,10 @@ export default function Register(props) {
               placeholder="Número de contacto*"
               name="phone"
               onChange={handlechange}
-              value={userdata.phone}
+              value={userdata.value}
             />
           </div>
-          {error.showerror_address ? (
+          {error.address ? (
             <div class="input-group mb-1 alert alert-warning" role="alert">
               {error.address}
             </div>
@@ -247,9 +236,14 @@ export default function Register(props) {
               placeholder="Dirección*"
               name="address"
               onChange={handlechange}
-              value={userdata.address}
+              value={userdata.value}
             />
           </div>
+          {error.password ? (
+            <div class="input-group mb-1 alert alert-warning" role="alert">
+              {error.password}
+            </div>
+          ) : null}
           <div className="input-group mt-1">
             <div className="input-group-text bg-warning text-white">
               <i className="bi bi-lock"></i>
@@ -260,7 +254,7 @@ export default function Register(props) {
               placeholder="Contraseña*"
               name="password"
               onChange={handlechange}
-              value={userdata.password}
+              value={userdata.value}
             />
           </div>
           <label className="input-group mb-1 mt-3 text-warning">
@@ -273,7 +267,7 @@ export default function Register(props) {
               id="formFile"
               onChange={uploadImage}
               name="imageProfile"
-              value={userdata.img}
+              value={userdata.value}
             ></input>
           </div>
           <img
@@ -283,14 +277,16 @@ export default function Register(props) {
             style={{
               borderRadius: "50%",
               border: "3px solid #E4A11B",
-              width: "200px",
-              height: "200px",
+              width: "80px",
+              height: "80px",
+              display: userdata.imageProfile.startsWith("https://res.cloudinary.com/dwgufqzjd/image/upload/v1707404450/Proyecto_animaladas/default/w2jbmtfjvfjn1alnn") ? "none" : "block",
             }}
+            className="mx-auto"
           />
           <button
             className="btn text-white w-100 mt-4 fw-bold shadow-sm bg-warning"
             onSubmit={(e) => register_user(e)}
-            disabled={error.missing_fields}
+            disabled={isFormValid}
           >
             Crear cuenta
           </button>
