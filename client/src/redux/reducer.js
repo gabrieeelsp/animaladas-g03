@@ -1,5 +1,3 @@
-import { loadAdopted } from "./actions/actions";
-
 import {
   LOAD_ANIMALS,
   CLEAR_ALL,
@@ -66,6 +64,13 @@ const initialState = {
     prev_page: null,
   },
   pagination2: {
+    total_records: 0,
+    current_page: 1,
+    total_pages: null,
+    next_page: null,
+    prev_page: null,
+  },
+  pagination3: {
     total_records: 0,
     current_page: 1,
     total_pages: null,
@@ -218,6 +223,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         allUsers: payload,
+        pagination3: payload.pagination,
       };
     }
 
@@ -335,7 +341,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case USER_BY_MAIL: {
       return {
         ...state,
-        userByMail: payload,
+        allUsers: payload,
       };
     }
 
