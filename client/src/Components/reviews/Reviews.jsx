@@ -6,6 +6,7 @@ import SuccesModal from "../SuccessModal/SuccesModal";
 import { useDispatch, useSelector } from "react-redux";
 import { get_allreviews } from "../../redux/actions/actions";
 import GeneralModal from "../GeneralModal/generalmodal";
+
 export default function Reviews(props) {
   const dispatch = useDispatch();
   let basedata_reviews = [];
@@ -15,7 +16,7 @@ export default function Reviews(props) {
   let disabledpost = true;
   const user_profile = useSelector((state) => state.UserReducer);
   const [id_sign_in, Setid_sign_in] = useState(user_profile.id);
-  const allreviews = useSelector((state) => state.rootReducer.allreviews);
+  const allreviews = useSelector((state) => state.rootReducer.reviews);
   let profile_singin = false;
 
   const [MessageModal, SetMessageModal] = useState("");
@@ -154,8 +155,9 @@ export default function Reviews(props) {
   }
 
   useEffect(() => {
-    dispatch(get_allreviews());
+    dispatch(get_allreviews("", 4, 1, "aprobado"));
   }, [dispatch]);
+
   return (
     <>
       {profile_singin && (
@@ -163,7 +165,10 @@ export default function Reviews(props) {
           className="testimonial-box-container"
           style={{ marginTop: "50px" }}
         >
-          <div className="testimonial-box">
+          <div
+            className="testimonial-box bg-dark overflow-y-auto"
+            style={{ height: "270px" }}
+          >
             <div className="box-top">
               <div className="profile">
                 <div className="profile-img">
@@ -176,9 +181,9 @@ export default function Reviews(props) {
                   />
                 </div>
                 <div className="name-user">
-                  <strong>
+                  <span className="text-warning fs-5">
                     {user_profile.name} {user_profile.lastName}
-                  </strong>
+                  </span>
                   <span>
                     @{user_profile.name}
                     {user_profile.lastName}
@@ -205,23 +210,22 @@ export default function Reviews(props) {
             <div className="form-group">
               <label
                 for="exampleFormControlTextarea1"
-                style={{
-                  fontSize: "1.5rem",
-                  color: "#f9d71c",
-                  fontWeight: "bold",
-                }}
+                className="fs-5 fw-bold text-warning"
               >
                 Escribe tu opinion
               </label>
               {showerrornumber && (
-                <div class="input-group mb-1 alert alert-warning" role="alert">
+                <div
+                  className="input-group mb-1 alert alert-warning"
+                  role="alert"
+                >
                   {errornumber}
                 </div>
               )}
               <textarea
                 name="comment"
                 ref={ref}
-                class="form-control"
+                className="form-control"
                 id="exampleFormControlTextarea1"
                 rows="3"
                 onChange={handleonchange}
@@ -259,14 +263,14 @@ export default function Reviews(props) {
       )}
       <div style={{ boxSizing: "border-box", margin: "0px", padding: "0px" }}>
         <section id="testimonials" style={{ paddingTop: "45px" }}>
-          <div className="testimonial-heading">
-            <span>Comentarios</span>
-            <h1>Las personas dicen</h1>
+          <div class="shadow p-2 mb-3 bg-dark rounded">
+            <h2 class="text-warning">Nuestras reviews</h2>
           </div>
+
           <div className="testimonial-box-container">
-            {allreviews.data &&
-              allreviews.data.map((review) => (
-                <div className="testimonial-box">
+            {allreviews &&
+              allreviews.map((review) => (
+                <div className="testimonial-box bg-dark text-warning overflow-y-auto">
                   <div className="box-top">
                     <div className="profile">
                       <div className="profile-img">
@@ -279,10 +283,10 @@ export default function Reviews(props) {
                         />
                       </div>
                       <div className="name-user">
-                        <strong>
+                        <span className="text-warning fs-5">
                           {review.user_name} {review.user_lastName}
-                        </strong>
-                        <span>
+                        </span>
+                        <span className="text-white">
                           @{review.user_name}
                           {review.user_lastName}
                         </span>
@@ -302,7 +306,12 @@ export default function Reviews(props) {
                     </div>
                   </div>
                   <div className="user-comment">
-                    <p>{review.comment}</p>
+                    <p
+                      className="text-warning"
+                      style={{ wordWrap: "break-word" }}
+                    >
+                      {review.comment}
+                    </p>
                   </div>
 
                   {equals(review) && (
@@ -314,34 +323,6 @@ export default function Reviews(props) {
                   )}
                 </div>
               ))}
-            <div className="testimonial-box">
-              <div className="box-top">
-                <div className="profile">
-                  <div className="profile-img">
-                    <img src="https://res.cloudinary.com/dwgufqzjd/image/upload/v1708039507/Proyecto_animaladas/default/Foto_Perfil__kaihwx.jpg" />
-                  </div>
-                  <div className="name-user">
-                    <strong>Pedro garcia</strong>
-                    <span>@Pedrogarcia</span>
-                  </div>
-                </div>
-                <div className="reviews">
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star"></i>
-                </div>
-              </div>
-              <div className="user-comment">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Recusandae, sed. Explicabo similique, cum culpa qui delectus
-                  ratione sapiente maxime. Quis commodi illo tempore! Iure
-                  possimus impedit et quo enim corrupti.
-                </p>
-              </div>
-            </div>
           </div>
         </section>
         <GeneralModal
@@ -398,7 +379,7 @@ export default function Reviews(props) {
                 </label>
                 {showerrornumber && (
                   <div
-                    class="input-group mb-1 alert alert-warning"
+                    className="input-group mb-1 alert alert-warning"
                     role="alert"
                   >
                     {errornumber}
@@ -407,7 +388,7 @@ export default function Reviews(props) {
                 <textarea
                   name="comment"
                   ref={ref}
-                  class="form-control"
+                  className="form-control"
                   id="exampleFormControlTextarea1"
                   rows="3"
                   onChange={handleonchange}

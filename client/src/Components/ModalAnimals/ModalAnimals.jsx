@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearAll, updateAnimal, loadAnimals, set_orderby_value, set_orderdir_value } from "../../redux/actions/actions";
 
@@ -28,6 +28,10 @@ export default function ModalAnimals(props) {
   const speciesValue = useSelector((state) => state.rootReducer.speciesValue);
   const castratedValue = useSelector((state) => state.rootReducer.castratedValue);
 
+  useEffect(() => {
+    setUpdatedAnimalData(props);
+  }, [props]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUpdatedAnimalData((prevState) => ({
@@ -44,12 +48,10 @@ export default function ModalAnimals(props) {
     }));
   };
   
-  const handleUpdateAnimal = () => {
+  const handleUpdateAnimal = async () => {
+    await dispatch(updateAnimal(id, updatedAnimalData));
       dispatch(clearAll());
-      dispatch(set_orderby_value('id'));
-      dispatch(set_orderdir_value('asc'));
-      dispatch(loadAnimals(nameValue, '', sizeValue, speciesValue, castratedValue, 1, 3, orderByValue, orderDirValue, "Todos"));
-      dispatch(updateAnimal(id, updatedAnimalData));
+      dispatch(loadAnimals(nameValue, '', sizeValue, speciesValue, castratedValue, 1, 3, "id", "asc", "Todos"));
     };
   
   return (
