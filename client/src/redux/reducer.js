@@ -1,5 +1,3 @@
-import { loadAdopted } from "./actions/actions";
-
 import {
   LOAD_ANIMALS,
   CLEAR_ALL,
@@ -28,6 +26,10 @@ import {
   ACCEPT_ADOPTION_FAILURE,
   REFUSE_ADOPTION_FAILURE,
   REFUSE_ADOPTION_SUCCESS,
+  ACCEPT_REVIEW_SUCCESS,
+  ACCEPT_REVIEW_FAILURE,
+  REFUSE_REVIEW_FAILURE,
+  REFUSE_REVIEW_SUCCESS,
   UPDATE_ANIMAL,
   USER_BY_MAIL,
   DELETE_USER,
@@ -35,6 +37,7 @@ import {
   ALLDONATIONS_USER,
   TOTAL_AMOUNT_DONATION_USER,
   TOTAL_ADOPTION_USER,
+  ALLADOPTIONS_USER,
 } from "./actions/types";
 
 const initialState = {
@@ -44,6 +47,7 @@ const initialState = {
   details_adoption_user: [],
   total_amount_donation_user: 0,
   total_adoption_user: [],
+  total_adoption_user_copy: [],
   statusAnimals: [],
   pagination: {
     total_records: 0,
@@ -53,6 +57,20 @@ const initialState = {
     prev_page: null,
   },
   pagination1: {
+    total_records: 0,
+    current_page: 1,
+    total_pages: null,
+    next_page: null,
+    prev_page: null,
+  },
+  pagination2: {
+    total_records: 0,
+    current_page: 1,
+    total_pages: null,
+    next_page: null,
+    prev_page: null,
+  },
+  pagination3: {
     total_records: 0,
     current_page: 1,
     total_pages: null,
@@ -205,6 +223,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         allUsers: payload,
+        pagination3: payload.pagination,
       };
     }
 
@@ -267,7 +286,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case GET_ALLREVIEWS: {
       return {
         ...state,
-        allreviews: payload,
+        reviews: payload.reviews,
+        pagination2: payload.pagination,
       };
     }
 
@@ -290,6 +310,27 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
       };
+
+    case ACCEPT_REVIEW_SUCCESS:
+      return {
+        ...state,
+      };
+
+    case ACCEPT_REVIEW_FAILURE:
+      return {
+        ...state,
+      };
+
+    case REFUSE_REVIEW_SUCCESS:
+      return {
+        ...state,
+      };
+
+    case REFUSE_REVIEW_FAILURE:
+      return {
+        ...state,
+      };
+
     case UPDATE_ANIMAL: {
       return {
         ...state,
@@ -300,7 +341,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case USER_BY_MAIL: {
       return {
         ...state,
-        userByMail: payload,
+        allUsers: payload,
       };
     }
 
@@ -331,10 +372,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
         total_amount_donation_user: payload,
       };
     }
-    case TOTAL_ADOPTION_USER: {
+
+    case ALLADOPTIONS_USER: {
       return {
         ...state,
         total_adoption_user: payload,
+        total_adoption_user_copy: payload,
       };
     }
     default:

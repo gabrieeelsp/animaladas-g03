@@ -1,4 +1,4 @@
-const { Animal } = require('../../db');
+const { Adoption } = require('../../db');
 
 // se sebe enviar un objeto conteniendo el id y los atributos que se quieren actualizar
 module.exports = async (id, values) => {
@@ -8,16 +8,16 @@ module.exports = async (id, values) => {
         throw new Error('El id debe ser un número');
     }
 
-    let item = await Animal.findByPk(id);
+    let item = await Adoption.findByPk(id);
     if (!item) throw new Error('No se encontro una instancia con el id');
 
     try {
         await item.update(values);
     } catch (error) {
-        throw new Error({ message: error });
+        throw new Error({ message: error.message });
     }
 
-    item = await Animal.findByPk(id);
+    item = await Adoption.findByPk(id);
 
     return item;
 };

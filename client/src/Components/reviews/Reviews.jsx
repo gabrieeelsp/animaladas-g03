@@ -32,7 +32,9 @@ export default function Reviews(props) {
     userId: user_profile.id ? user_profile.id : "",
     user_name: user_profile.name ? user_profile.name : "",
     user_lastName: user_profile.lastName ? user_profile.lastName : "",
-    user_img: user_profile.imageProfile ? user_profile.imageProfile : "",
+    user_img: !user_profile.imageProfile
+      ? "https://res.cloudinary.com/dwgufqzjd/image/upload/v1708357485/Proyecto_animaladas/default/perfil_default_iorirl.png"
+      : user_profile.imageProfile,
     id: "",
   });
 
@@ -58,14 +60,14 @@ export default function Reviews(props) {
       : import.meta.env.VITE_URL_PROD;
 
   const post_comment = async () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
-        }
-      };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
     const resp = await axios.post(
       `${urlBaseAxios}/review/createReviews`,
       opinion_data,
@@ -73,7 +75,7 @@ export default function Reviews(props) {
     );
     const { data } = resp;
     if (data) {
-      dispatch(get_allreviews());
+      dispatch(get_allreviews(""));
       Setposted(true);
       SetMessageModal(
         "¡Bien! se ha registrado tu opinion. En breve un administrador la revisara para su aprobación."
@@ -83,7 +85,6 @@ export default function Reviews(props) {
     }
   };
   const edit_review = (review) => {
-    console.log("esta esditando el siguiente review", review);
     Setopiniondata({
       ...opinion_data,
       score: review.score,
@@ -93,14 +94,14 @@ export default function Reviews(props) {
     SetshowGeneralModal(true);
   };
   const update_review = async (review) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
-        }
-      };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
     const resp = await axios.put(
       `${urlBaseAxios}/review/putReviews/${review.id}`,
       opinion_data,
@@ -155,7 +156,6 @@ export default function Reviews(props) {
   useEffect(() => {
     dispatch(get_allreviews());
   }, [dispatch]);
-  console.log("este es el valor de opini data", opinion_data);
   return (
     <>
       {profile_singin && (
@@ -264,56 +264,56 @@ export default function Reviews(props) {
             <h1>Las personas dicen</h1>
           </div>
           <div className="testimonial-box-container">
-            {allreviews?.map((review) => (
-              <div className="testimonial-box">
-                <div className="box-top">
-                  <div className="profile">
-                    <div className="profile-img">
-                      <img
-                        src={
-                          `${review.user_img}` === null
-                            ? default_img_user
-                            : `${review.user_img}`
-                        }
-                      />
-                      {console.log("valor de revie user img", review.user_img)}
+            {allreviews.data &&
+              allreviews.data.map((review) => (
+                <div className="testimonial-box">
+                  <div className="box-top">
+                    <div className="profile">
+                      <div className="profile-img">
+                        <img
+                          src={
+                            `${review.user_img}` === null
+                              ? default_img_user
+                              : `${review.user_img}`
+                          }
+                        />
+                      </div>
+                      <div className="name-user">
+                        <strong>
+                          {review.user_name} {review.user_lastName}
+                        </strong>
+                        <span>
+                          @{review.user_name}
+                          {review.user_lastName}
+                        </span>
+                      </div>
                     </div>
-                    <div className="name-user">
-                      <strong>
-                        {review.user_name} {review.user_lastName}
-                      </strong>
-                      <span>
-                        @{review.user_name}
-                        {review.user_lastName}
-                      </span>
+                    <div className="reviews">
+                      {ArrayStarts.map((start, index) => {
+                        return index < review.score ? (
+                          <i
+                            className="bi bi-star-fill"
+                            style={{ cursor: "pointer" }}
+                          ></i>
+                        ) : (
+                          <i className="bi bi-star"></i>
+                        );
+                      })}
                     </div>
                   </div>
-                  <div className="reviews">
-                    {ArrayStarts.map((start, index) => {
-                      return index < review.score ? (
-                        <i
-                          className="bi bi-star-fill"
-                          style={{ cursor: "pointer" }}
-                        ></i>
-                      ) : (
-                        <i className="bi bi-star"></i>
-                      );
-                    })}
+                  <div className="user-comment">
+                    <p>{review.comment}</p>
                   </div>
-                </div>
-                <div className="user-comment">
-                  <p>{review.comment}</p>
-                </div>
 
-                {equals(review) && (
-                  <i
-                    className="bi bi-pencil-square"
-                    style={{ float: "right", fontSize: "20px" }}
-                    onClick={(e) => edit_review(review)}
-                  ></i>
-                )}
-              </div>
-            ))}
+                  {equals(review) && (
+                    <i
+                      className="bi bi-pencil-square"
+                      style={{ float: "right", fontSize: "20px" }}
+                      onClick={(e) => edit_review(review)}
+                    ></i>
+                  )}
+                </div>
+              ))}
             <div className="testimonial-box">
               <div className="box-top">
                 <div className="profile">
@@ -330,151 +330,6 @@ export default function Reviews(props) {
                   <i className="bi bi-star-fill"></i>
                   <i className="bi bi-star-fill"></i>
                   <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star"></i>
-                </div>
-              </div>
-              <div className="user-comment">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Recusandae, sed. Explicabo similique, cum culpa qui delectus
-                  ratione sapiente maxime. Quis commodi illo tempore! Iure
-                  possimus impedit et quo enim corrupti.
-                </p>
-              </div>
-            </div>
-
-            <div className="testimonial-box">
-              <div className="box-top">
-                <div className="profile">
-                  <div className="profile-img">
-                    <img src="https://res.cloudinary.com/dwgufqzjd/image/upload/v1708039507/Proyecto_animaladas/default/Foto_Perfil__kaihwx.jpg" />
-                  </div>
-                  <div className="name-user">
-                    <strong>Pedro garcia</strong>
-                    <span>@Pedrogarcia</span>
-                  </div>
-                </div>
-                <div className="reviews">
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star"></i>
-                </div>
-              </div>
-              <div className="user-comment">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Recusandae, sed. Explicabo similique, cum culpa qui delectus
-                  ratione sapiente maxime. Quis commodi illo tempore! Iure
-                  possimus impedit et quo enim corrupti.
-                </p>
-              </div>
-            </div>
-
-            <div className="testimonial-box">
-              <div className="box-top">
-                <div className="profile">
-                  <div className="profile-img">
-                    <img src="https://res.cloudinary.com/dwgufqzjd/image/upload/v1708039507/Proyecto_animaladas/default/foto_perfil_2_cqrzyj.jpg" />
-                  </div>
-                  <div className="name-user">
-                    <strong>Patricia delgado</strong>
-                    <span>@Patriciadelgado</span>
-                  </div>
-                </div>
-                <div className="reviews">
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star"></i>
-                </div>
-              </div>
-              <div className="user-comment">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Recusandae, sed. Explicabo similique, cum culpa qui delectus
-                  ratione sapiente maxime. Quis commodi illo tempore! Iure
-                  possimus impedit et quo enim corrupti.
-                </p>
-              </div>
-            </div>
-
-            <div className="testimonial-box">
-              <div className="box-top">
-                <div className="profile">
-                  <div className="profile-img">
-                    <img src="https://res.cloudinary.com/dwgufqzjd/image/upload/v1708039506/Proyecto_animaladas/default/fotoperfil4_ksiccw.jpg" />
-                  </div>
-                  <div className="name-user">
-                    <strong>Christian toledo</strong>
-                    <span>@Christiantoledo</span>
-                  </div>
-                </div>
-                <div className="reviews">
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star"></i>
-                  <i className="bi bi-star"></i>
-                  <i className="bi bi-star"></i>
-                </div>
-              </div>
-              <div className="user-comment">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Recusandae, sed. Explicabo similique, cum culpa qui delectus
-                  ratione sapiente maxime. Quis commodi illo tempore! Iure
-                  possimus impedit et quo enim corrupti.
-                </p>
-              </div>
-            </div>
-
-            <div className="testimonial-box">
-              <div className="box-top">
-                <div className="profile">
-                  <div className="profile-img">
-                    <img src="https://res.cloudinary.com/dwgufqzjd/image/upload/v1708039506/Proyecto_animaladas/default/fotoperfil6_h5vs4g.webp" />
-                  </div>
-                  <div className="name-user">
-                    <strong>Jennifer Lopez</strong>
-                    <span>@Jenniferlopez</span>
-                  </div>
-                </div>
-                <div className="reviews">
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                </div>
-              </div>
-              <div className="user-comment">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Recusandae, sed. Explicabo similique, cum culpa qui delectus
-                  ratione sapiente maxime. Quis commodi illo tempore! Iure
-                  possimus impedit et quo enim corrupti.
-                </p>
-              </div>
-            </div>
-
-            <div className="testimonial-box">
-              <div className="box-top">
-                <div className="profile">
-                  <div className="profile-img">
-                    <img src="https://res.cloudinary.com/dwgufqzjd/image/upload/v1708039507/Proyecto_animaladas/default/fotoperfil_5_vadiww.png" />
-                  </div>
-                  <div className="name-user">
-                    <strong>Cindy Cataño</strong>
-                    <span>@Cindycataño</span>
-                  </div>
-                </div>
-                <div className="reviews">
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star"></i>
                   <i className="bi bi-star"></i>
                 </div>
               </div>

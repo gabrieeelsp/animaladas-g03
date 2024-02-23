@@ -3,6 +3,8 @@ const create = require('../controllers/donation/create');
 const getOneById = require('../controllers/donation/findOneById');
 const getAll = require('../controllers/donation/getAll');
 const getTotalUserIdDonation = require('../controllers/donation/getAllUserId');
+const getUserById = require('../controllers/user/getUserById');
+const mailDoption = require('../controllers/donation/mailDotanito');
 
 const {
     validateUserId,
@@ -39,6 +41,14 @@ const createHandler = async (req, res) => {
             animalId: animalError,
         });
     }
+
+    const user = await getUserById(userId);
+
+    const message = `Hola ${user.name}, Le informamos que su pago fue aprobado y
+        de parte de la fundacion le queremos agradecerle por su gran colaboracion..`;
+
+    await mailDoption(message, user.email);
+
     try {
         const item = await create(userId, amount, animalId);
         return res.status(200).json(item);

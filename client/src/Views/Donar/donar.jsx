@@ -6,27 +6,24 @@ import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import "./Donar.css";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import ModalError from "../../Components/ErrorModal/ErrorModal";
+import { useDispatch, useSelector } from "react-redux";
 
 library.add(faPaw);
 
 const Donar = (props) => {
-  const { MessageModal } = props;
-  const { SetMessageModal } = props;
-  console.log("valor de messagemmodal", MessageModal);
-  console.log("setmessamodal", SetMessageModal);
   const [preferenceId, setPreferenceId] = useState(null);
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [customAmount, setCustomAmount] = useState("");
   const [showGratitudeMessage, setShowGratitudeMessage] = useState(true);
   const [ShowModalErorr, SetShowModalError] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [MessageModal, SetMessageModal] = useState("");
+  const user_profile = useSelector((state) => state.UserReducer);
 
   useEffect(() => {
     initMercadoPago(import.meta.env.VITE_API_KEY_MERCADOPAGO, {
       locale: "es-AR",
     });
-    console.log("MercadoPago inicializado correctamente.");
   }, []);
 
   const urlBaseAxios =
@@ -50,9 +47,7 @@ const Donar = (props) => {
           client_id: userDetails.client_id,
         }
       );
-      console.log("Respuesta de createPreference:", response.data);
       const { id } = response.data.responseData;
-      console.log(id);
       return id;
     } catch (error) {
       console.error("Error al enviar la solicitud:", error);
@@ -62,8 +57,8 @@ const Donar = (props) => {
 
   const handleDonarClick = async (amount) => {
     setLoading(true);
-    const userInfoString = localStorage.getItem('user_info');
-    if (!window.localStorage.user_info) {
+    const userInfoString = localStorage.getItem("user_info");
+    if (!user_profile) {
       SetMessageModal(
         "Para hacer una donacion debe registrarse o iniciar sesión con su cuenta"
       );
@@ -74,26 +69,25 @@ const Donar = (props) => {
     const userInfo = JSON.parse(userInfoString);
     const userDetails = {
       total_amount: amount,
-      name: userInfo.name ,
+      name: userInfo.name,
       surname: userInfo.lastName,
       email: userInfo.email,
       client_id: userInfo.id,
     };
     try {
       const id = await createPreference(amount, userDetails);
-      console.log("ID de preferencia obtenida:", id);
+
       if (id) {
         setPreferenceId(id);
-        console.log("preferenceId actualizado:", id);
         setSelectedAmount(amount);
         setCustomAmount("");
         setShowGratitudeMessage(false);
-        setLoading(false); 
+        setLoading(false);
       }
     } catch (error) {
       console.error("Error al crear la preferencia:", error);
       SetShowModalError(true);
-      setLoading(false); 
+      setLoading(false);
     }
     setTimeout(function () {
       window.scrollTo({
@@ -102,8 +96,6 @@ const Donar = (props) => {
       });
     }, 500);
   };
-
-  
 
   const handleCustomAmountChange = (event) => {
     const value = event.target.value;
@@ -116,7 +108,6 @@ const Donar = (props) => {
     if (!isNaN(amount) && amount >= 100) {
       handleDonarClick(amount);
     } else {
-      console.log("ingreso al error del monto");
       document.getElementById("customAmountError").innerText =
         "El monto personalizado debe ser al menos de 100 pesos.";
     }
@@ -237,50 +228,43 @@ const Donar = (props) => {
                   >
                     Seleccionar
                   </button>
+                </div>
+                {selectedAmount !== null ? (
+                  <p className="selected-amount">
+                    Monto seleccionado: ${selectedAmount}
+                  </p>
+                ) : (
+                  <p className="selected-amount">Monto seleccionado: Ninguno</p>
+                )}
+                <p className="text-light small">
+                  *El monto mínimo es de $100 ARS.
+                </p>
+              </div>
 
-
-
-                </div>{selectedAmount !== null ? (
-  <p className="selected-amount">
-    Monto seleccionado: ${selectedAmount}
-  </p>
-) : (
-  <p className="selected-amount">
-    Monto seleccionado: Ninguno
-  </p>
-)}
-<p className="text-light small">
-*El monto mínimo es de $100 ARS.
-  </p>
-  </div>
-
-
-
-<div className="wallet-container">
-  {loading ? (
-    <div className="spinner-border text-warning" role="status">
-      <span className="visually-hidden">Loading...</span>
-    </div>
-  ) : (
-    <>
-      {preferenceId && (
-        <Wallet
-          initialization={{ preferenceId: preferenceId }}
-          customization={{ texts: { valueProp: "smart_option" } }}
-          style={{ width: "70%", height: "400px" }}
-        />
-      )}
-      {showGratitudeMessage && (
-        <div className="gratitude-message mt-4">
-          <p>
-            ¡Gracias por ayudar a nuestros amigos!{" "}
-            <FontAwesomeIcon icon={faPaw} />
-          </p>
-        </div>
-      )}
-    </>
-  )}
-
+              <div className="wallet-container">
+                {loading ? (
+                  <div className="spinner-border text-warning" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                ) : (
+                  <>
+                    {preferenceId && (
+                      <Wallet
+                        initialization={{ preferenceId: preferenceId }}
+                        customization={{ texts: { valueProp: "smart_option" } }}
+                        style={{ width: "70%", height: "400px" }}
+                      />
+                    )}
+                    {showGratitudeMessage && (
+                      <div className="gratitude-message mt-4">
+                        <p>
+                          ¡Gracias por ayudar a nuestros amigos!{" "}
+                          <FontAwesomeIcon icon={faPaw} />
+                        </p>
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -299,3 +283,4 @@ const Donar = (props) => {
 };
 
 export default Donar;
+/** */

@@ -6,18 +6,18 @@ import default_perfil_img from "../../img/perfil_default.png";
 import Profilemenu from "../PropdownProfile/Profilemenu";
 import Modalprofile from "./modalprofile";
 import { useDispatch, useSelector } from "react-redux";
-import { infologin } from "../../redux/actions/user_action";
-import { sign_out } from "../../redux/actions/user_action";
+import { infologin,sign_out} from "../../redux/actions/user_action";
 import SuccesModal from "../SuccessModal/SuccesModal";
 import validateform from "../../Views/Register/validation_user";
 import axios from "axios";
-//import { useLocalstore } from "../../scripts/uselocalstore";
+import tuerca from "../../img/tuerca.png"
+
+
 export default function Nav(props) {
   const user_profile = useSelector((state) => state.UserReducer);
   if (user_profile.imageProfile === null) {
   }
   const Navigate = useNavigate();
-
   const location = useLocation();
   const dispatch = useDispatch();
   const [MessageModal, SetMessageModal] = useState("");
@@ -26,6 +26,8 @@ export default function Nav(props) {
   let showloginbutton = true;
   let showprofile_img = false;
   let user_info = {};
+
+
 
   const [form_edituser, Setformedituser] = useState({
     id: "",
@@ -130,16 +132,16 @@ export default function Nav(props) {
       ? import.meta.env.VITE_URL_DEV
       : import.meta.env.VITE_URL_PROD;
   const updateprofile = async (e) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     const config = {
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      }
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
     };
     const response = await axios.put(
       `${urlBaseAxios}/user/changeUserData`,
-      form_edituser, 
+      form_edituser,
       config
     );
     const { data } = response;
@@ -169,7 +171,7 @@ export default function Nav(props) {
               <i className="bi-house-door-fill"></i>
             </span>
           </NavLink>
-          <button
+          <div
             className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
@@ -179,7 +181,7 @@ export default function Nav(props) {
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
-          </button>
+          </div>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
@@ -256,6 +258,9 @@ export default function Nav(props) {
               <li className="nav-item"></li>
             </ul>
             <SearchBar />
+            {user_profile.isAdmin && (
+            <NavLink to="/admin"> <img src={tuerca} className="img-fluid me-4" width="30" height="30" alt="" /></NavLink>
+            )}
             {showloginbutton && (
               <NavLink to="/login">
                 <button
@@ -342,7 +347,7 @@ export default function Nav(props) {
             doit={menuprofile}
           >
             {error.showerror_name ? (
-              <div class="input-group mb-1 alert alert-warning" role="alert">
+              <div className="input-group mb-1 alert alert-warning" role="alert">
                 {error.name}
               </div>
             ) : null}
@@ -360,7 +365,7 @@ export default function Nav(props) {
               />
             </div>
             {error.showerror_lastName ? (
-              <div class="input-group mb-1 alert alert-warning" role="alert">
+              <div className="input-group mb-1 alert alert-warning" role="alert">
                 {error.lastName}
               </div>
             ) : null}
@@ -392,7 +397,7 @@ export default function Nav(props) {
               />
             </div>
             {error.showerror_phone ? (
-              <div class="input-group mb-1 alert alert-warning" role="alert">
+              <div className="input-group mb-1 alert alert-warning" role="alert">
                 {error.phone}
               </div>
             ) : null}
@@ -410,7 +415,7 @@ export default function Nav(props) {
               />
             </div>
             {error.showerror_address ? (
-              <div class="input-group mb-1 alert alert-warning" role="alert">
+              <div className="input-group mb-1 alert alert-warning" role="alert">
                 {error.address}
               </div>
             ) : null}
@@ -441,9 +446,9 @@ export default function Nav(props) {
                 onChange={(e) => handlechange(e)}
               />
             </div>
-            <div class=" input-group mb-1 mt-3">
+            <div className=" input-group mb-1 mt-3">
               <input
-                class="form-control text-center"
+                className="form-control text-center"
                 type="file"
                 id="formFile"
                 onChange={uploadImage}
