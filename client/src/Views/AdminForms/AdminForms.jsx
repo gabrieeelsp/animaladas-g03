@@ -8,7 +8,6 @@ import ModalAdoption from "../../Components/ModalAdoption/ModalAdoption";
 export default function AdminForms() {
   const forms = useSelector((state) => state.rootReducer.allAdoptions);
   const pagination = useSelector((state) => state.rootReducer.pagination1);
-  const [selectedForm, setSelectedForm] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -79,7 +78,8 @@ export default function AdminForms() {
                     </td>
                     <td>
                       <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target={`#adopcion${id}`}>Formulario</button>
-                      <ModalAdoption selectedForm = {selectedForm} />
+                      {console.log(id)}
+                      <ModalAdoption id={id} />
                     </td>
                   </tr>
                 ))}
