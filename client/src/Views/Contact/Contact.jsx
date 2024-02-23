@@ -26,7 +26,6 @@ export default function Contact() {
       alert("Por favor, complete todos los campos.");
       return;
     }
-    console.log("Formulario enviado:", formData);
   };
 
   return (

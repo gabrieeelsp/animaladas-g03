@@ -43,29 +43,14 @@ export default function ModalAnimals(props) {
       [name]: checked,
     }));
   };
-
-  const handleImageChange = (e) => {
-    const { name, files } = e.target;
-    const file = files[0];
-    const url = URL.createObjectURL(file);
-    setUpdatedAnimalData((prevState) => ({
-      ...prevState,
-      [name]: { url: url, file: file },
-    }));
-  };
   
-
   const handleUpdateAnimal = () => {
-    setUpdatedAnimalData(prevState => ({
-      ...prevState,
-    }), () => {
       dispatch(clearAll());
       dispatch(set_orderby_value('id'));
       dispatch(set_orderdir_value('asc'));
       dispatch(loadAnimals(nameValue, '', sizeValue, speciesValue, castratedValue, 1, 3, orderByValue, orderDirValue, "Todos"));
       dispatch(updateAnimal(id, updatedAnimalData));
-    });
-  };
+    };
   
   return (
       <div>

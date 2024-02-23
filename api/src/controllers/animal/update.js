@@ -14,7 +14,7 @@ module.exports = async (id, values) => {
     try {
         await item.update(values);
     } catch (error) {
-        throw new Error({ message: error.message });
+        throw new Error({ message: error });
     }
 
     item = await Animal.findByPk(id);

@@ -420,7 +420,12 @@ export const allAdoptions = (
   };
 };
 
-export const loadUsers = () => {
+export const loadUsers = (
+  page = 1,
+  animalsPerPage = 4,
+  orderBy = null,
+  orderDir = ""
+) => {
   return async (dispatch) => {
     const token = localStorage.getItem("token");
 
@@ -431,12 +436,24 @@ export const loadUsers = () => {
       },
     };
     const response = await axios.get(
-      `${urlBaseAxios}/user/searchAllUsers`,
-      config
+      `${urlBaseAxios}/user/pagAllUsers`, {
+        params: {
+          page,
+          limit: animalsPerPage,
+          orderby: orderBy,
+          orderdir: orderDir
+        },
+      config}
     );
+
+    const data = response.data;
+
     dispatch({
       type: LOAD_USERS,
-      payload: response.data,
+      payload: {
+        users: data.data,
+        pagination: data.pagination,
+      },
     });
   };
 };
