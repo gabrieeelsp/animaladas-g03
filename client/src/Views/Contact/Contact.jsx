@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Map from "../../Components/Map/Map.jsx";
+import SuccesModal from "../../Components/SuccessModal/SuccesModal.jsx";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -7,6 +8,8 @@ export default function Contact() {
     subject: "",
     message: "",
   });
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -14,6 +17,7 @@ export default function Contact() {
       ...formData,
       [name]: value,
     });
+
   };
 
   const handleSubmit = (e) => {
@@ -26,7 +30,8 @@ export default function Contact() {
       alert("Por favor, complete todos los campos.");
       return;
     }
-    console.log("Formulario enviado:", formData);
+    setModalMessage("¡Formulario enviado con éxito!");
+    setShowModal(true);
   };
 
   return (
@@ -105,6 +110,15 @@ export default function Contact() {
           </form>
         </div>
       </div>
+      {showModal && (
+      <SuccesModal
+        MessageModal={modalMessage}
+        ShowModalMessage={showModal}
+        SetShowModalMessage={setShowModal}
+        style={{ position: 'absolute', zIndex: 1000 }}
+      />
+    )}
     </div>
   );
+  
 }

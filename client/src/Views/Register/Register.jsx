@@ -276,6 +276,7 @@ export default function Register(props) {
               value={userdata.img}
             ></input>
           </div>
+          
           <img
             id="img_profile"
             src={userdata.imageProfile}
@@ -283,9 +284,11 @@ export default function Register(props) {
             style={{
               borderRadius: "50%",
               border: "3px solid #E4A11B",
-              width: "200px",
-              height: "200px",
+              width: "80px",
+              height: "80px",
+              display: userdata.imageProfile.startsWith("https://res.cloudinary.com/dwgufqzjd/image/upload/v1707404450/Proyecto_animaladas/default/w2jbmtfjvfjn1alnn") ? "none" : "block",
             }}
+            className="mx-auto"
           />
           <button
             className="btn text-white w-100 mt-4 fw-bold shadow-sm bg-warning"

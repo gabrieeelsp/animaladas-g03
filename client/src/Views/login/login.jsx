@@ -207,7 +207,7 @@ export default function Login(props) {
             <div className="fw-semibold text-secondary text-white">Continuar con Google</div>
           </div>
           <NavLink to="/">
-            <div className="btn text-dark w-20 mt-4 fw-bold shadow-sm bg-warning">
+            <div className="btn text-dark w-20 mt-4 fw-bold shadow-sm bg-warning" style={{ display: 'block' }}>
               <i className="bi-house-door-fill"></i>
             </div>
           </NavLink>
