@@ -5,11 +5,11 @@ import { allAdoptions, clearAll, acceptAdoption, refuseAdoption } from "../../re
 
 
 
-export default function ModalAdoption({selectedForm}) {
+export default function ModalAdoption({id}) {
 
-if(!selectedForm){ return null;}
+    console.log(id);
 
-    const [updatedFormData, setUpdatedFormData] = useState(selectedForm || {
+    const [updatedFormData, setUpdatedFormData] = useState({
         familyMembers: 0,
         allAgree: "",
         hasOutdoorSpace: "",
@@ -23,17 +23,8 @@ if(!selectedForm){ return null;}
         comment: "",
       });
 
-    useEffect(() => {
-        setUpdatedFormData(selectedForm);
-      }, [selectedForm]);
-
-    const {id,familyMembers,allAgree,hasOutdoorSpace,assumesResponsibility,hasKids,familyHasAllergies,hasJob,howManyHours,hasOtherAnimals,homeVisit,comment}= selectedForm
-
-
-
-
     return (
-        <div className="modal fade" id={`adoption${id}`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id={`adopcion${id}`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-lg">
                 <div className="modal-content bg-dark text-warning">
                     <div className="modal-header">
