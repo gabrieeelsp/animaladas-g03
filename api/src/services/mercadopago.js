@@ -93,10 +93,6 @@ const crearPreferencia = async (req, res) => {
             client_id: response.client_id,
         };
 
-        const message = `Hola ${responseData.name}, Le informamos que su pago fue aprobado y
-         de parte de la fundacion le queremos agradecerle por su gran colaboracion..`;
-
-        await mailDoption(message, responseData.email);
         res.json({ responseData });
     } catch (error) {
         console.error(error);
