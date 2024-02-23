@@ -28,7 +28,7 @@ export default function AdminUsers() {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       dispatch(clearAll());
-      dispatch(loadUsers(1, 4, orderByValue, orderDirValue));
+      dispatch(loadUsers("", 1, 4, orderByValue, orderDirValue));
       setLoading(false);
     }, 2000);
 
@@ -38,7 +38,7 @@ export default function AdminUsers() {
   const handleDeleteUser = (id) => {
     dispatch(clearAll());
     dispatch(deleteUser(id)).then(() => {
-      dispatch(loadUsers(1, 4, "id", "asc"));
+      dispatch(loadUsers("", 1, 4, "id", "asc"));
     });
   };
 
@@ -47,11 +47,11 @@ export default function AdminUsers() {
   };
 
   const handleNextPage = (page) => {
-    dispatch(loadUsers(page, 4, orderByValue, orderDirValue));
+    dispatch(loadUsers("", page, 4, orderByValue, orderDirValue));
   };
 
   const handlePrevPage = (page) => {
-    dispatch(loadUsers(page, 4, orderByValue, orderDirValue));
+    dispatch(loadUsers("", page, 4, orderByValue, orderDirValue));
   };
 
   return (
