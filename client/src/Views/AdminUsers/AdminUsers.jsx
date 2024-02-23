@@ -133,7 +133,7 @@ export default function AdminUsers() {
                           </td>
                           <td>
                             <button
-                              className={`btn btn-block fw-bold my-2 ${
+                              className={`btn btn-block fw-bold ${
                                 enabled
                                   ? "btn-danger text-white"
                                   : "btn-success text-white"
