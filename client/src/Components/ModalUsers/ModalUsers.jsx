@@ -35,9 +35,8 @@ export default function ModalUsers({user}) {
     const handleUpdateUser = async () => {
       await dispatch(updateUser(updatedUserData));
       dispatch(clearAll());
-      dispatch(loadUsers());
+      dispatch(loadUsers(1, 4, "id", "asc"));
     };
-    
     
 
   return (

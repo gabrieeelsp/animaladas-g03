@@ -18,7 +18,7 @@
     "@mercadopago/sdk-react": "^0.0.16",
     "@reduxjs/toolkit": "^2.1.0",
     "axios": "^1.6.7",
-    "bootstrap": "^5.3.2",
+    "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "chart.js": "^4.4.1",
     "cloudinary-react": "^1.8.1",
