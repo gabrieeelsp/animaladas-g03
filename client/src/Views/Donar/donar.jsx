@@ -24,7 +24,6 @@ const Donar = (props) => {
     initMercadoPago(import.meta.env.VITE_API_KEY_MERCADOPAGO, {
       locale: "es-AR",
     });
-    console.log("MercadoPago inicializado correctamente.");
   }, []);
 
   const urlBaseAxios =
