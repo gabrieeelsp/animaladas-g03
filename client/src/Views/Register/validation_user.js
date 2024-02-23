@@ -1,22 +1,24 @@
 
 export default function validateform(data) {
-  const Error = {};
+  const Error = {
+    priority_fields: "",
+    missing_fields: true,
+  };
   const regexEmail =
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   const regexName = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]{1,25}$/;
   const regexAddress = /^[a-zA-Z0-9\s,'-.ñÑáéíóúÁÉÍÓÚ]*$/;
   const regexPassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-
   if (!regexName.test(data.name)) {
-    Error['name'] = "El campo nombre no puede ser mayor a 25 caracteres";
+    Error['name'] = "El nombre no puede ser mayor a 25 caracteres, ni contener números";
     Error['showerror_name'] = true;
   } else {
     Error['name'] = "";
     Error['showerror_name'] = false;
   }
   if (!regexName.test(data.lastName)) {
-    Error['lastName'] = "El campo Apellido no puede ser mayor a 25 caracteres";
+    Error['lastName'] = "El Apellido no puede ser mayor a 25 caracteres, ni contener números";
     Error['showerror_lastName'] = true;
   } else {
     Error['lastName'] = "";
@@ -57,22 +59,6 @@ export default function validateform(data) {
   } else {
     Error['password'] = "";
     Error['showerror_password'] = false;
-  }
-
-  if (
-    (
-      data.name !== "" &&
-      data.lastName !== "" &&
-      data.email !== "" &&
-      data.phone !== "" &&
-      data.address !== "",
-      data.password !== "")
-  ) {
-    console.log("ingreso a condicional mission fields");
-    Error.missing_fields = false;
-    console.log("valor de error mission fileds", Error);
-  } else {
-    Error.missing_fields = true;
   }
 
   return Error;
