@@ -146,16 +146,16 @@ export default function PanelUsers(props) {
     });
   };
   const handleNextPage = (page) => {
-    dispatch(alldonations_user(user_profile.id, 5, page));
+    dispatch(alldonations_user(user_profile.id, 3, page));
   };
   const handleNextPage2 = (page) => {
-    dispatch(alladoptions_user(user_profile.id, 5, page, "aceptada"));
+    dispatch(alladoptions_user(user_profile.id, 3, page, "aceptada"));
   };
   const handlePrevPage = (page) => {
-    dispatch(alldonations_user(user_profile.id, 5, page));
+    dispatch(alldonations_user(user_profile.id, 3, page));
   };
   const handlePrevPage2 = (page) => {
-    dispatch(alladoptions_user(user_profile.id, 5, page, "aceptada"));
+    dispatch(alladoptions_user(user_profile.id, 3, page, "aceptada"));
   };
 
   const updateprofile = async (e) => {
@@ -195,10 +195,10 @@ export default function PanelUsers(props) {
     });
   };
   const orderby = (value) => {
-    dispatch(alldonations_user(user_profile.id, 5, 1, value, "created"));
+    dispatch(alldonations_user(user_profile.id, 3, 1, value, "created"));
   };
   const orderby_adoptions = (value) => {
-    dispatch(total_adoption_user(user_profile.id, 5, 1, value, "created"));
+    dispatch(alladoptions_user(user_profile.id, 3, 1, value));
   };
   const view_detail_pet = (data) => {
     Setdetail_pet({
@@ -229,10 +229,10 @@ export default function PanelUsers(props) {
   }, [user_profile]);
 
   useEffect(() => {
-    dispatch(alldonations_user(user_profile.id, 5, 1));
+    dispatch(alldonations_user(user_profile.id, 3, 1));
     dispatch(total_amount_donation_user(user_profile.id));
     //dispatch(total_adoption_user(user_profile.id, 5, 1));
-    dispatch(alladoptions_user(user_profile.id, 5, 1, "aceptada"));
+    dispatch(alladoptions_user(user_profile.id, 3, 1, "aceptada"));
   }, [user_profile]);
   const click_menu_option = (option) => {
     if (option === "home") {
@@ -575,19 +575,28 @@ export default function PanelUsers(props) {
                     >
                       <div
                         style={{ float: "right" }}
-                        onClick={(e) => orderby_adoptions("desc")}
+                        onClick={(e) => orderby_adoptions("aceptada")}
                       >
                         <a href="#" className="btn-panel">
-                          Recientes
+                          Aprobados
                         </a>
                       </div>
                       <div>
                         <a
                           href="#"
                           className="btn-panel"
-                          onClick={(e) => orderby_adoptions("asc")}
+                          onClick={(e) => orderby_adoptions("pendiente")}
                         >
-                          Antiguos
+                          Pendientes
+                        </a>
+                      </div>
+                      <div>
+                        <a
+                          href="#"
+                          className="btn-panel"
+                          onClick={(e) => orderby_adoptions("rechazada")}
+                        >
+                          Rechazados
                         </a>
                       </div>
                     </div>
