@@ -6,18 +6,18 @@ import default_perfil_img from "../../img/perfil_default.png";
 import Profilemenu from "../PropdownProfile/Profilemenu";
 import Modalprofile from "./modalprofile";
 import { useDispatch, useSelector } from "react-redux";
-import { infologin } from "../../redux/actions/user_action";
-import { sign_out } from "../../redux/actions/user_action";
+import { infologin,sign_out} from "../../redux/actions/user_action";
 import SuccesModal from "../SuccessModal/SuccesModal";
 import validateform from "../../Views/Register/validation_user";
 import axios from "axios";
-//import { useLocalstore } from "../../scripts/uselocalstore";
+import tuerca from "../../img/tuerca.png"
+
+
 export default function Nav(props) {
   const user_profile = useSelector((state) => state.UserReducer);
   if (user_profile.imageProfile === null) {
   }
   const Navigate = useNavigate();
-
   const location = useLocation();
   const dispatch = useDispatch();
   const [MessageModal, SetMessageModal] = useState("");
@@ -26,6 +26,8 @@ export default function Nav(props) {
   let showloginbutton = true;
   let showprofile_img = false;
   let user_info = {};
+
+
 
   const [form_edituser, Setformedituser] = useState({
     id: "",
@@ -256,6 +258,9 @@ export default function Nav(props) {
               <li className="nav-item"></li>
             </ul>
             <SearchBar />
+            {user_profile.isAdmin && (
+            <NavLink to="/admin"> <img src={tuerca} class="img-fluid me-4" width="30" height="30" alt="" /></NavLink>
+            )}
             {showloginbutton && (
               <NavLink to="/login">
                 <button
