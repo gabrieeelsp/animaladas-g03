@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 import { isTokenExpired } from "../../scripts/istokenexpired";
 import "./Home.css";
 import { get_allreviews } from "../../redux/actions/actions";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaw } from '@fortawesome/free-solid-svg-icons';
 import Pagination from "../../Components/Pagination/Pagination";
+import logo from "../../img/logoanimaladas.png";
 
 
 export default function Home() {
@@ -171,6 +170,9 @@ export default function Home() {
       <div className="container mt-6">
         <div className="card bg-dark text-light about-us-card">
           <div className="card-body">
+            <div className="d-flex justify-content-center">
+              <img src={logo} alt="Animaladas Logo" style={{ width: "80px", marginBottom: "20px" }} />
+            </div>
             <h2
               className="text-warning text-center mb-4"
               style={{
@@ -179,7 +181,7 @@ export default function Home() {
                 textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)"
               }}
             >
-              <FontAwesomeIcon icon={faPaw} style={{ color: "#FFC107", fontSize: "2.5rem" }} /> ¿Quiénes somos? <FontAwesomeIcon icon={faPaw} style={{ color: "#FFC107", fontSize: "2.5rem" }} />
+             ¿Quiénes somos? 
             </h2>
             <p className="text-light" style={{ marginTop: "8px", fontSize: "1.2rem" }}>
               Somos Animaladas, una organización de personas en Salta Capital,
@@ -283,4 +285,4 @@ export default function Home() {
 
     </div>
   );
-}
+} 

@@ -1,8 +1,36 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import EstadisticasBoard from "../../Components/Estadisticas/EstadisticasBoard/EstadisticasBoard";
+import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 export default function AdminView() {
+  const navigate = useNavigate();
+
+  const [access, setAccess] = useState({
+    isAdmin: true,
+  });
+
+  let tokenUser = localStorage.token
+  ? localStorage.token
+  : null;
+
+  useEffect(() => {
+    if (tokenUser !== null) {
+      setAccess(jwtDecode(tokenUser))
+    } else {
+      setAccess({
+        isAdmin: false,
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    if(!access.isAdmin) {
+      navigate("/")
+    }
+  }, [access]);
+
   return (
     <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "100vh", marginTop:"0px", marginBottom:"-130px" }}>
       <div className="row mt-0">

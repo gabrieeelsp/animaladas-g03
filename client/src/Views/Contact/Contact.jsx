@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Map from "../../Components/Map/Map.jsx";
+import SuccesModal from "../../Components/SuccessModal/SuccesModal.jsx";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -7,6 +8,8 @@ export default function Contact() {
     subject: "",
     message: "",
   });
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -14,6 +17,7 @@ export default function Contact() {
       ...formData,
       [name]: value,
     });
+
   };
 
   const handleSubmit = (e) => {
@@ -26,6 +30,8 @@ export default function Contact() {
       alert("Por favor, complete todos los campos.");
       return;
     }
+    setModalMessage("¡Formulario enviado con éxito!");
+    setShowModal(true);
   };
 
   return (
@@ -38,14 +44,15 @@ export default function Contact() {
         style={{ width: "1000px", borderRadius: "30px" }}
       >
         <div className="col p-3">
-          <h4 className="text-warning">Nos encontramos en Cerrillos, Salta</h4>
-          <h5 className="text-warning">Cómo llegar</h5>
+          
+<h4 className="text-warning">Nos encontramos en Cerrillos, Salta, Argentina.</h4>
+          <h5 className="text-warning">Cómo llegar: </h5>
           <Map />
         </div>
         <div className="col p-3">
           <form onSubmit={handleSubmit}>
             <div className="mb-0">
-              <h4 className="text-warning">O contáctanos</h4>
+              <h4 className="text-warning">O contáctanos:</h4>
               <p></p>
               <label
                 htmlFor="email"
@@ -93,17 +100,27 @@ export default function Contact() {
                 onChange={handleInputChange}
               ></textarea>
             </div>
-            <div className="col-auto">
-              <button
-                type="submit"
-                className="btn btn-warning mb-3 my-2 fw-bold fs-7"
-              >
-                Enviar
-              </button>
+            <div className="text-center">
+    <button
+        type="submit"
+        className="btn btn-warning mb-3 my-2 fw-bold fs-7"
+    >
+        Enviar
+    </button>
+
             </div>
           </form>
         </div>
       </div>
+      {showModal && (
+      <SuccesModal
+        MessageModal={modalMessage}
+        ShowModalMessage={showModal}
+        SetShowModalMessage={setShowModal}
+        style={{ position: 'absolute', zIndex: 1000 }}
+      />
+    )}
     </div>
   );
+  
 }
