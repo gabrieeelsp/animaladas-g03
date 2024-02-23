@@ -837,6 +837,19 @@ export const total_amount_donation_user = (id) => {
     });
   };
 };
+
+
+export const submitAdoptionForm = (id, updatedData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(`${urlBaseAxios}/adoptions/${id}`, updatedData);
+      console.log('Formulario de adopción actualizado exitosamente:', response.data);
+    } catch (error) {
+      console.error('Error al actualizar el formulario de adopción:', error);
+    }
+  };
+};
+
 export const total_adoption_user = (id, limit, page, orderDir, orderBy) => {
   console.log("ingreso al reducr", id);
   return async (dispatch) => {
@@ -850,3 +863,5 @@ export const total_adoption_user = (id, limit, page, orderDir, orderBy) => {
     });
   };
 };
+
+
