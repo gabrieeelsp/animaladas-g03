@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { allAdoptions, clearAll, acceptAdoption, refuseAdoption } from "../../redux/actions/actions";
+import { allAdoptions, clearAll, acceptAdoption, refuseAdoption} from "../../redux/actions/actions";
 import Pagination from "../../Components/Pagination/Pagination";
 import ModalAdoption from "../../Components/ModalAdoption/ModalAdoption";
 
