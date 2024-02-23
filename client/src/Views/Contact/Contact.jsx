@@ -44,14 +44,15 @@ export default function Contact() {
         style={{ width: "1000px", borderRadius: "30px" }}
       >
         <div className="col p-3">
-          <h4 className="text-warning">Nos encontramos en Cerrillos, Salta</h4>
-          <h5 className="text-warning">Cómo llegar</h5>
+          
+<h4 className="text-warning">Nos encontramos en Cerrillos, Salta, Argentina.</h4>
+          <h5 className="text-warning">Cómo llegar: </h5>
           <Map />
         </div>
         <div className="col p-3">
           <form onSubmit={handleSubmit}>
             <div className="mb-0">
-              <h4 className="text-warning">O contáctanos</h4>
+              <h4 className="text-warning">O contáctanos:</h4>
               <p></p>
               <label
                 htmlFor="email"
@@ -99,13 +100,14 @@ export default function Contact() {
                 onChange={handleInputChange}
               ></textarea>
             </div>
-            <div className="col-auto">
-              <button
-                type="submit"
-                className="btn btn-warning mb-3 my-2 fw-bold fs-7"
-              >
-                Enviar
-              </button>
+            <div className="text-center">
+    <button
+        type="submit"
+        className="btn btn-warning mb-3 my-2 fw-bold fs-7"
+    >
+        Enviar
+    </button>
+
             </div>
           </form>
         </div>
