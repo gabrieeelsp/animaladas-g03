@@ -16,6 +16,7 @@ export default function Register(props) {
   const { SetMessageModal } = props;
   const [ShowModalSuccess, SetShowModalSucess] = useState(false);
   const [ShowModalErorr, SetShowModalError] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(true);
   const [error, Seterror] = useState({
     name: "",
     lastName: "",
@@ -73,7 +74,18 @@ export default function Register(props) {
       ...error,
       [name]: validate[name],
     });
+    if (
+      error.name === "" &&
+      error.email === "" &&
+      error.phone === "" &&
+      error.lastName === "" &&
+      error.address === "" &&
+      error.password === ""
+    ){
+      setIsFormValid(false);
+    }
   };
+  
   const register_user = async (event) => {
     if (
       userdata.name === "" ||
@@ -88,7 +100,7 @@ export default function Register(props) {
     } else {
       event.preventDefault();
 
-
+      
       const urlBaseAxios =
         import.meta.env.VITE_ENV === "DEV"
           ? import.meta.env.VITE_URL_DEV
@@ -97,25 +109,16 @@ export default function Register(props) {
         `${urlBaseAxios}/user/createUser`,
         userdata
       );
-
       const { data } = resp;
       if (data) {
         SetMessageModal(
           "Bien! se ha registrado el usuario. Te hemos enviado un correo para verificar tu cuenta"
         );
         SetShowModalSucess(true);
-        // Navigate("/");
+        setTimeout(()=>{
+          Navigate("/")
+        }, 4000);
       }
-
-      Setuserdata({
-        name: "",
-        lastName: "",
-        email: "",
-        password: "",
-        phone: "",
-        address: "",
-        imageProfile: "",
-      });
     }
   };
 
@@ -267,7 +270,6 @@ export default function Register(props) {
               value={userdata.value}
             ></input>
           </div>
-          
           <img
             id="img_profile"
             src={userdata.imageProfile}
@@ -275,16 +277,14 @@ export default function Register(props) {
             style={{
               borderRadius: "50%",
               border: "3px solid #E4A11B",
-              width: "80px",
-              height: "80px",
-              display: userdata.imageProfile.startsWith("https://res.cloudinary.com/dwgufqzjd/image/upload/v1707404450/Proyecto_animaladas/default/w2jbmtfjvfjn1alnn") ? "none" : "block",
+              width: "200px",
+              height: "200px",
             }}
-            className="mx-auto"
           />
           <button
             className="btn text-white w-100 mt-4 fw-bold shadow-sm bg-warning"
             onSubmit={(e) => register_user(e)}
-            disabled={error.missing_fields}
+            disabled={isFormValid}
           >
             Crear cuenta
           </button>
