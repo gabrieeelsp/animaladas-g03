@@ -1,3 +1,4 @@
+const { Sequelize } = require('sequelize');
 const { User } = require('../../db');
 
 const getFiltersList = (filters) => {
@@ -5,6 +6,21 @@ const getFiltersList = (filters) => {
 
     if (filters.userId) {
         filtersList.userId = filters.userId;
+    }
+
+    if (filters.name) {
+        filtersList.name = Sequelize.or(
+            Sequelize.where(
+                Sequelize.fn('lower', Sequelize.col('user.name')),
+                'like',
+                `%${filters.name.toLowerCase()}%`,
+            ),
+            Sequelize.where(
+                Sequelize.fn('lower', Sequelize.col('user.lastName')),
+                'like',
+                `%${filters.name.toLowerCase()}%`,
+            ),
+        );
     }
 
     return filtersList;
